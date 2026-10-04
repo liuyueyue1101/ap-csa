@@ -19,6 +19,359 @@ function cards(items){return '<div class="cards">'+items.map((x,k)=>'<div class=
 function resources(rs){return '<div class="resources-grid">'+(rs||[]).map(r=>'<div class="resourcecard"><span class="kind">'+esc(r.kind)+'</span><p><a target="_blank" rel="noopener" href="'+r.url+'">'+esc(r.label)+'</a></p></div>').join('')+'</div>';}
 
 
+
+function buildWhatIsComputer(l){
+ const s=[];
+ s.push(cover(l,'What Is a Computer?','Start with something you already use: a MacBook and a browser.','Do not start with CPU architecture. Today the goal is one usable mental model: input → processing → output, plus a light introduction to program/application/data.'));
+ s.push(slide('You do something. Then something happens.',
+  '<p class="q">You type a website name and press Return. A webpage appears.</p>'+
+  '<div class="beat conclusion"><p>What did <b>you</b> give the computer?</p></div>'+
+  '<div class="beat output-box">A website name + the Return key</div>'+
+  '<div class="beat conclusion"><p>What did the computer give <b>you</b>?</p></div>'+
+  '<div class="beat output-box">A webpage on the screen</div>',
+  'Ask the first question before revealing the wording. Accept typing/clicking/keys as input. Do not explain networking or servers today.'));
+
+ s.push(slide('There is a middle step',
+  '<div class="step-line"><span class="step-num">YOU</span><span class="step-text">type a website name and press Return</span></div>'+
+  '<div class="beat equation">↓</div>'+
+  '<div class="beat"><p class="q">Something happens inside the computer. What should we call that middle work?</p></div>'+
+  '<div class="beat output-box">Processing</div>'+
+  '<div class="beat equation">↓</div>'+
+  '<div class="beat step-line"><span class="step-num">MAC</span><span class="step-text">shows the webpage</span></div>',
+  'The word processing is introduced after Oscar notices the missing middle. Keep it broad; no CPU internals.'));
+
+ s.push(slide('A model we can reuse',
+  '<p class="q">Can we give names to the three parts?</p>'+
+  '<div class="beat equation">INPUT</div>'+
+  '<div class="beat equation">↓</div>'+
+  '<div class="beat equation">PROCESSING</div>'+
+  '<div class="beat equation">↓</div>'+
+  '<div class="beat equation">OUTPUT</div>'+
+  '<div class="beat conclusion"><p>This is a simple model—not every detail of a computer—but it is useful for understanding what programs do.</p></div>',
+  'Have Oscar say the three words aloud. The power of the model comes from transferring it to new examples.'));
+
+ s.push(slide('Try it with Calculator',
+  '<p class="q">You enter <code>7 + 8</code> in Calculator. The screen shows <code>15</code>. What is each part?</p>'+
+  '<div class="beat step-line"><span class="step-num">IN</span><span class="step-text"><code>7 + 8</code></span></div>'+
+  '<div class="beat step-line"><span class="step-num">DO</span><span class="step-text">calculate the result</span></div>'+
+  '<div class="beat step-line"><span class="step-num">OUT</span><span class="step-text"><code>15</code></span></div>'+
+  '<div class="beat conclusion"><p>The same model works even though Calculator is very different from Safari.</p></div>',
+  'Reveal only one row after Oscar answers that part.'));
+
+ s.push(slide('What is doing the work?',
+  '<p class="q">Safari, Notes, and Calculator look different. What do they have in common?</p>'+
+  '<div class="beat card"><h3>SAFARI</h3><p>browse the web</p></div>'+
+  '<div class="beat card"><h3>NOTES</h3><p>write and organize notes</p></div>'+
+  '<div class="beat card"><h3>CALCULATOR</h3><p>calculate</p></div>'+
+  '<div class="beat conclusion"><p>An <b>application (app)</b> is a kind of <b>program</b> you use to do a task.</p></div>',
+  'This is a working idea, not a formal definition to memorize. Let examples come first.'));
+
+ s.push(slide('Programs work with data',
+  '<p class="q">What information is Safari working with when you browse?</p>'+
+  '<div class="beat conclusion"><p>Words you type, pages you open, images, links, and other information are examples of <b>data</b>.</p></div>'+
+  '<div class="beat equation">Computer + Program + Data</div>'+
+  '<div class="beat conclusion"><p>The program tells the computer what to do with the data.</p></div>',
+  'Keep data concrete. Do not turn this into a data-representation lecture yet.'));
+
+ s.push(slide('Your turn: analyze a familiar app',
+  '<p class="q">Choose one application you actually use.</p>'+
+  '<div class="beat step-line"><span class="step-num">01</span><span class="step-text">What input do you give it?</span></div>'+
+  '<div class="beat step-line"><span class="step-num">02</span><span class="step-text">What processing seems to happen?</span></div>'+
+  '<div class="beat step-line"><span class="step-num">03</span><span class="step-text">What output do you receive?</span></div>'+
+  '<div class="beat step-line"><span class="step-num">04</span><span class="step-text">What data is the program working with?</span></div>',
+  'Good choices: Safari, Calculator, Notes, a game. Keep the processing description at the level Oscar can observe or reasonably infer.'));
+
+ s.push(slide('A careful definition',
+  '<p class="q">After these examples, what is a computer doing?</p>'+
+  '<div class="beat conclusion"><p>A computer is a machine that <b>stores and manipulates representations of information according to instructions</b>.</p></div>'+
+  '<div class="beat conclusion"><p>For now, “instructions” can simply mean the steps a program tells the computer to carry out.</p></div>',
+  'Reveal the formal definition late, after experience. Do not require verbatim memorization.'));
+
+ s.push(slide('Exit check',
+  '<p class="q">One question at a time.</p>'+
+  '<div class="beat card"><h3>01</h3><p>In Calculator, what is input? What is output?</p></div>'+
+  '<div class="beat card"><h3>02</h3><p>What does “processing” mean in our simple model?</p></div>'+
+  '<div class="beat card"><h3>03</h3><p>How is an application related to a program?</p></div>'+
+  '<div class="beat card"><h3>04</h3><p>Give one example of data used by a program.</p></div>',
+  'Do not reveal all four prompts at once. Record any concept that needs retrieval tomorrow.'));
+ s.push(slide('Homework','<p class="big">'+esc(l.homework)+'</p><div class="beat conclusion"><p>Tomorrow, be ready to explain one example without notes.</p></div>','Keep the homework observational, not definition memorization.'));
+ s.push(slide('Free resources',resources(l.resources),'Optional. The hands-on observation is the primary learning activity.'));
+ return s.join('');
+}
+
+function buildFilesEnvironment(l){
+ const s=[];
+ s.push(cover(l,'Programs, Files & Your Mac','Where does source code live before it becomes a running program?','Begin with the Day 1 homework. Today should demystify files, source code, editor, and Terminal. Terminal mastery is not the goal.'));
+
+ s.push(slide('Start with your homework',
+  '<p class="q">Choose one application you observed yesterday.</p>'+
+  '<div class="beat step-line"><span class="step-num">IN</span><span class="step-text">What input did you give it?</span></div>'+
+  '<div class="beat step-line"><span class="step-num">DO</span><span class="step-text">What processing happened?</span></div>'+
+  '<div class="beat step-line"><span class="step-num">OUT</span><span class="step-text">What output did you get?</span></div>'+
+  '<div class="beat step-line"><span class="step-num">DATA</span><span class="step-text">What information was it working with?</span></div>',
+  'Let Oscar explain before revealing the labels. This is retrieval, not a second lecture.'));
+
+ s.push(slide('Where does a program come from?',
+  '<p class="q">Before a program can run, a programmer has to write instructions somewhere. Where can text like that live on your Mac?</p>'+
+  '<div class="beat conclusion"><p>In a <b>file</b>.</p></div>'+
+  '<div class="beat conclusion"><p>Files can be organized inside <b>folders</b>.</p></div>',
+  'Connect to Finder because it is already familiar. Avoid filesystem theory.'));
+
+ s.push(slide('Make a place for our work',
+  '<p class="q">Open Finder. What should we create so our CS files have one clear home?</p>'+
+  '<div class="beat step-line"><span class="step-num">01</span><span class="step-text">Create a folder named <code>CS-Learning</code>.</span></div>'+
+  '<div class="beat step-line"><span class="step-num">02</span><span class="step-text">Open it.</span></div>'+
+  '<div class="beat step-line"><span class="step-num">03</span><span class="step-text">Create or save a small text file inside it.</span></div>'+
+  '<div class="beat conclusion"><p>The folder is not the program. It is just where we organize the files we are working with.</p></div>',
+  'Do this live on the Mac. The physical action matters more than a screenshot.'));
+
+ s.push(slide('Source code is text',
+  '<pre class="code"><span class="code-line">print("Hello")</span></pre>'+
+  '<p class="q">At this moment, before we run anything, what is this?</p>'+
+  '<div class="beat conclusion"><p>It is <b>source code</b>: text that describes instructions for a program.</p></div>'+
+  '<div class="beat conclusion"><p>When saved, that text lives inside a file.</p></div>',
+  'Do not imply source code is already a running program. That distinction prepares Day 3.'));
+
+ s.push(slide('What is the editor doing?',
+  '<p class="q">If source code is text in a file, what job does an editor have?</p>'+
+  '<div class="beat conclusion"><p>An <b>editor</b> lets you create and change the source-code text.</p></div>'+
+  '<div class="beat equation">Editor → edits → Source file</div>'+
+  '<div class="beat conclusion"><p>Saving writes those changes into the file on your Mac.</p></div>',
+  'Use the editor Oscar is actually using. Do not compare many IDEs today.'));
+
+ s.push(slide('Finder shows the files visually',
+  '<p class="q">In Finder, can you locate the folder and file you just created?</p>'+
+  '<div class="beat step-line"><span class="step-num">FOLDER</span><span class="step-text"><code>CS-Learning</code></span></div>'+
+  '<div class="beat step-line"><span class="step-num">FILE</span><span class="step-text">your saved source/text file</span></div>'+
+  '<div class="beat conclusion"><p>Finder is one way to navigate your Mac’s files and folders.</p></div>',
+  'Make Oscar point to the actual folder and file rather than only reading the slide.'));
+
+ s.push(slide('Terminal can look at the same place',
+  '<p class="q">If Finder already exists, why might programmers also use Terminal?</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line focus-line">pwd</span></pre></div>'+
+  '<div class="beat conclusion"><p><code>pwd</code> shows the folder Terminal is currently “in.”</p></div>'+
+  '<div class="beat"><pre class="code"><span class="code-line focus-line">ls</span></pre></div>'+
+  '<div class="beat conclusion"><p><code>ls</code> lists what is in that folder.</p></div>'+
+  '<div class="beat"><pre class="code"><span class="code-line focus-line">cd CS-Learning</span></pre></div>'+
+  '<div class="beat conclusion"><p><code>cd</code> changes the current folder.</p></div>',
+  'Run each command live. The goal is orientation, not memorizing shell commands.'));
+
+ s.push(slide('Two views. Same files.',
+  '<p class="q">When Finder shows <code>CS-Learning</code> and Terminal also navigates into <code>CS-Learning</code>, did we create two folders?</p>'+
+  '<div class="beat equation">Finder → same file system ← Terminal</div>'+
+  '<div class="beat conclusion"><p><b>No.</b> Finder and Terminal are two different ways to interact with the same computer and the same files.</p></div>',
+  'This is the most important mental model of Day 2. Ask Oscar to restate it in his own words.'));
+
+ s.push(slide('Your development environment',
+  '<p class="q">What tools have we used so far?</p>'+
+  '<div class="beat step-line"><span class="step-num">EDIT</span><span class="step-text">an editor changes source code</span></div>'+
+  '<div class="beat step-line"><span class="step-num">STORE</span><span class="step-text">files and folders organize the work</span></div>'+
+  '<div class="beat step-line"><span class="step-num">NAV</span><span class="step-text">Finder or Terminal locates those files</span></div>'+
+  '<div class="beat conclusion"><p>Together, tools like these form part of a <b>development environment</b>: the setup used to create and work with programs.</p></div>',
+  'Keep “development environment” as a practical umbrella term. No need for IDE taxonomy.'));
+
+ s.push(slide('Hands-on check',
+  '<p class="q">Can you prove Finder and Terminal are looking at the same work?</p>'+
+  '<div class="beat step-line"><span class="step-num">01</span><span class="step-text">Open <code>CS-Learning</code> in Finder.</span></div>'+
+  '<div class="beat step-line"><span class="step-num">02</span><span class="step-text">Navigate to it in Terminal.</span></div>'+
+  '<div class="beat step-line"><span class="step-num">03</span><span class="step-text">Use <code>ls</code> and find the same file.</span></div>'+
+  '<div class="beat step-line"><span class="step-num">04</span><span class="step-text">Edit and save the file, then inspect it again.</span></div>',
+  'Oscar should drive the Mac. If he gets lost, ask “Where are you now?” before giving the next command.'));
+
+ s.push(slide('Exit check',
+  '<p class="q">One at a time.</p>'+
+  '<div class="beat card"><h3>01</h3><p>What is a source-code file?</p></div>'+
+  '<div class="beat card"><h3>02</h3><p>What job does an editor do?</p></div>'+
+  '<div class="beat card"><h3>03</h3><p>What is the relationship between Finder and Terminal?</p></div>'+
+  '<div class="beat card"><h3>04</h3><p>What do <code>pwd</code>, <code>ls</code>, and <code>cd</code> help you do?</p></div>',
+  'If Finder vs Terminal is unclear, redo the live same-folder demonstration.'));
+ s.push(slide('Homework','<p class="big">'+esc(l.homework)+'</p><div class="beat conclusion"><p>Tomorrow, be ready to show the folder and explain the role of each tool.</p></div>','The next lesson begins with the actual workspace, not definitions.'));
+ s.push(slide('Free resources',resources(l.resources),'Optional reinforcement. Keep Terminal scope narrow.'));
+ return s.join('');
+}
+
+function buildSourceExecution(l){
+ const s=[];
+ s.push(cover(l,'From Source Code to Execution','A saved Java file is not yet a running program. What has to happen in between?','The core sequence is Java source → javac/compiler → bytecode → JVM → execution. Do not teach JVM internals.'));
+
+ s.push(slide('Show me your workspace',
+  '<p class="q">Open your <code>CS-Learning</code> folder. Can you point to a file and explain what role Finder, the editor, and Terminal each play?</p>'+
+  '<div class="beat conclusion"><p>Today we start from that saved source file and follow what happens next.</p></div>',
+  'Use the real Mac. Repair any confusion from Day 2 before introducing compile/run.'));
+
+ s.push(slide('We have a Java source file',
+  '<pre class="code"><span class="code-line">public class Hello {</span><span class="code-line">    public static void main(String[] args) {</span><span class="code-line">        System.out.println("Hello");</span><span class="code-line">    }</span><span class="code-line">}</span></pre>'+
+  '<p class="q">If this is saved as <code>Hello.java</code>, is the source file itself already “running”?</p>'+
+  '<div class="beat conclusion"><p>No. It is still source code stored in a file.</p></div>',
+  'Do not teach the Java syntax yet. The code is only an object to follow through the pipeline.'));
+
+ s.push(slide('What could transform the source?',
+  '<p class="q">Java uses a tool that transforms source code into another form before execution. What kind of job is that?</p>'+
+  '<div class="beat output-box">Compiler</div>'+
+  '<div class="beat conclusion"><p>The Java compiler we will use is called <code>javac</code>.</p></div>',
+  'Introduce the compiler as a transformation tool. Avoid machine-code/JIT detail.'));
+
+ s.push(slide('Predict what this command creates',
+  '<pre class="code"><span class="code-line focus-line">javac Hello.java</span></pre>'+
+  '<p class="q">After this succeeds, what new file should appear?</p>'+
+  '<div class="beat equation">Hello.java → javac → ?</div>'+
+  '<div class="beat output-box">Hello.class</div>'+
+  '<div class="beat conclusion"><p><code>Hello.class</code> contains Java <b>bytecode</b>.</p></div>',
+  'Run ls before and after javac so the new file is visible evidence.'));
+
+ s.push(slide('Source and bytecode are not the same thing',
+  '<div class="step-line"><span class="step-num">.java</span><span class="step-text">source code written for people/programmers to edit</span></div>'+
+  '<div class="beat step-line"><span class="step-num">.class</span><span class="step-text">Java bytecode produced by the compiler</span></div>'+
+  '<div class="beat conclusion"><p>We normally edit the source file, then compile again. We do not hand-edit the bytecode.</p></div>',
+  'Keep this conceptual. “Bytecode” is enough; no class-file structure.'));
+
+ s.push(slide('Who executes the bytecode?',
+  '<p class="q">We now have <code>Hello.class</code>. What still has to happen before we see output?</p>'+
+  '<div class="beat output-box">The JVM executes the Java bytecode.</div>'+
+  '<div class="beat equation">Hello.class → JVM → execution</div>'+
+  '<div class="beat conclusion"><p><b>Compiler = transform.</b> <b>JVM = execute.</b></p></div>',
+  'This verb contrast is the teaching target. Ask Oscar to say it before revealing the final line.'));
+
+ s.push(slide('The whole pipeline',
+  '<p class="q">Can you rebuild the sequence before we reveal it?</p>'+
+  '<div class="beat equation">Hello.java</div>'+
+  '<div class="beat equation">↓ javac / compiler</div>'+
+  '<div class="beat equation">Hello.class / bytecode</div>'+
+  '<div class="beat equation">↓ JVM</div>'+
+  '<div class="beat equation">execution → output</div>',
+  'Reveal one stage at a time. After each stage, ask “what kind of thing is this: file, tool, or execution?”'));
+
+ s.push(slide('Where does the JDK fit?',
+  '<p class="q">We used <code>javac</code>. Where did that development tool come from?</p>'+
+  '<div class="beat conclusion"><p>The <b>JDK</b> is a toolkit for developing Java programs. It includes tools such as the Java compiler.</p></div>'+
+  '<div class="beat conclusion"><p>For today, you do not need to memorize its internal parts.</p></div>',
+  'Keep JDK at toolkit level. The point is practical orientation, not platform architecture.'));
+
+ s.push(slide('Live experiment: before compiling',
+  '<p class="q">Navigate to the folder containing <code>Hello.java</code>. What should <code>ls</code> show before we compile?</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">pwd</span><span class="code-line focus-line">ls</span></pre></div>'+
+  '<div class="beat output-box">Hello.java</div>',
+  'Use Oscar’s actual Terminal. If setup fails, narrate the intended sequence rather than losing the lesson to configuration.'));
+
+ s.push(slide('Live experiment: compile',
+  '<pre class="code"><span class="code-line focus-line">javac Hello.java</span></pre>'+
+  '<p class="q">Before running <code>ls</code> again, predict what changed.</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line focus-line">ls</span></pre></div>'+
+  '<div class="beat output-box">Hello.java    Hello.class</div>',
+  'The appearance of Hello.class is the concrete evidence that compilation produced something new.'));
+
+ s.push(slide('Live experiment: run',
+  '<pre class="code"><span class="code-line focus-line">java Hello</span></pre>'+
+  '<p class="q">What job is this command asking Java to do now: compile or execute?</p>'+
+  '<div class="beat output-box">Hello</div>'+
+  '<div class="beat conclusion"><p><code>javac</code> compiles. <code>java</code> starts execution through the Java runtime/JVM.</p></div>',
+  'Do not get distracted by why java uses Hello rather than Hello.class. Mention only if Oscar asks.'));
+
+ s.push(slide('Change the source. What must happen next?',
+  '<p class="q">Suppose you edit the printed text inside <code>Hello.java</code>. Can the old <code>Hello.class</code> magically contain that new change?</p>'+
+  '<div class="beat conclusion"><p>No. Compile again.</p></div>'+
+  '<div class="beat equation">Edit source → compile → run</div>'+
+  '<div class="beat conclusion"><p>This edit–compile–run cycle will become a normal Java programming habit.</p></div>',
+  'This prepares the practical loop Oscar will use in the AP core.'));
+
+ s.push(slide('Exit check',
+  '<p class="q">One question at a time.</p>'+
+  '<div class="beat card"><h3>01</h3><p>What does <code>javac</code> do?</p></div>'+
+  '<div class="beat card"><h3>02</h3><p>What file is produced from <code>Hello.java</code>?</p></div>'+
+  '<div class="beat card"><h3>03</h3><p>What does the JVM do?</p></div>'+
+  '<div class="beat card"><h3>04</h3><p>After changing source code, why compile again?</p></div>',
+  'If compiler versus JVM is mixed up, return to the two verbs: transform versus execute.'));
+ s.push(slide('Homework','<p class="big">'+esc(l.homework)+'</p><div class="beat conclusion"><p>Draw the pipeline from memory, then change the printed text, compile, and run again.</p></div>','The next session is practice, so bring the drawing and the working folder.'));
+ s.push(slide('Free resources',resources(l.resources),'Optional reinforcement. Do not expand into JVM internals.'));
+ return s.join('');
+}
+
+function buildFoundationPractice1(l){
+ const s=[];
+ s.push(cover(l,'Practice 1','Can you rebuild the Week 1 mental models without being retaught?','This is retrieval and transfer. Resist re-explaining too quickly; let gaps become visible.'));
+
+ s.push(slide('Retrieval: the first model',
+  '<p class="q">Complete this from memory.</p>'+
+  '<div class="beat equation">INPUT</div>'+
+  '<div class="beat equation">↓</div>'+
+  '<div class="beat equation">PROCESSING</div>'+
+  '<div class="beat equation">↓</div>'+
+  '<div class="beat equation">OUTPUT</div>'+
+  '<div class="beat conclusion"><p>Give a new example—not Calculator or Safari.</p></div>',
+  'A transferred example is stronger evidence than repeating the original example.'));
+
+ s.push(slide('Classify the pieces',
+  '<p class="q">Which of these are files, tools, or ideas?</p>'+
+  '<div class="beat card"><h3>FILE</h3><p><code>Hello.java</code></p></div>'+
+  '<div class="beat card"><h3>TOOL</h3><p>editor</p></div>'+
+  '<div class="beat card"><h3>TOOL / VIEW</h3><p>Finder</p></div>'+
+  '<div class="beat card"><h3>TOOL / VIEW</h3><p>Terminal</p></div>'+
+  '<div class="beat card"><h3>IDEA</h3><p>source code</p></div>',
+  'Ask Oscar to classify before each label appears.'));
+
+ s.push(slide('Same folder, two ways',
+  '<p class="q">Finder shows <code>CS-Learning</code>. Terminal navigates into <code>CS-Learning</code>. Are these two copies?</p>'+
+  '<div class="beat equation">Finder → same files ← Terminal</div>'+
+  '<div class="beat conclusion"><p>Two interfaces, one file system.</p></div>',
+  'If this is not automatic, do the live proof with ls again.'));
+
+ s.push(slide('Hands-on navigation',
+  '<p class="q">Without looking back, what would you use to...</p>'+
+  '<div class="beat card"><h3>01</h3><p>show the current folder?</p></div>'+
+  '<div class="beat output-box">pwd</div>'+
+  '<div class="beat card"><h3>02</h3><p>list what is here?</p></div>'+
+  '<div class="beat output-box">ls</div>'+
+  '<div class="beat card"><h3>03</h3><p>move into a folder?</p></div>'+
+  '<div class="beat output-box">cd folderName</div>',
+  'The goal is functional recognition. Have Oscar actually run the commands after answering.'));
+
+ s.push(slide('Rebuild the Java pipeline',
+  '<p class="q">Start with <code>Hello.java</code>. What comes next?</p>'+
+  '<div class="beat equation">Hello.java</div>'+
+  '<div class="beat equation">↓ javac / compiler</div>'+
+  '<div class="beat equation">Hello.class / bytecode</div>'+
+  '<div class="beat equation">↓ JVM</div>'+
+  '<div class="beat equation">execution → output</div>',
+  'Reveal only after Oscar names the next stage. Ask file/tool/action classification along the way.'));
+
+ s.push(slide('Which command has which job?',
+  '<p class="q">Match the command to the job.</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line focus-line">javac Hello.java</span></pre></div>'+
+  '<div class="beat conclusion"><p><b>Compile:</b> source → bytecode</p></div>'+
+  '<div class="beat"><pre class="code"><span class="code-line focus-line">java Hello</span></pre></div>'+
+  '<div class="beat conclusion"><p><b>Run:</b> execute the compiled program</p></div>',
+  'Require the verbs compile and execute, not just “first command / second command.”'));
+
+ s.push(slide('Mini lab',
+  '<p class="q">Can you complete the full cycle on the Mac?</p>'+
+  '<div class="beat step-line"><span class="step-num">01</span><span class="step-text">Locate <code>Hello.java</code>.</span></div>'+
+  '<div class="beat step-line"><span class="step-num">02</span><span class="step-text">Predict what <code>javac Hello.java</code> will create.</span></div>'+
+  '<div class="beat step-line"><span class="step-num">03</span><span class="step-text">Compile, then verify with <code>ls</code>.</span></div>'+
+  '<div class="beat step-line"><span class="step-num">04</span><span class="step-text">Predict the output, then run <code>java Hello</code>.</span></div>'+
+  '<div class="beat step-line"><span class="step-num">05</span><span class="step-text">Change the printed text and repeat.</span></div>',
+  'Oscar should drive. If setup becomes the problem, preserve the mental model and postpone environment repair.'));
+
+ s.push(slide('Debugging thought exercise',
+  '<p class="q">You edited <code>Hello.java</code>, but the output still shows the old message. What might have happened?</p>'+
+  '<div class="beat conclusion"><p>You may have run the old compiled bytecode without recompiling the changed source.</p></div>'+
+  '<div class="beat equation">Edit → Compile again → Run again</div>',
+  'This is an early causal debugging question without needing formal debugging vocabulary yet.'));
+
+ s.push(slide('Exit check',
+  '<p class="q">Can you explain Week 1 in three connected sentences?</p>'+
+  '<div class="beat conclusion"><p>Programs take input, process data, and produce output.</p></div>'+
+  '<div class="beat conclusion"><p>Source code is text saved in files that we edit and navigate on the computer.</p></div>'+
+  '<div class="beat conclusion"><p>Java source is compiled to bytecode, then the JVM executes that bytecode.</p></div>',
+  'Ask Oscar for his version before revealing these model sentences.'));
+ s.push(slide('Next: Python On-Ramp',
+  '<p class="q">Week 1 answered: “What are programs and how can code become execution?”</p>'+
+  '<div class="beat conclusion"><p>Next we start writing, changing, running, and debugging tiny programs ourselves.</p></div>',
+  'This transition explains why Python appears briefly before Java becomes the main language.'));
+ s.push(slide('Free resources',resources(l.resources),'Optional reinforcement only.'));
+ return s.join('');
+}
+
+
 function cover(l,title,subtitle,teacher){
   return '<section class="slide active"><div class="slidecontent"><p class="lesson-meta">WEEK '+l.week+' · '+esc(l.sessionInWeek)+' · FOUNDATION</p><h1>'+title+'</h1><p class="big muted">'+subtitle+'</p>'+note(teacher)+'</div></section>';
 }
@@ -462,7 +815,11 @@ if(!L){
  deck.innerHTML='<section class="slide active"><div class="slidecontent"><h1>Lesson not found</h1><p><a href="index.html">Return to course</a></p></div></section>';
 }else{
  document.title=L.title+' • Oscar AP CSA';
- if(L.id==='f4') deck.innerHTML=buildPythonOnRamp(L);
+ if(L.id==='f1') deck.innerHTML=buildWhatIsComputer(L);
+ else if(L.id==='f2') deck.innerHTML=buildFilesEnvironment(L);
+ else if(L.id==='f3') deck.innerHTML=buildSourceExecution(L);
+ else if(L.id==='p-foundation-1') deck.innerHTML=buildFoundationPractice1(L);
+ else if(L.id==='f4') deck.innerHTML=buildPythonOnRamp(L);
  else if(L.id==='f5') deck.innerHTML=buildInputDebugging(L);
  else if(L.id==='f6') deck.innerHTML=buildPythonChallenge(L);
  else if(L.id==='p-foundation-2') deck.innerHTML=buildFoundationPractice2(L);
