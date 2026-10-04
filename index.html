@@ -1,8 +1,71 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Oscar AP CSA Course</title><link rel="stylesheet" href="styles.css"></head><body>
-<header class="topbar"><div class="wrap"><div class="brand">Oscar AP CSA <small>CS Foundation → AP Computer Science A • Exam May 12, 2027</small></div><nav class="navlinks"><a href="#plan">Course Plan</a><a href="#resources">Resources</a><a href="tracker.html">Tracker</a></nav></div></header>
-<main><section class="hero"><div class="wrap"><div class="badges"><span class="badge">3 teaching lessons + 1 practice / week</span><span class="badge">Current Fall 2025 AP CSA framework</span><span class="badge">Student materials in English</span></div><h1>Learn CS.<br>Build in Java.<br>Be ready for AP.</h1><p>This course begins with a short foundation warm-up, then follows the current four-unit AP Computer Science A framework. Every lesson uses retrieval, visual mental models, guided questions, hands-on work, an exit check, and a small homework task.</p><div class="stats"><div class="stat"><b id="lessonCount">—</b><span class="muted">total sessions</span></div><div class="stat"><b>4</b><span class="muted">official AP units</span></div><div class="stat"><b id="weeksCount">—</b><span class="muted">course weeks</span></div><div class="stat"><b id="countdown">—</b><span class="muted">days to exam</span></div></div></div></section>
-<section class="section"><div class="wrap"><h2>Official AP Structure</h2><div class="grid g2" id="unitCards"></div></div></section>
-<section class="section" id="plan"><div class="wrap"><h2>Full Course Plan</h2><p class="muted">Flexible sequence: if training or competition interrupts a day, continue with the next session rather than skipping it.</p><div class="toolbar"><select id="phaseFilter"><option value="all">All phases</option><option>Foundation</option><option>Unit 1</option><option>Unit 2</option><option>Unit 3</option><option>Unit 4</option><option>Exam Mode</option></select><input id="search" placeholder="Search lessons…"><button class="btn" id="clearProgress">Clear local progress</button></div><div id="weeks"></div></div></section>
-<section class="section" id="resources"><div class="wrap"><h2>Core Free Resources</h2><div class="card" id="resourcesList"></div><p class="muted">Older-video playlists are labeled as such. Use them for matching concepts, not for current unit numbering or scope.</p></div></section>
-</main><footer class="footer"><div class="wrap">Built for Oscar • Curriculum source of truth: College Board AP CSA Course & Exam Description, effective Fall 2025.</div></footer>
-<script src="data.js"></script><script src="data-1.js"></script><script src="data-2.js"></script><script src="data-3.js"></script><script src="data-4.js"></script><script src="data-5.js"></script><script src="data-6.js"></script><script src="data-7.js"></script><script src="data-8.js"></script><script src="data-9.js"></script><script src="data-10.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Oscar AP CSA</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="workspace-body">
+<div class="workspace">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <a class="course-mark" href="index.html">
+        <span class="course-mark-title">Oscar AP CSA</span>
+        <span class="course-mark-sub">May 12, 2027</span>
+      </a>
+      <label class="search-box">
+        <span aria-hidden="true">⌕</span>
+        <input id="navSearch" placeholder="Find a lesson" autocomplete="off"/>
+      </label>
+    </div>
+    <nav id="courseNav" class="course-nav" aria-label="Course navigation"></nav>
+    <div class="sidebar-bottom">
+      <a href="tracker.html">Progress tracker</a>
+      <button id="showResources" class="text-button">Resources</button>
+    </div>
+  </aside>
+
+  <button class="mobile-menu" id="mobileMenu" aria-label="Open course navigation">☰</button>
+
+  <main class="workspace-main">
+    <header class="workspace-header">
+      <div>
+        <p class="eyebrow" id="todayLabel">COURSE</p>
+        <h1 id="currentTitle">Continue learning</h1>
+      </div>
+      <div class="header-progress">
+        <span id="progressText">0 / 0 completed</span>
+        <div class="progress-track"><span id="progressFill"></span></div>
+      </div>
+    </header>
+
+    <section class="continue-panel" id="continuePanel"></section>
+
+    <section class="week-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CURRENT WEEK</p>
+          <h2 id="weekTitle">Week</h2>
+        </div>
+        <button class="text-button" id="markReset">Reset progress</button>
+      </div>
+      <div id="currentWeekList" class="lesson-list"></div>
+    </section>
+
+    <section class="resources-drawer" id="resourcesDrawer" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">REFERENCE</p>
+          <h2>Free resources</h2>
+        </div>
+        <button class="text-button" id="closeResources">Close</button>
+      </div>
+      <div id="resourcesList" class="plain-resource-list"></div>
+    </section>
+  </main>
+</div>
+
+<script src="data.js"></script><script src="data-1.js"></script><script src="data-2.js"></script><script src="data-3.js"></script><script src="data-4.js"></script><script src="data-5.js"></script><script src="data-6.js"></script><script src="data-7.js"></script><script src="data-8.js"></script><script src="data-9.js"></script><script src="data-10.js"></script><script src="app.js"></script>
+</body>
+</html>
