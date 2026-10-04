@@ -1,4 +1,4 @@
-# Oscar AP CSA Course Site
+# AP CSA Foundations Course Site
 
 Static course site prepared for GitHub Pages.
 
