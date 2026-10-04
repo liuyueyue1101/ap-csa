@@ -1,6 +1,10 @@
 const D=window.COURSE_DATA;
 const lessons=D.lessons;
-const doneKey='oscar-apcsa-progress';
+const doneKey='apcsa-progress';
+const legacyDoneKey='oscar-apcsa-progress';
+if(!localStorage.getItem(doneKey) && localStorage.getItem(legacyDoneKey)) localStorage.setItem(doneKey,localStorage.getItem(legacyDoneKey));
+const studentKey='apcsa-student-name';
+const getStudentName=()=>localStorage.getItem(studentKey)?.trim()||'';
 const getDone=()=>new Set(JSON.parse(localStorage.getItem(doneKey)||'[]'));
 const saveDone=s=>localStorage.setItem(doneKey,JSON.stringify([...s]));
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -115,6 +119,9 @@ function renderResources(){
 }
 function init(){
   renderNav(); renderMain(); renderResources();
+  const studentInput=document.querySelector('#studentNameInput');
+  studentInput.value=getStudentName();
+  studentInput.addEventListener('change',()=>localStorage.setItem(studentKey,studentInput.value.trim()));
   document.querySelector('#navSearch').addEventListener('input',renderNav);
   document.querySelector('#showResources').onclick=()=>{document.querySelector('#resourcesDrawer').hidden=false;document.querySelector('#resourcesDrawer').scrollIntoView({behavior:'smooth'});};
   document.querySelector('#closeResources').onclick=()=>document.querySelector('#resourcesDrawer').hidden=true;
