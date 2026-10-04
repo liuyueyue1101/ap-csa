@@ -83,9 +83,14 @@ a{color:inherit}button,input{font:inherit}
 .beat.revealed{display:block;animation:revealUp .28s ease both}
 span.beat.revealed{display:inline}
 .code-line.beat.revealed{display:block}
+.memory-board.beat.revealed,.variable-profile.beat.revealed,.step-line.beat.revealed,.cards.beat.revealed{display:grid}
 @keyframes revealUp{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-.value-board{display:grid;grid-template-columns:170px 1fr;gap:1px;background:var(--line);border:1px solid var(--line);max-width:720px;margin:30px 0}
-.value-board>*{background:white;padding:17px 20px}.value-board .name{font:500 24px/1.2 monospace;color:var(--muted)}.value-board .value{font:650 34px/1.2 monospace}
+.memory-board,.variable-profile{display:grid;grid-template-columns:190px 1fr;gap:1px;background:var(--line);border:1px solid var(--line);max-width:760px;margin:30px 0}
+.memory-board:before{content:"MEMORY";grid-column:1/-1;background:#efefeb;color:var(--muted);font:700 13px/1.2 ui-sans-serif,system-ui;padding:10px 16px;letter-spacing:.12em}
+.variable-profile:before{content:"VARIABLE";grid-column:1/-1;background:#efefeb;color:var(--muted);font:700 13px/1.2 ui-sans-serif,system-ui;padding:10px 16px;letter-spacing:.12em}
+.memory-board>*,.variable-profile>*{background:white;padding:17px 20px}
+.memory-board .name,.variable-profile .name{font:500 24px/1.2 monospace;color:var(--muted)}
+.memory-board .value,.variable-profile .value{font:650 34px/1.2 monospace}
 .equation{font:650 clamp(40px,5vw,70px)/1.18 "SFMono-Regular",Consolas,monospace;margin:30px 0}
 .change-row{display:flex;align-items:center;gap:20px;font:650 32px/1.2 "SFMono-Regular",Consolas,monospace}.old{color:var(--muted);text-decoration:line-through}.new{color:var(--accent)}
 .conclusion{border-left:3px solid var(--accent);padding-left:18px;margin-top:30px}
@@ -130,8 +135,20 @@ span.beat.revealed{display:inline}
  .teacher-panel p{font-size:16px}
 }
 .code-em{color:#9bd1ff}
+.console-box,.terminal-box{border:2px solid var(--line-strong);background:white;padding:18px 22px 20px;margin-top:22px;max-width:900px;font:650 clamp(32px,3.2vw,48px)/1.25 "SFMono-Regular",Consolas,monospace}
+.console-box:before,.terminal-box:before{display:block;margin-bottom:12px;font:700 13px/1.2 ui-sans-serif,system-ui;letter-spacing:.12em;color:var(--muted)}
+.console-box:before{content:"CONSOLE"}
+.terminal-box:before{content:"TERMINAL"}
+.concept-reveal{border-left:4px solid var(--accent);padding:12px 0 12px 22px;margin:24px 0;max-width:1000px;font-size:clamp(34px,3.6vw,54px);line-height:1.22;font-weight:650}
+.eval-step{font:650 clamp(40px,5vw,70px)/1.18 "SFMono-Regular",Consolas,monospace;margin:30px 0}
+.flow-step{font:650 clamp(34px,4.2vw,60px)/1.2 ui-sans-serif,system-ui;margin:24px 0}
 .output-box{border:2px solid var(--line-strong);background:white;padding:18px 22px;margin-top:22px;max-width:760px;font:650 clamp(32px,3.2vw,48px)/1.25 "SFMono-Regular",Consolas,monospace}
 .error-box{border-left:5px solid #b44b4b;background:#fff5f5;padding:18px 22px;margin:24px 0}
 .step-line{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start;margin:18px 0}
 .step-num{font:650 18px/1.4 monospace;color:var(--muted);padding-top:6px}
 .step-text{font-size:clamp(28px,2.4vw,38px);line-height:1.38}
+
+.student-setting{padding:12px 16px;border-top:1px solid var(--line);display:grid;gap:6px}
+.student-setting label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.student-setting input{width:100%;border:1px solid var(--line);background:var(--surface);padding:8px 9px;font-size:13px;outline:none}
+.student-setting input:focus{border-color:var(--accent)}
