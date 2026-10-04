@@ -105,3 +105,16 @@ a{color:inherit}button,input{font:inherit}
  .continue-copy h2{font-size:36px}.continue-actions{align-items:flex-start;flex-direction:column}
  .slide{padding:64px 24px 82px}.slide p,.slide li{font-size:20px}.cards,.resources-grid{grid-template-columns:1fr}.decktools{right:12px}
 }
+.decktools button.completed{border-color:#93b8a2;color:var(--success);background:#f2faf5}
+.tracker-page{max-width:860px;margin:0 auto;padding:48px 28px 90px}
+.tracker-back{font-size:13px;color:var(--muted);text-decoration:none}
+.tracker-header{padding:44px 0 34px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.tracker-header h1{font-size:42px;letter-spacing:-.04em;margin:0 0 24px}
+.tracker-progress-line{font-size:12px;color:var(--muted);max-width:360px}
+.tracker-week{padding:24px 0;border-bottom:1px solid var(--line)}
+.tracker-week-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:10px}
+.tracker-week-head h2{margin:0;font-size:21px}
+.tracker-week-head>span{font-size:12px;color:var(--muted)}
+.tracker-check{width:32px;height:32px;border:0;background:transparent;cursor:pointer;color:var(--muted);font-size:16px;text-align:left;padding:0}
+.tracker-week .lesson-row{grid-template-columns:42px 1fr 20px}
+.tracker-week .row-main{text-decoration:none}
