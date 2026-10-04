@@ -844,13 +844,56 @@ function updateTeacher(){
  const t=currentSlide()?.querySelector('.teacher')?.textContent?.trim()||'No teacher note for this scene.';
  teacherText.textContent=t;
 }
+
+function markRevealHistory(){
+ const shown=revealedBeats();
+ shown.forEach((el,idx)=>el.classList.toggle('past-beat',idx<shown.length-1));
+}
+
+function fitCurrentSlide(){
+ const slide=currentSlide();
+ const content=slide?.querySelector('.slidecontent');
+ if(!slide||!content)return;
+
+ // Start large. Only compact when the current reveal state actually needs it.
+ slide.classList.remove('fit-compact','fit-dense');
+ content.style.zoom='1';
+
+ requestAnimationFrame(()=>{
+   const style=getComputedStyle(slide);
+   const availableH=slide.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom);
+   const availableW=slide.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight);
+
+   const over=()=>content.scrollHeight>availableH*0.985 || content.scrollWidth>availableW*0.995;
+
+   if(over()) slide.classList.add('fit-compact');
+
+   requestAnimationFrame(()=>{
+     if(over()) slide.classList.add('fit-dense');
+
+     requestAnimationFrame(()=>{
+       const h=content.scrollHeight;
+       const w=content.scrollWidth;
+       let scale=Math.min(1,availableH/Math.max(h,1),availableW/Math.max(w,1));
+
+       // Keep text readable on a TV; dense spacing usually prevents needing
+       // more than this. Still allow enough reduction to avoid scrolling.
+       scale=Math.max(0.68,Math.min(1,scale));
+       content.style.zoom=String(scale);
+     });
+   });
+ });
+}
+
 function render(){
  slides.forEach((s,j)=>s.classList.toggle('active',j===i));
  const hidden=hiddenBeats();
  const revealed=revealedBeats();
+ markRevealHistory();
  document.querySelector('#counter').textContent='Scene '+(i+1)+' / '+slides.length+(hidden.length?' · '+revealed.length+'/'+(hidden.length+revealed.length)+' reveals':'');
  document.querySelector('#nextBtn').textContent=hidden.length?'Reveal →':'Next →';
  updateTeacher();
+ fitCurrentSlide();
 }
 function next(){
  const hidden=hiddenBeats();
@@ -877,4 +920,7 @@ document.addEventListener('keydown',e=>{
  if(e.key.toLowerCase()==='t'||e.key.toLowerCase()==='n')toggleTeacher();
  if(e.key.toLowerCase()==='f')toggleFullscreen();
 });
+window.addEventListener('resize',fitCurrentSlide);
+document.addEventListener('fullscreenchange',()=>requestAnimationFrame(fitCurrentSlide));
+if(document.fonts?.ready) document.fonts.ready.then(fitCurrentSlide);
 render();
