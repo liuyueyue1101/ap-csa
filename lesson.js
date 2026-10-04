@@ -4,6 +4,11 @@ const id=params.get('id');
 const L=D.lessons.find(x=>x.id===id)||D.optional.find(x=>x.id===id);
 const deck=document.querySelector('#deck');
 let i=0;
+const progressKey='oscar-apcsa-progress';
+function getProgress(){return new Set(JSON.parse(localStorage.getItem(progressKey)||'[]'));}
+function updateCompleteButton(){const p=getProgress();const b=document.querySelector('#completeBtn');if(!L||!b)return;b.textContent=p.has(L.id)?'Completed ✓':'Mark complete';b.classList.toggle('completed',p.has(L.id));}
+function toggleComplete(){if(!L)return;const p=getProgress();p.has(L.id)?p.delete(L.id):p.add(L.id);localStorage.setItem(progressKey,JSON.stringify([...p]));updateCompleteButton();}
+
 
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function note(text){return '<div class="teacher">'+esc(text)+'</div>';}
@@ -176,6 +181,8 @@ function prev(){
 function toggleTeacher(){panel.hidden=!panel.hidden;updateTeacher();}
 function toggleFullscreen(){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();}
 
+document.querySelector('#completeBtn').onclick=toggleComplete;
+updateCompleteButton();
 document.querySelector('#nextBtn').onclick=next;
 document.querySelector('#backBtn').onclick=prev;
 document.querySelector('#notesBtn').onclick=toggleTeacher;
