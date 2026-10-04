@@ -4,7 +4,11 @@ const id=params.get('id');
 const L=D.lessons.find(x=>x.id===id)||D.optional.find(x=>x.id===id);
 const deck=document.querySelector('#deck');
 let i=0;
-const progressKey='oscar-apcsa-progress';
+const progressKey='apcsa-progress';
+const legacyProgressKey='oscar-apcsa-progress';
+if(!localStorage.getItem(progressKey)&&localStorage.getItem(legacyProgressKey)) localStorage.setItem(progressKey,localStorage.getItem(legacyProgressKey));
+const studentKey='apcsa-student-name';
+function studentName(){return localStorage.getItem(studentKey)?.trim()||'Student';}
 function getProgress(){return new Set(JSON.parse(localStorage.getItem(progressKey)||'[]'));}
 function updateCompleteButton(){const p=getProgress();const b=document.querySelector('#completeBtn');if(!L||!b)return;b.textContent=p.has(L.id)?'Completed ✓':'Mark complete';b.classList.toggle('completed',p.has(L.id));}
 function toggleComplete(){if(!L)return;const p=getProgress();p.has(L.id)?p.delete(L.id):p.add(L.id);localStorage.setItem(progressKey,JSON.stringify([...p]));updateCompleteButton();}
@@ -26,19 +30,19 @@ function buildWhatIsComputer(l){
  s.push(slide('You do something. Then something happens.',
   '<p class="q">You type a website name and press Return. A webpage appears.</p>'+
   '<div class="beat conclusion"><p>What did <b>you</b> give the computer?</p></div>'+
-  '<div class="beat output-box">A website name + the Return key</div>'+
+  '<div class="beat concept-reveal">A website name + the Return key</div>'+
   '<div class="beat conclusion"><p>What did the computer give <b>you</b>?</p></div>'+
-  '<div class="beat output-box">A webpage on the screen</div>',
+  '<div class="beat concept-reveal">A webpage on the screen</div>',
   'Ask the first question before revealing the wording. Accept typing/clicking/keys as input. Do not explain networking or servers today.'));
 
  s.push(slide('There is a middle step',
   '<div class="step-line"><span class="step-num">YOU</span><span class="step-text">type a website name and press Return</span></div>'+
   '<div class="beat equation">↓</div>'+
   '<div class="beat"><p class="q">Something happens inside the computer. What should we call that middle work?</p></div>'+
-  '<div class="beat output-box">Processing</div>'+
+  '<div class="beat concept-reveal">Processing</div>'+
   '<div class="beat equation">↓</div>'+
   '<div class="beat step-line"><span class="step-num">MAC</span><span class="step-text">shows the webpage</span></div>',
-  'The word processing is introduced after Oscar notices the missing middle. Keep it broad; no CPU internals.'));
+  'The word processing is introduced after {{student}} notices the missing middle. Keep it broad; no CPU internals.'));
 
  s.push(slide('A model we can reuse',
   '<p class="q">Can we give names to the three parts?</p>'+
@@ -48,7 +52,7 @@ function buildWhatIsComputer(l){
   '<div class="beat equation">↓</div>'+
   '<div class="beat equation">OUTPUT</div>'+
   '<div class="beat conclusion"><p>This is a simple model—not every detail of a computer—but it is useful for understanding what programs do.</p></div>',
-  'Have Oscar say the three words aloud. The power of the model comes from transferring it to new examples.'));
+  'Have {{student}} say the three words aloud. The power of the model comes from transferring it to new examples.'));
 
  s.push(slide('Try it with Calculator',
   '<p class="q">You enter <code>7 + 8</code> in Calculator. The screen shows <code>15</code>. What is each part?</p>'+
@@ -56,7 +60,7 @@ function buildWhatIsComputer(l){
   '<div class="beat step-line"><span class="step-num">DO</span><span class="step-text">calculate the result</span></div>'+
   '<div class="beat step-line"><span class="step-num">OUT</span><span class="step-text"><code>15</code></span></div>'+
   '<div class="beat conclusion"><p>The same model works even though Calculator is very different from Safari.</p></div>',
-  'Reveal only one row after Oscar answers that part.'));
+  'Reveal only one row after {{student}} answers that part.'));
 
  s.push(slide('What is doing the work?',
   '<p class="q">Safari, Notes, and Calculator look different. What do they have in common?</p>'+
@@ -79,7 +83,7 @@ function buildWhatIsComputer(l){
   '<div class="beat step-line"><span class="step-num">02</span><span class="step-text">What processing seems to happen?</span></div>'+
   '<div class="beat step-line"><span class="step-num">03</span><span class="step-text">What output do you receive?</span></div>'+
   '<div class="beat step-line"><span class="step-num">04</span><span class="step-text">What data is the program working with?</span></div>',
-  'Good choices: Safari, Calculator, Notes, a game. Keep the processing description at the level Oscar can observe or reasonably infer.'));
+  'Good choices: Safari, Calculator, Notes, a game. Keep the processing description at the level {{student}} can observe or reasonably infer.'));
 
  s.push(slide('A careful definition',
   '<p class="q">After these examples, what is a computer doing?</p>'+
@@ -109,7 +113,7 @@ function buildFilesEnvironment(l){
   '<div class="beat step-line"><span class="step-num">DO</span><span class="step-text">What processing happened?</span></div>'+
   '<div class="beat step-line"><span class="step-num">OUT</span><span class="step-text">What output did you get?</span></div>'+
   '<div class="beat step-line"><span class="step-num">DATA</span><span class="step-text">What information was it working with?</span></div>',
-  'Let Oscar explain before revealing the labels. This is retrieval, not a second lecture.'));
+  'Let {{student}} explain before revealing the labels. This is retrieval, not a second lecture.'));
 
  s.push(slide('Where does a program come from?',
   '<p class="q">Before a program can run, a programmer has to write instructions somewhere. Where can text like that live on your Mac?</p>'+
@@ -137,14 +141,14 @@ function buildFilesEnvironment(l){
   '<div class="beat conclusion"><p>An <b>editor</b> lets you create and change the source-code text.</p></div>'+
   '<div class="beat equation">Editor → edits → Source file</div>'+
   '<div class="beat conclusion"><p>Saving writes those changes into the file on your Mac.</p></div>',
-  'Use the editor Oscar is actually using. Do not compare many IDEs today.'));
+  'Use the editor {{student}} is actually using. Do not compare many IDEs today.'));
 
  s.push(slide('Finder shows the files visually',
   '<p class="q">In Finder, can you locate the folder and file you just created?</p>'+
   '<div class="beat step-line"><span class="step-num">FOLDER</span><span class="step-text"><code>CS-Learning</code></span></div>'+
   '<div class="beat step-line"><span class="step-num">FILE</span><span class="step-text">your saved source/text file</span></div>'+
   '<div class="beat conclusion"><p>Finder is one way to navigate your Mac’s files and folders.</p></div>',
-  'Make Oscar point to the actual folder and file rather than only reading the slide.'));
+  'Make {{student}} point to the actual folder and file rather than only reading the slide.'));
 
  s.push(slide('Terminal can look at the same place',
   '<p class="q">If Finder already exists, why might programmers also use Terminal?</p>'+
@@ -160,7 +164,7 @@ function buildFilesEnvironment(l){
   '<p class="q">When Finder shows <code>CS-Learning</code> and Terminal also navigates into <code>CS-Learning</code>, did we create two folders?</p>'+
   '<div class="beat equation">Finder → same file system ← Terminal</div>'+
   '<div class="beat conclusion"><p><b>No.</b> Finder and Terminal are two different ways to interact with the same computer and the same files.</p></div>',
-  'This is the most important mental model of Day 2. Ask Oscar to restate it in his own words.'));
+  'This is the most important mental model of Day 2. Ask {{student}} to restate it in his own words.'));
 
  s.push(slide('Your development environment',
   '<p class="q">What tools have we used so far?</p>'+
@@ -176,7 +180,7 @@ function buildFilesEnvironment(l){
   '<div class="beat step-line"><span class="step-num">02</span><span class="step-text">Navigate to it in Terminal.</span></div>'+
   '<div class="beat step-line"><span class="step-num">03</span><span class="step-text">Use <code>ls</code> and find the same file.</span></div>'+
   '<div class="beat step-line"><span class="step-num">04</span><span class="step-text">Edit and save the file, then inspect it again.</span></div>',
-  'Oscar should drive the Mac. If he gets lost, ask “Where are you now?” before giving the next command.'));
+  '{{student}} should drive the Mac. If he gets lost, ask “Where are you now?” before giving the next command.'));
 
  s.push(slide('Exit check',
   '<p class="q">One at a time.</p>'+
@@ -207,7 +211,7 @@ function buildSourceExecution(l){
 
  s.push(slide('What could transform the source?',
   '<p class="q">Java uses a tool that transforms source code into another form before execution. What kind of job is that?</p>'+
-  '<div class="beat output-box">Compiler</div>'+
+  '<div class="beat concept-reveal">Compiler</div>'+
   '<div class="beat conclusion"><p>The Java compiler we will use is called <code>javac</code>.</p></div>',
   'Introduce the compiler as a transformation tool. Avoid machine-code/JIT detail.'));
 
@@ -215,7 +219,7 @@ function buildSourceExecution(l){
   '<pre class="code"><span class="code-line focus-line">javac Hello.java</span></pre>'+
   '<p class="q">After this succeeds, what new file should appear?</p>'+
   '<div class="beat equation">Hello.java → javac → ?</div>'+
-  '<div class="beat output-box">Hello.class</div>'+
+  '<div class="beat concept-reveal">Hello.class</div>'+
   '<div class="beat conclusion"><p><code>Hello.class</code> contains Java <b>bytecode</b>.</p></div>',
   'Run ls before and after javac so the new file is visible evidence.'));
 
@@ -227,10 +231,10 @@ function buildSourceExecution(l){
 
  s.push(slide('Who executes the bytecode?',
   '<p class="q">We now have <code>Hello.class</code>. What still has to happen before we see output?</p>'+
-  '<div class="beat output-box">The JVM executes the Java bytecode.</div>'+
+  '<div class="beat concept-reveal">The JVM executes the Java bytecode.</div>'+
   '<div class="beat equation">Hello.class → JVM → execution</div>'+
   '<div class="beat conclusion"><p><b>Compiler = transform.</b> <b>JVM = execute.</b></p></div>',
-  'This verb contrast is the teaching target. Ask Oscar to say it before revealing the final line.'));
+  'This verb contrast is the teaching target. Ask {{student}} to say it before revealing the final line.'));
 
  s.push(slide('The whole pipeline',
   '<p class="q">Can you rebuild the sequence before we reveal it?</p>'+
@@ -250,29 +254,29 @@ function buildSourceExecution(l){
  s.push(slide('Live experiment: before compiling',
   '<p class="q">Navigate to the folder containing <code>Hello.java</code>. What should <code>ls</code> show before we compile?</p>'+
   '<div class="beat"><pre class="code"><span class="code-line">pwd</span><span class="code-line focus-line">ls</span></pre></div>'+
-  '<div class="beat output-box">Hello.java</div>',
-  'Use Oscar’s actual Terminal. If setup fails, narrate the intended sequence rather than losing the lesson to configuration.'));
+  '<div class="beat terminal-box">Hello.java</div>',
+  'Use {{student}}’s actual Terminal. If setup fails, narrate the intended sequence rather than losing the lesson to configuration.'));
 
  s.push(slide('Live experiment: compile',
   '<pre class="code"><span class="code-line focus-line">javac Hello.java</span></pre>'+
   '<p class="q">Before running <code>ls</code> again, predict what changed.</p>'+
   '<div class="beat"><pre class="code"><span class="code-line focus-line">ls</span></pre></div>'+
-  '<div class="beat output-box">Hello.java    Hello.class</div>',
+  '<div class="beat terminal-box">Hello.java    Hello.class</div>',
   'The appearance of Hello.class is the concrete evidence that compilation produced something new.'));
 
  s.push(slide('Live experiment: run',
   '<pre class="code"><span class="code-line focus-line">java Hello</span></pre>'+
   '<p class="q">What job is this command asking Java to do now: compile or execute?</p>'+
-  '<div class="beat output-box">Hello</div>'+
+  '<div class="beat terminal-box">Hello</div>'+
   '<div class="beat conclusion"><p><code>javac</code> compiles. <code>java</code> starts execution through the Java runtime/JVM.</p></div>',
-  'Do not get distracted by why java uses Hello rather than Hello.class. Mention only if Oscar asks.'));
+  'Do not get distracted by why java uses Hello rather than Hello.class. Mention only if {{student}} asks.'));
 
  s.push(slide('Change the source. What must happen next?',
   '<p class="q">Suppose you edit the printed text inside <code>Hello.java</code>. Can the old <code>Hello.class</code> magically contain that new change?</p>'+
   '<div class="beat conclusion"><p>No. Compile again.</p></div>'+
   '<div class="beat equation">Edit source → compile → run</div>'+
   '<div class="beat conclusion"><p>This edit–compile–run cycle will become a normal Java programming habit.</p></div>',
-  'This prepares the practical loop Oscar will use in the AP core.'));
+  'This prepares the practical loop {{student}} will use in the AP core.'));
 
  s.push(slide('Exit check',
   '<p class="q">One question at a time.</p>'+
@@ -307,7 +311,7 @@ function buildFoundationPractice1(l){
   '<div class="beat card"><h3>TOOL / VIEW</h3><p>Finder</p></div>'+
   '<div class="beat card"><h3>TOOL / VIEW</h3><p>Terminal</p></div>'+
   '<div class="beat card"><h3>IDEA</h3><p>source code</p></div>',
-  'Ask Oscar to classify before each label appears.'));
+  'Ask {{student}} to classify before each label appears.'));
 
  s.push(slide('Same folder, two ways',
   '<p class="q">Finder shows <code>CS-Learning</code>. Terminal navigates into <code>CS-Learning</code>. Are these two copies?</p>'+
@@ -318,12 +322,12 @@ function buildFoundationPractice1(l){
  s.push(slide('Hands-on navigation',
   '<p class="q">Without looking back, what would you use to...</p>'+
   '<div class="beat card"><h3>01</h3><p>show the current folder?</p></div>'+
-  '<div class="beat output-box">pwd</div>'+
+  '<div class="beat concept-reveal">pwd</div>'+
   '<div class="beat card"><h3>02</h3><p>list what is here?</p></div>'+
-  '<div class="beat output-box">ls</div>'+
+  '<div class="beat concept-reveal">ls</div>'+
   '<div class="beat card"><h3>03</h3><p>move into a folder?</p></div>'+
-  '<div class="beat output-box">cd folderName</div>',
-  'The goal is functional recognition. Have Oscar actually run the commands after answering.'));
+  '<div class="beat concept-reveal">cd folderName</div>',
+  'The goal is functional recognition. Have {{student}} actually run the commands after answering.'));
 
  s.push(slide('Rebuild the Java pipeline',
   '<p class="q">Start with <code>Hello.java</code>. What comes next?</p>'+
@@ -332,7 +336,7 @@ function buildFoundationPractice1(l){
   '<div class="beat equation">Hello.class / bytecode</div>'+
   '<div class="beat equation">↓ JVM</div>'+
   '<div class="beat equation">execution → output</div>',
-  'Reveal only after Oscar names the next stage. Ask file/tool/action classification along the way.'));
+  'Reveal only after {{student}} names the next stage. Ask file/tool/action classification along the way.'));
 
  s.push(slide('Which command has which job?',
   '<p class="q">Match the command to the job.</p>'+
@@ -349,7 +353,7 @@ function buildFoundationPractice1(l){
   '<div class="beat step-line"><span class="step-num">03</span><span class="step-text">Compile, then verify with <code>ls</code>.</span></div>'+
   '<div class="beat step-line"><span class="step-num">04</span><span class="step-text">Predict the output, then run <code>java Hello</code>.</span></div>'+
   '<div class="beat step-line"><span class="step-num">05</span><span class="step-text">Change the printed text and repeat.</span></div>',
-  'Oscar should drive. If setup becomes the problem, preserve the mental model and postpone environment repair.'));
+  '{{student}} should drive. If setup becomes the problem, preserve the mental model and postpone environment repair.'));
 
  s.push(slide('Debugging thought exercise',
   '<p class="q">You edited <code>Hello.java</code>, but the output still shows the old message. What might have happened?</p>'+
@@ -362,7 +366,7 @@ function buildFoundationPractice1(l){
   '<div class="beat conclusion"><p>Programs take input, process data, and produce output.</p></div>'+
   '<div class="beat conclusion"><p>Source code is text saved in files that we edit and navigate on the computer.</p></div>'+
   '<div class="beat conclusion"><p>Java source is compiled to bytecode, then the JVM executes that bytecode.</p></div>',
-  'Ask Oscar for his version before revealing these model sentences.'));
+  'Ask {{student}} for his version before revealing these model sentences.'));
  s.push(slide('Next: Python On-Ramp',
   '<p class="q">Week 1 answered: “What are programs and how can code become execution?”</p>'+
   '<div class="beat conclusion"><p>Next we start writing, changing, running, and debugging tiny programs ourselves.</p></div>',
@@ -385,53 +389,54 @@ function buildPythonOnRamp(l){
   'Accept a simple answer. The point is to reconnect source code and execution, not to quiz JVM details.'));
 
  s.push(slide('One line. One prediction.',
-  '<pre class="code"><span class="code-line focus-line">print("Hello, Oscar!")</span></pre>'+
+  '<pre class="code"><span class="code-line focus-line">print("Hello, {{student}}!")</span></pre>'+
   '<p class="q">What do you expect to appear?</p>'+
-  '<div class="beat output-box">Hello, Oscar!</div>'+
+  '<div class="beat console-box">Hello, {{student}}!</div>'+
   '<div class="beat conclusion"><p><code>print(...)</code> asks Python to display a value.</p></div>',
-  'Do not describe print first. Ask Oscar to predict, run it, then name what he just observed.'));
+  'Do not describe print first. Ask {{student}} to predict, run it, then name what he just observed.'));
 
  s.push(slide('Change only the value',
-  '<pre class="code"><span class="code-line">print("<span class="old">Hello, Oscar!</span><span class="beat new">Training starts now.</span>")</span></pre>'+
+  '<pre class="code"><span class="code-line">print("<span class="old">Hello, {{student}}!</span><span class="beat new">Training starts now.</span>")</span></pre>'+
   '<p class="q">If the words change, what will the output do?</p>'+
-  '<div class="beat output-box">Training starts now.</div>'+
+  '<div class="beat console-box">Training starts now.</div>'+
   '<div class="beat conclusion"><p>Small code changes can produce visible behavior changes immediately.</p></div>',
-  'Let Oscar say the expected output before revealing the changed text. This is the edit–run feedback loop.'));
+  'Let {{student}} say the expected output before revealing the changed text. This is the edit–run feedback loop.'));
 
  s.push(slide('These look similar. Are they?',
   '<pre class="code"><span class="code-line">print(7 + 8)</span></pre>'+
   '<p class="q">What will this print?</p>'+
   '<div class="beat equation">7 + 8 → 15</div>'+
-  '<div class="beat output-box">15</div>'+
+  '<div class="beat console-box">15</div>'+
   '<div class="beat"><pre class="code"><span class="code-line">print("7 + 8")</span></pre></div>'+
   '<div class="beat"><p class="q">Now what will this print?</p></div>'+
-  '<div class="beat output-box">7 + 8</div>'+
+  '<div class="beat console-box">7 + 8</div>'+
   '<div class="beat conclusion"><p>Without quotes, Python evaluates arithmetic. Inside quotes, the characters are text.</p></div>',
   'This contrast is more useful than a long definition of string versus number. Pause before the second output.'));
 
  s.push(slide('Give a value a name',
   '<pre class="code"><span class="code-line">score = 10</span><span class="code-line focus-line">print(score)</span></pre>'+
   '<p class="q">What will print?</p>'+
-  '<div class="beat value-board"><div class="name">score</div><div class="value">10</div></div>'+
-  '<div class="beat output-box">10</div>'+
+  '<div class="beat memory-board"><div class="name">score</div><div class="value">10</div></div>'+
+  '<div class="beat console-box">10</div>'+
   '<div class="beat conclusion"><p><code>score</code> is a variable name. Right now, it refers to the value <code>10</code>.</p></div>',
-  'Use natural language first. Formal terminology comes after Oscar sees the name/value relationship.'));
+  'The MEMORY view is the stored state; the CONSOLE view is what print displays. Keep those two representations visually distinct and consistent. Formal terminology comes after the student sees the relationship.'));
 
  s.push(slide('A variable can change',
   '<pre class="code"><span class="code-line">score = 10</span><span class="code-line focus-line">score = score + 1</span><span class="code-line">print(score)</span></pre>'+
-  '<p class="q">Before we run it: what value will <code>score</code> have?</p>'+
-  '<div class="beat equation">score + 1 → 10 + 1</div>'+
-  '<div class="beat equation">10 + 1 → 11</div>'+
-  '<div class="beat value-board"><div class="name">score</div><div class="value">11</div></div>'+
-  '<div class="beat output-box">11</div>'+
-  '<div class="beat conclusion"><p>The right side uses the current value first. Then the new value is stored under the same name.</p></div>',
-  'This is the important state-change scene. If Oscar says “score equals score plus one makes no sense,” distinguish mathematical equality from assignment without over-formalizing.'));
+  '<p class="q">Before we run it: what value will <code>score</code> have after line 2?</p>'+
+  '<div class="memory-board"><div class="name">score</div><div class="value">10</div></div>'+
+  '<div class="beat eval-step">score + 1 → 10 + 1</div>'+
+  '<div class="beat eval-step">10 + 1 → 11</div>'+
+  '<div class="beat memory-board"><div class="name">score</div><div class="value">11</div></div>'+
+  '<div class="beat console-box">11</div>'+
+  '<div class="beat conclusion"><p>First the right side is evaluated. Then <code>score</code> is updated in memory. Only after that does <code>print(score)</code> display the current value.</p></div>',
+  'Keep the visual language stable: MEMORY always means stored state; EVALUATION shows the calculation; CONSOLE shows printed output. The useful change is 10 → 11 in memory, not a change of container.'));
 
  s.push(slide('A tiny decision',
   '<pre class="code"><span class="code-line">score = 11</span><span class="code-line">if score >= 10:</span><span class="code-line">    print("Goal met")</span></pre>'+
   '<p class="q">Will the message appear?</p>'+
   '<div class="beat equation">11 >= 10 → True</div>'+
-  '<div class="beat output-box">Goal met</div>'+
+  '<div class="beat console-box">Goal met</div>'+
   '<div class="beat conclusion"><p>The <code>if</code> block runs only when its condition is true.</p></div>',
   'Keep this light. The goal is only to show that code can respond to a condition. Do not turn this into a full branching lesson.'));
 
@@ -442,16 +447,16 @@ function buildPythonOnRamp(l){
   '<div class="beat step-line"><span class="step-num">03</span><span class="step-text">Store one number, such as sessions this week.</span></div>'+
   '<div class="beat step-line"><span class="step-num">04</span><span class="step-text">Print the values in a readable way.</span></div>'+
   '<div class="beat conclusion"><p>Then change one value. Predict the new output before running again.</p></div>',
-  'Oscar should type. If stuck, ask what information the program needs before suggesting syntax.'));
+  '{{student}} should type. If stuck, ask what information the program needs before suggesting syntax.'));
 
  s.push(slide('Exit check',
   '<p class="q">One question at a time.</p>'+
   '<div class="beat card"><h3>01</h3><p>What is the difference between <code>7 + 8</code> and <code>"7 + 8"</code>?</p></div>'+
   '<div class="beat card"><h3>02</h3><p>After <code>score = 10</code> and then <code>score = score + 1</code>, what is <code>score</code>?</p></div>'+
   '<div class="beat card"><h3>03</h3><p>What does changing one line and rerunning help you learn?</p></div>',
-  'Reveal the next exit question only after Oscar answers the current one.'));
+  'Reveal the next exit question only after {{student}} answers the current one.'));
  s.push(slide('Homework','<p class="big">'+esc(l.homework)+'</p><div class="beat conclusion"><p>Write your prediction before you run the changed version.</p></div>','Keep it short and independent.'));
- s.push(slide('Free resources',resources(l.resources),'Use these only after Oscar has attempted the code himself.'));
+ s.push(slide('Free resources',resources(l.resources),'Use these only after {{student}} has attempted the code himself.'));
  return s.join('');
 }
 
@@ -461,24 +466,24 @@ function buildInputDebugging(l){
  s.push(slide('Start with yesterday',
   '<p class="q">Show one change you made to your Python program. What did you predict before you ran it?</p>'+
   '<div class="beat conclusion"><p>Prediction gives us something concrete to compare against what actually happened.</p></div>',
-  'If Oscar did not write a prediction, create one now before running the program again.'));
+  'If {{student}} did not write a prediction, create one now before running the program again.'));
 
  s.push(slide('Can a program wait for you?',
   '<pre class="code"><span class="code-line">name = input("Name: ")</span><span class="code-line focus-line">print("Hello", name)</span></pre>'+
   '<p class="q">What do you think happens when this program reaches <code>input(...)</code>?</p>'+
-  '<div class="beat output-box">Name: <span class="code-em">Oscar</span></div>'+
-  '<div class="beat value-board"><div class="name">name</div><div class="value">"Oscar"</div></div>'+
-  '<div class="beat output-box">Hello Oscar</div>'+
+  '<div class="beat console-box">Name: <span class="code-em">{{student}}</span></div>'+
+  '<div class="beat memory-board"><div class="name">name</div><div class="value">"{{student}}"</div></div>'+
+  '<div class="beat console-box">Hello {{student}}</div>'+
   '<div class="beat conclusion"><p>The program pauses, receives keyboard input, stores it, and continues.</p></div>',
-  'Have Oscar actually type the input. Connect this back to Input → Processing → Output.'));
+  'Have {{student}} actually type the input. Connect this back to Input → Processing → Output.'));
 
  s.push(slide('A trap worth discovering',
   '<pre class="code"><span class="code-line">minutes = input("Minutes: ")</span><span class="code-line focus-line">print(minutes + 10)</span></pre>'+
   '<p class="q">If we type <code>40</code>, will this print <code>50</code>?</p>'+
-  '<div class="beat value-board"><div class="name">minutes</div><div class="value">"40"</div></div>'+
+  '<div class="beat memory-board"><div class="name">minutes</div><div class="value">"40"</div></div>'+
   '<div class="beat error-box"><p><b>Type problem:</b> the keyboard input is text, but <code>10</code> is a number.</p></div>'+
   '<div class="beat"><pre class="code"><span class="code-line">minutes = int(input("Minutes: "))</span><span class="code-line">print(minutes + 10)</span></pre></div>'+
-  '<div class="beat output-box">50</div>',
+  '<div class="beat console-box">50</div>',
   'Let the mismatch create the need for int(). No full Python type-system lecture is needed.'));
 
  s.push(slide('When something goes wrong',
@@ -496,12 +501,12 @@ function buildInputDebugging(l){
   '<div class="beat error-box"><p>The quote starts, but it never closes.</p></div>'+
   '<div class="beat"><pre class="code"><span class="code-line focus-line">print("Hello", name)</span></pre></div>'+
   '<div class="beat conclusion"><p>The useful move was not guessing. It was inspecting the line the error points us toward.</p></div>',
-  'Ask Oscar to identify the visual clue before naming it as a syntax error.'));
+  'Ask {{student}} to identify the visual clue before naming it as a syntax error.'));
 
  s.push(slide('Bug 2 — the name matters',
   '<pre class="code"><span class="code-line">minutes = 40</span><span class="code-line focus-line">print(minute)</span></pre>'+
   '<p class="q">What variable names exist right now?</p>'+
-  '<div class="beat value-board"><div class="name">defined</div><div class="value">minutes</div></div>'+
+  '<div class="beat concept-reveal">Defined variable: <code>minutes</code></div>'+
   '<div class="beat error-box"><p><code>minute</code> is a different name. Python cannot find a value stored under it.</p></div>'+
   '<div class="beat"><pre class="code"><span class="code-line focus-line">print(minutes)</span></pre></div>',
   'The point is to inspect exact spelling, not memorize an error-message paragraph.'));
@@ -528,7 +533,7 @@ function buildInputDebugging(l){
   '<div class="beat card"><h3>02</h3><p>Why might we use <code>int(...)</code>?</p></div>'+
   '<div class="beat card"><h3>03</h3><p>What are the first three things you check when debugging?</p></div>'+
   '<div class="beat card"><h3>04</h3><p>Can a program have a bug even if it runs?</p></div>',
-  'Record where Oscar hesitates; that becomes retrieval in Day 6.'));
+  'Record where {{student}} hesitates; that becomes retrieval in Day 6.'));
  s.push(slide('Homework','<p class="big">'+esc(l.homework)+'</p><div class="beat conclusion"><p>For each bug, record <b>symptom → clue → fix</b>.</p></div>','The log is more important than the number of bugs.'));
  s.push(slide('Free resources',resources(l.resources),'Use resources for reinforcement after attempting the debugging drill.'));
  return s.join('');
@@ -542,14 +547,14 @@ function buildPythonChallenge(l){
   '<div class="beat conclusion"><p>Ask for <b>minutes per training session</b>.</p></div>'+
   '<div class="beat conclusion"><p>Ask for the <b>number of sessions</b>.</p></div>'+
   '<div class="beat conclusion"><p>Display the <b>total training minutes</b>.</p></div>',
-  'Reveal requirements only after Oscar restates the problem in his own words. Do not show code.'));
+  'Reveal requirements only after {{student}} restates the problem in his own words. Do not show code.'));
 
  s.push(slide('Before code: identify the flow',
   '<p class="q">What are the input, processing, and output?</p>'+
   '<div class="beat step-line"><span class="step-num">IN</span><span class="step-text">minutes per session + number of sessions</span></div>'+
   '<div class="beat step-line"><span class="step-num">DO</span><span class="step-text">multiply the two numbers</span></div>'+
   '<div class="beat step-line"><span class="step-num">OUT</span><span class="step-text">total training minutes</span></div>',
-  'This reconnects Day 1 IPO to real program design. Oscar should identify each part before it appears.'));
+  'This reconnects Day 1 IPO to real program design. {{student}} should identify each part before it appears.'));
 
  s.push(slide('Say the algorithm in English',
   '<p class="q">No Python yet. What steps should the program perform?</p>'+
@@ -558,13 +563,13 @@ function buildPythonChallenge(l){
   '<div class="beat step-line"><span class="step-num">03</span><span class="step-text">Ask for number of sessions and convert it.</span></div>'+
   '<div class="beat step-line"><span class="step-num">04</span><span class="step-text">Multiply the two numbers.</span></div>'+
   '<div class="beat step-line"><span class="step-num">05</span><span class="step-text">Display the result.</span></div>',
-  'If Oscar cannot say the steps clearly, code will only hide the confusion.'));
+  'If {{student}} cannot say the steps clearly, code will only hide the confusion.'));
 
  s.push(slide('Now write line 1',
   '<p class="q">How can we ask for minutes and make sure arithmetic will work?</p>'+
   '<div class="beat"><pre class="code"><span class="code-line focus-line">minutes = int(input("Minutes per session: "))</span></pre></div>'+
   '<div class="beat conclusion"><p>One line can perform several small jobs: prompt → receive text → convert → store.</p></div>',
-  'Let Oscar attempt syntax first. Reveal only after an attempt.'));
+  'Let {{student}} attempt syntax first. Reveal only after an attempt.'));
 
  s.push(slide('Add the second input',
   '<pre class="code"><span class="code-line">minutes = int(input("Minutes per session: "))</span><span class="beat code-line focus-line">sessions = int(input("Number of sessions: "))</span></pre>'+
@@ -580,7 +585,7 @@ function buildPythonChallenge(l){
  s.push(slide('Make the result readable',
   '<pre class="code"><span class="code-line">minutes = int(input("Minutes per session: "))</span><span class="code-line">sessions = int(input("Number of sessions: "))</span><span class="code-line">total = minutes * sessions</span><span class="beat code-line focus-line">print("Total training minutes:", total)</span></pre>'+
   '<p class="q">Why is this better than printing only the number?</p>'+
-  '<div class="beat output-box">Total training minutes: 120</div>',
+  '<div class="beat console-box">Total training minutes: 120</div>',
   'Output is communication. A correct number can still be unclear to the user.'));
 
  s.push(slide('Test before trusting it',
@@ -599,12 +604,12 @@ function buildPythonChallenge(l){
   '<div class="beat card"><h3>B</h3><p>print a message when total ≥ 300</p></div>'+
   '<div class="beat card"><h3>C</h3><p>add a second type of training</p></div>'+
   '<div class="beat conclusion"><p>Say the new algorithm in English before editing the code.</p></div>',
-  'Let Oscar choose. Ownership matters; a small successful modification is enough.'));
+  'Let {{student}} choose. Ownership matters; a small successful modification is enough.'));
 
  s.push(slide('Break it on purpose',
   '<p class="q">Create one bug. Then debug it using evidence.</p>'+
   '<div class="beat conclusion"><p>Expected → Actual → Clue → Suspicious line → Smallest fix → Test again</p></div>',
-  'This integrates Day 5. Ask Oscar to classify whether the bug prevents execution or produces wrong behavior.'));
+  'This integrates Day 5. Ask {{student}} to classify whether the bug prevents execution or produces wrong behavior.'));
 
  s.push(slide('What did you actually practice?',
   '<p class="q">Programming is more than typing syntax. What process did we use?</p>'+
@@ -629,18 +634,18 @@ function buildPythonChallenge(l){
 
 function buildFoundationPractice2(l){
  const s=[];
- s.push(cover(l,'Practice 2','Python basics · debugging · small-program reasoning','Do not add new concepts. The session should expose what Oscar can retrieve and rebuild without support.'));
+ s.push(cover(l,'Practice 2','Python basics · debugging · small-program reasoning','Do not add new concepts. The session should expose what {{student}} can retrieve and rebuild without support.'));
  s.push(slide('Retrieval 1',
   '<p class="q">What is different about these two expressions?</p>'+
   '<div class="beat"><pre class="code"><span class="code-line">7 + 8</span></pre></div>'+
   '<div class="beat"><pre class="code"><span class="code-line">"7 + 8"</span></pre></div>'+
   '<div class="beat conclusion"><p>One is arithmetic. One is text.</p></div>',
-  'Do not reveal the second expression until Oscar explains the first.'));
+  'Do not reveal the second expression until {{student}} explains the first.'));
 
  s.push(slide('Retrieval 2',
   '<p class="q">Why might this need <code>int(...)</code>?</p>'+
   '<div class="beat"><pre class="code"><span class="code-line">minutes = input("Minutes: ")</span></pre></div>'+
-  '<div class="beat value-board"><div class="name">minutes</div><div class="value">"40"</div></div>'+
+  '<div class="beat memory-board"><div class="name">minutes</div><div class="value">"40"</div></div>'+
   '<div class="beat conclusion"><p>Keyboard input arrives as text. Arithmetic needs a numeric value.</p></div>',
   'Ask for the reason, not just “because we learned int.”'));
 
@@ -649,15 +654,15 @@ function buildFoundationPractice2(l){
   '<p class="q">What will print?</p>'+
   '<div class="beat equation">5 + 2 → 7</div>'+
   '<div class="beat equation">7 × 3 → 21</div>'+
-  '<div class="beat output-box">21</div>',
-  'Have Oscar keep a tiny trace table on paper.'));
+  '<div class="beat console-box">21</div>',
+  'Have {{student}} keep a tiny trace table on paper.'));
 
  s.push(slide('Debug without rushing',
   '<pre class="code"><span class="code-line">minutes = int(input("Minutes: "))</span><span class="code-line">sessions = 3</span><span class="code-line focus-line">total = minute + sessions</span><span class="code-line">print(total)</span></pre>'+
   '<p class="q">Before fixing anything: what did we expect, and what line deserves inspection?</p>'+
   '<div class="beat conclusion"><p>First clue: <code>minute</code> was never defined; the stored name is <code>minutes</code>.</p></div>'+
   '<div class="beat conclusion"><p>Second question: even after fixing the name, is <code>+</code> the correct operation for total training minutes?</p></div>',
-  'There are two layers: a name bug and a logic bug. Let Oscar find them separately.'));
+  'There are two layers: a name bug and a logic bug. Let {{student}} find them separately.'));
 
  s.push(slide('Rebuild from a specification',
   '<p class="q">Write a new program that asks for laps and minutes per lap, then prints total minutes.</p>'+
@@ -693,7 +698,7 @@ function buildVariablesLesson(l){
   const prevTask=prev?.homework||'Review the previous lesson.';
   const s=[];
 
-  s.push('<section class="slide active"><div class="slidecontent"><p class="lesson-meta">WEEK '+l.week+' · '+esc(l.sessionInWeek)+' · AP TOPIC 1.2</p><h1>Variables<br>and Data Types</h1><p class="big muted">A lesson about values, names, and choosing the right kind of data.</p>'+note('Today, do not begin with definitions. Let Oscar experience variables as changing stored values first. The formal vocabulary comes after the first prediction cycle.')+'</div></section>');
+  s.push('<section class="slide active"><div class="slidecontent"><p class="lesson-meta">WEEK '+l.week+' · '+esc(l.sessionInWeek)+' · AP TOPIC 1.2</p><h1>Variables<br>and Data Types</h1><p class="big muted">A lesson about values, names, and choosing the right kind of data.</p>'+note('Today, do not begin with definitions. Let {{student}} experience variables as changing stored values first. The formal vocabulary comes after the first prediction cycle.')+'</div></section>');
 
   s.push(slide('Before we start',
     '<p class="prompt-label">FROM THE PREVIOUS LESSON</p><p class="q">'+esc(prevTask)+'</p><div class="beat conclusion"><p>Show one example before explaining it.</p></div>',
@@ -701,12 +706,12 @@ function buildVariablesLesson(l){
 
   s.push(slide('What will this print?',
     '<pre class="code"><span class="code-line">int a = 5;</span><span class="code-line">int b = 3;</span><span class="code-line focus-line">System.out.println(a + b);</span></pre><p class="q">Make a prediction before we reveal anything.</p>'+
-    '<div class="beat value-board"><div class="name">a</div><div class="value">5</div></div>'+
-    '<div class="beat value-board"><div class="name">b</div><div class="value">3</div></div>'+
+    '<div class="beat memory-board"><div class="name">a</div><div class="value">5</div></div>'+
+    '<div class="beat memory-board"><div class="name">b</div><div class="value">3</div></div>'+
     '<div class="beat equation">a + b → 5 + 3</div>'+
     '<div class="beat equation">5 + 3 → 8</div>'+
-    '<div class="beat conclusion"><p><b>Output:</b> 8</p></div>',
-    'Do not reveal until Oscar commits to an answer. After each reveal, ask what changed in his mental picture. The goal is to connect the variable name to the value currently stored there.'));
+    '<div class="beat console-box">8</div>',
+    'Do not reveal until {{student}} commits to an answer. After each reveal, ask what changed in his mental picture. The goal is to connect the variable name to the value currently stored there.'));
 
   s.push(slide('Change one thing',
     '<pre class="code"><span class="code-line">int a = <span class="old">5</span><span class="beat new">8</span>;</span><span class="code-line">int b = 3;</span><span class="code-line focus-line">System.out.println(a + b);</span></pre>'+
@@ -719,8 +724,8 @@ function buildVariablesLesson(l){
   s.push(slide('So what is a variable?',
     '<p class="q">Based on what you just saw, how would you describe <code>a</code>?</p>'+
     '<div class="beat conclusion"><p>A variable is a <b>named storage location</b> whose value can be used and, in many cases, changed.</p></div>'+
-    '<div class="beat"><div class="value-board"><div class="name">name</div><div class="value">a</div><div class="name">type</div><div class="value">int</div><div class="name">current value</div><div class="value">8</div></div></div>',
-    'Let Oscar propose wording first. Then reveal the formal language. Avoid treating the definition as the beginning of learning; it is a label for the experience he just had.'));
+    '<div class="beat variable-profile"><div class="name">name</div><div class="value">a</div><div class="name">type</div><div class="value">int</div><div class="name">current value</div><div class="value">8</div></div>',
+    'Let {{student}} propose wording first. Then reveal the formal language. Avoid treating the definition as the beginning of learning; it is a label for the experience he just had.'));
 
   s.push(slide('Can every value go into every variable?',
     '<pre class="code"><span class="code-line focus-line">int raceTime = 37.8;</span></pre><p class="q">Do you think this compiles?</p>'+
@@ -740,23 +745,23 @@ function buildVariablesLesson(l){
     'Each reveal is a fresh question. Do not race through them. Ask “why this type?” after the student chooses.'));
 
   s.push(slide('One more kind of value',
-    '<p class="q">What about a name such as <b>Oscar</b>?</p>'+
-    '<div class="beat"><pre class="code"><span class="code-line focus-line">String athlete = "Oscar";</span></pre></div>'+
+    '<p class="q">What about a name such as <b>{{student}}</b>?</p>'+
+    '<div class="beat"><pre class="code"><span class="code-line focus-line">String athlete = "{{student}}";</span></pre></div>'+
     '<div class="beat conclusion"><p><code>String</code> stores text. Notice that it begins with a capital letter because it is a class type, not one of Java’s primitive types.</p></div>',
-    'Keep the distinction light. Today Oscar only needs to recognize int/double/boolean as primitive types and String as a commonly used reference type. Do not expand into memory-model details yet.'));
+    'Keep the distinction light. Today {{student}} only needs to recognize int/double/boolean as primitive types and String as a commonly used reference type. Do not expand into memory-model details yet.'));
 
   s.push(slide('Predict before running',
     '<pre class="code"><span class="code-line">int laps = 4;</span><span class="code-line">laps = 6;</span><span class="code-line focus-line">System.out.println(laps);</span></pre><p class="q">What prints: 4 or 6?</p>'+
     '<div class="beat equation">laps → 6</div>'+
     '<div class="beat conclusion"><p>Assignment replaces the variable’s previous value with a new compatible value.</p></div>',
-    'This is the key state-change check. If Oscar says 4, go back to the variable box idea rather than explaining assignment abstractly.'));
+    'This is the key state-change check. If {{student}} says 4, go back to the variable box idea rather than explaining assignment abstractly.'));
 
   s.push(slide('Your turn',
     '<p class="q">Model a training session with four variables.</p>'+
     '<div class="beat cards"><div class="card"><h3>01</h3><p>athlete name</p></div><div class="card"><h3>02</h3><p>laps completed</p></div><div class="card"><h3>03</h3><p>average lap time</p></div></div>'+
     '<div class="beat card"><h3>04</h3><p>whether today was a personal best</p></div>'+
     '<div class="beat conclusion"><p>For each variable: choose a name, choose a type, choose a sample value, and explain your choice.</p></div>',
-    'Oscar should do the typing. Prompt with “What kind of information is this?” rather than giving the Java type.'));
+    '{{student}} should do the typing. Prompt with “What kind of information is this?” rather than giving the Java type.'));
 
   s.push(slide('AP connection',
     '<p class="big">AP questions often hide a simple type or state question inside a longer code segment.</p>'+
@@ -790,7 +795,7 @@ function buildLesson(l){
  if(l.code)s.push(slide('Predict first','<pre class="code">'+esc(l.code)+'</pre><p class="q">What will happen? Commit to a prediction before moving on.</p><div class="beat conclusion"><p>Now trace the program state line by line.</p></div>','Do not explain the code before the prediction.'));
  s.push(slide('Core ideas',cards(l.points||[]),'Ask why after each point. Prefer a concrete example over a definition.'));
  s.push(slide('Think','<p class="q">'+esc(l.think)+'</p><div class="beat conclusion"><p>Use a tiny test case if you are unsure.</p></div>','Wait for a prediction and reason before revealing the prompt.'));
- s.push(slide('Hands-on activity','<p class="big">'+esc(l.activity)+'</p>','Oscar should do the typing or tracing. Give hints before code.'));
+ s.push(slide('Hands-on activity','<p class="big">'+esc(l.activity)+'</p>','{{student}} should do the typing or tracing. Give hints before code.'));
  s.push(slide('AP connection','<p class="big">'+esc(l.apConnection||'This supports current AP CSA code reasoning.')+'</p>','Connect to AP after the underlying concept is understood.'));
  s.push(slide('Exit check',cards(['Explain the mental model in your own words.','Give one common mistake.','What would you test to know the code is correct?']),'Reveal one question at a time if the slide contains beats in future revisions.'));
  s.push(slide('Homework','<p class="big">'+esc(l.homework)+'</p>','The next lesson should begin by checking this.'));
@@ -802,7 +807,7 @@ function buildPractice(l){
  const cover=l.covers||[],s=[];
  s.push('<section class="slide active"><div class="slidecontent"><p class="lesson-meta">Week '+l.week+' · Practice</p><h1>'+esc(l.title)+'</h1><p class="big muted">'+esc(l.subtitle||'')+'</p>'+note('This is diagnostic practice. Record repeated hesitation instead of turning every miss into a lecture.')+'</div></section>');
  s.push(slide('Retrieval — no notes',cards(cover.map(x=>'Explain the key idea from: '+x)),'Ask for examples and reasoning.'));
- s.push(slide('Trace','<p class="q">Choose one recent code example. Predict every important variable value or output before running it.</p>','Have Oscar use a trace table.'));
+ s.push(slide('Trace','<p class="q">Choose one recent code example. Predict every important variable value or output before running it.</p>','Have {{student}} use a trace table.'));
  s.push(slide('Debug','<p class="q">Introduce one bug on purpose. Diagnose it from evidence.</p><div class="beat conclusion"><p>Expected → Actual → Clue → Cause → Smallest fix</p></div>','Name the error category before fixing it.'));
  s.push(slide('Write','<p class="q">Rebuild one small solution from a specification without looking at the old code.</p>','Say the algorithm in English first.'));
  s.push(slide('Error log','<p class="big">For every miss: what was tested, what did I think, why was it wrong, and what mental model fixes it?</p>','One good error-log entry is more valuable than ten rushed questions.'));
@@ -814,7 +819,7 @@ function buildPractice(l){
 if(!L){
  deck.innerHTML='<section class="slide active"><div class="slidecontent"><h1>Lesson not found</h1><p><a href="index.html">Return to course</a></p></div></section>';
 }else{
- document.title=L.title+' • Oscar AP CSA';
+ document.title=L.title+' • AP CSA Foundations';
  if(L.id==='f1') deck.innerHTML=buildWhatIsComputer(L);
  else if(L.id==='f2') deck.innerHTML=buildFilesEnvironment(L);
  else if(L.id==='f3') deck.innerHTML=buildSourceExecution(L);
@@ -827,6 +832,7 @@ if(!L){
  else deck.innerHTML=L.kind==='practice'?buildPractice(L):buildLesson(L);
 }
 
+deck.innerHTML=deck.innerHTML.replaceAll('{{student}}',esc(studentName()));
 const slides=[...document.querySelectorAll('.slide')];
 const panel=document.querySelector('#teacherPanel');
 const teacherText=document.querySelector('#teacherText');
