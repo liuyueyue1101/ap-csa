@@ -1,22 +1,25 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Progress • Oscar AP CSA</title><link rel="stylesheet" href="styles.css"/></head>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Progress • AP CSA Foundations</title><link rel="stylesheet" href="styles.css"/></head>
 <body>
 <main class="tracker-page">
   <a class="tracker-back" href="index.html">← Course</a>
   <header class="tracker-header">
     <p class="eyebrow">PROGRESS TRACKER</p>
-    <h1>Oscar AP CSA</h1>
+    <h1>AP CSA Foundations</h1><p id="trackerStudent" class="muted"></p>
     <div class="tracker-progress-line"><span id="trackerCount"></span><div class="progress-track"><span id="trackerFill"></span></div></div>
   </header>
   <div id="trackerWeeks"></div>
 </main>
 <script src="data.js"></script><script src="data-1.js"></script><script src="data-2.js"></script><script src="data-3.js"></script><script src="data-4.js"></script><script src="data-5.js"></script><script src="data-6.js"></script><script src="data-7.js"></script><script src="data-8.js"></script><script src="data-9.js"></script><script src="data-10.js"></script>
 <script>
-const D=COURSE_DATA,key='oscar-apcsa-progress';
+const D=COURSE_DATA,key='apcsa-progress',legacyKey='oscar-apcsa-progress',studentKey='apcsa-student-name';
+if(!localStorage.getItem(key)&&localStorage.getItem(legacyKey)) localStorage.setItem(key,localStorage.getItem(legacyKey));
 const getDone=()=>new Set(JSON.parse(localStorage.getItem(key)||'[]'));
 const save=s=>localStorage.setItem(key,JSON.stringify([...s]));
 function render(){
+ const student=localStorage.getItem(studentKey)?.trim()||'';
+ document.querySelector('#trackerStudent').textContent=student?('Student: '+student):'';
  const done=getDone(),total=D.lessons.length;
  document.querySelector('#trackerCount').textContent=done.size+' of '+total+' sessions completed';
  document.querySelector('#trackerFill').style.width=Math.round(done.size/total*100)+'%';
