@@ -23,6 +23,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Validate JavaScript
+        run: |
+          node --check app.js
+          node --check lesson.js
+          for f in data*.js; do node --check "$f"; done
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload site
