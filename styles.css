@@ -79,8 +79,11 @@ a{color:inherit}button,input{font:inherit}
 .code{white-space:pre-wrap;background:var(--code);color:var(--code-ink);border:0;border-radius:0;padding:30px 34px;font:clamp(32px,2.65vw,42px)/1.52 "SFMono-Regular",Consolas,monospace}
 .code-line{display:block;transition:opacity .25s ease,transform .25s ease,background .25s ease}
 .focus-line{background:#272b33;margin:0 -12px;padding:0 12px}
-.beat{opacity:0;transform:translateY(7px);pointer-events:none;transition:opacity .28s ease,transform .28s ease}
-.beat.revealed{opacity:1;transform:none;pointer-events:auto}
+.beat{display:none}
+.beat.revealed{display:block;animation:revealUp .28s ease both}
+span.beat.revealed{display:inline}
+.code-line.beat.revealed{display:block}
+@keyframes revealUp{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
 .value-board{display:grid;grid-template-columns:170px 1fr;gap:1px;background:var(--line);border:1px solid var(--line);max-width:720px;margin:30px 0}
 .value-board>*{background:white;padding:17px 20px}.value-board .name{font:500 24px/1.2 monospace;color:var(--muted)}.value-board .value{font:650 34px/1.2 monospace}
 .equation{font:650 clamp(40px,5vw,70px)/1.18 "SFMono-Regular",Consolas,monospace;margin:30px 0}
