@@ -1,4 +1,4 @@
-# Oscar AP CSA Course — Curriculum Map
+# AP CSA Foundations Course — Curriculum Map
 
 ## Delivery cadence
 
