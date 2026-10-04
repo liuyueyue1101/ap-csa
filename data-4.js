@@ -65,20 +65,20 @@ function details(t,title){
  "4.17":["Recursive searching and sorting apply divide/reduce-and-solve reasoning to data collections.",["Identify what gets smaller each call.","Verify the base/stop condition.","Trace both calls and returned results."],""],
  "Unit 4 Synthesis":["Data-collection problems are solved by choosing the right representation and combining traversal, algorithms, and careful testing.",["Choose array, ArrayList, or 2D array based on the specification.","Reuse known algorithm patterns.","Explain correctness with representative cases."],""]
  };
- return special[t]||[\`\${title} should be understood through program state, specification, and test cases.\`,[\`Explain the core rule for \${title}.\`,\`Trace a small example before running it.\`,\`Test a boundary or common mistake.\`],""];
+ return special[t]||[`${title} should be understood through program state, specification, and test cases.`,[`Explain the core rule for ${title}.`,`Trace a small example before running it.`,`Test a boundary or common mistake.`],""];
 }
 function lesson(unit,apTopic,title,phase){
  const [model,points,code]=details(apTopic,title);
- return {id:\`u\${unit}-\${String(apTopic).replace(unit+'.','').replace(/[^a-z0-9]+/gi,'-').toLowerCase()}\`,kind:"lesson",phase,unit,apTopic,title,subtitle:\`AP Topic \${apTopic} • \${D.units[unit]?.title||phase}\`,model,points,code,
- think:\`How would you prove your understanding of \${title} using a tiny concrete example rather than a definition?\`,
- activity:\`Work through one AP-style example focused on \${title}. Predict first, trace or run second, explain the result, then modify one input or condition and repeat.\`,
- homework:\`Complete three short problems on \${title}; add one mistake or uncertainty to the Error Log.\`,
- resources:R[unit],apConnection:\`Required AP CSA Topic \${apTopic}. Unit \${unit} carries about \${weight[unit]} of the multiple-choice section.\`,sequence:seq++,week,sessionInWeek:""};
+ return {id:`u${unit}-${String(apTopic).replace(unit+'.','').replace(/[^a-z0-9]+/gi,'-').toLowerCase()}`,kind:"lesson",phase,unit,apTopic,title,subtitle:`AP Topic ${apTopic} • ${D.units[unit]?.title||phase}`,model,points,code,
+ think:`How would you prove your understanding of ${title} using a tiny concrete example rather than a definition?`,
+ activity:`Work through one AP-style example focused on ${title}. Predict first, trace or run second, explain the result, then modify one input or condition and repeat.`,
+ homework:`Complete three short problems on ${title}; add one mistake or uncertainty to the Error Log.`,
+ resources:R[unit],apConnection:`Required AP CSA Topic ${apTopic}. Unit ${unit} carries about ${weight[unit]} of the multiple-choice section.`,sequence:seq++,week,sessionInWeek:""};
 }
 function addWeek(unit,phase,topics){
  const labels=["Lesson A","Lesson B","Lesson C"]; const made=[];
  topics.forEach((x,i)=>{const l=lesson(unit,x[0],x[1],phase);l.sessionInWeek=labels[i];D.lessons.push(l);made.push(l);});
- D.lessons.push({id:\`p-\${week}\`,kind:"practice",phase,unit,apTopic:"Practice",title:\`Practice — \${topics[0][0]}–\${topics[2][0]}\`,subtitle:\`\${phase} Retrieval + AP-Style Practice\`,covers:made.map(x=>x.title),resources:R[unit].slice(0,2),sequence:seq++,week,sessionInWeek:"Practice"});
+ D.lessons.push({id:`p-${week}`,kind:"practice",phase,unit,apTopic:"Practice",title:`Practice — ${topics[0][0]}–${topics[2][0]}`,subtitle:`${phase} Retrieval + AP-Style Practice`,covers:made.map(x=>x.title),resources:R[unit].slice(0,2),sequence:seq++,week,sessionInWeek:"Practice"});
  week++;
 }
 addWeek(2,"Unit 2",[["2.7","while Loops"],["2.8","for Loops"],["2.9","Implementing Selection and Iteration Algorithms"]]);
@@ -105,17 +105,17 @@ const examWeeks=[
 function examLesson(title,label){
  const timed=/Timed|Full/.test(title), blue=/Bluebook/.test(title), error=/Error/.test(title);
  const model=blue?"Exam familiarity reduces avoidable cognitive load: know the interface before exam day.":error?"Every missed question is evidence about a failure mode that can be repaired.":timed?"Timed practice is useful only when followed by careful analysis of errors and pacing.":"AP success combines accurate tracing, specification reading, Java fluency, and deliberate checking.";
- return {id:\`r-\${seq}\`,kind:"lesson",phase:"Exam Mode",unit:5,apTopic:"Exam Prep",title,subtitle:"AP CSA Exam Preparation",model,
+ return {id:`r-${seq}`,kind:"lesson",phase:"Exam Mode",unit:5,apTopic:"Exam Prep",title,subtitle:"AP CSA Exam Preparation",model,
  points:["Attempt before reviewing.","Explain every miss in the Error Log.","Separate concept errors, reading errors, Java errors, algorithm errors, and time-pressure errors."],code:"",
- think:\`What is the most likely way a careful student could still lose points on “\${title}”?\`,
- activity:timed?\`Complete a timed set focused on \${title}, then spend at least as long reviewing every miss and slow item.\`:\`Complete a focused drill on \${title}; verbalize reasoning before checking the answer.\`,
+ think:`What is the most likely way a careful student could still lose points on “${title}”?`,
+ activity:timed?`Complete a timed set focused on ${title}, then spend at least as long reviewing every miss and slow item.`:`Complete a focused drill on ${title}; verbalize reasoning before checking the answer.`,
  homework:"Repair one recurring weakness from today's Error Log with two fresh examples.",resources:R.exam,
  apConnection:"Direct preparation for the current fully digital AP CSA exam: 42 MCQ in 90 minutes and 4 FRQs in 90 minutes.",sequence:seq++,week,sessionInWeek:label};
 }
 examWeeks.forEach((titles,idx)=>{
  const labels=["Lesson A","Lesson B","Lesson C"],made=[];
  titles.forEach((t,i)=>{const l=examLesson(t,labels[i]);D.lessons.push(l);made.push(l);});
- D.lessons.push({id:\`p-exam-\${idx+1}\`,kind:"practice",phase:"Exam Mode",unit:5,apTopic:"Practice",title:\`Exam Practice \${idx+1}\`,subtitle:"Mixed timed practice + Error Log",covers:made.map(x=>x.title),resources:R.exam,sequence:seq++,week,sessionInWeek:"Practice"});
+ D.lessons.push({id:`p-exam-${idx+1}`,kind:"practice",phase:"Exam Mode",unit:5,apTopic:"Practice",title:`Exam Practice ${idx+1}`,subtitle:"Mixed timed practice + Error Log",covers:made.map(x=>x.title),resources:R.exam,sequence:seq++,week,sessionInWeek:"Practice"});
  week++;
 });
 })();
