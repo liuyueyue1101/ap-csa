@@ -709,17 +709,20 @@ function buildTopic11(l){
 
  s.push(slide('A route with a choice',
   '<p class="q">You are getting ready for training. It is raining. Which steps actually happen, and in what order?</p>'+
-  '<div class="branch-map">'+
-    '<div class="branch-node">Put on shoes</div><div class="branch-arrow">→</div><div class="branch-node">Check weather</div>'+
-    '<div></div><div class="branch-arrow">↓</div><div></div>'+
-    '<div class="branch-node active-path">Take indoor gear</div><div class="branch-node choice">Raining?</div><div class="branch-node">Take track bag</div>'+
-    '<div></div><div class="branch-arrow">↓</div><div></div>'+
-    '<div></div><div class="branch-node">Fill water bottle</div><div></div>'+
-    '<div></div><div class="branch-arrow">↓</div><div></div>'+
-    '<div></div><div class="branch-node">Leave for training</div><div></div>'+
+  '<div class="flowchart">'+
+    '<div class="flow-node active-path">Put on shoes</div><div class="flow-down">↓</div>'+
+    '<div class="flow-node active-path">Check weather</div><div class="flow-down">↓</div>'+
+    '<div class="flow-node choice active-path">Raining?</div>'+
+    '<div class="flow-split">'+
+      '<div class="flow-branch"><span class="flow-label">YES</span><div class="flow-node active-path">Take indoor gear</div></div>'+
+      '<div class="flow-branch"><span class="flow-label">NO</span><div class="flow-node">Take track bag</div></div>'+
+    '</div>'+
+    '<div class="flow-merge">↘ ↙</div>'+
+    '<div class="flow-node active-path">Fill water bottle</div><div class="flow-down">↓</div>'+
+    '<div class="flow-node active-path">Leave for training</div>'+
   '</div>'+
   '<div class="beat conclusion"><p>One run follows one specific path: shoes → weather → indoor gear → water → leave.</p></div>',
-  'Do not introduce Java conditionals. The branch makes sequencing meaningful: a process can contain alternatives, while the actual run still has an ordered path.'));
+  'Keep the trunk vertical until the real choice point. Because the condition is known to be raining, highlight the entire active path—not only the branch node. Do not teach Java if syntax yet.'));
 
  s.push(slide('Change one fact',
   '<p class="q">Tomorrow it is <b>not</b> raining. What changes? What stays in the same order?</p>'+
@@ -736,10 +739,21 @@ function buildTopic11(l){
   'These statements paraphrase the required Topic 1.1 knowledge. Do not require verbatim memorization; require a correct mental model and a new example.'));
 
  s.push(slide('Same algorithm, different representation',
-  '<p class="q">Did the algorithm change, or only the way we described it?</p>'+
-  '<div class="beat cards"><div class="card"><h3>WRITTEN LANGUAGE</h3><p>1. Put on shoes<br>2. Check weather<br>3. Choose gear<br>4. Fill water<br>5. Leave</p></div><div class="card"><h3>DIAGRAM</h3><p>Boxes, arrows, and a choice point show the same process.</p></div></div>'+
-  '<div class="beat conclusion"><p>A representation can change while the underlying algorithm stays the same.</p></div>',
-  'Topic 1.1 explicitly allows written language or diagrams. Ask what information must be preserved across representations: steps, order, and the choice.'));
+  '<p class="q">Did the algorithm change, or only the way we represented it?</p>'+
+  '<div class="beat representation-grid">'+
+    '<div class="representation-panel"><h3>WRITTEN LANGUAGE</h3><p>1. Put on shoes<br>2. Check weather<br>3. If raining, take indoor gear; otherwise take track bag<br>4. Fill water bottle<br>5. Leave for training</p></div>'+
+    '<div class="representation-panel"><h3>DIAGRAM</h3>'+
+      '<div class="flowchart compact">'+
+        '<div class="flow-node">Put on shoes</div><div class="flow-down">↓</div>'+
+        '<div class="flow-node">Check weather</div><div class="flow-down">↓</div>'+
+        '<div class="flow-node choice">Raining?</div>'+
+        '<div class="flow-split"><div class="flow-branch"><span class="flow-label">YES</span><div class="flow-node">Indoor gear</div></div><div class="flow-branch"><span class="flow-label">NO</span><div class="flow-node">Track bag</div></div></div>'+
+        '<div class="flow-merge">↘ ↙</div><div class="flow-node">Fill water</div><div class="flow-down">↓</div><div class="flow-node">Leave</div>'+
+      '</div>'+
+    '</div>'+
+  '</div>'+
+  '<div class="beat conclusion"><p><b>Same algorithm.</b> The steps, order, and choice are preserved; only the representation changed.</p></div>',
+  'Make the comparison visual. Ask the learner to point to the same decision and merge in both representations.'));
 
  s.push(slide('An idea is not yet executable Java',
   '<p class="q">A human can understand “warm up, run, stretch.” Can Java execute that English sentence directly?</p>'+
@@ -785,6 +799,53 @@ function buildTopic11(l){
   '<div class="beat card"><h3>C</h3><p>The program starts, reaches integer division by zero, and stops.</p></div>'+
   '<div class="beat concept-reveal">C → run-time error / exception</div>',
   'Ask “what evidence tells you?” after every classification.'));
+
+ s.push(slide('Practice — find the part that actually runs',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 1</p>'+
+  '<pre class="code"><span class="code-line">public class TrainingApp {</span><span class="code-line">    public static void main(String[] args) {</span><span class="code-line focus-line">        System.out.println("Ready");</span><span class="code-line">    }</span><span class="code-line">}</span></pre>'+
+  '<p class="q">Three questions. Answer before revealing.</p>'+
+  '<div class="beat concept-reveal">Class name → <code>TrainingApp</code></div>'+
+  '<div class="beat concept-reveal">Execution begins in → <code>main</code></div>'+
+  '<div class="beat concept-reveal">Visible output is produced by → <code>System.out.println(...)</code></div>',
+  'The student does not need to explain every keyword yet. The goal is early Java familiarity: recognize the class name, main entry point, and executable print statement.'));
+
+ s.push(slide('Practice — compile or fix?',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 2</p>'+
+  '<p class="q">For each line, predict whether it compiles. If not, identify the smallest fix.</p>'+
+  '<div class="beat practice-item"><h3>A</h3><pre class="code">System.out.println("Ready")</pre></div>'+
+  '<div class="beat answer-tag">A → add <code>;</code></div>'+
+  '<div class="beat practice-item"><h3>B</h3><pre class="code">system.out.println("Ready");</pre></div>'+
+  '<div class="beat answer-tag">B → <code>System</code> needs a capital S</div>'+
+  '<div class="beat practice-item"><h3>C</h3><pre class="code">System.out.println("Ready);</pre></div>'+
+  '<div class="beat answer-tag">C → add the closing quote</div>',
+  'Do not let this become syntax trivia. After each answer, ask what clue made the student suspicious: punctuation, capitalization, or paired quotes.'));
+
+ s.push(slide('Practice — read the compiler message',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 3</p>'+
+  '<div class="compiler-message">TrainingApp.java:4: error: unclosed string literal\n    System.out.println("Ready);\n                       ^\n1 error</div>'+
+  '<p class="q">Before fixing the code, what information can we extract from this message?</p>'+
+  '<div class="beat concept-reveal">File → <code>TrainingApp.java</code></div>'+
+  '<div class="beat concept-reveal">Start looking near → line 4</div>'+
+  '<div class="beat concept-reveal">Message clue → <code>unclosed string literal</code></div>'+
+  '<div class="beat concept-reveal">Caret clue → look near the quotation mark</div>',
+  'Model the habit of reading the message before editing. The reported line is a starting point, not a guarantee that the actual mistake begins there.'));
+
+ s.push(slide('Practice — comments or instructions?',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 4</p>'+
+  '<pre class="code"><span class="code-line">// Today\'s message</span><span class="code-line">System.out.println("Train smart");</span><span class="code-line">// System.out.println("Extra");</span></pre>'+
+  '<p class="q">Exactly what will appear in OUTPUT?</p>'+
+  '<div class="beat console-box">Train smart</div>'+
+  '<div class="beat conclusion"><p>Comments help humans read the source; they are not executed as program instructions.</p></div>',
+  'This is a light first exposure to comments, matching Topic 1.1 material without turning it into the later documentation lesson.'));
+
+ s.push(slide('Practice — one program, two bugs',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 5</p>'+
+  '<pre class="code"><span class="code-line">public class Warmup {</span><span class="code-line">  public static void main(String[] args) {</span><span class="code-line focus-line">    system.out.println("Start")</span><span class="code-line">  }</span><span class="code-line">}</span></pre>'+
+  '<p class="q">Find one problem. Fix it mentally. Then look again—there is another.</p>'+
+  '<div class="beat concept-reveal">First clue: <code>system</code> → <code>System</code></div>'+
+  '<div class="beat concept-reveal">Second clue: the print statement still needs <code>;</code></div>'+
+  '<div class="beat conclusion"><p>One compiler fix can reveal another problem. That is normal debugging.</p></div>',
+  'This mirrors a real debugging experience: errors can be layered. Praise systematic inspection rather than speed.'));
 
  s.push(slide('AP Topic 1.1 — what matters',
   '<div class="ap-scope"><b>REPRESENT</b><span>Describe everyday algorithms with written language or diagrams.</span><b>SEQUENCE</b><span>Reason about the order in which steps occur.</span><b>COMPILE</b><span>Explain the write / compile / run relationship and the compiler’s role.</span><b>ERRORS</b><span>Distinguish syntax, logic, and run-time errors from evidence.</span></div>'+
@@ -883,6 +944,35 @@ function buildTopic12(l){
   '<div class="beat type-choice"><div class="type-label">4</div><div>bib / registration code</div><div>?</div></div>'+
   '<div class="beat conclusion"><p>For the primitive values, write valid Java declarations. Explain the non-obvious choice.</p></div>',
   'The learner should write the primitive declarations. For the identifier, recognizing a reference/text type category is enough for this topic.'));
+
+ s.push(slide('Practice — type sprint',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 1</p>'+
+  '<p class="q">Choose the best type. Give the reason, not only the keyword.</p>'+
+  '<div class="practice-grid">'+
+    '<div class="beat practice-item"><h3>A</h3><p>number of attempts = 6</p></div>'+
+    '<div class="beat practice-item"><h3>B</h3><p>temperature = 18.75</p></div>'+
+    '<div class="beat practice-item"><h3>C</h3><p>door is locked = yes/no</p></div>'+
+    '<div class="beat practice-item"><h3>D</h3><p>locker code = 0042</p></div>'+
+  '</div>'+
+  '<div class="beat conclusion"><p>A → <code>int</code>, B → <code>double</code>, C → <code>boolean</code>, D → identifier/text category.</p></div>',
+  'D is the transfer item. Ask what operations the program would perform on the value.'));
+
+ s.push(slide('Practice — which declarations compile?',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 2</p>'+
+  '<div class="beat practice-item"><h3>A</h3><pre class="code">int laps = 8;</pre></div>'+
+  '<div class="beat answer-tag">A → valid</div>'+
+  '<div class="beat practice-item"><h3>B</h3><pre class="code">boolean finished = 1;</pre></div>'+
+  '<div class="beat answer-tag">B → invalid: <code>boolean</code> expects <code>true</code> or <code>false</code></div>'+
+  '<div class="beat practice-item"><h3>C</h3><pre class="code">double pace = 4;</pre></div>'+
+  '<div class="beat answer-tag">C → valid: an integer literal can be represented as a double value</div>',
+  'C is deliberately less obvious. If the learner is unsure, frame it as “can 4 be represented as 4.0?” rather than adding conversion theory.'));
+
+ s.push(slide('Practice — build the declarations',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 3</p>'+
+  '<p class="q">Write three Java declarations for this snapshot:</p>'+
+  '<div class="practice-grid"><div class="practice-item"><h3>SESSIONS</h3><p>5</p></div><div class="practice-item"><h3>AVERAGE TIME</h3><p>42.6</p></div><div class="practice-item"><h3>GOAL MET?</h3><p>true</p></div></div>'+
+  '<div class="beat"><pre class="code"><span class="code-line">int sessions = 5;</span><span class="code-line">double averageTime = 42.6;</span><span class="code-line">boolean goalMet = true;</span></pre></div>',
+  'Have the student write before revealing. Check both type choice and legal declaration syntax.'));
 
  s.push(slide('AP Topic 1.2 — what matters',
   '<div class="ap-scope"><b>MODEL</b><span>Choose an appropriate data-type category for the specification.</span><b>DECLARE</b><span>Write declarations using <code>int</code>, <code>double</code>, and <code>boolean</code>.</span><b>STATE</b><span>Understand a variable as named storage whose value can change during execution.</span><b>CATEGORIES</b><span>Distinguish primitive types from reference types.</span></div>'+
@@ -1019,6 +1109,44 @@ function buildTopic13(l){
   '<div class="beat card"><h3>D</h3><p><code>3 + 10 / 4 * 2</code></p></div>'+
   '<div class="beat conclusion"><p>For each answer, name the rule that caused it.</p></div>',
   'The reasoning label is essential: int division, double arithmetic, remainder, precedence/left-to-right.'));
+
+ s.push(slide('Practice — predict the output',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 1</p>'+
+  '<p class="q">Commit to each output before revealing it.</p>'+
+  '<div class="beat practice-item"><h3>A</h3><pre class="code">System.out.println(16 / 5);</pre></div>'+
+  '<div class="beat console-box">3</div>'+
+  '<div class="beat practice-item"><h3>B</h3><pre class="code">System.out.println(16.0 / 5);</pre></div>'+
+  '<div class="beat console-box">3.2</div>'+
+  '<div class="beat practice-item"><h3>C</h3><pre class="code">System.out.println(16 % 5);</pre></div>'+
+  '<div class="beat console-box">1</div>',
+  'After each result, require the rule: int division, double arithmetic, remainder.'));
+
+ s.push(slide('Practice — precedence under pressure',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 2</p>'+
+  '<pre class="code"><span class="code-line focus-line">System.out.println(5 + 18 / 4 * 2);</span></pre>'+
+  '<p class="q">Do not start calculating until you name which operation happens first.</p>'+
+  '<div class="beat eval-step">18 / 4 → 4</div>'+
+  '<div class="beat eval-step">4 * 2 → 8</div>'+
+  '<div class="beat eval-step">5 + 8 → 13</div>'+
+  '<div class="beat console-box">13</div>',
+  'This should feel more complex on the surface while using only known rules.'));
+
+ s.push(slide('Practice — change one symbol',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 3</p>'+
+  '<p class="q">Only parentheses change. Predict the new result.</p>'+
+  '<pre class="code"><span class="code-line">System.out.println(5 + 18 / 4 * 2);</span><span class="code-line focus-line">System.out.println((5 + 18) / 4 * 2);</span></pre>'+
+  '<div class="beat eval-step">(5 + 18) → 23</div>'+
+  '<div class="beat eval-step">23 / 4 → 5</div>'+
+  '<div class="beat eval-step">5 * 2 → 10</div>'+
+  '<div class="beat console-box">10</div>',
+  'Ask what stayed the same: int division and left-to-right behavior. Only grouping changed.'));
+
+ s.push(slide('Practice — output formatting',
+  '<p class="practice-kicker">IN-CLASS PRACTICE 4</p>'+
+  '<pre class="code"><span class="code-line">System.out.print("A");</span><span class="code-line">System.out.println("B");</span><span class="code-line">System.out.print("C");</span></pre>'+
+  '<p class="q">What exact output appears, including line breaks?</p>'+
+  '<div class="beat console-box">AB<br>C</div>',
+  'This checks concrete print/println behavior without adding String concatenation.'));
 
  s.push(slide('AP Topic 1.3 — what matters',
   '<div class="ap-scope"><b>OUTPUT</b><span>Predict and create output with <code>print</code> and <code>println</code>.</span><b>LITERALS</b><span>Recognize fixed values, string literals, and the required escape sequences.</span><b>ARITHMETIC</b><span>Use <code>+ - * / %</code> with <code>int</code> and <code>double</code>.</span><b>EVALUATE</b><span>Apply integer-division rules, remainder, precedence, parentheses, and left-to-right evaluation.</span></div>',
