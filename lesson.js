@@ -757,10 +757,10 @@ function buildTopic11(l){
 
  s.push(slide('An idea is not yet executable Java',
   '<p class="q">A human can understand “warm up, run, stretch.” Can Java execute that English sentence directly?</p>'+
-  '<div class="beat conclusion"><p>No. A program expresses instructions using the rules of a programming language.</p></div>'+
-  '<div class="beat"><pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line">System.out.println("Run 3 laps");</span><span class="code-line">System.out.println("Stretch");</span></pre></div>'+
-  '<div class="beat conclusion"><p>The Java statements are not “the sandwich.” They are executable instructions that happen to produce this visible sequence.</p></div>',
-  'This avoids the earlier misconception that printing English instructions is the same as implementing a real-world algorithm. The point is representation and executable language.'));
+  '<div class="conclusion"><p>No. A program expresses instructions using the rules of a programming language.</p></div>'+
+  '<pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line">System.out.println("Run 3 laps");</span><span class="code-line">System.out.println("Stretch");</span></pre>'+
+  '<div class="conclusion"><p>The Java statements are executable instructions that produce this visible sequence.</p></div>',
+  'Keep this page static. Its job is only to bridge the algorithm idea into real Java syntax; there is no useful reveal sequence here.'));
 
  s.push(slide('The compiler is a gate—not a mind reader',
   '<pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line focus-line">System.out.println("Run 3 laps")</span><span class="code-line">System.out.println("Stretch");</span></pre>'+
