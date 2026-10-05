@@ -241,3 +241,35 @@ span.beat.revealed{display:inline}
  .type-choice{grid-template-columns:1fr}
  .stage-strip{grid-template-columns:1fr}
 }
+
+/* Week 3 flowchart + in-class practice */
+.flowchart{max-width:860px;margin:20px auto;display:flex;flex-direction:column;align-items:center}
+.flow-node{min-width:360px;border:2px solid var(--line-strong);background:white;padding:12px 20px;text-align:center;font-size:clamp(22px,2.25vw,32px);font-weight:650}
+.flow-node.choice{border-color:var(--accent);background:var(--accent-soft)}
+.flow-node.active-path{border-color:var(--success);background:#f1f8f4}
+.flow-down{font-size:28px;line-height:1.05;color:var(--muted);margin:4px 0}
+.flow-split{width:min(760px,100%);display:grid;grid-template-columns:1fr 1fr;gap:44px;position:relative;margin:8px 0}
+.flow-branch{display:flex;flex-direction:column;align-items:center;gap:6px}
+.flow-label{font:800 12px/1 ui-sans-serif,system-ui;letter-spacing:.12em;color:var(--muted)}
+.flow-merge{font-size:30px;color:var(--muted);letter-spacing:.5em;margin:0 0 2px .5em}
+.representation-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;align-items:start;margin-top:18px}
+.representation-panel{border-top:2px solid var(--line-strong);padding-top:14px}
+.representation-panel h3{font-size:14px;letter-spacing:.09em;color:var(--muted);margin:0 0 14px}
+.representation-panel p{font-size:clamp(22px,2vw,30px);line-height:1.45;margin:0}
+.flowchart.compact{margin:0 auto}
+.flowchart.compact .flow-node{min-width:260px;font-size:clamp(17px,1.55vw,22px);padding:8px 12px}
+.flowchart.compact .flow-down{font-size:20px;margin:2px 0}
+.flowchart.compact .flow-split{gap:22px;margin:4px 0}
+.flowchart.compact .flow-merge{font-size:20px}
+.practice-kicker{font:800 13px/1.2 ui-sans-serif,system-ui;letter-spacing:.14em;color:var(--accent);margin:0 0 10px}
+.practice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+.practice-item{border:1px solid var(--line);background:white;padding:16px 18px}
+.practice-item h3{font-size:14px;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
+.practice-item p,.practice-item pre{margin:0}
+.compiler-message{background:#1b1d21;color:#f1f5f9;padding:18px 20px;font:600 clamp(19px,1.8vw,27px)/1.5 "SFMono-Regular",Consolas,monospace;white-space:pre-wrap}
+.answer-tag{display:inline-block;background:var(--output-soft);color:var(--output);border:1px solid var(--output-line);padding:7px 10px;font-weight:750;margin-top:8px}
+@media(max-width:800px){
+ .representation-grid,.practice-grid,.flow-split{grid-template-columns:1fr}
+ .flow-node{min-width:min(360px,100%)}
+ .flow-merge{transform:rotate(90deg);letter-spacing:0;margin:4px 0}
+}
