@@ -692,6 +692,434 @@ function buildFoundationPractice2(l){
 }
 
 
+
+function apCover(l,topic,title,subtitle,teacher){
+ return '<section class="slide active"><div class="slidecontent"><p class="lesson-meta">WEEK '+l.week+' · '+esc(l.sessionInWeek)+' · AP TOPIC '+topic+'</p><h1>'+title+'</h1><p class="big muted">'+subtitle+'</p>'+note(teacher)+'</div></section>';
+}
+
+function buildTopic11(l){
+ const s=[];
+ s.push(apCover(l,'1.1','Algorithms, Programs<br>& Errors','A simple rule can still drive a path that looks more complicated.','Topic 1.1 requires everyday algorithms represented in words or diagrams, sequencing, compilation, and syntax/logic/run-time errors. Use the choice point only as a richer everyday algorithm; do not teach Java if syntax yet.'));
+
+ s.push(slide('Bridge from the warm-up',
+  '<p class="q">Last week we used this workflow:</p>'+
+  '<div class="beat flow-step">Problem → Algorithm → Code → Test → Debug</div>'+
+  '<div class="beat conclusion"><p>Today we zoom in on two questions: <b>What is the algorithm?</b> And <b>what can go wrong between the idea and execution?</b></p></div>',
+  'Ask {{student}} to explain “algorithm” before revealing the second sentence. We are moving from an informal workflow to the AP Topic 1.1 definition.'));
+
+ s.push(slide('A route with a choice',
+  '<p class="q">You are getting ready for training. It is raining. Which steps actually happen, and in what order?</p>'+
+  '<div class="branch-map">'+
+    '<div class="branch-node">Put on shoes</div><div class="branch-arrow">→</div><div class="branch-node">Check weather</div>'+
+    '<div></div><div class="branch-arrow">↓</div><div></div>'+
+    '<div class="branch-node active-path">Take indoor gear</div><div class="branch-node choice">Raining?</div><div class="branch-node">Take track bag</div>'+
+    '<div></div><div class="branch-arrow">↓</div><div></div>'+
+    '<div></div><div class="branch-node">Fill water bottle</div><div></div>'+
+    '<div></div><div class="branch-arrow">↓</div><div></div>'+
+    '<div></div><div class="branch-node">Leave for training</div><div></div>'+
+  '</div>'+
+  '<div class="beat conclusion"><p>One run follows one specific path: shoes → weather → indoor gear → water → leave.</p></div>',
+  'Do not introduce Java conditionals. The branch makes sequencing meaningful: a process can contain alternatives, while the actual run still has an ordered path.'));
+
+ s.push(slide('Change one fact',
+  '<p class="q">Tomorrow it is <b>not</b> raining. What changes? What stays in the same order?</p>'+
+  '<div class="beat flow-step">Shoes → weather → <span class="code-em">track bag</span> → water → leave</div>'+
+  '<div class="beat conclusion"><p>The surface path changed, but execution is still a sequence of steps completed one at a time.</p></div>'+
+  '<p class="beat scope-note">We will formally program choices with Java conditionals in Unit 2. Today the choice only helps us see sequencing more clearly.</p>',
+  'This is the abstraction move: vary one condition, then ask what invariant remains. The invariant is ordered execution along the chosen path.'));
+
+ s.push(slide('Now name the abstraction',
+  '<p class="q">What is common to both training-day paths?</p>'+
+  '<div class="beat concept-reveal">An algorithm is a step-by-step process for completing a task or solving a problem.</div>'+
+  '<div class="beat concept-reveal">Sequencing is the order in which the steps are completed.</div>'+
+  '<div class="beat conclusion"><p>The definition arrives <em>after</em> the learner has already used it.</p></div>',
+  'These statements paraphrase the required Topic 1.1 knowledge. Do not require verbatim memorization; require a correct mental model and a new example.'));
+
+ s.push(slide('Same algorithm, different representation',
+  '<p class="q">Did the algorithm change, or only the way we described it?</p>'+
+  '<div class="beat cards"><div class="card"><h3>WRITTEN LANGUAGE</h3><p>1. Put on shoes<br>2. Check weather<br>3. Choose gear<br>4. Fill water<br>5. Leave</p></div><div class="card"><h3>DIAGRAM</h3><p>Boxes, arrows, and a choice point show the same process.</p></div></div>'+
+  '<div class="beat conclusion"><p>A representation can change while the underlying algorithm stays the same.</p></div>',
+  'Topic 1.1 explicitly allows written language or diagrams. Ask what information must be preserved across representations: steps, order, and the choice.'));
+
+ s.push(slide('An idea is not yet executable Java',
+  '<p class="q">A human can understand “warm up, run, stretch.” Can Java execute that English sentence directly?</p>'+
+  '<div class="beat conclusion"><p>No. A program expresses instructions using the rules of a programming language.</p></div>'+
+  '<div class="beat"><pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line">System.out.println("Run 3 laps");</span><span class="code-line">System.out.println("Stretch");</span></pre></div>'+
+  '<div class="beat conclusion"><p>The Java statements are not “the sandwich.” They are executable instructions that happen to produce this visible sequence.</p></div>',
+  'This avoids the earlier misconception that printing English instructions is the same as implementing a real-world algorithm. The point is representation and executable language.'));
+
+ s.push(slide('The compiler is a gate—not a mind reader',
+  '<pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line focus-line">System.out.println("Run 3 laps")</span><span class="code-line">System.out.println("Stretch");</span></pre>'+
+  '<p class="q">Before this program runs, what problem can the compiler notice?</p>'+
+  '<div class="beat error-box"><span class="error-badge">SYNTAX ERROR</span><p>The second statement does not follow Java syntax: the semicolon is missing.</p></div>'+
+  '<div class="beat conclusion"><p>Compiler-detectable errors must be fixed before execution.</p></div>',
+  'Connect to Week 1 compilation. A syntax error violates language rules; the compiler can detect it.'));
+
+ s.push(slide('The compiler can be happy—and the program can be wrong',
+  '<p class="q">Suppose the intended order is <b>warm up → run → stretch</b>. What is wrong here?</p>'+
+  '<pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line focus-line">System.out.println("Stretch");</span><span class="code-line">System.out.println("Run 3 laps");</span></pre>'+
+  '<div class="beat console-box">Warm up<br>Stretch<br>Run 3 laps</div>'+
+  '<div class="beat error-box"><span class="error-badge">LOGIC ERROR</span><p>The code follows Java rules and runs, but its behavior does not match the intended algorithm.</p></div>'+
+  '<div class="beat conclusion"><p>Testing compares <b>expected</b> behavior with <b>actual</b> behavior.</p></div>',
+  'This is where sequencing becomes meaningful rather than trivial: order is judged against an intended algorithm. The compiler cannot infer the programmer’s intent.'));
+
+ s.push(slide('Some problems appear only during execution',
+  '<pre class="code"><span class="code-line focus-line">System.out.println(10 / 0);</span></pre>'+
+  '<p class="q">Java can parse this statement. What happens only when execution reaches it?</p>'+
+  '<div class="beat error-box"><span class="error-badge">RUN-TIME ERROR</span><p>Integer division by zero causes an <code>ArithmeticException</code> while the program is running.</p></div>'+
+  '<div class="beat conclusion"><p>Run-time errors occur during execution and can stop the program abnormally.</p></div>',
+  'Do not teach division rules yet; Topic 1.3 will. Here the line is evidence for *when* a run-time error occurs.'));
+
+ s.push(slide('Three failure stages',
+  '<p class="q">Where would you look first?</p>'+
+  '<div class="beat stage-strip"><div><b>Before run</b><span>Compiler rejects Java syntax.</span></div><div><b>Program runs</b><span>Testing reveals behavior does not match intent.</span></div><div><b>During run</b><span>An unexpected execution problem interrupts the program.</span></div></div>'+
+  '<div class="beat stage-strip"><div><span class="error-badge">SYNTAX</span></div><div><span class="error-badge">LOGIC</span></div><div><span class="error-badge">RUN-TIME</span></div></div>',
+  'The classification should follow evidence and timing, not memorized wording.'));
+
+ s.push(slide('Error detective',
+  '<p class="q">Classify each case before revealing the answer.</p>'+
+  '<div class="beat card"><h3>A</h3><p>A semicolon is missing and the compiler refuses to build.</p></div>'+
+  '<div class="beat concept-reveal">A → syntax error</div>'+
+  '<div class="beat card"><h3>B</h3><p>The program prints Stretch before Run, although the intended algorithm says the opposite.</p></div>'+
+  '<div class="beat concept-reveal">B → logic error</div>'+
+  '<div class="beat card"><h3>C</h3><p>The program starts, reaches integer division by zero, and stops.</p></div>'+
+  '<div class="beat concept-reveal">C → run-time error / exception</div>',
+  'Ask “what evidence tells you?” after every classification.'));
+
+ s.push(slide('AP Topic 1.1 — what matters',
+  '<div class="ap-scope"><b>REPRESENT</b><span>Describe everyday algorithms with written language or diagrams.</span><b>SEQUENCE</b><span>Reason about the order in which steps occur.</span><b>COMPILE</b><span>Explain the write / compile / run relationship and the compiler’s role.</span><b>ERRORS</b><span>Distinguish syntax, logic, and run-time errors from evidence.</span></div>'+
+  '<div class="beat conclusion"><p>The goal is not a vocabulary list. It is knowing <b>where</b> a failure belongs in the path from intent to execution.</p></div>',
+  'This scene mirrors the official Topic 1.1 scope without copying its wording.'));
+
+ s.push(slide('Exit check',
+  '<p class="q">One question at a time.</p>'+
+  '<div class="beat card"><h3>01</h3><p>Why can two different paths still illustrate sequencing?</p></div>'+
+  '<div class="beat card"><h3>02</h3><p>Why can a compiler detect a syntax error but miss a logic error?</p></div>'+
+  '<div class="beat card"><h3>03</h3><p>A program starts and then crashes. Which error category should you consider first?</p></div>',
+  'The strongest answer uses cause and evidence, not only the category name.'));
+
+ s.push(slide('Homework',
+  '<p class="big">Draw one everyday algorithm that contains a small choice. Trace two possible paths. Then write one example each of a syntax, logic, and run-time error and explain <b>when</b> each would be discovered.</p>'+
+  '<div class="beat conclusion"><p>No Java conditional syntax is required yet.</p></div>',
+  'This homework checks representation + error classification without jumping ahead to Unit 2.'));
+
+ s.push(slide('Free resources',resources(l.resources),'Use the official CED as the scope check; use free resources for reinforcement after the lesson.'));
+ return s.join('');
+}
+
+function buildTopic12(l){
+ const s=[];
+ s.push(apCover(l,'1.2','Variables<br>& Data Types','Choosing a type is a modeling decision—not a vocabulary exercise.','Topic 1.2 requires choosing appropriate data-type categories and declaring variables for numbers and Boolean values. Keep reassignment syntax for Topic 1.4; today we can discuss that state may change without teaching assignment statements.'));
+
+ s.push(slide('Start with a race dashboard',
+  '<p class="q">These are all “data.” Should Java store them all the same way?</p>'+
+  '<div class="beat type-choice"><div class="type-label">LAPS</div><div>12</div><div>we count with it</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">TIME</div><div>37.8</div><div>fractional precision matters</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">PERSONAL BEST?</div><div>true / false</div><div>yes-or-no state</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">BIB CODE</div><div>"007"</div><div>looks numeric, but behaves like an identifier</div></div>',
+  'The bib code is deliberately non-obvious. A type choice depends on meaning and operations, not only on how the characters look.'));
+
+ s.push(slide('A data type is a contract',
+  '<p class="q">Why should <code>12</code> and <code>37.8</code> not automatically be treated as the same kind of value?</p>'+
+  '<div class="beat concept-reveal">A data type defines a set of possible values and the operations that make sense for those values.</div>'+
+  '<div class="beat conclusion"><p>Choosing a type is part of modeling the problem.</p></div>',
+  'This is the deeper idea behind Topic 1.2. Do not reduce “type” to “which keyword do I memorize?”'));
+
+ s.push(slide('Three primitive types in this course',
+  '<p class="q">Match the information to the smallest useful category.</p>'+
+  '<div class="beat type-choice"><div class="type-label">int</div><div>12</div><div>integer / whole-number value</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">double</div><div>37.8</div><div>real-number value</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">boolean</div><div>true</div><div>true-or-false value</div></div>'+
+  '<div class="beat scope-note">AP CSA uses <code>int</code>, <code>double</code>, and <code>boolean</code> as its required primitive types. Other Java primitive types are outside the exam scope.</div>',
+  'The official exclusion matters: do not clutter a beginner lesson with byte/short/long/float/char.'));
+
+ s.push(slide('A variable has three pieces',
+  '<pre class="code"><span class="code-line focus-line">int laps = 12;</span></pre>'+
+  '<p class="q">What information does this declaration give Java?</p>'+
+  '<div class="beat variable-profile"><div class="name">name</div><div class="value">laps</div><div class="name">type</div><div class="value">int</div><div class="name">current value</div><div class="value">12</div></div>'+
+  '<div class="beat conclusion"><p>A variable is a storage location with a name and an associated data type.</p></div>',
+  'Use the stable VARIABLE visual. The syntax is a declaration, which is in scope for Topic 1.2.'));
+
+ s.push(slide('The value is state, not identity',
+  '<p class="q"><code>laps</code> is the variable name. If the athlete later completes another lap, which idea changes: the name, the type, or the stored value?</p>'+
+  '<div class="memory-board"><div class="name">laps</div><div class="value">12</div></div>'+
+  '<div class="beat memory-board"><div class="name">laps</div><div class="value">13</div></div>'+
+  '<div class="beat conclusion"><p>The variable can represent changing program state while its name and type remain stable.</p></div>'+
+  '<div class="beat scope-note">We will learn the Java assignment statements that perform these updates in Topic 1.4.</div>',
+  'This teaches the mental model required by Topic 1.2 without prematurely teaching Topic 1.4 syntax.'));
+
+ s.push(slide('Type rules create useful constraints',
+  '<pre class="code"><span class="code-line focus-line">int raceTime = 37.8;</span></pre>'+
+  '<p class="q">Would the compiler accept this declaration?</p>'+
+  '<div class="beat error-box"><span class="error-badge">COMPILE-TIME PROBLEM</span><p><code>37.8</code> is not an <code>int</code> value.</p></div>'+
+  '<div class="beat"><pre class="code"><span class="code-line focus-line">double raceTime = 37.8;</span></pre></div>'+
+  '<div class="beat conclusion"><p>The type helps Java reject values that do not fit the variable’s declared category.</p></div>',
+  'Connect back to Topic 1.1: this is a compiler-detectable problem, but the new concept is *why* the type makes the declaration invalid.'));
+
+ s.push(slide('Numeric-looking does not mean numeric meaning',
+  '<p class="q">A race bib is printed as <code>007</code>. Would you ever add two bib numbers together?</p>'+
+  '<div class="beat concept-reveal">Probably not. It is an identifier, not a quantity.</div>'+
+  '<div class="beat"><pre class="code"><span class="code-line focus-line">String bibCode = "007";</span></pre></div>'+
+  '<div class="beat conclusion"><p><code>String</code> is a reference type. For now, the important distinction is that it is <b>not</b> one of the primitive types.</p></div>',
+  'This is a modeling judgment. Do not start String methods or concatenation; those belong to Topic 1.15.'));
+
+ s.push(slide('Choose by meaning and operation',
+  '<p class="q">Which type would you choose—and why?</p>'+
+  '<div class="beat card"><h3>AGE</h3><p>15 years</p></div>'+
+  '<div class="beat concept-reveal"><code>int</code> — whole-number quantity</div>'+
+  '<div class="beat card"><h3>QUALIFYING TIME</h3><p>52.34 seconds</p></div>'+
+  '<div class="beat concept-reveal"><code>double</code> — fractional precision matters</div>'+
+  '<div class="beat card"><h3>MEDICAL CLEARANCE</h3><p>yes / no</p></div>'+
+  '<div class="beat concept-reveal"><code>boolean</code> — two logical states</div>'+
+  '<div class="beat card"><h3>REGISTRATION CODE</h3><p>00042A</p></div>'+
+  '<div class="beat concept-reveal">reference/text category — it is an identifier, not a number to calculate with</div>',
+  'Require a reason after every choice. The reason is stronger evidence than the keyword.'));
+
+ s.push(slide('Hands-on: model a registration system',
+  '<p class="q">Choose a name, type, and sample value for each piece of information.</p>'+
+  '<div class="beat type-choice"><div class="type-label">1</div><div>age</div><div>?</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">2</div><div>qualifying time</div><div>?</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">3</div><div>has medical clearance</div><div>?</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">4</div><div>bib / registration code</div><div>?</div></div>'+
+  '<div class="beat conclusion"><p>For the primitive values, write valid Java declarations. Explain the non-obvious choice.</p></div>',
+  'The learner should write the primitive declarations. For the identifier, recognizing a reference/text type category is enough for this topic.'));
+
+ s.push(slide('AP Topic 1.2 — what matters',
+  '<div class="ap-scope"><b>MODEL</b><span>Choose an appropriate data-type category for the specification.</span><b>DECLARE</b><span>Write declarations using <code>int</code>, <code>double</code>, and <code>boolean</code>.</span><b>STATE</b><span>Understand a variable as named storage whose value can change during execution.</span><b>CATEGORIES</b><span>Distinguish primitive types from reference types.</span></div>'+
+  '<div class="beat conclusion"><p>The AP idea is not “memorize four words.” It is “choose a representation that matches the meaning of the data.”</p></div>',
+  'This mirrors Topic 1.2 while keeping later assignment and String-manipulation content out of scope.'));
+
+ s.push(slide('Exit check',
+  '<p class="q">One at a time.</p>'+
+  '<div class="beat card"><h3>01</h3><p>Why might <code>"007"</code> be a better model than the number <code>7</code>?</p></div>'+
+  '<div class="beat card"><h3>02</h3><p>What three facts does <code>double time = 37.8;</code> tell you?</p></div>'+
+  '<div class="beat card"><h3>03</h3><p>Which part of a variable may change while the program runs?</p></div>'+
+  '<div class="beat card"><h3>04</h3><p>Why can a type mismatch become a compiler-detectable error?</p></div>',
+  'The first question tests transfer and modeling; the others test the core mental model.'));
+
+ s.push(slide('Homework',
+  '<p class="big">For six pieces of real-world information, choose the most appropriate data type and justify the choice. Then write three valid Java declarations: one <code>int</code>, one <code>double</code>, and one <code>boolean</code>.</p>'+
+  '<div class="beat conclusion"><p>Include at least one value that <em>looks</em> numeric but should not be treated as a quantity.</p></div>',
+  'The non-obvious example forces the student to reason about meaning, not appearance.'));
+
+ s.push(slide('Free resources',resources(l.resources),'Stay within Topic 1.2 scope; String manipulation comes much later in Unit 1.'));
+ return s.join('');
+}
+
+function buildTopic13(l){
+ const s=[];
+ s.push(apCover(l,'1.3','Expressions<br>& Output','A longer expression is still driven by a small set of evaluation rules.','Topic 1.3 covers print/println, literals and the specified escape sequences, arithmetic operators, int/double arithmetic, integer division, remainder, precedence, and integer division by zero. Avoid String concatenation; that belongs to Topic 1.15.'));
+
+ s.push(slide('Memory is not output',
+  '<pre class="code"><span class="code-line">int laps = 12;</span><span class="code-line focus-line">System.out.println(laps);</span></pre>'+
+  '<p class="q">Before the second line executes, where does <code>12</code> exist? After it executes, what new thing becomes visible?</p>'+
+  '<div class="beat memory-board"><div class="name">laps</div><div class="value">12</div></div>'+
+  '<div class="beat console-box">12</div>'+
+  '<div class="beat conclusion"><p>A value can exist in program state without being visible. Output is how the program displays information.</p></div>',
+  'Keep MEMORY and OUTPUT visually distinct. This scene connects Topic 1.2 state to Topic 1.3 output.'));
+
+ s.push(slide('<code>print</code> and <code>println</code> change layout',
+  '<pre class="code"><span class="code-line">System.out.print("Ready");</span><span class="code-line">System.out.print("Go");</span></pre>'+
+  '<p class="q">Will the second word start on a new line?</p>'+
+  '<div class="beat console-box">ReadyGo</div>'+
+  '<div class="beat"><pre class="code"><span class="code-line">System.out.println("Ready");</span><span class="code-line">System.out.println("Go");</span></pre></div>'+
+  '<div class="beat console-box">Ready<br>Go</div>'+
+  '<div class="beat conclusion"><p><code>println</code> moves to a new line after displaying its value; <code>print</code> does not.</p></div>',
+  'The point is observable behavior, not memorizing method names in isolation.'));
+
+ s.push(slide('A literal is a value written directly in code',
+  '<p class="q">Which parts are fixed values written directly into these statements?</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">System.out.println(12);</span><span class="code-line">System.out.println("Ready");</span></pre></div>'+
+  '<div class="beat concept-reveal"><code>12</code> is a numeric literal.</div>'+
+  '<div class="beat concept-reveal"><code>"Ready"</code> is a string literal: characters enclosed in double quotes.</div>',
+  'A literal is code representation of a fixed value. This is the official concept; keep the examples concrete.'));
+
+ s.push(slide('Sometimes the character you want is also Java syntax',
+  '<p class="q">How could the program display the quotation marks around <code>Go!</code>?</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">System.out.println("Coach said: \\"Go!\\"");</span></pre></div>'+
+  '<div class="beat console-box">Coach said: "Go!"</div>'+
+  '<div class="beat"><pre class="code"><span class="code-line">System.out.println("Lap 1\\nLap 2");</span></pre></div>'+
+  '<div class="beat console-box">Lap 1<br>Lap 2</div>'+
+  '<div class="beat conclusion"><p>Escape sequences let special characters live inside a string literal. AP scope includes <code>\\"</code>, <code>\\\\</code>, and <code>\\n</code>.</p></div>',
+  'Do not introduce a catalog beyond the three escape sequences in the current CED.'));
+
+ s.push(slide('Expressions produce a value',
+  '<pre class="code"><span class="code-line">int sessions = 4;</span><span class="code-line">int minutes = 35;</span><span class="code-line focus-line">System.out.println(sessions * minutes);</span></pre>'+
+  '<p class="q">What value is produced by the expression before it is printed?</p>'+
+  '<div class="beat eval-step">sessions * minutes → 4 * 35</div>'+
+  '<div class="beat eval-step">4 * 35 → 140</div>'+
+  '<div class="beat console-box">140</div>'+
+  '<div class="beat conclusion"><p>An arithmetic expression combines values, variables, and operators to produce a numeric value.</p></div>',
+  'Separate evaluation from output: first the expression becomes a value; then println displays it.'));
+
+ s.push(slide('The operators are simple. Their interaction is not always obvious.',
+  '<p class="q">Without running it: does this print <code>20</code> or <code>14</code>?</p>'+
+  '<pre class="code"><span class="code-line focus-line">System.out.println(2 + 3 * 4);</span></pre>'+
+  '<div class="beat eval-step">3 * 4 → 12</div>'+
+  '<div class="beat eval-step">2 + 12 → 14</div>'+
+  '<div class="beat console-box">14</div>'+
+  '<div class="beat conclusion"><p><code>*</code>, <code>/</code>, and <code>%</code> have higher precedence than <code>+</code> and <code>-</code>.</p></div>',
+  'This is the “simple rule inside a complicated surface” pattern. Ask why 3*4 is grouped first.'));
+
+ s.push(slide('Parentheses change the grouping',
+  '<p class="q">Now what changes—and what rule stays the same?</p>'+
+  '<pre class="code"><span class="code-line focus-line">System.out.println((2 + 3) * 4);</span></pre>'+
+  '<div class="beat eval-step">(2 + 3) → 5</div>'+
+  '<div class="beat eval-step">5 * 4 → 20</div>'+
+  '<div class="beat console-box">20</div>'+
+  '<div class="beat conclusion"><p>Parentheses can override the default precedence.</p></div>',
+  'Change one thing from the previous scene. This makes the causal role of parentheses visible.'));
+
+ s.push(slide('Integer division can surprise you',
+  '<pre class="code"><span class="code-line">int total = 17;</span><span class="code-line">int groups = 5;</span><span class="code-line focus-line">System.out.println(total / groups);</span></pre>'+
+  '<p class="q">Will Java print <code>3.4</code>?</p>'+
+  '<div class="beat eval-step">17 / 5 → 3</div>'+
+  '<div class="beat console-box">3</div>'+
+  '<div class="beat conclusion"><p>When both operands are <code>int</code>, Java keeps only the integer portion of the quotient.</p></div>',
+  'The type rule from Topic 1.2 now drives expression behavior. This is intentional cross-topic transfer.'));
+
+ s.push(slide('Change one operand’s type',
+  '<pre class="code"><span class="code-line">double total = 17.0;</span><span class="code-line">int groups = 5;</span><span class="code-line focus-line">System.out.println(total / groups);</span></pre>'+
+  '<p class="q">Only one type changed. What will the result become?</p>'+
+  '<div class="beat eval-step">17.0 / 5 → 3.4</div>'+
+  '<div class="beat console-box">3.4</div>'+
+  '<div class="beat conclusion"><p>If at least one operand is <code>double</code>, the arithmetic result is a <code>double</code>.</p></div>',
+  'This scene should feel like an experiment: change one variable type, predict the new behavior, then reveal.'));
+
+ s.push(slide('Remainder answers a different question',
+  '<p class="q">Seventeen cones are packed into groups of five. After making all full groups, how many are left?</p>'+
+  '<pre class="code"><span class="code-line focus-line">System.out.println(17 % 5);</span></pre>'+
+  '<div class="beat eval-step">17 = 5 * 3 + 2</div>'+
+  '<div class="beat console-box">2</div>'+
+  '<div class="beat conclusion"><p><code>%</code> produces the remainder.</p></div>',
+  'Connect quotient and remainder to a physical interpretation. AP scope here uses positive dividend and positive divisor cases.'));
+
+ s.push(slide('Now combine the rules',
+  '<p class="q">This looks longer. Which small rules actually drive it?</p>'+
+  '<pre class="code"><span class="code-line focus-line">System.out.println(2 + 12 / 5 * 3);</span></pre>'+
+  '<div class="beat eval-step">12 / 5 → 2 <span class="muted">(int division)</span></div>'+
+  '<div class="beat eval-step">2 * 3 → 6 <span class="muted">(same precedence: left to right)</span></div>'+
+  '<div class="beat eval-step">2 + 6 → 8</div>'+
+  '<div class="beat console-box">8</div>'+
+  '<div class="beat conclusion"><p>The expression is longer, but nothing new happened: type rules + precedence + left-to-right evaluation.</p></div>',
+  'This is the core design philosophy in action: surface complexity, simple drivers.'));
+
+ s.push(slide('Topic 1.1 comes back',
+  '<pre class="code"><span class="code-line focus-line">System.out.println(10 / 0);</span></pre>'+
+  '<p class="q">Now that you understand integer division, why is this a run-time error rather than a syntax error?</p>'+
+  '<div class="beat error-box"><span class="error-badge">ArithmeticException</span><p>The statement follows Java syntax, but integer division by zero fails when execution reaches the operation.</p></div>'+
+  '<div class="beat conclusion"><p>A later concept can deepen an earlier mental model.</p></div>',
+  'This deliberately spirals Topic 1.1 run-time errors into Topic 1.3 arithmetic.'));
+
+ s.push(slide('Hands-on: predict, then verify',
+  '<p class="q">Do not run these until every result is committed on paper.</p>'+
+  '<div class="beat card"><h3>A</h3><p><code>18 / 4</code></p></div>'+
+  '<div class="beat card"><h3>B</h3><p><code>18.0 / 4</code></p></div>'+
+  '<div class="beat card"><h3>C</h3><p><code>18 % 4</code></p></div>'+
+  '<div class="beat card"><h3>D</h3><p><code>3 + 10 / 4 * 2</code></p></div>'+
+  '<div class="beat conclusion"><p>For each answer, name the rule that caused it.</p></div>',
+  'The reasoning label is essential: int division, double arithmetic, remainder, precedence/left-to-right.'));
+
+ s.push(slide('AP Topic 1.3 — what matters',
+  '<div class="ap-scope"><b>OUTPUT</b><span>Predict and create output with <code>print</code> and <code>println</code>.</span><b>LITERALS</b><span>Recognize fixed values, string literals, and the required escape sequences.</span><b>ARITHMETIC</b><span>Use <code>+ - * / %</code> with <code>int</code> and <code>double</code>.</span><b>EVALUATE</b><span>Apply integer-division rules, remainder, precedence, parentheses, and left-to-right evaluation.</span></div>',
+  'Do not introduce String concatenation here; the current CED places String combination in Topic 1.15.'));
+
+ s.push(slide('Exit check',
+  '<p class="q">One at a time.</p>'+
+  '<div class="beat card"><h3>01</h3><p>Why do <code>17 / 5</code> and <code>17.0 / 5</code> differ?</p></div>'+
+  '<div class="beat card"><h3>02</h3><p>What does <code>17 % 5</code> mean?</p></div>'+
+  '<div class="beat card"><h3>03</h3><p>Why is <code>2 + 3 * 4</code> not 20?</p></div>'+
+  '<div class="beat card"><h3>04</h3><p>Why is integer division by zero a run-time error?</p></div>',
+  'These questions deliberately connect types, expressions, precedence, and the previous error model.'));
+
+ s.push(slide('Homework',
+  '<p class="big">Predict and explain eight short Java expressions: include <code>int</code> division, one <code>double</code> operand, remainder, precedence, parentheses, and one integer divide-by-zero case. For each, write the rule that determines the result.</p>'+
+  '<div class="beat conclusion"><p>Do not just record answers. Record the <b>driver</b>.</p></div>',
+  'The homework is about causal rules, not volume.'));
+
+ s.push(slide('Free resources',resources(l.resources),'Use resources after predictions. Keep String concatenation for Topic 1.15.'));
+ return s.join('');
+}
+
+function buildWeek3Practice(l){
+ const s=[];
+ s.push(apCover(l,'1.1–1.3','Week 3 Practice','Can you find the simple rule inside a mixed problem?','This practice should not reteach the lessons. It should expose whether the learner can transfer the three mental models: execution/error stage, type/model choice, and expression evaluation.'));
+
+ s.push(slide('Challenge 1 — trace the path',
+  '<p class="q">A training plan says: check weather; if raining, choose indoor gear; otherwise choose track gear; then fill water and leave. Today it is dry.</p>'+
+  '<div class="beat flow-step">Check weather → track gear → water → leave</div>'+
+  '<div class="beat conclusion"><p>What simple concept lets you describe the actual run? <b>Sequencing along the chosen path.</b></p></div>'+
+  '<div class="beat scope-note">You are not being tested on Java conditionals yet.</div>',
+  'The surface includes a choice, but the required Week 3 insight is ordered execution.'));
+
+ s.push(slide('Challenge 2 — what kind of failure?',
+  '<p class="q">Classify each from evidence, not from memorized definitions.</p>'+
+  '<div class="beat card"><h3>A</h3><p>Compiler reports a missing semicolon.</p></div>'+
+  '<div class="beat concept-reveal">syntax</div>'+
+  '<div class="beat card"><h3>B</h3><p>Program runs but prints Stretch before Run, against the specification.</p></div>'+
+  '<div class="beat concept-reveal">logic</div>'+
+  '<div class="beat card"><h3>C</h3><p>Program begins, reaches <code>10 / 0</code>, and stops.</p></div>'+
+  '<div class="beat concept-reveal">run-time / exception</div>',
+  'Require the detection stage: compiler, testing/behavior, execution.'));
+
+ s.push(slide('Challenge 3 — choose the representation',
+  '<p class="q">A registration system needs these four pieces of information. Choose types and explain the non-obvious one.</p>'+
+  '<div class="beat type-choice"><div class="type-label">laps</div><div>12</div><div>?</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">time</div><div>37.8</div><div>?</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">qualified</div><div>true / false</div><div>?</div></div>'+
+  '<div class="beat type-choice"><div class="type-label">bib</div><div>007</div><div>?</div></div>'+
+  '<div class="beat conclusion"><p>The bib is the trap: appearance does not determine meaning. An identifier should not be modeled as a quantity merely because it contains digits.</p></div>',
+  'Look for reasoning: whole number → int; fractional number → double; two-state logic → boolean; identifier → reference/text category.'));
+
+ s.push(slide('Challenge 4 — a longer expression',
+  '<pre class="code"><span class="code-line focus-line">System.out.println(3 + 14 / 5 * 2);</span></pre>'+
+  '<p class="q">Do not calculate randomly. Name the rules first.</p>'+
+  '<div class="beat eval-step">14 / 5 → 2 <span class="muted">(int division)</span></div>'+
+  '<div class="beat eval-step">2 * 2 → 4 <span class="muted">(same precedence, left to right)</span></div>'+
+  '<div class="beat eval-step">3 + 4 → 7</div>'+
+  '<div class="beat console-box">7</div>',
+  'This is a transfer test: the expression looks longer than lesson examples, but no new rule is needed.'));
+
+ s.push(slide('Challenge 5 — change one thing',
+  '<p class="q">What if only <code>14</code> becomes <code>14.0</code>?</p>'+
+  '<pre class="code"><span class="code-line focus-line">System.out.println(3 + 14.0 / 5 * 2);</span></pre>'+
+  '<div class="beat eval-step">14.0 / 5 → 2.8</div>'+
+  '<div class="beat eval-step">2.8 * 2 → 5.6</div>'+
+  '<div class="beat eval-step">3 + 5.6 → 8.6</div>'+
+  '<div class="beat console-box">8.6</div>'+
+  '<div class="beat conclusion"><p>One type change can propagate through the entire expression.</p></div>',
+  'This connects Topic 1.2 type choice to Topic 1.3 arithmetic behavior.'));
+
+ s.push(slide('Build a tiny Java report',
+  '<p class="q">Write code that declares three primitive variables and prints three separate lines.</p>'+
+  '<div class="beat step-line"><span class="step-num">1</span><span class="step-text">an <code>int</code> for completed laps</span></div>'+
+  '<div class="beat step-line"><span class="step-num">2</span><span class="step-text">a <code>double</code> for race time</span></div>'+
+  '<div class="beat step-line"><span class="step-num">3</span><span class="step-text">a <code>boolean</code> for whether a goal was met</span></div>'+
+  '<div class="beat step-line"><span class="step-num">4</span><span class="step-text">use <code>println</code> to display each value on its own line</span></div>'+
+  '<div class="beat conclusion"><p>Stay inside Week 3 scope: declarations + output. No assignment updates, conditionals, or String concatenation needed.</p></div>',
+  'This is a genuine code-production task with a deliberate scope boundary.'));
+
+ s.push(slide('Error log',
+  '<p class="q">Choose the mistake that taught you the most.</p>'+
+  '<div class="beat step-line"><span class="step-num">1</span><span class="step-text">What did I predict?</span></div>'+
+  '<div class="beat step-line"><span class="step-num">2</span><span class="step-text">What rule did I forget or misuse?</span></div>'+
+  '<div class="beat step-line"><span class="step-num">3</span><span class="step-text">What evidence corrected me?</span></div>'+
+  '<div class="beat step-line"><span class="step-num">4</span><span class="step-text">What new example would test the same idea?</span></div>',
+  'The last prompt turns an error into a transfer problem.'));
+
+ s.push(slide('Week 3 exit',
+  '<p class="q">Can you connect all three topics?</p>'+
+  '<div class="beat conclusion"><p><b>1.1:</b> execution follows an algorithm; failures occur at different stages.</p></div>'+
+  '<div class="beat conclusion"><p><b>1.2:</b> types model what values mean and which operations fit them.</p></div>'+
+  '<div class="beat conclusion"><p><b>1.3:</b> expressions follow deterministic evaluation rules before output is displayed.</p></div>'+
+  '<div class="beat conclusion"><p>Longer code becomes manageable when you can identify which small rule is driving each part.</p></div>',
+  'This is the Week 3 north star. Ask the learner to give a fresh example for one of the three statements.'));
+
+ s.push(slide('Free resources',resources(l.resources),'Use practice resources to reinforce weak points discovered in the error log.'));
+ return s.join('');
+}
+
+
 function buildVariablesLesson(l){
   const currentIndex=D.lessons.findIndex(x=>x.id===l.id);
   const prev=currentIndex>0?D.lessons[currentIndex-1]:null;
@@ -828,7 +1256,10 @@ if(!L){
  else if(L.id==='f5') deck.innerHTML=buildInputDebugging(L);
  else if(L.id==='f6') deck.innerHTML=buildPythonChallenge(L);
  else if(L.id==='p-foundation-2') deck.innerHTML=buildFoundationPractice2(L);
- else if(L.id==='u1-2') deck.innerHTML=buildVariablesLesson(L);
+ else if(L.id==='u1-1') deck.innerHTML=buildTopic11(L);
+ else if(L.id==='u1-2') deck.innerHTML=buildTopic12(L);
+ else if(L.id==='u1-3') deck.innerHTML=buildTopic13(L);
+ else if(L.id==='p-1-1-1-3') deck.innerHTML=buildWeek3Practice(L);
  else deck.innerHTML=L.kind==='practice'?buildPractice(L):buildLesson(L);
 }
 
