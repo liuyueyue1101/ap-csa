@@ -699,172 +699,184 @@ function apCover(l,topic,title,subtitle,teacher){
 
 function buildTopic11(l){
  const s=[];
- s.push(apCover(l,'1.1','Algorithms, Programs<br>& Errors','A simple rule can still drive a path that looks more complicated.','Topic 1.1 requires everyday algorithms represented in words or diagrams, sequencing, compilation, and syntax/logic/run-time errors. Use the choice point only as a richer everyday algorithm; do not teach Java if syntax yet.'));
 
- s.push(slide('Bridge from the warm-up',
-  '<p class="q">Last week we used this workflow:</p>'+
-  '<div class="beat flow-step">Problem → Algorithm → Code → Test → Debug</div>'+
-  '<div class="beat conclusion"><p>Today we zoom in on two questions: <b>What is the algorithm?</b> And <b>what can go wrong between the idea and execution?</b></p></div>',
-  'Ask {{student}} to explain “algorithm” before revealing the second sentence. We are moving from an informal workflow to the AP Topic 1.1 definition.'));
+ s.push(apCover(
+  l,'1.1','Algorithms, Programs<br>& Errors',
+  'From an idea → to Java → to evidence about what went wrong.',
+  'Keep the algorithm portion short. This lesson should quickly move into real Java reading, compiling, error messages, and debugging. Every reveal must add a new reasoning step.'
+ ));
+
+ s.push(slide('Retrieve the workflow',
+  '<p class="q">Last week we used this workflow. What belongs in the missing middle?</p>'+
+  '<div class="flow-step">Problem → ? → Code → Test → Debug</div>'+
+  '<div class="beat concept-reveal">Problem → <b>Algorithm</b> → Code → Test → Debug</div>',
+  'One reveal only. This is retrieval, not a new lecture. Ask the student to explain algorithm in their own words.'
+ ));
 
  s.push(slide('A route with a choice',
-  '<p class="q">You are getting ready for training. It is raining. Which steps actually happen, and in what order?</p>'+
+  '<p class="q">It is raining today. Which path through this plan will actually happen?</p>'+
   '<div class="flowchart">'+
-    '<div class="flow-node active-path">Put on shoes</div><div class="flow-down">↓</div>'+
-    '<div class="flow-node active-path">Check weather</div><div class="flow-down">↓</div>'+
-    '<div class="flow-node choice active-path">Raining?</div>'+
+    '<div class="flow-node">Put on shoes</div><div class="flow-down">↓</div>'+
+    '<div class="flow-node">Check weather</div><div class="flow-down">↓</div>'+
+    '<div class="flow-node choice">Raining?</div>'+
     '<div class="flow-split">'+
-      '<div class="flow-branch"><span class="flow-label">YES</span><div class="flow-node active-path">Take indoor gear</div></div>'+
+      '<div class="flow-branch"><span class="flow-label">YES</span><div class="flow-node">Take indoor gear</div></div>'+
       '<div class="flow-branch"><span class="flow-label">NO</span><div class="flow-node">Take track bag</div></div>'+
     '</div>'+
     '<div class="flow-merge">↘ ↙</div>'+
-    '<div class="flow-node active-path">Fill water bottle</div><div class="flow-down">↓</div>'+
-    '<div class="flow-node active-path">Leave for training</div>'+
+    '<div class="flow-node">Fill water bottle</div><div class="flow-down">↓</div>'+
+    '<div class="flow-node">Leave for training</div>'+
   '</div>'+
-  '<div class="beat conclusion"><p>One run follows one specific path: shoes → weather → indoor gear → water → leave.</p></div>',
-  'Keep the trunk vertical until the real choice point. Because the condition is known to be raining, highlight the entire active path—not only the branch node. Do not teach Java if syntax yet.'));
+  '<div class="beat concept-reveal"><b>Actual path:</b> shoes → weather → indoor gear → water → leave</div>',
+  'The diagram is evidence, not the answer. Keep it neutral initially; do not highlight the active path before the student answers.'
+ ));
 
  s.push(slide('Change one fact',
-  '<p class="q">Tomorrow it is <b>not</b> raining. What changes? What stays in the same order?</p>'+
-  '<div class="beat flow-step">Shoes → weather → <span class="code-em">track bag</span> → water → leave</div>'+
-  '<div class="conclusion"><p>The surface path changed, but execution is still a sequence of steps completed one at a time.</p></div>'+
-  '<p class="scope-note">We will formally program choices with Java conditionals in Unit 2. Today the choice only helps us see sequencing more clearly.</p>',
-  'This is the abstraction move: vary one condition, then ask what invariant remains. The invariant is ordered execution along the chosen path.'));
+  '<p class="q">Tomorrow it is <b>not raining</b>. What changes? What stays the same?</p>'+
+  '<div class="beat concept-reveal"><b>Changed:</b> indoor gear → track bag<br><b>Stayed the same:</b> the execution still follows one ordered path, one step at a time.</div>',
+  'Do not repeat the full diagram. The learner already has it mentally. The point is to identify the invariant.'
+ ));
 
- s.push(slide('Now name the abstraction',
-  '<p class="q">What is common to both training-day paths?</p>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">An algorithm is a step-by-step process for completing a task or solving a problem.</div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">Sequencing is the order in which the steps are completed.</div>'+
-  '<div class="conclusion"><p>The definition arrives <em>after</em> the learner has already used it.</p></div>',
-  'These statements paraphrase the required Topic 1.1 knowledge. Do not require verbatim memorization; require a correct mental model and a new example.'));
+ s.push(slide('Now name the idea',
+  '<p class="q">What simple ideas explain both days?</p>'+
+  '<div class="beat concept-reveal"><p><b>Algorithm:</b> a step-by-step process for completing a task or solving a problem.</p><p><b>Sequencing:</b> the order in which the steps are completed.</p></div>',
+  'One reveal, one abstraction. Do not split the two definitions into separate clicks.'
+ ));
 
  s.push(slide('Same algorithm, different representation',
-  '<p class="q">Did the algorithm change, or only the way we represented it?</p>'+
-  '<div class="beat representation-grid">'+
+  '<p class="q">What stayed the same? What changed?</p>'+
+  '<div class="representation-grid">'+
     '<div class="representation-panel"><h3>WRITTEN LANGUAGE</h3><p>1. Put on shoes<br>2. Check weather<br>3. If raining, take indoor gear; otherwise take track bag<br>4. Fill water bottle<br>5. Leave for training</p></div>'+
     '<div class="representation-panel"><h3>DIAGRAM</h3>'+
       '<div class="flowchart compact">'+
         '<div class="flow-node">Put on shoes</div><div class="flow-down">↓</div>'+
         '<div class="flow-node">Check weather</div><div class="flow-down">↓</div>'+
         '<div class="flow-node choice">Raining?</div>'+
-        '<div class="flow-split"><div class="flow-branch"><span class="flow-label">YES</span><div class="flow-node">Indoor gear</div></div><div class="flow-branch"><span class="flow-label">NO</span><div class="flow-node">Track bag</div></div></div>'+
-        '<div class="flow-merge">↘ ↙</div><div class="flow-node">Fill water</div><div class="flow-down">↓</div><div class="flow-node">Leave</div>'+
+        '<div class="flow-split">'+
+          '<div class="flow-branch"><span class="flow-label">YES</span><div class="flow-node">Indoor gear</div></div>'+
+          '<div class="flow-branch"><span class="flow-label">NO</span><div class="flow-node">Track bag</div></div>'+
+        '</div>'+
+        '<div class="flow-merge">↘ ↙</div>'+
+        '<div class="flow-node">Fill water</div><div class="flow-down">↓</div><div class="flow-node">Leave</div>'+
       '</div>'+
     '</div>'+
   '</div>'+
-  '<div class="conclusion"><p><b>Same algorithm.</b> The steps, order, and choice are preserved; only the representation changed.</p></div>',
-  'Make the comparison visual. Ask the learner to point to the same decision and merge in both representations.'));
+  '<div class="beat concept-reveal"><b>Same algorithm.</b> The representation changed; the steps, order, and choice did not.</div>',
+  'The two representations must be visible before asking the comparison. The answer is the only reveal.'
+ ));
 
- s.push(slide('An idea is not yet executable Java',
-  '<p class="q">A human can understand “warm up, run, stretch.” Can Java execute that English sentence directly?</p>'+
-  '<div class="conclusion"><p>No. A program expresses instructions using the rules of a programming language.</p></div>'+
-  '<pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line">System.out.println("Run 3 laps");</span><span class="code-line">System.out.println("Stretch");</span></pre>'+
-  '<div class="conclusion"><p>The Java statements are executable instructions that produce this visible sequence.</p></div>',
-  'Keep this page static. Its job is only to bridge the algorithm idea into real Java syntax; there is no useful reveal sequence here.'));
+ s.push(slide('Now look at real Java',
+  '<pre class="code"><span class="code-line">public class TrainingApp {</span><span class="code-line">    public static void main(String[] args) {</span><span class="code-line">        System.out.println("Ready to train.");</span><span class="code-line">    }</span><span class="code-line">}</span></pre>'+
+  '<p class="q">Without explaining every symbol: which line do you think produces visible output?</p>'+
+  '<div class="beat concept-reveal"><code>System.out.println("Ready to train.");</code></div>',
+  'This is the first real Java reading scene. Do not teach every keyword. Let familiarity build before formal explanations later.'
+ ));
 
- s.push(slide('The compiler is a gate—not a mind reader',
+ s.push(slide('Read the structure, not every keyword',
+  '<pre class="code"><span class="code-line">public class TrainingApp {</span><span class="code-line">    public static void main(String[] args) {</span><span class="code-line">        System.out.println("Ready to train.");</span><span class="code-line">    }</span><span class="code-line">}</span></pre>'+
+  '<p class="q">Find these three things in the code.</p>'+
+  '<div class="practice-grid"><div class="practice-item"><h3>1</h3><p>the class name</p></div><div class="practice-item"><h3>2</h3><p>where this simple program begins executing</p></div><div class="practice-item"><h3>3</h3><p>the statement that prints</p></div></div>'+
+  '<div class="beat"><div class="practice-answer-grid"><div><b>Class name</b><span>TrainingApp</span></div><div><b>Entry point</b><span>main</span></div><div><b>Output statement</b><span>System.out.println(...)</span></div></div></div>',
+  'Let the student point at the code first. Reveal the answer panel once. Do not make three nearly identical clicks.'
+ ));
+
+ s.push(slide('Edit → compile → run',
+  '<p class="q">If we change only the message to <code>"Ready for competition."</code>, what must happen before we see the new output?</p>'+
+  '<div class="flow-step">Edit source → compile again → run again</div>'+
+  '<div class="beat conclusion"><p>The compiler checks whether the source follows Java rules before execution can proceed.</p></div>',
+  'This retrieves Week 1 and attaches it to a real Java program. One reveal is enough.'
+ ));
+
+ s.push(slide('Syntax error: the compiler can stop us',
   '<pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line focus-line">System.out.println("Run 3 laps")</span><span class="code-line">System.out.println("Stretch");</span></pre>'+
-  '<p class="q">Before this program runs, what problem can the compiler notice?</p>'+
-  '<div class="beat error-box"><span class="error-badge">SYNTAX ERROR</span><p>The second statement does not follow Java syntax: the semicolon is missing.</p></div>'+
-  '<div class="conclusion"><p>Compiler-detectable errors must be fixed before execution.</p></div>',
-  'Connect to Week 1 compilation. A syntax error violates language rules; the compiler can detect it.'));
+  '<p class="q">What looks suspicious before we even compile?</p>'+
+  '<div class="beat error-box"><span class="error-badge">SYNTAX ERROR</span><p>The second statement is missing <code>;</code>. The compiler can detect this before the program runs.</p></div>',
+  'Ask the student to inspect punctuation first. The reveal adds the error category and compiler stage.'
+ ));
 
- s.push(slide('The compiler can be happy—and the program can be wrong',
-  '<p class="q">Suppose the intended order is <b>warm up → run → stretch</b>. What is wrong here?</p>'+
-  '<pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line focus-line">System.out.println("Stretch");</span><span class="code-line">System.out.println("Run 3 laps");</span></pre>'+
+ s.push(slide('Logic error: valid Java can still be wrong',
+  '<p class="q">The intended order is <b>warm up → run → stretch</b>. Does this program match the plan?</p>'+
+  '<pre class="code"><span class="code-line">System.out.println("Warm up");</span><span class="code-line">System.out.println("Stretch");</span><span class="code-line">System.out.println("Run 3 laps");</span></pre>'+
   '<div class="beat console-box">Warm up<br>Stretch<br>Run 3 laps</div>'+
-  '<div class="beat error-box"><span class="error-badge">LOGIC ERROR</span><p>The code follows Java rules and runs, but its behavior does not match the intended algorithm.</p></div>'+
-  '<div class="conclusion"><p>Testing compares <b>expected</b> behavior with <b>actual</b> behavior.</p></div>',
-  'This is where sequencing becomes meaningful rather than trivial: order is judged against an intended algorithm. The compiler cannot infer the programmer’s intent.'));
+  '<div class="beat error-box"><span class="error-badge">LOGIC ERROR</span><p>The code compiles and runs, but its behavior does not match the intended algorithm.</p></div>',
+  'Two meaningful reveals: first observe actual behavior, then classify why that behavior is wrong.'
+ ));
 
- s.push(slide('Some problems appear only during execution',
+ s.push(slide('Run-time error: the problem appears during execution',
   '<pre class="code"><span class="code-line focus-line">System.out.println(10 / 0);</span></pre>'+
-  '<p class="q">Java can parse this statement. What happens only when execution reaches it?</p>'+
-  '<div class="beat error-box"><span class="error-badge">RUN-TIME ERROR</span><p>Integer division by zero causes an <code>ArithmeticException</code> while the program is running.</p></div>'+
-  '<div class="conclusion"><p>Run-time errors occur during execution and can stop the program abnormally.</p></div>',
-  'Do not teach division rules yet; Topic 1.3 will. Here the line is evidence for *when* a run-time error occurs.'));
+  '<p class="q">The statement follows Java syntax. What kind of failure appears only when execution reaches it?</p>'+
+  '<div class="beat error-box"><span class="error-badge">RUN-TIME ERROR</span><p>Integer division by zero causes an <code>ArithmeticException</code> while the program is running.</p></div>',
+  'Only one reveal. Topic 1.3 will later explain division in detail; here the focus is when the failure occurs.'
+ ));
 
  s.push(slide('Three failure stages',
-  '<p class="q">Where would you look first?</p>'+
-  '<div class="stage-strip"><div><b>Before run</b><span>Compiler rejects Java syntax.</span></div><div><b>Program runs</b><span>Testing reveals behavior does not match intent.</span></div><div><b>During run</b><span>An unexpected execution problem interrupts the program.</span></div></div>'+
+  '<p class="q">Use the stage to decide where to look first.</p>'+
+  '<div class="stage-strip"><div><b>Before run</b><span>Compiler rejects invalid Java syntax.</span></div><div><b>Program runs</b><span>Testing reveals behavior that does not match intent.</span></div><div><b>During run</b><span>An execution problem interrupts the program.</span></div></div>'+
   '<div class="stage-strip"><div><span class="error-badge">SYNTAX</span></div><div><span class="error-badge">LOGIC</span></div><div><span class="error-badge">RUN-TIME</span></div></div>',
-  'The classification should follow evidence and timing, not memorized wording.'));
+  'Static summary. No reveal. This page is for comparison, so the whole table must be visible together.'
+ ));
 
- s.push(slide('Error detective',
-  '<p class="q">Classify each case before revealing the answer.</p>'+
-  '<div class="card"><h3>A</h3><p>A semicolon is missing and the compiler refuses to build.</p></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">A → syntax error</div>'+
-  '<div class="card"><h3>B</h3><p>The program prints Stretch before Run, although the intended algorithm says the opposite.</p></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">B → logic error</div>'+
-  '<div class="card"><h3>C</h3><p>The program starts, reaches integer division by zero, and stops.</p></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">C → run-time error / exception</div>',
-  'Ask “what evidence tells you?” after every classification.'));
+ s.push(slide('Practice 1 — compile or fix?',
+  '<p class="practice-kicker">IN-CLASS PRACTICE</p>'+
+  '<p class="q">For each line: compile or fail? If it fails, what is the smallest fix?</p>'+
+  '<div class="practice-grid">'+
+    '<div class="practice-item"><h3>A</h3><pre class="code">System.out.println("Ready")</pre></div>'+
+    '<div class="practice-item"><h3>B</h3><pre class="code">system.out.println("Ready");</pre></div>'+
+    '<div class="practice-item"><h3>C</h3><pre class="code">System.out.println("Ready);</pre></div>'+
+  '</div>'+
+  '<div class="beat"><div class="practice-answer-grid"><div><b>A</b><span>Add <code>;</code></span></div><div><b>B</b><span><code>System</code> needs a capital S</span></div><div><b>C</b><span>Add the closing quote</span></div></div></div>',
+  'All questions are visible at once. The student answers all three first. Then reveal one answer panel once.'
+ ));
 
- s.push(slide('Practice — find the part that actually runs',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 1</p>'+
-  '<pre class="code"><span class="code-line">public class TrainingApp {</span><span class="code-line">    public static void main(String[] args) {</span><span class="code-line focus-line">        System.out.println("Ready");</span><span class="code-line">    }</span><span class="code-line">}</span></pre>'+
-  '<p class="q">Three questions. Answer before revealing.</p>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">Class name → <code>TrainingApp</code></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">Execution begins in → <code>main</code></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">Visible output is produced by → <code>System.out.println(...)</code></div>',
-  'The student does not need to explain every keyword yet. The goal is early Java familiarity: recognize the class name, main entry point, and executable print statement.'));
-
- s.push(slide('Practice — compile or fix?',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 2</p>'+
-  '<p class="q">For each line, predict whether it compiles. If not, identify the smallest fix.</p>'+
-  '<div class="practice-item"><h3>A</h3><pre class="code">System.out.println("Ready")</pre></div>'+
-  '<div class="beat answer-tag" data-reveal-group="answers">A → add <code>;</code></div>'+
-  '<div class="practice-item"><h3>B</h3><pre class="code">system.out.println("Ready");</pre></div>'+
-  '<div class="beat answer-tag" data-reveal-group="answers">B → <code>System</code> needs a capital S</div>'+
-  '<div class="practice-item"><h3>C</h3><pre class="code">System.out.println("Ready);</pre></div>'+
-  '<div class="beat answer-tag" data-reveal-group="answers">C → add the closing quote</div>',
-  'Do not let this become syntax trivia. After each answer, ask what clue made the student suspicious: punctuation, capitalization, or paired quotes.'));
-
- s.push(slide('Practice — read the compiler message',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 3</p>'+
+ s.push(slide('Practice 2 — read the compiler message',
+  '<p class="practice-kicker">IN-CLASS PRACTICE</p>'+
   '<div class="compiler-message">TrainingApp.java:4: error: unclosed string literal\n    System.out.println("Ready);\n                       ^\n1 error</div>'+
-  '<p class="q">Before fixing the code, what information can we extract from this message?</p>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">File → <code>TrainingApp.java</code></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">Start looking near → line 4</div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">Message clue → <code>unclosed string literal</code></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">Caret clue → look near the quotation mark</div>',
-  'Model the habit of reading the message before editing. The reported line is a starting point, not a guarantee that the actual mistake begins there.'));
+  '<p class="q">Before fixing anything, what useful clues can you extract?</p>'+
+  '<div class="beat"><div class="practice-answer-grid"><div><b>File</b><span>TrainingApp.java</span></div><div><b>Start looking near</b><span>line 4</span></div><div><b>Message</b><span>unclosed string literal</span></div><div><b>Caret</b><span>look near the quotation mark</span></div></div></div>',
+  'The answer panel appears once after discussion. The habit is: read evidence before editing.'
+ ));
 
- s.push(slide('Practice — comments or instructions?',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 4</p>'+
+ s.push(slide('Practice 3 — comments or instructions?',
+  '<p class="practice-kicker">IN-CLASS PRACTICE</p>'+
   '<pre class="code"><span class="code-line">// Today\'s message</span><span class="code-line">System.out.println("Train smart");</span><span class="code-line">// System.out.println("Extra");</span></pre>'+
   '<p class="q">Exactly what will appear in OUTPUT?</p>'+
   '<div class="beat console-box">Train smart</div>'+
-  '<div class="conclusion"><p>Comments help humans read the source; they are not executed as program instructions.</p></div>',
-  'This is a light first exposure to comments, matching Topic 1.1 material without turning it into the later documentation lesson.'));
+  '<div class="conclusion"><p>Comments help humans read source code; they are not executed as program instructions.</p></div>',
+  'One prediction, one output reveal. Keep the explanation visible after the answer.'
+ ));
 
- s.push(slide('Practice — one program, two bugs',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 5</p>'+
+ s.push(slide('Practice 4 — one program, two bugs',
+  '<p class="practice-kicker">IN-CLASS PRACTICE</p>'+
   '<pre class="code"><span class="code-line">public class Warmup {</span><span class="code-line">  public static void main(String[] args) {</span><span class="code-line focus-line">    system.out.println("Start")</span><span class="code-line">  }</span><span class="code-line">}</span></pre>'+
-  '<p class="q">Find one problem. Fix it mentally. Then look again—there is another.</p>'+
-  '<div class="beat concept-reveal">First clue: <code>system</code> → <code>System</code></div>'+
-  '<div class="beat concept-reveal">Second clue: the print statement still needs <code>;</code></div>'+
-  '<div class="beat conclusion"><p>One compiler fix can reveal another problem. That is normal debugging.</p></div>',
-  'This mirrors a real debugging experience: errors can be layered. Praise systematic inspection rather than speed.'));
+  '<p class="q">Find one problem. Mentally fix it. Then inspect the same line again.</p>'+
+  '<div class="beat concept-reveal">First: <code>system</code> → <code>System</code></div>'+
+  '<div class="beat concept-reveal">Then: the statement still needs <code>;</code></div>'+
+  '<div class="conclusion"><p>Debugging is iterative: one fix can expose the next problem.</p></div>',
+  'Two reveals are justified here because the learning goal is iterative debugging: fix one, then re-inspect.'
+ ));
 
  s.push(slide('AP Topic 1.1 — what matters',
-  '<div class="ap-scope"><b>REPRESENT</b><span>Describe everyday algorithms with written language or diagrams.</span><b>SEQUENCE</b><span>Reason about the order in which steps occur.</span><b>COMPILE</b><span>Explain the write / compile / run relationship and the compiler’s role.</span><b>ERRORS</b><span>Distinguish syntax, logic, and run-time errors from evidence.</span></div>'+
-  '<div class="conclusion"><p>The goal is not a vocabulary list. It is knowing <b>where</b> a failure belongs in the path from intent to execution.</p></div>',
-  'This scene mirrors the official Topic 1.1 scope without copying its wording.'));
+  '<div class="ap-scope"><b>REPRESENT</b><span>Describe everyday algorithms with written language or diagrams.</span><b>SEQUENCE</b><span>Reason about the order in which steps occur.</span><b>COMPILE</b><span>Connect source code, compilation, and execution.</span><b>ERRORS</b><span>Distinguish syntax, logic, and run-time errors from evidence.</span></div>'+
+  '<div class="conclusion"><p>The goal is not a vocabulary list. It is knowing what the program is trying to do, what Java actually does, and where a failure belongs.</p></div>',
+  'Static scope summary. Do not reveal this table piece by piece.'
+ ));
 
  s.push(slide('Exit check',
-  '<p class="q">One question at a time.</p>'+
-  '<div class="beat card"><h3>01</h3><p>Why can two different paths still illustrate sequencing?</p></div>'+
-  '<div class="beat card"><h3>02</h3><p>Why can a compiler detect a syntax error but miss a logic error?</p></div>'+
-  '<div class="beat card"><h3>03</h3><p>A program starts and then crashes. Which error category should you consider first?</p></div>',
-  'The strongest answer uses cause and evidence, not only the category name.'));
+  '<p class="q">Answer without notes.</p>'+
+  '<div class="cards"><div class="card"><h3>01</h3><p>Why can a compiler catch a syntax error but miss a logic error?</p></div><div class="card"><h3>02</h3><p>A program begins running and then stops abnormally. Which error category should you investigate first?</p></div><div class="card"><h3>03</h3><p>In the Java skeleton, what are the class name, <code>main</code>, and <code>println</code> doing at a practical level?</p></div></div>',
+  'No answers on the slide. This is assessment, so keep the prompts visible together and listen for causal explanations.'
+ ));
 
  s.push(slide('Homework',
-  '<p class="big">Draw one everyday algorithm that contains a small choice. Trace two possible paths. Then write one example each of a syntax, logic, and run-time error and explain <b>when</b> each would be discovered.</p>'+
-  '<div class="beat conclusion"><p>No Java conditional syntax is required yet.</p></div>',
-  'This homework checks representation + error classification without jumping ahead to Unit 2.'));
+  '<p class="big">Create one tiny Java program that prints two lines. Then deliberately make two different syntax mistakes, compile each version, and record the most useful clue from the compiler message.</p>'+
+  '<div class="scope-note">Also write one example of a logic error that would still compile.</div>',
+  'The homework now reinforces actual Java familiarity and compiler-reading habits instead of repeating the training-route diagram.'
+ ));
 
- s.push(slide('Free resources',resources(l.resources),'Use the official CED as the scope check; use free resources for reinforcement after the lesson.'));
+ s.push(slide('Free resources',resources(l.resources),
+  'Use the current CED as the scope check. CSAwesome and the linked free videos are reinforcement after the student has attempted the lesson activities.'
+ ));
+
  return s.join('');
 }
 
