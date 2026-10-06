@@ -279,3 +279,24 @@ span.beat.revealed{display:inline}
 .practice-answer-grid b{display:block;font-size:13px;letter-spacing:.08em;color:var(--output);margin-bottom:6px}
 .practice-answer-grid span{display:block;font-size:clamp(21px,1.9vw,29px);line-height:1.35}
 @media(max-width:800px){.practice-answer-grid{grid-template-columns:1fr}}
+
+/* Topic 1.1 branch reveal: let the diagram itself show the chosen path. */
+.rain-route{position:relative}
+.rain-route .rain-active,
+.rain-route .rain-inactive{transition:opacity .24s ease,border-color .24s ease,background .24s ease,color .24s ease}
+.rain-route .branch-answer{position:absolute;width:0;height:0;overflow:hidden;padding:0;margin:0}
+.rain-route:has(.branch-answer.revealed) .rain-inactive{opacity:.22}
+.rain-route:has(.branch-answer.revealed) .flow-node.rain-active,
+.rain-route:has(.branch-answer.revealed) .rain-active .flow-node{
+  border-color:var(--success);
+  background:#f1f8f4;
+}
+.rain-route:has(.branch-answer.revealed) .rain-active.flow-down,
+.rain-route:has(.branch-answer.revealed) .flow-merge .rain-active,
+.rain-route:has(.branch-answer.revealed) .rain-active .flow-label{
+  color:var(--success);
+}
+.rain-route:has(.branch-answer.revealed) .flow-node.choice.rain-active{
+  border-color:var(--success);
+  background:#f1f8f4;
+}
