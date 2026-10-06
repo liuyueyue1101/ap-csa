@@ -273,3 +273,9 @@ span.beat.revealed{display:inline}
  .flow-node{min-width:min(360px,100%)}
  .flow-merge{transform:rotate(90deg);letter-spacing:0;margin:4px 0}
 }
+
+.practice-answer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:18px}
+.practice-answer-grid>div{background:var(--output-soft);padding:14px 16px}
+.practice-answer-grid b{display:block;font-size:13px;letter-spacing:.08em;color:var(--output);margin-bottom:6px}
+.practice-answer-grid span{display:block;font-size:clamp(21px,1.9vw,29px);line-height:1.35}
+@media(max-width:800px){.practice-answer-grid{grid-template-columns:1fr}}
