@@ -715,20 +715,20 @@ function buildTopic11(l){
 
  s.push(slide('A route with a choice',
   '<p class="q">It is raining today. Which path through this plan will actually happen?</p>'+
-  '<div class="flowchart">'+
-    '<div class="flow-node">Put on shoes</div><div class="flow-down">↓</div>'+
-    '<div class="flow-node">Check weather</div><div class="flow-down">↓</div>'+
-    '<div class="flow-node choice">Raining?</div>'+
+  '<div class="flowchart rain-route">'+
+    '<div class="flow-node rain-active">Put on shoes</div><div class="flow-down rain-active">↓</div>'+
+    '<div class="flow-node rain-active">Check weather</div><div class="flow-down rain-active">↓</div>'+
+    '<div class="flow-node choice rain-active">Raining?</div>'+
     '<div class="flow-split">'+
-      '<div class="flow-branch"><span class="flow-label">YES</span><div class="flow-node">Take indoor gear</div></div>'+
-      '<div class="flow-branch"><span class="flow-label">NO</span><div class="flow-node">Take track bag</div></div>'+
+      '<div class="flow-branch rain-active"><span class="flow-label">YES</span><div class="flow-node">Take indoor gear</div></div>'+
+      '<div class="flow-branch rain-inactive"><span class="flow-label">NO</span><div class="flow-node">Take track bag</div></div>'+
     '</div>'+
-    '<div class="flow-merge">↘ ↙</div>'+
-    '<div class="flow-node">Fill water bottle</div><div class="flow-down">↓</div>'+
-    '<div class="flow-node">Leave for training</div>'+
-  '</div>'+
-  '<div class="beat concept-reveal"><b>Actual path:</b> shoes → weather → indoor gear → water → leave</div>',
-  'The diagram is evidence, not the answer. Keep it neutral initially; do not highlight the active path before the student answers.'
+    '<div class="flow-merge"><span class="rain-active">↘</span><span class="rain-inactive">↙</span></div>'+
+    '<div class="flow-node rain-active">Fill water bottle</div><div class="flow-down rain-active">↓</div>'+
+    '<div class="flow-node rain-active">Leave for training</div>'+
+    '<span class="beat branch-answer" aria-hidden="true"></span>'+
+  '</div>',
+  'Ask first. On reveal, the YES route becomes visually dominant and the NO route fades. Do not add a second textual answer underneath—the diagram itself should carry the meaning.'
  ));
 
  s.push(slide('Change one fact',
