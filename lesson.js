@@ -897,11 +897,15 @@ function buildTopic12(l){
  ));
 
  s.push(slide('What is a variable?',
-  '<p class="q">Suppose the program is keeping track of a score.</p>'+
-  '<div class="memory-board"><div class="name">score</div><div class="value">12</div></div>'+
-  '<div class="beat concept-reveal"><p>A <b>variable</b> is a storage location that holds a value. The value can change while the program is running.</p></div>'+
-  '<div class="beat variable-profile"><div class="name">name</div><div class="value">score</div><div class="name">data type</div><div class="value">int</div><div class="name">current value</div><div class="value">12</div></div>',
-  'Do not stop at “a box.” Make the three-part model explicit: storage/value, name, associated data type. This matches the current AP definition.'
+  '<p class="q">A program needs to remember a score of <code>12</code>. What identifies the stored value—and what else does Java need to know?</p>'+
+  '<div class="topic12-variable-card">'+
+    '<div class="topic12-variable-card-title">ONE VARIABLE IN MEMORY</div>'+
+    '<div class="topic12-variable-row"><span>name</span><strong>score</strong></div>'+
+    '<div class="topic12-variable-row"><span>current value</span><strong>12</strong></div>'+
+    '<div class="beat topic12-variable-row topic12-variable-type-row" data-reveal-group="variable-model"><span>data type</span><strong>int <small>(whole-number values)</small></strong></div>'+
+  '</div>'+
+  '<div class="beat conclusion" data-reveal-group="variable-model"><p>A <b>variable</b> is named storage with an associated <b>data type</b>. Its stored value can change as the program runs.</p></div>',
+  'Initial view: one memory representation, showing only name and stored value. Ask what the name identifies and whether Java can store just any kind of value there. Reveal once: a type row is added to THE SAME memory view, together with the single concise definition. Never display a second duplicate table. The next slide explains WHY types matter.'
  ));
 
  s.push(slide('Why does a variable need a type?',
