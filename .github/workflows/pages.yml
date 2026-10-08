@@ -31,7 +31,9 @@ jobs:
       - name: Audit all lesson reveal states
         run: node scripts/lesson-quality-check.cjs
       - name: Test browser reveal states
-        run: node scripts/browser-quality-check.cjs
+        run: |
+          node scripts/browser-quality-check.cjs u1-2
+          node scripts/browser-quality-check.cjs u1-3
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload site
