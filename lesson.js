@@ -1094,174 +1094,225 @@ function buildTopic12(l){
 
 function buildTopic13(l){
  const s=[];
- s.push(apCover(l,'1.3','Expressions<br>& Output','A longer expression is still driven by a small set of evaluation rules.','Topic 1.3 covers print/println, literals and the specified escape sequences, arithmetic operators, int/double arithmetic, integer division, remainder, precedence, and integer division by zero. Avoid String concatenation; that belongs to Topic 1.15.'));
+ s.push(apCover(l,'1.3','Expressions<br>& Output',
+   'Predict exactly what Java prints—and explain the rule behind it.',
+   'Reference alignment: CSAwesome 1.3.1 Output, 1.3.2 Expressions/Operators, 1.3.3 Compound Expressions, 1.3.4 Remainder, 1.3.5 Pay Calculator, 1.3.7 AP Practice. Official objectives 1.3.A/B/C. The order is adapted for learning, not copied. Explicitly exclude Topic 1.4 assignment, Topic 1.5 casting, Topic 1.15 concatenation.'
+ ));
 
- s.push(slide('Memory is not output',
-  '<pre class="code"><span class="code-line">int laps = 12;</span><span class="code-line focus-line">System.out.println(laps);</span></pre>'+
-  '<p class="q">Before the second line executes, where does <code>12</code> exist? After it executes, what new thing becomes visible?</p>'+
-  '<div class="beat memory-board"><div class="name">laps</div><div class="value">12</div></div>'+
-  '<div class="beat console-box">12</div>'+
-  '<div class="beat conclusion"><p>A value can exist in program state without being visible. Output is how the program displays information.</p></div>',
-  'Keep MEMORY and OUTPUT visually distinct. This scene connects Topic 1.2 state to Topic 1.3 output.'));
+ // Output and string literals (reference 1.3.1).
+ s.push(slide('What exactly appears on the screen?',
+  '<pre class="code"><span class="code-line">System.out.print("Ready ");</span><span class="code-line">System.out.println("Go");</span><span class="code-line">System.out.print("Again");</span></pre>'+
+  '<p class="q">Predict the exact output, including spaces and line breaks.</p>'+
+  '<div class="beat console-box">Ready Go<br>Again</div>',
+  'First require an exact prediction. Then reveal actual OUTPUT. Ask which statement moved to the next line: println prints then advances; print does not.'
+ ));
 
- s.push(slide('<code>print</code> and <code>println</code> change layout',
-  '<pre class="code"><span class="code-line">System.out.print("Ready");</span><span class="code-line">System.out.print("Go");</span></pre>'+
-  '<p class="q">Will the second word start on a new line?</p>'+
-  '<div class="beat console-box">ReadyGo</div>'+
-  '<div class="beat"><pre class="code"><span class="code-line">System.out.println("Ready");</span><span class="code-line">System.out.println("Go");</span></pre></div>'+
-  '<div class="beat console-box">Ready<br>Go</div>'+
-  '<div class="beat conclusion"><p><code>println</code> moves to a new line after displaying its value; <code>print</code> does not.</p></div>',
-  'The point is observable behavior, not memorizing method names in isolation.'));
+ s.push(slide('Why are <code>print</code> and <code>println</code> different?',
+  '<div class="lesson13-comparison"><div><h3>System.out.print(value)</h3><p>Displays the value; stays on the current line.</p></div>'+
+  '<div><h3>System.out.println(value)</h3><p>Displays the value; then starts a new line.</p></div></div>'+
+  '<p class="scope-note">The program can run several statements without showing anything extra between them. Line breaks are part of output behavior.</p>',
+  'Static concept consolidation—not an unnecessary second reveal of the same output. This is the precise rule students use in the next edit exercise.'
+ ));
 
- s.push(slide('A literal is a value written directly in code',
-  '<p class="q">Which parts are fixed values written directly into these statements?</p>'+
-  '<div class=""><pre class="code"><span class="code-line">System.out.println(12);</span><span class="code-line">System.out.println("Ready");</span></pre></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers"><code>12</code> is a numeric literal.</div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers"><code>"Ready"</code> is a string literal: characters enclosed in double quotes.</div>',
-  'A literal is code representation of a fixed value. This is the official concept; keep the examples concrete.'));
+ s.push(slide('Edit one method; keep three statements',
+  '<pre class="code"><span class="code-line">System.out.print("Hi ");</span><span class="code-line focus-line">System.out.println("there");</span><span class="code-line">System.out.print("!");</span></pre>'+
+  '<p class="q">Make the output exactly <code>Hi there!</code> on ONE line. Change as little as possible.</p>'+
+  '<div class="beat"><p class="practice-kicker">SMALLEST FIX</p><pre class="code"><span class="code-line focus-line">System.out.print("there");</span></pre><p>Remove only the newline caused by the middle <code>println</code>.</p></div>',
+  'Adapted from CSAwesome Activity 1.3.1. Ask the student to specify which single method to change before reveal. Do not reveal a duplicate full program.'
+ ));
 
- s.push(slide('Sometimes the character you want is also Java syntax',
-  '<p class="q">How could the program display the quotation marks around <code>Go!</code>?</p>'+
-  '<div class="beat"><pre class="code"><span class="code-line">System.out.println("Coach said: \\"Go!\\"");</span></pre></div>'+
-  '<div class="beat console-box">Coach said: "Go!"</div>'+
-  '<div class="beat"><pre class="code"><span class="code-line">System.out.println("Lap 1\\nLap 2");</span></pre></div>'+
-  '<div class="beat console-box">Lap 1<br>Lap 2</div>'+
-  '<div class="beat conclusion"><p>Escape sequences let special characters live inside a string literal. AP scope includes <code>\\"</code>, <code>\\\\</code>, and <code>\\n</code>.</p></div>',
-  'Do not introduce a catalog beyond the three escape sequences in the current CED.'));
+ s.push(slide('What is a literal?',
+  '<pre class="code"><span class="code-line">System.out.println(7 + 8);</span><span class="code-line">System.out.println("7 + 8");</span></pre>'+
+  '<p class="q">The characters look similar. Will the outputs be identical?</p>'+
+  '<div class="beat"><div class="lesson13-output-pair"><div><span>FIRST LINE</span><strong>15</strong></div><div><span>SECOND LINE</span><strong>7 + 8</strong></div></div><p>A <b>literal</b> is a fixed value written in source code. Double quotes create a <b>string literal</b> (text), not a calculation.</p></div>',
+  'One reveal adds the contrast and the concept. This lays groundwork for String literals without teaching concatenation.'
+ ));
 
- s.push(slide('Expressions produce a value',
-  '<pre class="code"><span class="code-line">int sessions = 4;</span><span class="code-line">int minutes = 35;</span><span class="code-line focus-line">System.out.println(sessions * minutes);</span></pre>'+
-  '<p class="q">What value is produced by the expression before it is printed?</p>'+
+ s.push(slide('Special characters inside a String literal',
+  '<p class="q">How can source code represent a quote, a backslash, or a line break as <b>text</b>?</p>'+
+  '<div class="lesson13-escape-list">'+
+  '<div><code>\\"</code><span>one quotation mark</span></div>'+
+  '<div><code>\\\\</code><span>one backslash</span></div>'+
+  '<div><code>\\n</code><span>one new line</span></div>'+
+  '</div>'+
+  '<p class="scope-note">These are the three escape sequences required in AP CSA Topic 1.3.</p>',
+  'Static reference table, not a three-click reveal. An escape sequence begins with backslash inside a Java string literal.'
+ ));
+
+ s.push(slide('Use the escape sequences',
+  '<pre class="code"><span class="code-line">System.out.println("Coach said: \\"Go!\\"");</span><span class="code-line">System.out.println("C:\\\\training");</span><span class="code-line">System.out.println("Lap 1\\nLap 2");</span></pre>'+
+  '<p class="q">Predict the output. Where do the quote, slash, and new line actually appear?</p>'+
+  '<div class="beat console-box">Coach said: "Go!"<br>C:\training<br>Lap 1<br>Lap 2</div>',
+  'This is direct use of all three official escape sequences. The output is actual displayed characters; the backslash before quotes does not print. No String concatenation is used.'
+ ));
+
+ // Arithmetic fundamentals (reference 1.3.2).
+ s.push(slide('An expression produces a value',
+  '<p class="q">An arithmetic expression uses values and operators to calculate one numeric result.</p>'+
+  '<div class="lesson13-operators"><div><code>+</code><span>add</span></div><div><code>-</code><span>subtract</span></div><div><code>*</code><span>multiply</span></div><div><code>/</code><span>divide</span></div><div><code>%</code><span>remainder</span></div></div>'+
+  '<div class="scope-note">Java writes multiplication as <code>*</code>, not ×, and division as <code>/</code>, not ÷.</div>',
+  'Static operator reference. Do not require a reveal to learn a five-item vocabulary map. The next slides show what these operators actually do.'
+ ));
+
+ s.push(slide('An expression can use variables',
+  '<div class="lesson13-givens"><span>Given</span><code>sessions = 4</code><code>minutes = 35</code></div>'+
+  '<pre class="code"><span class="code-line">System.out.println(sessions * minutes);</span></pre>'+
+  '<p class="q">What is evaluated before <code>println</code> displays anything?</p>'+
   '<div class="beat eval-step">sessions * minutes → 4 * 35</div>'+
-  '<div class="beat eval-step">4 * 35 → 140</div>'+
-  '<div class="beat console-box">140</div>'+
-  '<div class="beat conclusion"><p>An arithmetic expression combines values, variables, and operators to produce a numeric value.</p></div>',
-  'Separate evaluation from output: first the expression becomes a value; then println displays it.'));
+  '<div class="beat console-box">140</div>',
+  'Values are given as a state snapshot. Do not teach assignment/initialization syntax here; that belongs to 1.4. Show that evaluation happens before output, which connects to Topic 1.2.'
+ ));
 
- s.push(slide('The operators are simple. Their interaction is not always obvious.',
-  '<p class="q">Without running it: does this print <code>20</code> or <code>14</code>?</p>'+
-  '<pre class="code"><span class="code-line focus-line">System.out.println(2 + 3 * 4);</span></pre>'+
+ s.push(slide('Two integers: a surprising division',
+  '<pre class="code"><span class="code-line">System.out.println(7 / 2);</span></pre>'+
+  '<p class="q">Will this display <code>3.5</code>? Both numbers are <code>int</code>.</p>'+
+  '<div class="beat"><div class="console-box">3</div><p>In <code>int / int</code>, Java discards the fractional part of the quotient. This is called <b>integer division</b>.</p></div>',
+  'One reveal adds the output and the reason, rather than repeating the answer across multiple boxes.'
+ ));
+
+ s.push(slide('Change only the type of one operand',
+  '<pre class="code"><span class="code-line">System.out.println(7.0 / 2);</span></pre>'+
+  '<p class="q">Only one character changed. What happens to the result?</p>'+
+  '<div class="beat"><div class="console-box">3.5</div><p>At least one <code>double</code> operand means this arithmetic calculation produces a <code>double</code>.</p></div>',
+  'Deliberate contrast with the previous slide: 7 / 2 versus 7.0 / 2. Ask what stayed constant and what changed.'
+ ));
+
+ s.push(slide('Type rules survive a longer expression',
+  '<div class="lesson13-givens"><span>Given</span><code>total = 18.0</code><code>groups = 5</code></div>'+
+  '<p class="scope-note"><code>total</code> is <code>double</code>; <code>groups</code> is <code>int</code>.</p>'+
+  '<pre class="code"><span class="code-line">System.out.println(total / groups);</span></pre>'+
+  '<p class="q">Would integer division apply just because one variable is an <code>int</code>?</p>'+
+  '<div class="beat"><div class="console-box">3.6</div><p>No. One operand is <code>double</code>, so the operation uses <code>double</code> arithmetic.</p></div>',
+  'Transfer from literal operands to variables, explicitly required by 1.3.C. This is a new skill, not another decorative version of 7 / 2.'
+ ));
+
+ s.push(slide('A program can run and still calculate the wrong answer',
+  '<p class="q">100 centimeters is how many inches? (1 inch = 2.54 cm)</p>'+
+  '<pre class="code"><span class="code-line">System.out.println(100 * 2.54);</span></pre>'+
+  '<p class="q">The code compiles. What is the <b>logic</b> problem?</p>'+
+  '<div class="beat"><p class="practice-kicker">REPAIR THE FORMULA</p><pre class="code"><span class="code-line">System.out.println(100 / 2.54);</span></pre><p>The result is approximately <b>39.37 inches</b>. We divide centimeters by centimeters-per-inch.</p></div>',
+  'Inspired by CSAwesome Activity 1.3.4. Classify it correctly as a logic error, NOT a Java exception. The displayed approximation is not labeled OUTPUT because Java prints more digits.'
+ ));
+
+ s.push(slide('A different division problem stops execution',
+  '<pre class="code"><span class="code-line">System.out.println(10 / 0);</span></pre>'+
+  '<p class="q">Syntax problem, wrong numeric result, or failure while running?</p>'+
+  '<div class="beat error-box"><span class="error-badge">RUN-TIME ERROR</span><p>Integer division by zero throws <code>ArithmeticException</code> during execution.</p></div>',
+  'Connect to Topic 1.1 error categories. The current AP CED excludes double divide-by-zero behavior. Do not extend into Infinity or NaN.'
+ ));
+
+ // Compound expressions (reference 1.3.3).
+ s.push(slide('Longer expression, same few rules',
+  '<pre class="code"><span class="code-line">System.out.println(2 + 3 * 4);</span></pre>'+
+  '<p class="q">Will Java print <code>20</code> or <code>14</code>? Which operation is evaluated first?</p>'+
   '<div class="beat eval-step">3 * 4 → 12</div>'+
-  '<div class="beat eval-step">2 + 12 → 14</div>'+
-  '<div class="beat console-box">14</div>'+
-  '<div class="beat conclusion"><p><code>*</code>, <code>/</code>, and <code>%</code> have higher precedence than <code>+</code> and <code>-</code>.</p></div>',
-  'This is the “simple rule inside a complicated surface” pattern. Ask why 3*4 is grouped first.'));
+  '<div class="beat"><div class="console-box">14</div><p><code>*</code>, <code>/</code>, and <code>%</code> have higher precedence than <code>+</code> and <code>-</code>.</p></div>',
+  'Reveal the grouping first, then the final output and rule. These two steps are genuinely different; avoid additional decorative clicks.'
+ ));
 
  s.push(slide('Parentheses change the grouping',
-  '<p class="q">Now what changes—and what rule stays the same?</p>'+
-  '<pre class="code"><span class="code-line focus-line">System.out.println((2 + 3) * 4);</span></pre>'+
+  '<pre class="code"><span class="code-line">System.out.println((2 + 3) * 4);</span></pre>'+
+  '<p class="q">Only parentheses changed. Which operation now happens first?</p>'+
   '<div class="beat eval-step">(2 + 3) → 5</div>'+
-  '<div class="beat eval-step">5 * 4 → 20</div>'+
-  '<div class="beat console-box">20</div>'+
-  '<div class="beat conclusion"><p>Parentheses can override the default precedence.</p></div>',
-  'Change one thing from the previous scene. This makes the causal role of parentheses visible.'));
+  '<div class="beat console-box">20</div>',
+  'A causal comparison to the previous scene. Once the student sees grouping, do not require another redundant “definition” reveal.'
+ ));
 
- s.push(slide('Integer division can surprise you',
-  '<pre class="code"><span class="code-line">int total = 17;</span><span class="code-line">int groups = 5;</span><span class="code-line focus-line">System.out.println(total / groups);</span></pre>'+
-  '<p class="q">Will Java print <code>3.4</code>?</p>'+
-  '<div class="beat eval-step">17 / 5 → 3</div>'+
-  '<div class="beat console-box">3</div>'+
-  '<div class="conclusion"><p>When both operands are <code>int</code>, Java keeps only the integer portion of the quotient.</p></div>',
-  'The type rule from Topic 1.2 now drives expression behavior. This is intentional cross-topic transfer.'));
+ s.push(slide('Equal precedence means left to right',
+  '<p class="q">These look similar. Will they give the same output?</p>'+
+  '<div class="lesson13-comparison"><div><h3>A</h3><p><code>18 / 3 * 2</code></p></div><div><h3>B</h3><p><code>18 / (3 * 2)</code></p></div></div>'+
+  '<div class="beat"><div class="lesson13-output-pair"><div><span>A — LEFT TO RIGHT</span><strong>12</strong></div><div><span>B — PARENTHESES FIRST</span><strong>3</strong></div></div><p>With equal precedence, <code>/</code> and <code>*</code> group left to right unless parentheses change the grouping.</p></div>',
+  'This slide isolates a new source of mistakes (same-precedence grouping) rather than repeating multiplication-before-addition.'
+ ));
 
- s.push(slide('Change one operand’s type',
-  '<pre class="code"><span class="code-line">double total = 17.0;</span><span class="code-line">int groups = 5;</span><span class="code-line focus-line">System.out.println(total / groups);</span></pre>'+
-  '<p class="q">Only one type changed. What will the result become?</p>'+
-  '<div class="beat eval-step">17.0 / 5 → 3.4</div>'+
-  '<div class="beat console-box">3.4</div>'+
-  '<div class="conclusion"><p>If at least one operand is <code>double</code>, the arithmetic result is a <code>double</code>.</p></div>',
-  'This scene should feel like an experiment: change one variable type, predict the new behavior, then reveal.'));
+ // Remainder (reference 1.3.4).
+ s.push(slide('The remainder answers a different question',
+  '<p class="q">Seventeen cones. Five per rack. After filling full racks, how many are left over?</p>'+
+  '<pre class="code"><span class="code-line">System.out.println(17 % 5);</span></pre>'+
+  '<div class="beat"><div class="lesson13-remainder"><span>● ● ● ● ●</span><span>● ● ● ● ●</span><span>● ● ● ● ●</span><b>● ●</b></div><p>Three full racks of five, with <b>2 left over</b>.</p><div class="console-box">2</div></div>',
+  'One meaningful visual reveal shows physical grouping + Java output. Here % computes remainder, not a percentage.'
+ ));
 
- s.push(slide('Remainder answers a different question',
-  '<p class="q">Seventeen cones are packed into groups of five. After making all full groups, how many are left?</p>'+
-  '<pre class="code"><span class="code-line focus-line">System.out.println(17 % 5);</span></pre>'+
-  '<div class="beat eval-step">17 = 5 * 3 + 2</div>'+
-  '<div class="beat console-box">2</div>'+
-  '<div class="conclusion"><p><code>%</code> produces the remainder.</p></div>',
-  'Connect quotient and remainder to a physical interpretation. AP scope here uses positive dividend and positive divisor cases.'));
+ s.push(slide('Remainder when the first number is smaller',
+  '<pre class="code"><span class="code-line">System.out.println(3 % 8);</span></pre>'+
+  '<p class="q">Can you form even one complete group of eight? What remains?</p>'+
+  '<div class="beat"><div class="console-box">3</div><p>Zero full groups fit, so all <b>3</b> remain.</p></div>',
+  'Matches the important edge case in CSAwesome 1.3.4. Use positive operands in the AP scope.'
+ ));
 
- s.push(slide('Now combine the rules',
-  '<p class="q">This looks longer. Which small rules actually drive it?</p>'+
-  '<pre class="code"><span class="code-line focus-line">System.out.println(2 + 12 / 5 * 3);</span></pre>'+
-  '<div class="beat eval-step">12 / 5 → 2 <span class="muted">(int division)</span></div>'+
-  '<div class="beat eval-step">2 * 3 → 6 <span class="muted">(same precedence: left to right)</span></div>'+
-  '<div class="beat eval-step">2 + 6 → 8</div>'+
-  '<div class="beat console-box">8</div>'+
-  '<div class="conclusion"><p>The expression is longer, but nothing new happened: type rules + precedence + left-to-right evaluation.</p></div>',
-  'This is the core design philosophy in action: surface complexity, simple drivers.'));
+ // Classroom exercises with answers truly concealed.
+ s.push(slide('Practice 1 — exact output',
+  '<p class="practice-kicker">IN-CLASS · OUTPUT</p>'+
+  '<pre class="code"><span class="code-line">System.out.print("Team ");</span><span class="code-line">System.out.println("A");</span><span class="code-line">System.out.print("Start");</span></pre>'+
+  '<p class="q">Write the exact two lines that appear. Check every space and newline.</p>'+
+  '<div class="beat console-box">Team A<br>Start</div>',
+  'All prompts visible first. Teacher should collect answer before one reveal. It tests formatting on an unfamiliar example.'
+ ));
 
- s.push(slide('Topic 1.1 comes back',
-  '<pre class="code"><span class="code-line focus-line">System.out.println(10 / 0);</span></pre>'+
-  '<p class="q">Now that you understand integer division, why is this a run-time error rather than a syntax error?</p>'+
-  '<div class="beat error-box"><span class="error-badge">ArithmeticException</span><p>The statement follows Java syntax, but integer division by zero fails when execution reaches the operation.</p></div>'+
-  '<div class="conclusion"><p>A later concept can deepen an earlier mental model.</p></div>',
-  'This deliberately spirals Topic 1.1 run-time errors into Topic 1.3 arithmetic.'));
+ s.push(slide('Practice 2 — remainder sprint',
+  '<p class="practice-kicker">IN-CLASS · REMAINDER</p>'+
+  '<p class="q">Predict all three before revealing any answer.</p>'+
+  '<div class="lesson13-quiz-grid"><div><code>23 % 10</code></div><div><code>4 % 9</code></div><div><code>20 % 5</code></div></div>'+
+  '<div class="beat lesson13-answer-bar"><span><b>23 % 10</b> → 3</span><span><b>4 % 9</b> → 4</span><span><b>20 % 5</b> → 0</span></div>',
+  'One answer key for all three, NOT one reveal per answer. These deliberately cover remainder, smaller dividend, and exact multiple.'
+ ));
 
- s.push(slide('Hands-on: predict, then verify',
-  '<p class="q">Do not run these until every result is committed on paper.</p>'+
-  '<div class="card"><h3>A</h3><p><code>18 / 4</code></p></div>'+
-  '<div class="card"><h3>B</h3><p><code>18.0 / 4</code></p></div>'+
-  '<div class="card"><h3>C</h3><p><code>18 % 4</code></p></div>'+
-  '<div class="card"><h3>D</h3><p><code>3 + 10 / 4 * 2</code></p></div>'+
-  '<div class="conclusion"><p>For each answer, name the rule that caused it.</p></div>',
-  'The reasoning label is essential: int division, double arithmetic, remainder, precedence/left-to-right.'));
-
- s.push(slide('Practice — predict the output',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 1</p>'+
-  '<p class="q">Commit to each output before revealing it.</p>'+
-  '<div class="practice-item"><h3>A</h3><pre class="code">System.out.println(16 / 5);</pre></div>'+
-  '<div class="beat console-box" data-reveal-group="answers">3</div>'+
-  '<div class="practice-item"><h3>B</h3><pre class="code">System.out.println(16.0 / 5);</pre></div>'+
-  '<div class="beat console-box" data-reveal-group="answers">3.2</div>'+
-  '<div class="practice-item"><h3>C</h3><pre class="code">System.out.println(16 % 5);</pre></div>'+
-  '<div class="beat console-box" data-reveal-group="answers">1</div>',
-  'After each result, require the rule: int division, double arithmetic, remainder.'));
-
- s.push(slide('Practice — precedence under pressure',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 2</p>'+
-  '<pre class="code"><span class="code-line focus-line">System.out.println(5 + 18 / 4 * 2);</span></pre>'+
-  '<p class="q">Do not start calculating until you name which operation happens first.</p>'+
-  '<div class="beat eval-step">18 / 4 → 4</div>'+
-  '<div class="beat eval-step">4 * 2 → 8</div>'+
-  '<div class="beat eval-step">5 + 8 → 13</div>'+
+ s.push(slide('Practice 3 — read a mixed expression',
+  '<p class="practice-kicker">IN-CLASS · TRACE</p>'+
+  '<pre class="code"><span class="code-line">System.out.println(5 + 18 / 4 * 2);</span></pre>'+
+  '<p class="q">Name the rules first. Then predict exactly what is printed.</p>'+
+  '<div class="beat eval-step">18 / 4 → 4 <span class="muted">(int division)</span></div>'+
+  '<div class="beat eval-step">4 * 2 → 8 <span class="muted">(left to right)</span></div>'+
   '<div class="beat console-box">13</div>',
-  'This should feel more complex on the surface while using only known rules.'));
+  'Three meaningful reasoning moves: integer division, equal precedence, final printed result. Have the student articulate each before clicking.'
+ ));
 
- s.push(slide('Practice — change one symbol',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 3</p>'+
-  '<p class="q">Only parentheses change. Predict the new result.</p>'+
-  '<pre class="code"><span class="code-line">System.out.println(5 + 18 / 4 * 2);</span><span class="code-line focus-line">System.out.println((5 + 18) / 4 * 2);</span></pre>'+
-  '<div class="beat eval-step">(5 + 18) → 23</div>'+
-  '<div class="beat eval-step">23 / 4 → 5</div>'+
-  '<div class="beat eval-step">5 * 2 → 10</div>'+
-  '<div class="beat console-box">10</div>',
-  'Ask what stayed the same: int division and left-to-right behavior. Only grouping changed.'));
+ s.push(slide('Practice 4 — modify one expression',
+  '<p class="practice-kicker">IN-CLASS · TRANSFER</p>'+
+  '<pre class="code"><span class="code-line">System.out.println((5 + 18) / 4 * 2);</span></pre>'+
+  '<p class="q">Only the parentheses changed. What will print now?</p>'+
+  '<div class="beat"><div class="eval-step">(5 + 18) / 4 * 2 → 23 / 4 * 2 → 5 * 2</div><div class="console-box">10</div></div>',
+  'Single reveal combines the short new evaluation and result. This checks whether the learner can transfer all earlier rules.'
+ ));
 
- s.push(slide('Practice — output formatting',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 4</p>'+
-  '<pre class="code"><span class="code-line">System.out.print("A");</span><span class="code-line">System.out.println("B");</span><span class="code-line">System.out.print("C");</span></pre>'+
-  '<p class="q">What exact output appears, including line breaks?</p>'+
-  '<div class="beat console-box">AB<br>C</div>',
-  'This checks concrete print/println behavior without adding String concatenation.'));
+ s.push(slide('Practice 5 — AP-style multiple choice',
+  '<p class="practice-kicker">IN-CLASS · AP REASONING</p>'+
+  '<pre class="code"><span class="code-line">System.out.println(5 + 5 / 2 * 3 - 1);</span></pre>'+
+  '<p class="q">Which output is correct? Explain why the other choices fail.</p>'+
+  '<div class="lesson13-mcq"><div>A. 9</div><div>B. 10</div><div>C. 11.5</div><div>D. 14</div></div>'+
+  '<div class="beat"><p><b>Answer: B</b></p><div class="eval-step">5 / 2 → 2; 2 * 3 → 6; 5 + 6 - 1 → 10</div><p><code>int / int</code> and precedence are the drivers.</p></div>',
+  'Adapted in reasoning difficulty from the reference AP Practice; do not reveal the key until students select and defend a choice.'
+ ));
 
- s.push(slide('AP Topic 1.3 — what matters',
-  '<div class="ap-scope"><b>OUTPUT</b><span>Predict and create output with <code>print</code> and <code>println</code>.</span><b>LITERALS</b><span>Recognize fixed values, string literals, and the required escape sequences.</span><b>ARITHMETIC</b><span>Use <code>+ - * / %</code> with <code>int</code> and <code>double</code>.</span><b>EVALUATE</b><span>Apply integer-division rules, remainder, precedence, parentheses, and left-to-right evaluation.</span></div>',
-  'Do not introduce String concatenation here; the current CED places String combination in Topic 1.15.'));
+ s.push(slide('Coding challenge — build a pay calculator',
+  '<p class="practice-kicker">IN-CLASS · WRITE JAVA</p>'+
+  '<p class="q">Write <code>System.out.println(...)</code> statements that calculate:</p>'+
+  '<div class="lesson13-tasks"><div><b>1</b> Pay for 4 hours at $10/hour</div><div><b>2</b> Hours represented by $120 at $15/hour</div><div><b>3</b> Pay for 12 hours at $7.50/hour</div><div><b>4</b> Whole hours and leftover dollars from $100 at $9/hour</div></div>'+
+  '<p class="scope-note">Type and run the code. Predict outputs first. You may work with a partner.</p>',
+  'Reference alignment: CSAwesome Project 1.3.9 pay calculator. Give 8–10 minutes. No answers on this scene, and no new variables or assignment syntax required.'
+ ));
 
- s.push(slide('Exit check',
-  '<p class="q">One at a time.</p>'+
-  '<div class="beat card"><h3>01</h3><p>Why do <code>17 / 5</code> and <code>17.0 / 5</code> differ?</p></div>'+
-  '<div class="beat card"><h3>02</h3><p>What does <code>17 % 5</code> mean?</p></div>'+
-  '<div class="beat card"><h3>03</h3><p>Why is <code>2 + 3 * 4</code> not 20?</p></div>'+
-  '<div class="beat card"><h3>04</h3><p>Why is integer division by zero a run-time error?</p></div>',
-  'These questions deliberately connect types, expressions, precedence, and the previous error model.'));
+ s.push(slide('Review the pay calculator',
+  '<p class="q">Show your working Java statements before looking at a possible solution.</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">System.out.println(4 * 10);</span><span class="code-line">System.out.println(120 / 15);</span><span class="code-line">System.out.println(12 * 7.50);</span><span class="code-line">System.out.println(100 / 9);</span><span class="code-line">System.out.println(100 % 9);</span></pre><div class="lesson13-answer-bar"><span>40</span><span>8</span><span>90.0</span><span>11</span><span>1</span></div></div>',
+  'Reveal this complete worked answer key only after students have actually written code. The final two lines deliberately distinguish integer quotient and remainder.'
+ ));
 
- s.push(slide('Homework',
-  '<p class="big">Predict and explain eight short Java expressions: include <code>int</code> division, one <code>double</code> operand, remainder, precedence, parentheses, and one integer divide-by-zero case. For each, write the rule that determines the result.</p>'+
-  '<div class="beat conclusion"><p>Do not just record answers. Record the <b>driver</b>.</p></div>',
-  'The homework is about causal rules, not volume.'));
+ s.push(slide('Topic 1.3 — exit check',
+  '<p class="q">Answer without looking at previous slides.</p>'+
+  '<div class="lesson13-tasks"><div><b>1</b> Why do <code>print</code> and <code>println</code> produce different line breaks?</div>'+
+  '<div><b>2</b> Write a Java string literal that contains a quotation mark.</div>'+
+  '<div><b>3</b> Explain why <code>11 / 4</code> and <code>11.0 / 4</code> differ.</div>'+
+  '<div><b>4</b> Predict <code>2 + 13 % 5 * 2</code> and identify the driver.</div></div>',
+  'Teacher diagnostic: answers are 1) newline behavior, 2) use \\" within quotes, 3) int vs double arithmetic, 4) 8 (13 % 5=3; 3*2=6; 2+6=8). Do not display the solutions to students.'
+ ));
 
- s.push(slide('Free resources',resources(l.resources),'Use resources after predictions. Keep String concatenation for Topic 1.15.'));
+ s.push(slide('Homework and reference',
+  '<p class="big">Create a Java program that prints a short two-line report and calculates one quantity using <code>/</code>, one using <code>%</code>, and one compound expression with parentheses.</p>'+
+  '<div class="scope-note">Before you run it, predict every output. Bring one mistake or surprising result to our next lesson.</div>'+
+  '<div class="beat"><p class="practice-kicker">FREE FOLLOW-UP MATERIAL</p>'+resources(l.resources)+'</div>',
+  'CSAwesome2 Topic 1.3 is the matching reference. Optional practice follows student attempt. AP Topic 1.3 includes print/println, literals and three escapes, arithmetic expressions/int/double, remainder, precedence, and int divide-by-zero. Deferred: assignment (1.4), casting (1.5), concatenation (1.15).'
+ ));
  return s.join('');
 }
 
