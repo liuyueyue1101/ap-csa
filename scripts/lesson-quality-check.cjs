@@ -80,6 +80,15 @@ for(const l of context.window.COURSE_DATA.lessons.concat(context.window.COURSE_D
   nScenes++;
   const mark=l.id+' scene '+(index+1);
   const beats=find(slide,n=>has(n,'beat'));
+  // Each named variable should have one stable memory representation per scene.
+  const memories=find(slide,n=>has(n,'memory-board'));
+  const seenNames=new Set();
+  for(const board of memories){
+   const labels=find(board,n=>has(n,'name'));
+   const name=labels.length?normalize(allText(labels[0])):'';
+   if(name && seenNames.has(name))errors.push(mark+': repeated memory boxes for '+name+'; update the same visual state');
+   if(name)seenNames.add(name);
+  }
   const initial=normalize(visible(slide,new Set()));
   const used=new Set();
   for(const b of beats){
