@@ -910,8 +910,7 @@ function buildTopic12(l){
 
  s.push(slide('Why does a variable need a type?',
   '<p class="q">Why should Java care whether a stored value is <code>12</code>, <code>37.8</code>, or <code>true</code>?</p>'+
-  '<div class="beat concept-reveal"><p>A <b>data type</b> defines a set of possible values and the operations that make sense for those values.</p></div>'+
-  '<div class="beat conclusion"><p>Type is not decoration. It tells Java what kind of value this storage location is meant to hold.</p></div>',
+  '<div class="beat concept-reveal"><p>A <b>data type</b> defines a set of possible values and the operations that make sense for those values.</p></div>',
   'This is the core AP definition of data type. Let the student give an example of an operation that makes sense for numbers but not for true/false.'
  ));
 
@@ -943,32 +942,29 @@ function buildTopic12(l){
 
  s.push(slide('<code>double</code>: fractional numeric values',
   '<p class="q">A 100-meter time is <code>10.42</code> seconds. Would <code>int</code> preserve the information we care about?</p>'+
-  '<div class="beat concept-reveal"><p>No. A <code>double</code> can represent real-number values with a fractional part.</p></div>'+
-  '<div class="beat example-strip"><div><b>raceTime</b><span>10.42</span></div><div><b>temperature</b><span>18.75</span></div><div><b>average</b><span>89.5</span></div></div>',
+  '<div class="beat concept-reveal" data-reveal-group="double-answer"><p>No. A <code>double</code> can represent real-number values with a fractional part.</p></div>'+
+  '<div class="beat example-strip" data-reveal-group="double-answer"><div><b>raceTime</b><span>10.42</span></div><div><b>temperature</b><span>18.75</span></div><div><b>average</b><span>89.5</span></div></div>',
   'This mirrors the source’s average-grade and race-time reasoning: choose double when fractional information matters.'
  ));
 
  s.push(slide('<code>boolean</code>: a two-state fact',
   '<p class="q">What type best represents “Is it raining?”</p>'+
-  '<div class="beat concept-reveal"><code>boolean</code></div>'+
-  '<div class="beat example-strip"><div><b>isRaining</b><span>true</span></div><div><b>hasInsurance</b><span>false</span></div><div><b>goalMet</b><span>true</span></div></div>'+
-  '<div class="beat conclusion"><p>A Boolean value is not “1 or 0” in Java source. The values are <code>true</code> and <code>false</code>.</p></div>',
+  '<div class="beat concept-reveal" data-reveal-group="boolean-answer"><code>boolean</code></div>'+
+  '<div class="beat example-strip" data-reveal-group="boolean-answer"><div><b>isRaining</b><span>true</span></div><div><b>hasInsurance</b><span>false</span></div><div><b>goalMet</b><span>true</span></div></div>'+
+  '<div class="beat conclusion" data-reveal-group="boolean-answer"><p>Java Boolean values are written <code>true</code> and <code>false</code>—not <code>1</code> or <code>0</code>.</p></div>',
   'The source contrasts boolean with using 0/1 or text. Keep the Java representation clear.'
  ));
 
  s.push(slide('A value can look numeric without being a quantity',
   '<p class="q">A locker code is written as <code>0042</code>. Are we going to add, subtract, or average locker codes?</p>'+
-  '<div class="beat concept-reveal"><p>Probably not. It is an <b>identifier</b>, not a quantity.</p></div>'+
-  '<div class="beat"><pre class="code"><span class="code-line">String lockerCode;</span></pre></div>'+
-  '<div class="beat conclusion"><p><code>String</code> is a reference type. For now, this example only helps us distinguish “text/identifier” from numeric data.</p></div>',
+  '<div class="beat"><div class="concept-reveal"><p>It is an <b>identifier</b>, not a quantity.</p></div><pre class="code"><span class="code-line">String lockerCode;</span></pre><p><code>String</code> is a reference type used for text.</p></div>',
   'This is a modeling example, not a String lesson. Do not teach concatenation or String methods here.'
  ));
 
  s.push(slide('Declaring a variable in Java',
-  '<p class="q">To create a variable, what must Java know?</p>'+
+  '<p class="q">A declaration gives Java a type and a name. How would you declare these three variables?</p>'+
   '<div class="declaration-form"><span class="decl-type">type</span><span class="decl-name">name</span><span class="decl-end">;</span></div>'+
-  '<div class="beat"><pre class="code"><span class="code-line">int score;</span><span class="code-line">double raceTime;</span><span class="code-line">boolean isRaining;</span></pre></div>'+
-  '<div class="beat conclusion"><p>A declaration gives Java the variable’s <b>type</b> and <b>name</b>.</p></div>',
+  '<div class="beat"><pre class="code"><span class="code-line">int score;</span><span class="code-line">double raceTime;</span><span class="code-line">boolean isRaining;</span></pre></div>',
   'Current Topic 1.2 requires writing declarations for numbers and Boolean values. Do not formally teach = assignment or initialization yet; that is Topic 1.4.'
  ));
 
