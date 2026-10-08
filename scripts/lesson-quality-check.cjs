@@ -90,7 +90,7 @@ for(const l of context.window.COURSE_DATA.lessons.concat(context.window.COURSE_D
    for(const n of step)used.add(n);
    const after=normalize(visible(slide,used));
    nClicks++;
-   if(before===after&&!step.some(n=>has(n,'branch-answer')))
+   if(before===after&&!step.some(n=>has(n,'branch-answer')||has(n,'value-update-trigger')))
     errors.push(mark+': reveal has no visible semantic change');
    for(const n of step){
     const t=normalize(allText(n));
