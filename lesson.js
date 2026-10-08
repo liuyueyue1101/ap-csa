@@ -882,129 +882,213 @@ function buildTopic11(l){
 
 function buildTopic12(l){
  const s=[];
- s.push(apCover(l,'1.2','Variables<br>& Data Types','Choosing a type is a modeling decision—not a vocabulary exercise.','Topic 1.2 requires choosing appropriate data-type categories and declaring variables for numbers and Boolean values. Keep reassignment syntax for Topic 1.4; today we can discuss that state may change without teaching assignment statements.'));
 
- s.push(slide('Start with a race dashboard',
-  '<p class="q">These are all “data.” Should Java store them all the same way?</p>'+
-  '<div class="type-choice"><div class="type-label">LAPS</div><div>12</div><div>we count with it</div></div>'+
-  '<div class="type-choice"><div class="type-label">TIME</div><div>37.8</div><div>fractional precision matters</div></div>'+
-  '<div class="type-choice"><div class="type-label">PERSONAL BEST?</div><div>true / false</div><div>yes-or-no state</div></div>'+
-  '<div class="type-choice"><div class="type-label">BIB CODE</div><div>"007"</div><div>looks numeric, but behaves like an identifier</div></div>',
-  'The bib code is deliberately non-obvious. A type choice depends on meaning and operations, not only on how the characters look.'));
+ s.push(apCover(
+  l,'1.2','Variables<br>& Data Types',
+  'A variable gives a value a place, a name, and a type.',
+  'Scope for current AP Topic 1.2: variable mental model; data types as values + operations; primitive vs reference; int/double/boolean; declaring variables for numeric and Boolean data. Assignment/initialization belongs to Topic 1.4. Use CSAwesome for pedagogy, but preserve the current College Board topic boundaries.'
+ ));
 
- s.push(slide('A data type is a contract',
-  '<p class="q">Why should <code>12</code> and <code>37.8</code> not automatically be treated as the same kind of value?</p>'+
-  '<div class="beat concept-reveal">A data type defines a set of possible values and the operations that make sense for those values.</div>'+
-  '<div class="conclusion"><p>Choosing a type is part of modeling the problem.</p></div>',
-  'This is the deeper idea behind Topic 1.2. Do not reduce “type” to “which keyword do I memorize?”'));
+ s.push(slide('Warm-up: a program needs to remember something',
+  '<pre class="code"><span class="code-line">System.out.println("Score:");</span><span class="code-line">System.out.println(12);</span></pre>'+
+  '<p class="q">Printing <code>12</code> is easy. But what if the program needs to <b>remember</b> the score and use it later?</p>'+
+  '<div class="beat concept-reveal">It needs a place to store the value.</div>',
+  'This is the bridge from Topic 1.1 Java familiarity into variables. One question, one reveal.'
+ ));
 
- s.push(slide('Three primitive types in this course',
-  '<p class="q">Match the information to the smallest useful category.</p>'+
-  '<div class="beat type-choice" data-reveal-group="type-table"><div class="type-label">int</div><div>12</div><div>integer / whole-number value</div></div>'+
-  '<div class="beat type-choice" data-reveal-group="type-table"><div class="type-label">double</div><div>37.8</div><div>real-number value</div></div>'+
-  '<div class="beat type-choice" data-reveal-group="type-table"><div class="type-label">boolean</div><div>true</div><div>true-or-false value</div></div>'+
-  '<div class="beat scope-note" data-reveal-group="type-table">AP CSA uses <code>int</code>, <code>double</code>, and <code>boolean</code> as its required primitive types. Other Java primitive types are outside the exam scope.</div>',
-  'The official exclusion matters: do not clutter a beginner lesson with byte/short/long/float/char.'));
+ s.push(slide('What is a variable?',
+  '<p class="q">Suppose the program is keeping track of a score.</p>'+
+  '<div class="memory-board"><div class="name">score</div><div class="value">12</div></div>'+
+  '<div class="beat concept-reveal"><p>A <b>variable</b> is a storage location that holds a value. The value can change while the program is running.</p></div>'+
+  '<div class="beat variable-profile"><div class="name">name</div><div class="value">score</div><div class="name">data type</div><div class="value">int</div><div class="name">current value</div><div class="value">12</div></div>',
+  'Do not stop at “a box.” Make the three-part model explicit: storage/value, name, associated data type. This matches the current AP definition.'
+ ));
 
- s.push(slide('A variable has three pieces',
-  '<pre class="code"><span class="code-line focus-line">int laps = 12;</span></pre>'+
-  '<p class="q">What information does this declaration give Java?</p>'+
-  '<div class="beat variable-profile"><div class="name">name</div><div class="value">laps</div><div class="name">type</div><div class="value">int</div><div class="name">current value</div><div class="value">12</div></div>'+
-  '<div class="conclusion"><p>A variable is a storage location with a name and an associated data type.</p></div>',
-  'Use the stable VARIABLE visual. The syntax is a declaration, which is in scope for Topic 1.2.'));
+ s.push(slide('Why does a variable need a type?',
+  '<p class="q">Why should Java care whether a stored value is <code>12</code>, <code>37.8</code>, or <code>true</code>?</p>'+
+  '<div class="beat concept-reveal"><p>A <b>data type</b> defines a set of possible values and the operations that make sense for those values.</p></div>'+
+  '<div class="beat conclusion"><p>Type is not decoration. It tells Java what kind of value this storage location is meant to hold.</p></div>',
+  'This is the core AP definition of data type. Let the student give an example of an operation that makes sense for numbers but not for true/false.'
+ ));
 
- s.push(slide('The value is state, not identity',
-  '<p class="q"><code>laps</code> is the variable name. If the athlete later completes another lap, which idea changes: the name, the type, or the stored value?</p>'+
-  '<div class="memory-board"><div class="name">laps</div><div class="value">12</div></div>'+
-  '<div class="beat memory-board"><div class="name">laps</div><div class="value">13</div></div>'+
-  '<div class="conclusion"><p>The variable can represent changing program state while its name and type remain stable.</p></div>'+
-  '<div class="scope-note">We will learn the Java assignment statements that perform these updates in Topic 1.4.</div>',
-  'This teaches the mental model required by Topic 1.2 without prematurely teaching Topic 1.4 syntax.'));
-
- s.push(slide('Type rules create useful constraints',
-  '<pre class="code"><span class="code-line focus-line">int raceTime = 37.8;</span></pre>'+
-  '<p class="q">Would the compiler accept this declaration?</p>'+
-  '<div class="beat error-box"><span class="error-badge">COMPILE-TIME PROBLEM</span><p><code>37.8</code> is not an <code>int</code> value.</p></div>'+
-  '<div class="beat"><pre class="code"><span class="code-line focus-line">double raceTime = 37.8;</span></pre></div>'+
-  '<div class="conclusion"><p>The type helps Java reject values that do not fit the variable’s declared category.</p></div>',
-  'Connect back to Topic 1.1: this is a compiler-detectable problem, but the new concept is *why* the type makes the declaration invalid.'));
-
- s.push(slide('Numeric-looking does not mean numeric meaning',
-  '<p class="q">A race bib is printed as <code>007</code>. Would you ever add two bib numbers together?</p>'+
-  '<div class="beat concept-reveal">Probably not. It is an identifier, not a quantity.</div>'+
-  '<div class="beat"><pre class="code"><span class="code-line focus-line">String bibCode = "007";</span></pre></div>'+
-  '<div class="conclusion"><p><code>String</code> is a reference type. For now, the important distinction is that it is <b>not</b> one of the primitive types.</p></div>',
-  'This is a modeling judgment. Do not start String methods or concatenation; those belong to Topic 1.15.'));
-
- s.push(slide('Choose by meaning and operation',
-  '<p class="q">Which type would you choose—and why?</p>'+
-  '<div class="card"><h3>AGE</h3><p>15 years</p></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers"><code>int</code> — whole-number quantity</div>'+
-  '<div class="card"><h3>QUALIFYING TIME</h3><p>52.34 seconds</p></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers"><code>double</code> — fractional precision matters</div>'+
-  '<div class="card"><h3>MEDICAL CLEARANCE</h3><p>yes / no</p></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers"><code>boolean</code> — two logical states</div>'+
-  '<div class="card"><h3>REGISTRATION CODE</h3><p>00042A</p></div>'+
-  '<div class="beat concept-reveal" data-reveal-group="answers">reference/text category — it is an identifier, not a number to calculate with</div>',
-  'Require a reason after every choice. The reason is stronger evidence than the keyword.'));
-
- s.push(slide('Hands-on: model a registration system',
-  '<p class="q">Choose a name, type, and sample value for each piece of information.</p>'+
-  '<div class="type-choice"><div class="type-label">1</div><div>age</div><div>?</div></div>'+
-  '<div class="type-choice"><div class="type-label">2</div><div>qualifying time</div><div>?</div></div>'+
-  '<div class="type-choice"><div class="type-label">3</div><div>has medical clearance</div><div>?</div></div>'+
-  '<div class="type-choice"><div class="type-label">4</div><div>bib / registration code</div><div>?</div></div>'+
-  '<div class="conclusion"><p>For the primitive values, write valid Java declarations. Explain the non-obvious choice.</p></div>',
-  'The learner should write the primitive declarations. For the identifier, recognizing a reference/text type category is enough for this topic.'));
-
- s.push(slide('Practice — type sprint',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 1</p>'+
-  '<p class="q">Choose the best type. Give the reason, not only the keyword.</p>'+
-  '<div class="practice-grid">'+
-    '<div class="practice-item"><h3>A</h3><p>number of attempts = 6</p></div>'+
-    '<div class="practice-item"><h3>B</h3><p>temperature = 18.75</p></div>'+
-    '<div class="practice-item"><h3>C</h3><p>door is locked = yes/no</p></div>'+
-    '<div class="practice-item"><h3>D</h3><p>locker code = 0042</p></div>'+
+ s.push(slide('Two categories of data types',
+  '<div class="two-type-grid">'+
+    '<div class="type-family"><h3>PRIMITIVE TYPES</h3><p>Store primitive values such as numbers and Boolean values.</p><div class="type-family-examples"><code>int</code><code>double</code><code>boolean</code></div></div>'+
+    '<div class="type-family"><h3>REFERENCE TYPES</h3><p>Used for objects that are not primitive values.</p><div class="type-family-examples"><code>String</code> <span class="muted">is one example</span></div></div>'+
   '</div>'+
-  '<div class="beat conclusion" data-reveal-group="answers"><p>A → <code>int</code>, B → <code>double</code>, C → <code>boolean</code>, D → identifier/text category.</p></div>',
-  'D is the transfer item. Ask what operations the program would perform on the value.'));
+  '<div class="scope-note">For Topic 1.2, know the category difference. We will work with objects and <code>String</code> in much more depth later.</div>',
+  'Static explanation page. Do not reveal this piece by piece. The current CED requires primitive vs reference categories; do not introduce memory-address details.'
+ ));
 
- s.push(slide('Practice — which declarations compile?',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 2</p>'+
-  '<div class="practice-item"><h3>A</h3><pre class="code">int laps = 8;</pre></div>'+
-  '<div class="beat answer-tag" data-reveal-group="answers">A → valid</div>'+
-  '<div class="practice-item"><h3>B</h3><pre class="code">boolean finished = 1;</pre></div>'+
-  '<div class="beat answer-tag" data-reveal-group="answers">B → invalid: <code>boolean</code> expects <code>true</code> or <code>false</code></div>'+
-  '<div class="practice-item"><h3>C</h3><pre class="code">double pace = 4;</pre></div>'+
-  '<div class="beat answer-tag" data-reveal-group="answers">C → valid: an integer literal can be represented as a double value</div>',
-  'C is deliberately less obvious. If the learner is unsure, frame it as “can 4 be represented as 4.0?” rather than adding conversion theory.'));
+ s.push(slide('The three primitive types you need for AP CSA',
+  '<div class="primitive-catalog">'+
+    '<div><h3><code>int</code></h3><p>integer values</p><strong>12 &nbsp; 0 &nbsp; -76</strong></div>'+
+    '<div><h3><code>double</code></h3><p>real-number values</p><strong>37.8 &nbsp; -0.9 &nbsp; 3.14</strong></div>'+
+    '<div><h3><code>boolean</code></h3><p>true-or-false values</p><strong>true &nbsp; false</strong></div>'+
+  '</div>'+
+  '<div class="scope-note">Other Java primitive types such as <code>long</code>, <code>short</code>, <code>byte</code>, <code>float</code>, and <code>char</code> are outside the AP CSA exam scope.</div>',
+  'This is the map of the territory. Keep all three visible together so the student can compare them.'
+ ));
 
- s.push(slide('Practice — build the declarations',
-  '<p class="practice-kicker">IN-CLASS PRACTICE 3</p>'+
-  '<p class="q">Write three Java declarations for this snapshot:</p>'+
-  '<div class="practice-grid"><div class="practice-item"><h3>SESSIONS</h3><p>5</p></div><div class="practice-item"><h3>AVERAGE TIME</h3><p>42.6</p></div><div class="practice-item"><h3>GOAL MET?</h3><p>true</p></div></div>'+
-  '<div class="beat"><pre class="code"><span class="code-line">int sessions = 5;</span><span class="code-line">double averageTime = 42.6;</span><span class="code-line">boolean goalMet = true;</span></pre></div>',
-  'Have the student write before revealing. Check both type choice and legal declaration syntax.'));
+ s.push(slide('<code>int</code>: whole-number quantities',
+  '<p class="q">Which kinds of information naturally fit <code>int</code>?</p>'+
+  '<div class="example-strip"><div><b>laps</b><span>12</span></div><div><b>people</b><span>4</span></div><div><b>score</b><span>-3</span></div></div>'+
+  '<div class="beat concept-reveal"><code>int</code> is appropriate when the value is an integer: no fractional part is needed.</div>',
+  'Use examples that are quantities. Ask whether “2.5 people” makes sense in the intended model.'
+ ));
 
- s.push(slide('AP Topic 1.2 — what matters',
-  '<div class="ap-scope"><b>MODEL</b><span>Choose an appropriate data-type category for the specification.</span><b>DECLARE</b><span>Write declarations using <code>int</code>, <code>double</code>, and <code>boolean</code>.</span><b>STATE</b><span>Understand a variable as named storage whose value can change during execution.</span><b>CATEGORIES</b><span>Distinguish primitive types from reference types.</span></div>'+
-  '<div class="conclusion"><p>The AP idea is not “memorize four words.” It is “choose a representation that matches the meaning of the data.”</p></div>',
-  'This mirrors Topic 1.2 while keeping later assignment and String-manipulation content out of scope.'));
+ s.push(slide('<code>double</code>: fractional numeric values',
+  '<p class="q">A 100-meter time is <code>10.42</code> seconds. Would <code>int</code> preserve the information we care about?</p>'+
+  '<div class="beat concept-reveal"><p>No. A <code>double</code> can represent real-number values with a fractional part.</p></div>'+
+  '<div class="beat example-strip"><div><b>raceTime</b><span>10.42</span></div><div><b>temperature</b><span>18.75</span></div><div><b>average</b><span>89.5</span></div></div>',
+  'This mirrors the source’s average-grade and race-time reasoning: choose double when fractional information matters.'
+ ));
+
+ s.push(slide('<code>boolean</code>: a two-state fact',
+  '<p class="q">What type best represents “Is it raining?”</p>'+
+  '<div class="beat concept-reveal"><code>boolean</code></div>'+
+  '<div class="beat example-strip"><div><b>isRaining</b><span>true</span></div><div><b>hasInsurance</b><span>false</span></div><div><b>goalMet</b><span>true</span></div></div>'+
+  '<div class="beat conclusion"><p>A Boolean value is not “1 or 0” in Java source. The values are <code>true</code> and <code>false</code>.</p></div>',
+  'The source contrasts boolean with using 0/1 or text. Keep the Java representation clear.'
+ ));
+
+ s.push(slide('A value can look numeric without being a quantity',
+  '<p class="q">A locker code is written as <code>0042</code>. Are we going to add, subtract, or average locker codes?</p>'+
+  '<div class="beat concept-reveal"><p>Probably not. It is an <b>identifier</b>, not a quantity.</p></div>'+
+  '<div class="beat"><pre class="code"><span class="code-line">String lockerCode;</span></pre></div>'+
+  '<div class="beat conclusion"><p><code>String</code> is a reference type. For now, this example only helps us distinguish “text/identifier” from numeric data.</p></div>',
+  'This is a modeling example, not a String lesson. Do not teach concatenation or String methods here.'
+ ));
+
+ s.push(slide('Declaring a variable in Java',
+  '<p class="q">To create a variable, what must Java know?</p>'+
+  '<div class="declaration-form"><span class="decl-type">type</span><span class="decl-name">name</span><span class="decl-end">;</span></div>'+
+  '<div class="beat"><pre class="code"><span class="code-line">int score;</span><span class="code-line">double raceTime;</span><span class="code-line">boolean isRaining;</span></pre></div>'+
+  '<div class="beat conclusion"><p>A declaration gives Java the variable’s <b>type</b> and <b>name</b>.</p></div>',
+  'Current Topic 1.2 requires writing declarations for numbers and Boolean values. Do not formally teach = assignment or initialization yet; that is Topic 1.4.'
+ ));
+
+ s.push(slide('Read a declaration',
+  '<pre class="code"><span class="code-line focus-line">double averageTime;</span></pre>'+
+  '<p class="q">What can you know from this one line?</p>'+
+  '<div class="beat variable-profile"><div class="name">name</div><div class="value">averageTime</div><div class="name">type</div><div class="value">double</div><div class="name">can store</div><div class="value">real-number values</div></div>'+
+  '<div class="beat conclusion"><p>The declaration does <b>not</b> tell us a current value yet.</p></div>',
+  'This distinction is important because initialization belongs to Topic 1.4. Do not invent a value for an uninitialized declaration.'
+ ));
+
+ s.push(slide('Java habit: choose useful variable names',
+  '<div class="naming-rules">'+
+    '<div><b>Meaningful</b><span><code>gameScore</code> is clearer than <code>x</code>.</span></div>'+
+    '<div><b>No spaces</b><span><code>raceTime</code>, not <code>race time</code>.</span></div>'+
+    '<div><b>Case-sensitive</b><span><code>gameScore</code> and <code>gamescore</code> are different names.</span></div>'+
+    '<div><b>Do not use keywords</b><span><code>int</code>, <code>class</code>, <code>if</code>, etc. are reserved.</span></div>'+
+  '</div>'+
+  '<div class="scope-note">Common Java style starts variable names with a lowercase letter and uses <b>camelCase</b> for multiple words.</div>',
+  'This naming material comes from the CSAwesome reference as practical Java hygiene. It is useful, but it is not a separate AP Topic 1.2 learning objective.'
+ ));
+
+ s.push(slide('Practice 1 — choose the type',
+  '<p class="practice-kicker">IN-CLASS PRACTICE</p>'+
+  '<p class="q">Choose the best type for each specification. Give a reason.</p>'+
+  '<div class="practice-grid">'+
+    '<div class="practice-item"><h3>A</h3><p>average course grade: 89.5</p></div>'+
+    '<div class="practice-item"><h3>B</h3><p>number of people in a household: 4</p></div>'+
+    '<div class="practice-item"><h3>C</h3><p>first name: "Maya"</p></div>'+
+    '<div class="practice-item"><h3>D</h3><p>is it raining?</p></div>'+
+    '<div class="practice-item"><h3>E</h3><p>100-meter winning time: 9.81</p></div>'+
+    '<div class="practice-item"><h3>F</h3><p>registration code: "007A"</p></div>'+
+  '</div>'+
+  '<div class="beat"><div class="practice-answer-grid">'+
+    '<div><b>A</b><span><code>double</code></span></div>'+
+    '<div><b>B</b><span><code>int</code></span></div>'+
+    '<div><b>C</b><span>reference / <code>String</code></span></div>'+
+    '<div><b>D</b><span><code>boolean</code></span></div>'+
+    '<div><b>E</b><span><code>double</code></span></div>'+
+    '<div><b>F</b><span>reference / <code>String</code></span></div>'+
+  '</div></div>',
+  'These are adapted from the reference’s type-selection activities. All prompts are visible first; reveal the entire answer panel only after the student commits.'
+ ));
+
+ s.push(slide('Practice 2 — which lines declare variables?',
+  '<p class="practice-kicker">IN-CLASS PRACTICE</p>'+
+  '<pre class="code"><span class="code-line">public class Player {</span><span class="code-line">    public static void main(String[] args) {</span><span class="code-line">        int numLives;</span><span class="code-line">        System.out.println("Start");</span><span class="code-line">        double health;</span><span class="code-line">        boolean powerUp;</span><span class="code-line">    }</span><span class="code-line">}</span></pre>'+
+  '<p class="q">Which three lines are variable declarations?</p>'+
+  '<div class="beat concept-reveal"><code>int numLives;</code><br><code>double health;</code><br><code>boolean powerUp;</code></div>',
+  'This is modeled on the reference’s “find the declarations” exercise, but avoids assignment so we remain inside Topic 1.2.'
+ ));
+
+ s.push(slide('Practice 3 — legal name or fix it?',
+  '<p class="practice-kicker">IN-CLASS PRACTICE</p>'+
+  '<div class="practice-grid">'+
+    '<div class="practice-item"><h3>A</h3><p><code>gameScore</code></p></div>'+
+    '<div class="practice-item"><h3>B</h3><p><code>game score</code></p></div>'+
+    '<div class="practice-item"><h3>C</h3><p><code>class</code></p></div>'+
+    '<div class="practice-item"><h3>D</h3><p><code>gamescore</code></p></div>'+
+  '</div>'+
+  '<p class="q">Which are legal names? Which would you improve?</p>'+
+  '<div class="beat"><div class="practice-answer-grid">'+
+    '<div><b>A</b><span>legal + clear</span></div>'+
+    '<div><b>B</b><span>illegal: no spaces</span></div>'+
+    '<div><b>C</b><span>illegal: reserved keyword</span></div>'+
+    '<div><b>D</b><span>legal, but <code>gameScore</code> is clearer camelCase</span></div>'+
+  '</div></div>',
+  'This separates legal syntax from good style. Do not imply that gamescore is illegal; it is simply less readable.'
+ ));
+
+ s.push(slide('Practice 4 — write the declarations',
+  '<p class="practice-kicker">IN-CLASS PRACTICE</p>'+
+  '<p class="q">Write one Java declaration for each piece of data.</p>'+
+  '<div class="practice-grid">'+
+    '<div class="practice-item"><h3>1</h3><p>number of students</p></div>'+
+    '<div class="practice-item"><h3>2</h3><p>average GPA</p></div>'+
+    '<div class="practice-item"><h3>3</h3><p>whether registration is open</p></div>'+
+  '</div>'+
+  '<div class="beat"><pre class="code"><span class="code-line">int numStudents;</span><span class="code-line">double averageGPA;</span><span class="code-line">boolean registrationOpen;</span></pre></div>',
+  'Have the student write first. This directly targets AP 1.2.B: develop code to declare variables that store numbers and Boolean values.'
+ ));
+
+ s.push(slide('Practice 5 — AP-style choice',
+  '<p class="practice-kicker">IN-CLASS PRACTICE</p>'+
+  '<p class="q">Which pair is the most appropriate declaration for a student GPA and the number of students?</p>'+
+  '<div class="choice-list">'+
+    '<div>A. <code>int GPA; int numStudents;</code></div>'+
+    '<div>B. <code>double GPA; int numStudents;</code></div>'+
+    '<div>C. <code>double GPA; double numStudents;</code></div>'+
+    '<div>D. <code>int GPA; boolean numStudents;</code></div>'+
+  '</div>'+
+  '<div class="beat concept-reveal"><b>B.</b> GPA may have a fractional value; the number of students is a whole-number count.</div>',
+  'This mirrors the reasoning style of the reference’s AP practice without reproducing its exact exercise format.'
+ ));
+
+ s.push(slide('Scope check — what belongs to Topic 1.2?',
+  '<div class="scope-columns">'+
+    '<div><h3>YES — TODAY</h3><p>variable = storage + name + type</p><p>data type = values + operations</p><p>primitive vs reference</p><p><code>int</code>, <code>double</code>, <code>boolean</code></p><p>variable declarations</p></div>'+
+    '<div><h3>NOT YET</h3><p><code>=</code> assignment and initialization → Topic 1.4</p><p>changing stored values with statements → Topic 1.4</p><p>casting / numeric range → Topic 1.5</p><p>String operations → Topic 1.15</p></div>'+
+  '</div>',
+  'This page is deliberately explicit because the CSAwesome reference includes material that the revised AP framework now places in later topics.'
+ ));
 
  s.push(slide('Exit check',
-  '<p class="q">One at a time.</p>'+
-  '<div class="beat card"><h3>01</h3><p>Why might <code>"007"</code> be a better model than the number <code>7</code>?</p></div>'+
-  '<div class="beat card"><h3>02</h3><p>What three facts does <code>double time = 37.8;</code> tell you?</p></div>'+
-  '<div class="beat card"><h3>03</h3><p>Which part of a variable may change while the program runs?</p></div>'+
-  '<div class="beat card"><h3>04</h3><p>Why can a type mismatch become a compiler-detectable error?</p></div>',
-  'The first question tests transfer and modeling; the others test the core mental model.'));
+  '<p class="q">Explain, do not just name the keyword.</p>'+
+  '<div class="cards">'+
+    '<div class="card"><h3>01</h3><p>What three ideas are attached to a variable?</p></div>'+
+    '<div class="card"><h3>02</h3><p>Why is a data type more than a label?</p></div>'+
+    '<div class="card"><h3>03</h3><p>When would you choose <code>double</code> instead of <code>int</code>?</p></div>'+
+    '<div class="card"><h3>04</h3><p>Write a declaration for a true/false value named <code>goalMet</code>.</p></div>'+
+  '</div>',
+  'No answer reveal here. This is the teacher’s diagnostic. Listen for storage/name/type, values+operations, fractional information, and boolean goalMet.'
+ ));
 
  s.push(slide('Homework',
-  '<p class="big">For six pieces of real-world information, choose the most appropriate data type and justify the choice. Then write three valid Java declarations: one <code>int</code>, one <code>double</code>, and one <code>boolean</code>.</p>'+
-  '<div class="beat conclusion"><p>Include at least one value that <em>looks</em> numeric but should not be treated as a quantity.</p></div>',
-  'The non-obvious example forces the student to reason about meaning, not appearance.'));
+  '<p class="big">Choose six pieces of real-world information. For each one: choose the best data type, explain why, and write a Java declaration when the type is <code>int</code>, <code>double</code>, or <code>boolean</code>.</p>'+
+  '<div class="scope-note">Include one example that looks numeric but is really an identifier.</div>',
+  'Keep the homework inside Topic 1.2. No assignment statements are required.'
+ ));
 
- s.push(slide('Free resources',resources(l.resources),'Stay within Topic 1.2 scope; String manipulation comes much later in Unit 1.'));
+ s.push(slide('Free resources',resources(l.resources),
+  'The matching CSAwesome Topic 1.2 page is the primary optional reference. It contains additional assignment/initialization activities that we intentionally defer until Topic 1.4 under the revised AP framework.'
+ ));
+
  return s.join('');
 }
 
