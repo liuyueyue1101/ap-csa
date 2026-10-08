@@ -361,3 +361,8 @@ span.beat.revealed{display:inline}
  .topic12-variable-row{grid-template-columns:130px minmax(0,1fr)}
  .topic12-variable-row>span,.topic12-variable-row>strong{padding:12px}
 }
+/* One variable, one stable memory container across value changes. */
+.stateful-example .state-new{display:none}
+.stateful-example:has(.value-update-trigger.revealed) .state-old{display:none}
+.stateful-example:has(.value-update-trigger.revealed) .state-new{display:inline;color:var(--accent)}
+.stateful-example .value-update-trigger{position:absolute;width:0;height:0;margin:0;padding:0;overflow:hidden}
