@@ -28,6 +28,8 @@ jobs:
           node --check app.js
           node --check lesson.js
           for f in data*.js; do node --check "$f"; done
+      - name: Audit all lesson reveal states
+        run: node scripts/lesson-quality-check.cjs
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload site
