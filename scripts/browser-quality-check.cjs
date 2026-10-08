@@ -27,6 +27,7 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '    allHidden++;if(getComputedStyle(beat).display!=="none")errors.push("scene "+(n+1)+": an unrevealed answer is visible");'+
 '  }'+
 '}'+
+'if(new URLSearchParams(location.search).get("id")==="u1-2") {'+
 'const index=slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()==="What is a variable?");'+
 'if(index<0)errors.push("Topic 1.2 variable slide missing");'+
 'else{'+
@@ -46,8 +47,39 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '    next();if(i===index)errors.push("duplicate reveal after full answer");'+
 '  }'+
 '}'+
+'} else {'+
+'  const t=(name)=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===name);'+
+'  const esc=t("Use the escape sequences");'+
+'  if(esc<0)errors.push("Topic 1.3 escape-sequence lesson missing");'+
+'  else {'+
+'    i=esc;render(); const scene=slides[esc];'+
+'    const slash=String.fromCharCode(92);'+
+'    const code=scene.querySelector("pre.code")?.textContent||"";'+
+'    if(!code.includes(slash+"\\"Go!"+slash+"\\""))errors.push("the Java quote-escape sample lost its backslashes");'+
+'    if(!code.includes("C:"+slash+slash+"training"))errors.push("the Java path sample needs doubled backslashes");'+
+'    if(!code.includes("Lap 1"+slash+"nLap 2"))errors.push("the Java newline escape sample is wrong");'+
+'    const out=scene.querySelector(".beat.console-box");'+
+'    if(!out||getComputedStyle(out).display!=="none")errors.push("escape-sequence OUTPUT leaked before prediction");'+
+'    else {'+
+'      next();'+
+'      if(getComputedStyle(out).display==="none")errors.push("escape-sequence OUTPUT missing after reveal");'+
+'      if(!out.textContent.includes("C:"+slash+"training"))errors.push("displayed path output lost backslash");'+
+'    }'+
+'  }'+
+'  const practice=t("Practice 2 — remainder sprint");'+
+'  if(practice<0)errors.push("Topic 1.3 in-class remainder quiz missing");'+
+'  else {'+
+'    i=practice;render(); const scene=slides[practice];'+
+'    const answer=scene.querySelector(".beat.lesson13-answer-bar");'+
+'    if(!answer||getComputedStyle(answer).display!=="none")errors.push("quiz answer is visible before reveal");'+
+'    else {next();if(getComputedStyle(answer).display==="none")errors.push("quiz answer did not reveal in one click");next();if(i===practice)errors.push("duplicate unnecessary remainder quiz reveal");}'+
+'  }'+
+'  const challenge=t("Coding challenge — build a pay calculator");'+
+'  if(challenge<0)errors.push("Topic 1.3 pay calculator challenge missing");'+
+'  else if(slides[challenge].querySelector(".console-box,.eval-step,.lesson13-answer-bar"))errors.push("pay calculator challenge leaked its solution");'+
+'}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
-'const report={ok:errors.length===0,lessons:"u1-2",slides:slides.length,hiddenElementsChecked:allHidden,errors};'+
+'const report={ok:errors.length===0,lessons:new URLSearchParams(location.search).get("id"),slides:slides.length,hiddenElementsChecked:allHidden,errors};'+
 'const el=document.createElement("pre");el.id="browser-qa-result";el.textContent="BROWSER_QA_RESULT:"+JSON.stringify(report);'+
 'document.body.appendChild(el);'+
 '})();'+
@@ -68,7 +100,7 @@ const server=http.createServer((req,res)=>{
 server.listen(0,'127.0.0.1',()=>{
  const port=server.address().port;
  const args=['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage',
-  '--virtual-time-budget=3000','--dump-dom','http://127.0.0.1:'+port+'/qa?id=u1-2'];
+  '--virtual-time-budget=3000','--dump-dom','http://127.0.0.1:'+port+'/qa?id='+(process.argv[2]||'u1-2')];
  const child=spawn(chrome,args,{stdio:['ignore','pipe','pipe']});
  let stdout='',stderr='';
  child.stdout.on('data',chunk=>{stdout+=chunk.toString();});
@@ -84,6 +116,6 @@ server.listen(0,'127.0.0.1',()=>{
   catch(e){console.error('FAIL: malformed browser report: '+m[1].slice(0,400));process.exitCode=1;return;}
   console.log('Browser audit: '+report.slides+' slides; '+report.hiddenElementsChecked+' hidden answers checked');
   if(!report.ok){for(const e of report.errors)console.error('FAIL:',e);process.exitCode=1;}
-  else console.log('PASS: Topic 1.2 initial state, one meaningful reveal, no duplicate table, and hidden-answer visibility');
+  else console.log('PASS: '+report.lessons+' browser presentation QA (hidden answers, exact escape output, required exercises)');
  });
 });
