@@ -424,10 +424,10 @@ function buildPythonOnRamp(l){
  s.push(slide('A variable can change',
   '<pre class="code"><span class="code-line">score = 10</span><span class="code-line focus-line">score = score + 1</span><span class="code-line">print(score)</span></pre>'+
   '<p class="q">Before we run it: what value will <code>score</code> have after line 2?</p>'+
-  '<div class="memory-board"><div class="name">score</div><div class="value">10</div></div>'+
+  '<div class="stateful-example"><div class="memory-board"><div class="name">score</div><div class="value"><span class="state-old">10</span><span class="state-new">11</span></div></div>'+
   '<div class="beat eval-step">score + 1 → 10 + 1</div>'+
   '<div class="beat eval-step">10 + 1 → 11</div>'+
-  '<div class="beat memory-board"><div class="name">score</div><div class="value">11</div></div>'+
+  '<div class="beat value-update-trigger" aria-hidden="true"></div></div>'+
   '<div class="beat console-box">11</div>'+
   '<div class="beat conclusion"><p>First the right side is evaluated. Then <code>score</code> is updated in memory. Only after that does <code>print(score)</code> display the current value.</p></div>',
   'Keep the visual language stable: MEMORY always means stored state; EVALUATION shows the calculation; CONSOLE shows printed output. The useful change is 10 → 11 in memory, not a change of container.'));
