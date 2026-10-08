@@ -128,6 +128,31 @@ for(const l of context.window.COURSE_DATA.lessons.concat(context.window.COURSE_D
   }
  }
 }
+// Reference-alignment gate: every textbook subsection needs a traceable scene.
+const coveragePath=path.join(root,'curriculum-coverage.json');
+if(fs.existsSync(coveragePath)){
+ const maps=JSON.parse(fs.readFileSync(coveragePath,'utf8'));
+ for(const [lessonId,map] of Object.entries(maps)){
+  const lesson=context.window.COURSE_DATA.lessons.find(l=>l.id===lessonId);
+  if(!lesson){errors.push('coverage: missing lesson '+lessonId);continue;}
+  if(!lesson.resources?.some(r=>r.url===map.referenceSource))
+   errors.push('coverage: '+lessonId+' is missing exact matching textbook resource');
+  const fn=special[lessonId]||(lesson.kind==='practice'?'buildPractice':'buildLesson');
+  const slides=find(parse(context[fn](lesson)),n=>n.tag==='section'&&has(n,'slide'));
+  const headings=new Set(slides.flatMap(s=>find(s,n=>n.tag==='h2').map(n=>normalize(allText(n)))));
+  let mapped=0;
+  for(const area of map.referenceSections){
+   if(!area.scenes?.length)errors.push('coverage: '+lessonId+' / '+area.section+' has no mapped scenes');
+   for(const title of area.scenes||[]){
+    if(!headings.has(title))errors.push('coverage: '+lessonId+' / '+area.section+' missing scene '+title);
+    else mapped++;
+   }
+  }
+  if(!map.deferred?.length)warnings.push('coverage: '+lessonId+' has no documented later-topic deferrals');
+  console.log('Reference crosswalk '+lessonId+': '+map.referenceSections.length+' source sections, '+mapped+' mapped scenes, '+(map.deferred?.length||0)+' deferred topics.');
+ }
+}
+
 console.log('Audited '+nLessons+' lessons, '+nScenes+' slides, '+nClicks+' actual reveal clicks.');
 for(const w of warnings.slice(0,50))console.log('REVIEW '+w);
 if(warnings.length>50)console.log('REVIEW '+(warnings.length-50)+' additional warnings');
