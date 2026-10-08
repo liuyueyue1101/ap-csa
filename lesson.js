@@ -1142,7 +1142,7 @@ function buildTopic13(l){
  s.push(slide('Use the escape sequences',
   '<pre class="code"><span class="code-line">System.out.println("Coach said: \\"Go!\\"");</span><span class="code-line">System.out.println("C:\\\\training");</span><span class="code-line">System.out.println("Lap 1\\nLap 2");</span></pre>'+
   '<p class="q">Predict the output. Where do the quote, slash, and new line actually appear?</p>'+
-  '<div class="beat console-box">Coach said: "Go!"<br>C:\training<br>Lap 1<br>Lap 2</div>',
+  '<div class="beat console-box">Coach said: "Go!"<br>C:\\training<br>Lap 1<br>Lap 2</div>',
   'This is direct use of all three official escape sequences. The output is actual displayed characters; the backslash before quotes does not print. No String concatenation is used.'
  ));
 
