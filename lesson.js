@@ -1341,8 +1341,8 @@ function buildTopic14(l){
   '<pre class="code"><span class="code-line">int score = 5;</span><span class="code-line">score = 9;</span></pre>'+
   '<p class="q">After the second statement, what value is in <code>score</code>?</p>'+
   '<div class="stateful-example"><div class="memory-board"><div class="name">score</div><div class="value"><span class="state-old">5</span><span class="state-new">9</span></div></div>'+
-  '<span class="beat value-update-trigger" aria-hidden="true"></span></div>'+
-  '<p class="scope-note">Read <code>=</code> as <b>gets</b>: the variable on the left receives the value on the right.</p>',
+  '<span class="beat value-update-trigger" data-reveal-group="assignment-result" aria-hidden="true"></span></div>'+
+  '<p class="beat scope-note" data-reveal-group="assignment-result">Read <code>=</code> as <b>gets</b>: the variable on the left receives the value on the right.</p>',
   'Ask before clicking. In the same memory container, 5 becomes 9 when the teacher reveals. Not two diagrams and not a mathematical equation.'
  ));
 
@@ -1424,8 +1424,8 @@ function buildTopic14(l){
  s.push(slide('Input lets a program work with new data',
   '<p class="q">So far we typed the values into source code. Can a running program receive information without rewriting its source?</p>'+
   '<div class="assignment-input-map"><div><span>KEYBOARD</span><strong>Sam</strong></div><div><span>CAMERA</span><strong>image</strong></div><div><span>TOUCH</span><strong>tap</strong></div><div><span>MICROPHONE</span><strong>speech</strong></div></div>'+
-  '<div class="beat concept-reveal">Yes. Input can arrive as text, touch, sound, or images, depending on the program.</div>',
-  'Required 1.4.B.1. This revisits the input→processing→output model from Week 1. The different sources are a single static map, with one conceptual conclusion reveal.'
+  '<p class="scope-note">The same program can process new data without changing its source code.</p>',
+  'Required 1.4.B.1. This revisits the input→processing→output model from Week 1. Static input map: no answer-only reveal is needed. Ask students to name devices beyond these examples.'
  ));
 
  s.push(slide('In Java, <code>Scanner</code> can read text',
