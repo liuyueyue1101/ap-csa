@@ -453,3 +453,7 @@ span.beat.revealed{display:inline}
  .assignment-exercise-grid,.assignment-exercise-grid:has(>div:nth-child(2):last-child),.assignment-repair-grid{grid-template-columns:1fr}
  .assignment-tasks>div{grid-template-columns:30px minmax(0,1fr)}
 }
+
+/* Preserve legible code sizes when a complete Java class must fit on one TV screen. */
+.code.code-compact{font-size:clamp(23px,2.35vw,33px);line-height:1.35;padding:17px 22px}
+.slide.fit-dense .code.code-compact{line-height:1.23;padding:12px 18px}
