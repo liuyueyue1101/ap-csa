@@ -47,7 +47,7 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '    next();if(i===index)errors.push("duplicate reveal after full answer");'+
 '  }'+
 '}'+
-'} else {'+
+'} else if(new URLSearchParams(location.search).get("id")==="u1-3") {'+
 '  const t=(name)=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===name);'+
 '  const esc=t("Use the escape sequences");'+
 '  if(esc<0)errors.push("Topic 1.3 escape-sequence lesson missing");'+
@@ -77,6 +77,51 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '  const challenge=t("Coding challenge — build a pay calculator");'+
 '  if(challenge<0)errors.push("Topic 1.3 pay calculator challenge missing");'+
 '  else if(slides[challenge].querySelector(".console-box,.eval-step,.lesson13-answer-bar"))errors.push("pay calculator challenge leaked its solution");'+
+'} else if(new URLSearchParams(location.search).get("id")==="u1-4") {'+
+'  const t=(name)=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===name);'+
+'  const assign=t("Assignment is not mathematical equality");'+
+'  if(assign<0)errors.push("Topic 1.4 directional assignment lesson missing");'+
+'  else {'+
+'    i=assign;render();const scene=slides[assign];'+
+'    const box=scene.querySelector(".memory-board"),before=scene.querySelector(".state-old"),after=scene.querySelector(".state-new");'+
+'    if(!box||scene.querySelectorAll(".memory-board").length!==1||!before||!after) errors.push("Assignment must use one stable memory box");'+
+'    else {'+
+'      if(getComputedStyle(after).display!=="none")errors.push("new assignment value visible before reveal");'+
+'      next();'+
+'      if(getComputedStyle(after).display==="none"||getComputedStyle(before).display!=="none")errors.push("assignment reveal did not update the SAME memory box");'+
+'      next();if(i===assign)errors.push("duplicate assignment reveal");'+
+'    }'+
+'  }'+
+'  const evaluate=t("First evaluate the RIGHT side");'+
+'  if(evaluate<0)errors.push("Topic 1.4 evaluate-first lesson missing");'+
+'  else {'+
+'    i=evaluate;render();const scene=slides[evaluate];'+
+'    const expr=scene.querySelector(".beat.eval-step"),after=scene.querySelector(".state-new"),output=scene.querySelector(".beat.console-box");'+
+'    if(!expr||!after||!output)errors.push("missing expression, memory update or output");'+
+'    else {'+
+'      if(getComputedStyle(output).display!=="none"||getComputedStyle(after).display!=="none")errors.push("state or output leaked before prediction");'+
+'      next();if(getComputedStyle(expr).display==="none"||getComputedStyle(after).display!=="none")errors.push("first reveal should ONLY evaluate expression");'+
+'      next();if(getComputedStyle(after).display==="none"||getComputedStyle(output).display!=="none")errors.push("second reveal should update memory without printing yet");'+
+'      next();if(getComputedStyle(output).display==="none")errors.push("third reveal should display console output");'+
+'    }'+
+'  }'+
+'  const practice=t("Practice 1 — three short traces");'+
+'  if(practice<0)errors.push("Topic 1.4 assignment trace practice missing");'+
+'  else {'+
+'    i=practice;render();const ans=slides[practice].querySelector(".beat.assignment-answer-grid");'+
+'    if(!ans||getComputedStyle(ans).display!=="none")errors.push("assignment practice answer leaked");'+
+'    else {next();if(getComputedStyle(ans).display==="none")errors.push("assignment practice answers failed to reveal");next();if(i===practice)errors.push("assignment practice duplicated reveal");}'+
+'  }'+
+'  const challenge=t("Coding challenge — Pet Years");'+
+'  if(challenge<0)errors.push("Pet Years challenge missing");'+
+'  else if(slides[challenge].querySelector("pre.code,.console-box,.assignment-answer-grid"))errors.push("Pet Years prompt should not reveal worked solution");'+
+'  const review=t("Review the Pet Years program");'+
+'  if(review<0)errors.push("Pet Years solution review missing");'+
+'  else{'+
+'    i=review;render();const solve=slides[review].querySelector(".beat pre.code");'+
+'    if(!solve||getComputedStyle(solve.parentElement).display!=="none")errors.push("Pet Years worked solution visible before student attempt");'+
+'    else{next();if(getComputedStyle(solve.parentElement).display==="none")errors.push("Pet Years answer failed to reveal");}'+
+'  }'+
 '}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
 'const report={ok:errors.length===0,lessons:new URLSearchParams(location.search).get("id"),slides:slides.length,hiddenElementsChecked:allHidden,errors};'+
