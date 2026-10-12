@@ -1316,6 +1316,195 @@ function buildTopic13(l){
  return s.join('');
 }
 
+function buildTopic14(l){
+ const s=[];
+ s.push(apCover(l,'1.4','Assignment Statements<br>& Input',
+  'A program changes state by evaluating an expression, then storing its result.',
+  'Align with CSAwesome2 1.4.1–1.4.7 and College Board 1.4.A/B. Progression: initialize → directional assignment → update existing memory → copy → trace → swap → compatible types → reference/null → user input → independent debugging and dog-years challenge. Do not teach compound assignment (1.6) or casting (1.5). Keyboard-input API syntax is optional enrichment, not tested.'
+ ));
+
+ s.push(slide('Retrieve: a name and a type are not enough',
+  '<pre class="code"><span class="code-line">int laps;</span><span class="code-line">System.out.println(laps);</span></pre>'+
+  '<p class="q">Will this Java program compile? What does <code>laps</code> actually store so far?</p>'+
+  '<div class="beat"><div class="error-box"><span class="error-badge">COMPILER ERROR</span><p>The local variable <code>laps</code> has not been initialized before it is used.</p></div></div>',
+  'Link to Topic 1.2. A declaration creates a name and type, but local variables must be assigned before use. Do not claim that every variable in Java, including fields, always has no default—our example is specifically a local variable.'
+ ));
+
+ s.push(slide('Initialize a variable',
+  '<p class="q">What changes if we give <code>laps</code> its first value?</p>'+
+  '<pre class="code"><span class="code-line">int laps = 4;</span><span class="code-line">System.out.println(laps);</span></pre>'+
+  '<div class="beat"><div class="memory-board"><div class="name">laps</div><div class="value">4</div></div><p>The first assignment of a value is called <b>initialization</b>.</p><div class="console-box">4</div></div>',
+  'One reveal adds initial stored value, term initialization, and printed evidence. This is a true extension of the previous slide.'
+ ));
+
+ s.push(slide('Assignment is not mathematical equality',
+  '<pre class="code"><span class="code-line">int score = 5;</span><span class="code-line">score = 9;</span></pre>'+
+  '<p class="q">After the second statement, what value is in <code>score</code>?</p>'+
+  '<div class="stateful-example"><div class="memory-board"><div class="name">score</div><div class="value"><span class="state-old">5</span><span class="state-new">9</span></div></div>'+
+  '<span class="beat value-update-trigger" aria-hidden="true"></span></div>'+
+  '<p class="scope-note">Read <code>=</code> as <b>gets</b>: the variable on the left receives the value on the right.</p>',
+  'Ask before clicking. In the same memory container, 5 becomes 9 when the teacher reveals. Not two diagrams and not a mathematical equation.'
+ ));
+
+ s.push(slide('First evaluate the RIGHT side',
+  '<pre class="code"><span class="code-line">int score = 10;</span><span class="code-line">score = score + 1;</span><span class="code-line">System.out.println(score);</span></pre>'+
+  '<p class="q">In <code>score = score + 1</code>, which value does the RIGHT-hand <code>score</code> use?</p>'+
+  '<div class="stateful-example"><div class="memory-board"><div class="name">score</div><div class="value"><span class="state-old">10</span><span class="state-new">11</span></div></div>'+
+  '<div class="beat eval-step">10 + 1 → 11</div>'+
+  '<span class="beat value-update-trigger" aria-hidden="true"></span></div>'+
+  '<div class="beat console-box">11</div>',
+  'Three meaningful steps: evaluate using OLD score 10, store NEW score 11 in the same memory location, then observe printed output. The left-hand score is the destination, not a second value.'
+ ));
+
+ s.push(slide('Change the rule, not the mental model',
+  '<p class="q">Starting from <code>points = 8</code>, what will this new statement store?</p>'+
+  '<pre class="code"><span class="code-line">int points = 8;</span><span class="code-line">points = points * 2 + 3;</span></pre>'+
+  '<div class="beat eval-step">8 * 2 + 3 → 19</div>'+
+  '<div class="beat"><div class="memory-board"><div class="name">points</div><div class="value">19</div></div></div>',
+  'Transfer: longer right-hand expression, same directional model. If the student gets 22, revisit multiplication precedence from 1.3. No second variable table on this page.'
+ ));
+
+ s.push(slide('Copy a value; do not link two boxes',
+  '<pre class="code"><span class="code-line">int x = 3;</span><span class="code-line">int y = x;</span><span class="code-line">x = 8;</span><span class="code-line">System.out.println(y);</span></pre>'+
+  '<p class="q">Will changing <code>x</code> also change <code>y</code>?</p>'+
+  '<div class="beat"><div class="assignment-pair"><div><span>x</span><strong>8</strong></div><div><span>y</span><strong>3</strong></div></div><p>The assignment <code>y = x</code> copied the value <code>3</code> at that moment. The variables remain independent.</p></div>',
+  'Reference 1.4.1 value-copy exercise. Ask before reveal. This does not teach reference aliasing; x and y are both primitive int variables.'
+ ));
+
+ s.push(slide('Trace a sequence of assignments',
+  '<pre class="code"><span class="code-line">int x = 0;</span><span class="code-line">int y = 1;</span><span class="code-line">int z = 2;</span><span class="code-line">x = y;</span><span class="code-line">y = y * 2;</span><span class="code-line">z = 3;</span></pre>'+
+  '<p class="q">Write the FINAL values of <code>x</code>, <code>y</code>, and <code>z</code> before clicking.</p>'+
+  '<div class="beat assignment-trace"><div><span>x</span><strong>1</strong></div><div><span>y</span><strong>2</strong></div><div><span>z</span><strong>3</strong></div></div>',
+  'Based on CSAwesome Activity 1.4.2. The student must trace on paper. Reveal the final state in one click rather than making three separate answer animations.'
+ ));
+
+ s.push(slide('The tempting but incorrect swap',
+  '<div class="assignment-pair"><div><span>a</span><strong>3</strong></div><div><span>b</span><strong>5</strong></div></div>'+
+  '<pre class="code"><span class="code-line">a = b;</span><span class="code-line">b = a;</span></pre>'+
+  '<p class="q">Did these two statements successfully exchange <code>a</code> and <code>b</code>?</p>'+
+  '<div class="beat"><div class="assignment-pair"><div><span>a</span><strong>5</strong></div><div><span>b</span><strong>5</strong></div></div><p>The original <code>3</code> was overwritten before we could save it.</p></div>',
+  'This slide shows a counterexample that justifies the need for a temporary variable. The two rows are a before-vs-after comparison, not decorative reveal.'
+ ));
+
+ s.push(slide('A temporary variable saves the old value',
+  '<p class="q">How can we keep the original <code>3</code> safe while changing <code>a</code>?</p>'+
+  '<pre class="code"><span class="code-line">int a = 3;</span><span class="code-line">int b = 5;</span><span class="code-line">int temp = a;</span><span class="code-line">a = b;</span><span class="code-line">b = temp;</span></pre>'+
+  '<div class="beat"><div class="assignment-trace"><div><span>a</span><strong>5</strong></div><div><span>b</span><strong>3</strong></div><div><span>temp</span><strong>3</strong></div></div><p><code>temp</code> preserved the value that would otherwise have been lost.</p></div>',
+  'Reference 1.4.3 mixed-up blocks. Ask the student to explain why temp=a must happen before a=b. This is not a duplicate of the previous page: it supplies the missing mechanism.'
+ ));
+
+ s.push(slide('The expression has a type, too',
+  '<pre class="code"><span class="code-line">int amount = 1;</span><span class="code-line">double multiplier = 2.2;</span><span class="code-line">amount = 2 * multiplier;</span></pre>'+
+  '<p class="q">What is the type of <code>2 * multiplier</code>? Can Java store it in <code>int amount</code>?</p>'+
+  '<div class="beat error-box"><span class="error-badge">INCOMPATIBLE TYPES</span><p>The expression produces a <code>double</code>, but <code>amount</code> was declared <code>int</code>.</p></div>',
+  'CSAwesome 1.4.4 incompatible-type debugging. Recall 1.2 type and 1.3 double arithmetic. Casting belongs to the next AP topic: do NOT teach casting to hide this error.'
+ ));
+
+ s.push(slide('Repair the type mismatch',
+  '<p class="q">Change just one declaration so the calculation can keep its fractional value.</p>'+
+  '<pre class="code"><span class="code-line">double amount = 1;</span><span class="code-line">double multiplier = 2.2;</span><span class="code-line">amount = 2 * multiplier;</span><span class="code-line">System.out.println(amount);</span></pre>'+
+  '<div class="beat"><div class="console-box">4.4</div><p>The receiving variable now has a compatible type.</p></div>',
+  'This is a genuine repair, not another definition slide. We only changed the type of the destination variable. No explicit casting.'
+ ));
+
+ s.push(slide('An expression needs a value before it can run',
+  '<pre class="code"><span class="code-line">int total;</span><span class="code-line">total = total + 1;</span></pre>'+
+  '<p class="q">What is the RIGHT-hand <code>total</code> supposed to mean here?</p>'+
+  '<div class="beat"><div class="error-box"><span class="error-badge">UNINITIALIZED LOCAL</span><p>No current value exists for the expression to read. Give <code>total</code> its first value before using it.</p></div><pre class="code"><span class="code-line">int total = 0;</span><span class="code-line">total = total + 1;</span></pre></div>',
+  'Unlike the opening slide, the error is now embedded in self-update; diagnosing it requires understanding the right-hand side. Do not say there is an implicit zero.'
+ ));
+
+ s.push(slide('Reference types can hold <code>null</code>',
+  '<pre class="code"><span class="code-line">String message = null;</span><span class="code-line">message = "Ready";</span></pre>'+
+  '<p class="q">Does <code>null</code> mean the same thing as an empty string <code>""</code>?</p>'+
+  '<div class="beat concept-reveal"><b>No.</b> <code>null</code> means this reference is not associated with an object. The later assignment gives <code>message</code> a String object.</div>',
+  'Required 1.4.A.1. Only the conceptual meaning is needed here. Do not present null as a primitive value or delve into NullPointerException; that is later.'
+ ));
+
+ s.push(slide('Input lets a program work with new data',
+  '<p class="q">So far we typed the values into source code. Can a running program receive information without rewriting its source?</p>'+
+  '<div class="assignment-input-map"><div><span>KEYBOARD</span><strong>Sam</strong></div><div><span>CAMERA</span><strong>image</strong></div><div><span>TOUCH</span><strong>tap</strong></div><div><span>MICROPHONE</span><strong>speech</strong></div></div>'+
+  '<div class="beat concept-reveal">Yes. Input can arrive as text, touch, sound, or images, depending on the program.</div>',
+  'Required 1.4.B.1. This revisits the input→processing→output model from Week 1. The different sources are a single static map, with one conceptual conclusion reveal.'
+ ));
+
+ s.push(slide('In Java, <code>Scanner</code> can read text',
+  '<pre class="code"><span class="code-line">import java.util.Scanner;</span><span class="code-line"></span><span class="code-line">public class HelloInput {</span><span class="code-line">  public static void main(String[] args) {</span><span class="code-line">    Scanner input = new Scanner(System.in);</span><span class="code-line">    String name = input.nextLine();</span><span class="code-line">    System.out.println(name);</span><span class="code-line">    input.close();</span><span class="code-line">  }</span><span class="code-line">}</span></pre>'+
+  '<p class="q">If the user types <code>Sam</code>, what will the last print statement display?</p>'+
+  '<div class="beat console-box">Sam</div>'+
+  '<div class="scope-note">The specific keyboard-input API is useful Java practice, but its syntax is <b>not tested</b> on AP CSA.</div>',
+  'CSAwesome 1.4.4 Scanner demonstration. Explain only the working idea: nextLine reads typed text into the String variable. Avoid teaching concatenation early. This is optional enrichment; teachers may demonstrate it rather than require setup.'
+ ));
+
+ s.push(slide('Practice 1 — three short traces',
+  '<p class="practice-kicker">IN-CLASS · PREDICT FIRST</p>'+
+  '<div class="assignment-exercise-grid"><div><h3>A</h3><code>int n = 5;<br>n = n * 2;<br>n = n - 3;</code></div>'+
+  '<div><h3>B</h3><code>int x = 4;<br>int y = x;<br>x = 10;</code></div>'+
+  '<div><h3>C</h3><code>int p = 7;<br>p = p / 2;<br>p = p + 4;</code></div></div>'+
+  '<p class="q">Find the final values of <code>n</code>, <code>y</code>, and <code>p</code>.</p>'+
+  '<div class="beat assignment-answer-grid"><div><b>A — n</b><strong>7</strong></div><div><b>B — y</b><strong>4</strong></div><div><b>C — p</b><strong>7</strong></div></div>',
+  'All three prompts are visible before answer reveal. Student should work independently, then teacher reveals the answer key once. Checks self-updates, copying, and integer division.'
+ ));
+
+ s.push(slide('Practice 2 — diagnose two different errors',
+  '<p class="practice-kicker">IN-CLASS · DEBUG</p>'+
+  '<div class="assignment-exercise-grid"><div><h3>A</h3><code>int tickets;<br>tickets = tickets + 2;</code></div>'+
+  '<div><h3>B</h3><code>int result = 1;<br>double rate = 1.5;<br>result = rate * 4;</code></div></div>'+
+  '<p class="q">Why does each fail to compile? What is the smallest sensible fix?</p>'+
+  '<div class="beat"><div class="assignment-repair-grid"><div><b>A</b><p>Initialize <code>tickets</code> before reading it.</p><code>int tickets = 0;</code></div><div><b>B</b><p>Use a compatible destination type.</p><code>double result = 1;</code></div></div></div>',
+  'Distinguish uninitialized local from type mismatch; do not offer casting. Avoid a title or visible color that gives away the diagnosis before students answer.'
+ ));
+
+ s.push(slide('Practice 3 — repair a broken swap',
+  '<p class="practice-kicker">IN-CLASS · REASON ABOUT STATE</p>'+
+  '<pre class="code"><span class="code-line">int left = 20;</span><span class="code-line">int right = 50;</span><span class="code-line">left = right;</span><span class="code-line">right = left;</span></pre>'+
+  '<p class="q">Write the <b>three</b> assignment statements needed to really exchange the two values.</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">int saved = left;</span><span class="code-line">left = right;</span><span class="code-line">right = saved;</span></pre><p>Replace the two wrong assignment lines with these steps.</p></div>',
+  'Reveal after student writes on paper. The initializer for saved is a new declaration, so the solution contains three statements. Ask why saving comes first.'
+ ));
+
+ s.push(slide('Practice 4 — AP-style code analysis',
+  '<p class="practice-kicker">IN-CLASS · MULTI-TOPIC</p>'+
+  '<pre class="code"><span class="code-line">int a = 7;</span><span class="code-line">int b = a / 3;</span><span class="code-line">double c = a / 2.0;</span><span class="code-line">double total = 4 + a / b * c - 1;</span><span class="code-line">System.out.println(total);</span></pre>'+
+  '<p class="q">What is printed? Name where integer division matters.</p>'+
+  '<div class="assignment-mcq"><div>A. 10.5</div><div>B. 13.5</div><div>C. 14.0</div><div>D. Compiler error</div></div>'+
+  '<div class="beat"><p><b>Answer: B — 13.5</b></p><div class="eval-step"><code>b = 2</code>, <code>c = 3.5</code>, then <code>a / b = 3</code></div><div class="eval-step">4 + 3 * 3.5 - 1 → 13.5</div></div>',
+  'Adapted from CSAwesome 1.4.8 style rather than copying the numeric values. Teacher must require a commitment before revealing. Note output is a double.'
+ ));
+
+ s.push(slide('Coding challenge — Pet Years',
+  '<p class="practice-kicker">WRITE JAVA · 8–10 MINUTES</p>'+
+  '<p class="q">Write a complete <code>PetYears</code> Java program. Use these sample years:</p>'+
+  '<div class="assignment-exercise-grid"><div><h3>CURRENT YEAR</h3><p>2026</p></div><div><h3>YOUR BIRTH YEAR</h3><p>2011</p></div><div><h3>PET BIRTH YEAR</h3><p>2020</p></div></div>'+
+  '<div class="assignment-tasks"><div><b>1</b> Initialize three variables with these years.</div><div><b>2</b> Calculate the person’s age and pet’s age.</div><div><b>3</b> Calculate “pet years” using <code>petAge * 7</code>.</div><div><b>4</b> Print the three results with clear labels.</div></div>'+
+  '<p class="scope-note">For this simplified exercise, age = difference in years; exact birthdays are not considered. You may change the input years.</p>',
+  'Adapted from CSAwesome Project 1.4.7 Dog Years, to test actual Java writing. The factor of seven is a simple classroom convention, not a biological claim. No answer appears in the assignment scene. Accept multiple valid implementations.'
+ ));
+
+ s.push(slide('Review the Pet Years program',
+  '<p class="q">Compare this example only <b>after</b> you have attempted your own code.</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">public class PetYears {</span><span class="code-line">  public static void main(String[] args) {</span><span class="code-line">    int currentYear = 2026;</span><span class="code-line">    int birthYear = 2011;</span><span class="code-line">    int petBirthYear = 2020;</span><span class="code-line">    int age = currentYear - birthYear;</span><span class="code-line">    int petAge = currentYear - petBirthYear;</span><span class="code-line">    int petYears = petAge * 7;</span><span class="code-line">    System.out.println("Person age:");</span><span class="code-line">    System.out.println(age);</span><span class="code-line">    System.out.println("Pet years:");</span><span class="code-line">    System.out.println(petYears);</span><span class="code-line">  }</span><span class="code-line">}</span></pre><div class="assignment-answer-grid"><div><b>PERSON</b><strong>15</strong></div><div><b>PET</b><strong>6</strong></div><div><b>PET YEARS</b><strong>42</strong></div></div></div>',
+  'Only one answer reveal. Note: model calculates petAge but example prints age and petYears; petAge is still visible as an expression in source and answer key. Optional ask the student to add System.out.println(petAge) to display all three.'
+ ));
+
+ s.push(slide('Exit check — explain, do not guess',
+  '<p class="q">Answer these independently.</p>'+
+  '<div class="assignment-tasks"><div><b>1</b> In <code>n = n + 4</code>, which <code>n</code> is read, and which one receives the result?</div>'+
+  '<div><b>2</b> Why can copying <code>y = x</code> leave <code>y</code> unchanged after a later update to <code>x</code>?</div>'+
+  '<div><b>3</b> What two distinct Java problems can prevent an assignment from compiling?</div>'+
+  '<div><b>4</b> What does <code>null</code> mean for a reference variable?</div></div>',
+  'No answers on screen. Expected: right read/left destination; primitive copy snapshot; uninitialized variable or incompatible type; reference not associated with object. Note which concept needs retrieval next lesson.'
+ ));
+
+ s.push(slide('Homework and free reference',
+  '<p class="big">Trace five Java assignments on paper. Then change the sample Pet Years code so it works with another pair of birth years, and predict all outputs before running.</p>'+
+  '<p class="scope-note">Next: Topic 1.5 teaches casting and numeric ranges. Topic 1.6 introduces compound assignment operators such as <code>+=</code>.</p>'+
+  '<div class="beat"><p class="practice-kicker">FREE FOLLOW-UP</p>'+resources(l.resources)+'</div>',
+  'Primary follow-up: CSAwesome2 Topic 1.4 — Assignment and Input, plus Colleen Lewis’s free variable video. Map 1.4.1 through 1.4.7 to this lesson; Scanner input details are enrichment and user-specific input APIs are outside AP exam scope.'
+ ));
+ return s.join('');
+}
+
 function buildWeek3Practice(l){
  const s=[];
  s.push(apCover(l,'1.1–1.3','Week 3 Practice','Can you find the simple rule inside a mixed problem?','This practice should not reteach the lessons. It should expose whether the learner can transfer the three mental models: execution/error stage, type/model choice, and expression evaluation.'));
@@ -1534,6 +1723,7 @@ if(!L){
  else if(L.id==='u1-1') deck.innerHTML=buildTopic11(L);
  else if(L.id==='u1-2') deck.innerHTML=buildTopic12(L);
  else if(L.id==='u1-3') deck.innerHTML=buildTopic13(L);
+ else if(L.id==='u1-4') deck.innerHTML=buildTopic14(L);
  else if(L.id==='p-1-1-1-3') deck.innerHTML=buildWeek3Practice(L);
  else deck.innerHTML=L.kind==='practice'?buildPractice(L):buildLesson(L);
 }
