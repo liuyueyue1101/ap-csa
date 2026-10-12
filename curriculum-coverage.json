@@ -91,5 +91,94 @@
         "content": "String concatenation and methods"
       }
     ]
+  },
+  "u1-4": {
+    "officialTopic": "1.4",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description-effective-fall-2025.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-4-assignment.html",
+    "referenceSections": [
+      {
+        "section": "1.4.1 Assignment statements, snapshots, visualizing memory",
+        "scenes": [
+          "Retrieve: a name and a type are not enough",
+          "Initialize a variable",
+          "Assignment is not mathematical equality",
+          "First evaluate the RIGHT side",
+          "Copy a value; do not link two boxes",
+          "Trace a sequence of assignments"
+        ],
+        "skill": "Distinguish declaration from initialization; evaluate right then assign left; trace variable copies"
+      },
+      {
+        "section": "1.4.1 Swap challenge",
+        "scenes": [
+          "The tempting but incorrect swap",
+          "A temporary variable saves the old value",
+          "Practice 3 — repair a broken swap"
+        ],
+        "skill": "Use a temporary value to preserve state while exchanging variables"
+      },
+      {
+        "section": "1.4.2 Types in assignments, references and null",
+        "scenes": [
+          "The expression has a type, too",
+          "Repair the type mismatch",
+          "An expression needs a value before it can run",
+          "Reference types can hold null"
+        ],
+        "skill": "Respect assigned expression types and uninitialized locals; explain null reference"
+      },
+      {
+        "section": "1.4.3 Incrementing a variable",
+        "scenes": [
+          "First evaluate the RIGHT side",
+          "Change the rule, not the mental model"
+        ],
+        "skill": "Trace self-referential right-hand arithmetic and store a new value"
+      },
+      {
+        "section": "1.4.4 Input with variables and Scanner",
+        "scenes": [
+          "Input lets a program work with new data",
+          "In Java, Scanner can read text"
+        ],
+        "skill": "Understand various input modalities; recognize Scanner as one optional Java input API"
+      },
+      {
+        "section": "1.4.5 Dog Years coding challenge",
+        "scenes": [
+          "Coding challenge — Pet Years",
+          "Review the Pet Years program"
+        ],
+        "skill": "Write, compile and test a full program computing ages and scaled pet years"
+      },
+      {
+        "section": "1.4.7 AP-style practice",
+        "scenes": [
+          "Practice 1 — three short traces",
+          "Practice 2 — diagnose two different errors",
+          "Practice 4 — AP-style code analysis"
+        ],
+        "skill": "Predict final state and output, diagnose failures, combine arithmetic and assignment"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "1.5",
+        "content": "Explicit casts, widening and numeric ranges"
+      },
+      {
+        "topic": "1.6",
+        "content": "Compound assignment operators (+=, -=, *=, /=, %=)"
+      },
+      {
+        "topic": "1.15",
+        "content": "String concatenation"
+      },
+      {
+        "topic": "AP 1.4 exclusion",
+        "content": "Specific user-input APIs and assigning inside expressions are outside the exam scope"
+      }
+    ]
   }
 }
