@@ -180,5 +180,84 @@
         "content": "Specific user-input APIs and assigning inside expressions are outside the exam scope"
       }
     ]
+  },
+  "u1-5": {
+    "officialTopic": "1.5",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description-effective-fall-2025.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-5-casting.html",
+    "referenceSections": [
+      {
+        "section": "CSAwesome 1.5.1 Casting",
+        "scenes": [
+          "Retrieve: type still matters at the moment of division",
+          "A new problem: average from integer counts",
+          "A cast converts a value to another type",
+          "Casting a double to int does NOT round",
+          "Cast BEFORE division",
+          "Casting AFTER division is too late",
+          "Sometimes Java widens automatically",
+          "Which arithmetic expression really uses double?"
+        ],
+        "skill": "Trace explicit and implicit conversion; place casts correctly to preserve fractions"
+      },
+      {
+        "section": "CSAwesome 1.5.2 Rounding",
+        "scenes": [
+          "Truncation and rounding are different goals",
+          "Rounding a positive number",
+          "Negative numbers need a different shift",
+          "Practice 2 — nearest integer"
+        ],
+        "skill": "Explain and apply the AP positive/negative add-or-subtract-half rounding formulas"
+      },
+      {
+        "section": "CSAwesome 1.5.3 Range of Values",
+        "scenes": [
+          "A type uses finite storage",
+          "An out-of-range integer literal fails compilation",
+          "Valid integers can produce overflow",
+          "The lower boundary can overflow, too",
+          "A double has finite precision",
+          "Choose the representation for your task",
+          "Practice 3 — out of range or legal?"
+        ],
+        "skill": "Distinguish int range, illegal literals, arithmetic overflow and double round-off error"
+      },
+      {
+        "section": "CSAwesome 1.5.4 Average 3 Numbers coding challenge",
+        "scenes": [
+          "Coding challenge — average 3 scores",
+          "Review — average 3 scores"
+        ],
+        "skill": "Write and test a full Java program calculating a double average from int inputs"
+      },
+      {
+        "section": "CSAwesome practice and AP-style problems",
+        "scenes": [
+          "Practice 1 — cast and predict",
+          "Practice 4 — AP-style choice",
+          "Exit check — explain the cause"
+        ],
+        "skill": "Predict expression outputs and explain the causal rules"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "1.6",
+        "content": "Compound assignment and post-increment/decrement operators"
+      },
+      {
+        "topic": "1.15",
+        "content": "String concatenation; reference exercises that use it are simplified"
+      },
+      {
+        "topic": "Non-AP enrichment",
+        "content": "Unicode/char casting and printf formatting from CSAwesome reference"
+      },
+      {
+        "topic": "Non-AP advanced details",
+        "content": "Special floating-point values, other numeric types, detailed IEEE-754 encoding and nonstandard rounding libraries"
+      }
+    ]
   }
 }
