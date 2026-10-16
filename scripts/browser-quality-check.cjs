@@ -128,7 +128,7 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '  if(casting<0)errors.push("Topic 1.5 pre-division cast scene missing");'+
 '  else {'+
 '    i=casting;render();const scene=slides[casting];'+
-'    const ev=scene.querySelector(".beat.eval-step"),answer=scene.querySelector(".beat .console-box");'+
+'    const ev=scene.querySelector(".beat.eval-step"),answer=scene.querySelector(".beat .console-box")?.closest(".beat");'+
 '    if(!ev||!answer||getComputedStyle(ev).display!=="none"||getComputedStyle(answer).display!=="none")errors.push("casting answer leaked before prediction");'+
 '    else{next();if(getComputedStyle(ev).display==="none"||getComputedStyle(answer).display!=="none")errors.push("first reveal should show cast only");next();if(getComputedStyle(answer).display==="none")errors.push("second reveal should show 7.5");next();if(i===casting)errors.push("extra meaningless casting reveal");}'+
 '  }'+
