@@ -122,6 +122,33 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '    if(!solve||getComputedStyle(solve.parentElement).display!=="none")errors.push("Pet Years worked solution visible before student attempt");'+
 '    else{next();if(getComputedStyle(solve.parentElement).display==="none")errors.push("Pet Years answer failed to reveal");}'+
 '  }'+
+'} else if(new URLSearchParams(location.search).get("id")==="u1-5") {'+
+'  const t=(name)=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===name);'+
+'  const casting=t("Cast BEFORE division");'+
+'  if(casting<0)errors.push("Topic 1.5 pre-division cast scene missing");'+
+'  else {'+
+'    i=casting;render();const scene=slides[casting];'+
+'    const ev=scene.querySelector(".beat.eval-step"),answer=scene.querySelector(".beat .console-box");'+
+'    if(!ev||!answer||getComputedStyle(ev).display!=="none"||getComputedStyle(answer).display!=="none")errors.push("casting answer leaked before prediction");'+
+'    else{next();if(getComputedStyle(ev).display==="none"||getComputedStyle(answer).display!=="none")errors.push("first reveal should show cast only");next();if(getComputedStyle(answer).display==="none")errors.push("second reveal should show 7.5");next();if(i===casting)errors.push("extra meaningless casting reveal");}'+
+'  }'+
+'  const late=t("Casting AFTER division is too late");'+
+'  if(late<0||!slides[late].textContent.includes("7.0"))errors.push("post-division cast contrast missing");'+
+'  const quiz=t("Practice 1 — cast and predict");'+
+'  if(quiz<0)errors.push("Topic 1.5 casting quiz missing");'+
+'  else {i=quiz;render();const ans=slides[quiz].querySelector(".beat.casting-answer-grid");'+
+'    if(!ans||getComputedStyle(ans).display!=="none")errors.push("casting quiz answers leaked before prediction");'+
+'    else{next();if(getComputedStyle(ans).display==="none")errors.push("casting quiz answers should reveal together");next();if(i===quiz)errors.push("duplicate casting quiz answer reveal");}'+
+'  }'+
+'  const challenge=t("Coding challenge — average 3 scores");'+
+'  if(challenge<0)errors.push("Average 3 Scores challenge missing");'+
+'  else if(slides[challenge].querySelector("pre.code,.console-box,.casting-answer-grid"))errors.push("Average challenge leaks solution");'+
+'  const solution=t("Review — average 3 scores");'+
+'  if(solution<0)errors.push("Average challenge worked solution missing");'+
+'  else {i=solution;render();const pre=slides[solution].querySelector(".beat pre.code");'+
+'    if(!pre||getComputedStyle(pre.parentElement).display!=="none")errors.push("Average code visible before reveal");'+
+'    else {next();if(getComputedStyle(pre.parentElement).display==="none")errors.push("Average code did not reveal");}'+
+'  }'+
 '}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
 'const report={ok:errors.length===0,lessons:new URLSearchParams(location.search).get("id"),slides:slides.length,hiddenElementsChecked:allHidden,errors};'+
