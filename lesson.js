@@ -1505,6 +1505,211 @@ function buildTopic14(l){
  return s.join('');
 }
 
+function buildTopic15(l){
+ const s=[];
+ s.push(apCover(l,'1.5','Casting and<br>Range of Variables',
+   'Types shape a calculation. Finite storage puts limits on the result.',
+   'Reference: CSAwesome2 1.5.1 Casting; 1.5.2 Rounding; 1.5.3 Ranges of Values; 1.5.4 Average 3 Numbers challenge; AP-style questions. Official CED 1.5.A: cast/widen/round; 1.5.B: int range and overflow; 1.5.C: double round-off. Unicode and printf are out-of-scope enrichment and are deferred. Keep each concept distinct; outputs hidden before prediction.'
+ ));
+
+ s.push(slide('Retrieve: type still matters at the moment of division',
+  '<pre class="code"><span class="code-line">System.out.println(7 / 2);</span><span class="code-line">System.out.println(7.0 / 2);</span></pre>'+
+  '<p class="q">Before we introduce anything new, predict BOTH output lines.</p>'+
+  '<div class="beat"><div class="lesson13-output-pair"><div><span>int / int</span><strong>3</strong></div><div><span>double / int</span><strong>3.5</strong></div></div></div>',
+  'Retrieval from 1.3. The difference is operand types, not the println method. Reveal the paired result in one click.'
+ ));
+
+ s.push(slide('A new problem: average from integer counts',
+  '<div class="casting-givens"><span>Two scores</span><strong>7</strong><strong>8</strong></div>'+
+  '<pre class="code"><span class="code-line">int sum = 7 + 8;</span><span class="code-line">int count = 2;</span><span class="code-line">System.out.println(sum / count);</span></pre>'+
+  '<p class="q">The real average is 7.5. What will Java actually print, and what is missing?</p>'+
+  '<div class="beat"><div class="console-box">7</div><p>Both operands are <code>int</code>, so integer division loses the fractional portion.</p></div>',
+  'This introduces a genuine reason for casting: obtain a precise average without changing the original integer variables.'
+ ));
+
+ s.push(slide('A cast converts a value to another type',
+  '<div class="casting-kind-grid"><div><h3>(double) expression</h3><p>Produce a <code>double</code> from a numeric value.</p><code>(double) 7 → 7.0</code></div>'+
+  '<div><h3>(int) expression</h3><p>Produce an <code>int</code> from a numeric value.</p><code>(int) 7.9 → 7</code></div></div>'+
+  '<p class="scope-note">The cast operator appears <b>before</b> the value or expression being converted.</p>',
+  'Static definition and contrast. There is no prediction on this reference page, so no reveal. Teacher should say that casting returns a converted value rather than changing a previously declared variable by itself.'
+ ));
+
+ s.push(slide('Casting a double to int does NOT round',
+  '<p class="q">What does Java print for each conversion?</p>'+
+  '<pre class="code"><span class="code-line">System.out.println((int) 4.9);</span><span class="code-line">System.out.println((int) -4.9);</span></pre>'+
+  '<div class="beat"><div class="casting-result-grid"><div><span>positive</span><strong>4</strong></div><div><span>negative</span><strong>-4</strong></div></div><p><b>Truncation</b> removes the fractional part, moving toward zero; it is not ordinary rounding.</p></div>',
+  'Negative conversion is a useful counterexample: -4.9 truncates to -4, not -5. Students must distinguish truncate from round.'
+ ));
+
+ s.push(slide('Cast BEFORE division',
+  '<p class="q">Will this repair the average calculation?</p>'+
+  '<pre class="code"><span class="code-line">int sum = 15;</span><span class="code-line">int count = 2;</span><span class="code-line">System.out.println((double) sum / count);</span></pre>'+
+  '<div class="beat eval-step">(double) sum → 15.0</div>'+
+  '<div class="beat"><div class="eval-step">15.0 / 2 → 7.5</div><div class="console-box">7.5</div></div>',
+  'Two meaningful steps: conversion of one operand, then floating-point division. Only two clicks, no duplicate output.'
+ ));
+
+ s.push(slide('Casting AFTER division is too late',
+  '<p class="q">The cast moved outside the parentheses. Does the program still print 7.5?</p>'+
+  '<pre class="code"><span class="code-line">int sum = 15;</span><span class="code-line">int count = 2;</span><span class="code-line">System.out.println((double) (sum / count));</span></pre>'+
+  '<div class="beat"><div class="casting-compare-strip"><div><b>First</b><code>15 / 2 → 7</code></div><div><b>Then</b><code>(double) 7 → 7.0</code></div></div><div class="console-box">7.0</div></div>',
+  'Central transfer example: casts cannot restore a fraction already removed by integer division. Contrast with previous slide, but do not repeat its layout or output.'
+ ));
+
+ s.push(slide('Sometimes Java widens automatically',
+  '<p class="q">Does this require an explicit <code>(double)</code> cast?</p>'+
+  '<pre class="code"><span class="code-line">int laps = 6;</span><span class="code-line">double distance = laps;</span><span class="code-line">System.out.println(distance);</span></pre>'+
+  '<div class="beat"><div class="console-box">6.0</div><p><b>Widening:</b> Java can automatically convert an <code>int</code> value to <code>double</code> when needed.</p></div>',
+  'This is official EK 1.5.A.3, not a new assignment operator. The destination type double accepts the int. Do not claim all numeric conversions are implicit.'
+ ));
+
+ s.push(slide('Which arithmetic expression really uses double?',
+  '<p class="q">Choose the versions that compute 5 divided by 2 as 2.5.</p>'+
+  '<div class="casting-questions"><div><b>A</b><code>5 / 2</code></div><div><b>B</b><code>(double) 5 / 2</code></div>'+
+  '<div><b>C</b><code>(double) (5 / 2)</code></div><div><b>D</b><code>5 / (double) 2</code></div></div>'+
+  '<div class="beat"><p><b>B and D.</b> Cast an operand before division. A is integer division; C casts only after the fraction is discarded.</p></div>',
+  'One answer key for all four choices after learner commits. This is also a quick diagnosis of the central misconception.'
+ ));
+
+ s.push(slide('Truncation and rounding are different goals',
+  '<div class="casting-kind-grid"><div><h3>Truncate</h3><p>Remove the fractional part.</p><code>(int) 3.8 → 3</code></div>'+
+  '<div><h3>Round to nearest</h3><p>For non-negative x, add 0.5 before casting.</p><code>(int) (3.8 + 0.5) → 4</code></div></div>'+
+  '<p class="scope-note">Use the AP formula for values in the <code>int</code> range. This is not a general-purpose rounding library.</p>',
+  'Teach why add 0.5, not simply memorize a recipe. This page deliberately shows both methods side by side; it is static because both values are evidence, not a quiz.'
+ ));
+
+ s.push(slide('Rounding a positive number',
+  '<p class="q">Predict the result of the formula, then explain WHY it changes.</p>'+
+  '<pre class="code"><span class="code-line">double time = 7.6;</span><span class="code-line">int nearest = (int) (time + 0.5);</span><span class="code-line">System.out.println(nearest);</span></pre>'+
+  '<div class="beat eval-step">7.6 + 0.5 → 8.1</div>'+
+  '<div class="beat"><div class="console-box">8</div><p>Truncating 8.1 leaves the nearest whole number, 8.</p></div>',
+  'Two meaningful steps: shift by half, then truncate. The student must predict first.'
+ ));
+
+ s.push(slide('Negative numbers need a different shift',
+  '<p class="q">Does <code>+ 0.5</code> also give the intended rounding of -7.6?</p>'+
+  '<pre class="code"><span class="code-line">double time = -7.6;</span><span class="code-line">int nearest = (int) (time - 0.5);</span><span class="code-line">System.out.println(nearest);</span></pre>'+
+  '<div class="beat"><div class="casting-compare-strip"><div><b>Subtract half</b><code>-7.6 - 0.5 = -8.1</code></div><div><b>Truncate</b><code>(int) -8.1 = -8</code></div></div><div class="console-box">-8</div></div>',
+  'Contrast the negative sign. The current official CED explicitly includes the negative formula. These formulas round exact .5 ties away from zero; keep scope to standard AP examples.'
+ ));
+
+ s.push(slide('A type uses finite storage',
+  '<p class="q">How large a value can Java store in a 32-bit <code>int</code>?</p>'+
+  '<div class="casting-range"><div><span>Integer.MIN_VALUE</span><strong>-2,147,483,648</strong></div><div><span>Integer.MAX_VALUE</span><strong>2,147,483,647</strong></div></div>'+
+  '<p class="scope-note">An <code>int</code> uses 4 bytes (32 bits). Its values must stay in this inclusive range.</p>',
+  'Static reference fact, not an animation. These exact built-in constant names are on the AP CED. Later scenes use the boundary as a causal model.'
+ ));
+
+ s.push(slide('An out-of-range integer literal fails compilation',
+  '<pre class="code"><span class="code-line">int record = 2147483648;</span></pre>'+
+  '<p class="q">The last digit is just 1 above the max. Does this even compile?</p>'+
+  '<div class="beat error-box"><span class="error-badge">COMPILE-TIME</span><p>The decimal integer literal is outside the allowed <code>int</code> range. Java rejects it as written.</p></div>',
+  'Distinguish illegal literal from a legal arithmetic expression that overflows during execution. No runtime output in this example.'
+ ));
+
+ s.push(slide('Valid integers can produce overflow',
+  '<pre class="code"><span class="code-line">int maximum = Integer.MAX_VALUE;</span><span class="code-line">System.out.println(maximum + 1);</span></pre>'+
+  '<p class="q">Both the variable and the literal 1 are legal. What happens when the result is too large for int?</p>'+
+  '<div class="beat"><div class="console-box">-2147483648</div><p><b>Integer overflow:</b> arithmetic wraps into the allowed range rather than giving the mathematical answer. It does not throw an exception here.</p></div>',
+  'A new distinction from the prior slide. The actual output for MAX+1 is MIN. This is not a compiler failure or ArithmeticException; ask why.'
+ ));
+
+ s.push(slide('The lower boundary can overflow, too',
+  '<pre class="code"><span class="code-line">int minimum = Integer.MIN_VALUE;</span><span class="code-line">System.out.println(minimum - 1);</span></pre>'+
+  '<p class="q">Can you apply the same range rule in the opposite direction?</p>'+
+  '<div class="beat console-box">2147483647</div>',
+  'Transfer to the lower boundary; one answer reveal only. Students should explain wraparound, not memorize two magic numbers.'
+ ));
+
+ s.push(slide('A double has finite precision',
+  '<p class="q">If computers have finite storage, can every decimal fraction be represented exactly?</p>'+
+  '<pre class="code"><span class="code-line">System.out.println(0.1 + 0.2);</span></pre>'+
+  '<div class="beat"><div class="console-box">0.30000000000000004</div><p><b>Round-off error:</b> a <code>double</code> stores a nearby representable value when the exact result cannot be stored.</p></div>',
+  'Official learning objective 1.5.C. Explain limited precision at a conceptual level; no need to teach binary floating-point internals. Do not imply this affects every decimal expression in the same way.'
+ ));
+
+ s.push(slide('Choose the representation for your task',
+  '<p class="q">Which value should be stored as <code>int</code>, and which needs <code>double</code>?</p>'+
+  '<div class="casting-questions"><div><b>A</b><span>number of tickets = 5</span></div><div><b>B</b><span>measured lap time = 53.42</span></div>'+
+  '<div><b>C</b><span>number of full groups = 7</span></div><div><b>D</b><span>average grade = 94.67</span></div></div>'+
+  '<div class="beat"><p><b>A/C: int. B/D: double.</b> Match the type to the meaning and acceptable precision. For exact integer quantities, an <code>int</code> avoids decimal round-off.</p></div>',
+  'This revisits Topic 1.2 in a deeper way: representation is a design choice with trade-offs, not a rote label.'
+ ));
+
+ s.push(slide('Practice 1 — cast and predict',
+  '<p class="practice-kicker">IN-CLASS · ANSWERS ONLY AFTER STUDENT ATTEMPT</p>'+
+  '<div class="casting-questions"><div><b>A</b><code>(int) 6.9</code></div><div><b>B</b><code>(int) -6.9</code></div>'+
+  '<div><b>C</b><code>(double) (9 / 4)</code></div><div><b>D</b><code>(double) 9 / 4</code></div></div>'+
+  '<p class="q">Write every result AND identify the rule behind it.</p>'+
+  '<div class="beat casting-answer-grid"><div><b>A</b><strong>6</strong></div><div><b>B</b><strong>-6</strong></div><div><b>C</b><strong>2.0</strong></div><div><b>D</b><strong>2.25</strong></div></div>',
+  'One answer reveal. A/B truncation toward zero, C cast too late, D cast before division. Students should explain each independently.'
+ ));
+
+ s.push(slide('Practice 2 — nearest integer',
+  '<p class="practice-kicker">IN-CLASS · TWO SIGNS</p>'+
+  '<p class="q">Use the appropriate AP rounding formula for both numbers.</p>'+
+  '<div class="casting-questions"><div><b>A</b><span>Round <code>4.3</code> to nearest integer.</span></div>'+
+  '<div><b>B</b><span>Round <code>-4.7</code> to nearest integer.</span></div></div>'+
+  '<div class="beat"><pre class="code"><span class="code-line">(int) (4.3 + 0.5)   // 4</span><span class="code-line">(int) (-4.7 - 0.5)  // -5</span></pre></div>',
+  'Hide the solutions until both predictions are committed. Important contrast: negative numbers subtract 0.5.'
+ ));
+
+ s.push(slide('Practice 3 — out of range or legal?',
+  '<p class="practice-kicker">IN-CLASS · DEBUG</p>'+
+  '<div class="casting-questions"><div><b>A</b><code>int n = 2147483648;</code></div>'+
+  '<div><b>B</b><code>int n = Integer.MAX_VALUE + 1;</code></div></div>'+
+  '<p class="q">Which fails to compile, and which produces an unexpected int?</p>'+
+  '<div class="beat"><div class="casting-compare-strip"><div><b>A — fails</b><p>Integer literal is out of range.</p></div>'+
+  '<div><b>B — compiles</b><p>Arithmetic overflow gives <code>-2147483648</code>.</p></div></div></div>',
+  'This checks a nontrivial distinction and directly aligns with 1.5.B. Use explicit compiler vs overflow language.'
+ ));
+
+ s.push(slide('Practice 4 — AP-style choice',
+  '<p class="practice-kicker">IN-CLASS · ANALYZE CODE</p>'+
+  '<pre class="code"><span class="code-line">int a = 11;</span><span class="code-line">int b = 4;</span><span class="code-line">double result = (double) (a / b);</span><span class="code-line">System.out.println(result);</span></pre>'+
+  '<p class="q">What is printed? Why?</p>'+
+  '<div class="casting-mcq"><div>A. 2.0</div><div>B. 2.75</div><div>C. 3.0</div><div>D. Compiler error</div></div>'+
+  '<div class="beat"><p><b>A — 2.0.</b> Parentheses force <code>11 / 4</code> to evaluate as <code>int</code> division first. Then <code>(double)</code> converts the integer 2 to 2.0.</p></div>',
+  'Teacher diagnostic: if students choose B, they are casting conceptually before division. The deliberate distractor tests sequencing of evaluation.'
+ ));
+
+ s.push(slide('Coding challenge — average 3 scores',
+  '<p class="practice-kicker">WRITE JAVA · 8–10 MINUTES</p>'+
+  '<p class="q">Write a complete <code>ScoreAverage</code> Java program.</p>'+
+  '<div class="casting-tasks"><div><b>1</b> Create three <code>int</code> scores: 90, 100, 94.</div>'+
+  '<div><b>2</b> Store their sum in an <code>int</code> variable.</div>'+
+  '<div><b>3</b> Compute a <code>double</code> average using an explicit cast.</div>'+
+  '<div><b>4</b> Print the average; predict the first digits before running.</div></div>'+
+  '<p class="scope-note">Do not change all three scores to double. The point is choosing where casting belongs.</p>',
+  'Reference 1.5.4 Average 3 Numbers. Do not show example code yet. Observe whether they write (double) sum / 3 or (double) (sum / 3).'
+ ));
+
+ s.push(slide('Review — average 3 scores',
+  '<p class="q">Compare only after writing and running your version. Where did the cast go?</p>'+
+  '<div class="beat"><pre class="code code-compact"><span class="code-line">public class ScoreAverage {</span><span class="code-line">  public static void main(String[] args) {</span><span class="code-line">    int a = 90;</span><span class="code-line">    int b = 100;</span><span class="code-line">    int c = 94;</span><span class="code-line">    int sum = a + b + c;</span><span class="code-line">    double average = (double) sum / 3;</span><span class="code-line">    System.out.println(average);</span><span class="code-line">  }</span><span class="code-line">}</span></pre>'+
+  '<div class="console-box">94.66666666666667</div></div>',
+  'One consolidated answer reveal after student attempt. Correct Java output verified as double division 284.0 / 3. Explicit cast is applied to sum before division.'
+ ));
+
+ s.push(slide('Exit check — explain the cause',
+  '<p class="q">Answer independently, without previous slides.</p>'+
+  '<div class="casting-tasks"><div><b>1</b> Why do <code>(double) 5 / 2</code> and <code>(double) (5 / 2)</code> differ?</div>'+
+  '<div><b>2</b> How do you round negative <code>double</code> values to nearest <code>int</code> in the AP formula?</div>'+
+  '<div><b>3</b> What happens at <code>Integer.MAX_VALUE + 1</code>?</div>'+
+  '<div><b>4</b> Why might <code>0.1 + 0.2</code> not display exactly <code>0.3</code>?</div></div>',
+  'No answers on slide. The teacher listens for order of cast/operation, subtract 0.5 for negatives, overflow wraparound, and finite double precision.'
+ ));
+
+ s.push(slide('Homework and matching free reference',
+  '<p class="big">Write another three-score average program. Predict the result of the version with the cast <b>before</b> division and the version with the cast <b>after</b> division.</p>'+
+  '<p class="scope-note">Then explain one integer-overflow example and one floating-point round-off example in your own words.</p>'+
+  '<div class="beat"><p class="practice-kicker">FREE FOLLOW-UP</p>'+resources(l.resources)+'</div>',
+  'Use CSAwesome2 Topic 1.5 as the exact reference. Unicode and printf formatting examples are identified as enrichment and not part of required 1.5.A/B/C objectives.'
+ ));
+
+ return s.join('');
+}
+
 function buildWeek3Practice(l){
  const s=[];
  s.push(apCover(l,'1.1–1.3','Week 3 Practice','Can you find the simple rule inside a mixed problem?','This practice should not reteach the lessons. It should expose whether the learner can transfer the three mental models: execution/error stage, type/model choice, and expression evaluation.'));
@@ -1724,6 +1929,7 @@ if(!L){
  else if(L.id==='u1-2') deck.innerHTML=buildTopic12(L);
  else if(L.id==='u1-3') deck.innerHTML=buildTopic13(L);
  else if(L.id==='u1-4') deck.innerHTML=buildTopic14(L);
+ else if(L.id==='u1-5') deck.innerHTML=buildTopic15(L);
  else if(L.id==='p-1-1-1-3') deck.innerHTML=buildWeek3Practice(L);
  else deck.innerHTML=L.kind==='practice'?buildPractice(L):buildLesson(L);
 }
