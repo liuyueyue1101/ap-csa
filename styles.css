@@ -538,3 +538,6 @@ span.beat.revealed{display:inline}
  .compound-equivalence>div{grid-template-columns:130px 1fr}
  .compound-tasks>div{grid-template-columns:28px minmax(0,1fr)}
 }
+
+/* Explicit grid for revealed compound results; default reveal display:block must not collapse table layout. */
+.slide .beat.revealed.compound-trace,.slide .beat.revealed.compound-answers{display:grid}
