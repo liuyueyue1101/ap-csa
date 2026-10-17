@@ -1720,8 +1720,8 @@ function buildTopic16(l){
  s.push(slide('Retrieve: how does an assignment update memory?',
   '<pre class="code"><span class="code-line">int score = 10;</span><span class="code-line">score = score + 3;</span></pre>'+
   '<p class="q">What is the value of <code>score</code> AFTER line 2?</p>'+
-  '<div class="beat"><div class="console-box">13</div><p>Read the current value, add 3, and store the result back in <code>score</code>.</p></div>',
-  'Retrieve Topic 1.4. The OUTPUT-style box here is misleading because no println occurred: the green box is explicitly not program output. Prefer memory state instead.'
+  '<div class="beat"><div class="memory-board"><div class="name">score</div><div class="value">13</div></div><p>Read the current value, add 3, and store the result back in <code>score</code>.</p></div>',
+  'Retrieve Topic 1.4. Use MEMORY for stored state because nothing was printed. The answer appears only on reveal.'
  ));
 
  s.push(slide('A shorter way to express the SAME update',
@@ -1776,8 +1776,8 @@ function buildTopic16(l){
   '<pre class="code"><span class="code-line">int x = 4;</span><span class="code-line">int y = 3;</span><span class="code-line">x *= y + 2;</span></pre>'+
   '<p class="q">Is the final <code>x</code> equal to 14 or 20?</p>'+
   '<div class="beat eval-step">y + 2 → 3 + 2 → 5</div>'+
-  '<div class="beat"><div class="console-box">20</div><p>Equivalent to <code>x = x * (y + 2)</code>, not <code>x = x * y + 2</code>.</p></div>',
-  'Two real steps: evaluate the complete RHS, then update. In final reveal use MEMORY styling rather than output as no print statement occurs.'
+  '<div class="beat"><div class="memory-board"><div class="name">x</div><div class="value">20</div></div><p>Equivalent to <code>x = x * (y + 2)</code>, not <code>x = x * y + 2</code>.</p></div>',
+  'Two real steps: evaluate the complete RHS, then update. The update is a MEMORY state, not program OUTPUT.'
  ));
 
  s.push(slide('The right side can use the same variable',
