@@ -149,6 +149,50 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '    if(!pre||getComputedStyle(pre.parentElement).display!=="none")errors.push("Average code visible before reveal");'+
 '    else {next();if(getComputedStyle(pre.parentElement).display==="none")errors.push("Average code did not reveal");}'+
 '  }'+
+'} else if(new URLSearchParams(location.search).get("id")==="u1-6") {'+
+'  const t=(title)=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===title);'+
+'  const memory=t("Follow the variable, not the abbreviation");'+
+'  if(memory<0)errors.push("Topic 1.6 memory update slide missing");'+
+'  else {'+
+'    i=memory;render();const scene=slides[memory];'+
+'    const boxes=scene.querySelectorAll(".memory-board");'+
+'    const before=scene.querySelector(".state-old"),after=scene.querySelector(".state-new"),clue=scene.querySelector(".beat.conclusion");'+
+'    if(boxes.length!==1||!before||!after||!clue)errors.push("compound assignment must use ONE stable memory box");'+
+'    else {'+
+'      if(getComputedStyle(after).display!=="none"||getComputedStyle(clue).display!=="none")errors.push("compound update or explanation visible too early");'+
+'      next();if(getComputedStyle(after).display==="none"||getComputedStyle(before).display!=="none"||getComputedStyle(clue).display==="none")errors.push("one click must update the SAME box AND reveal explanation");'+
+'      next();if(i===memory)errors.push("extra redundant compound memory reveal");'+
+'    }'+
+'  }'+
+'  const grouping=t("A compound assignment uses the entire RIGHT side");'+
+'  if(grouping<0)errors.push("RHS evaluation scene missing");'+
+'  else {'+
+'    i=grouping;render();const scene=slides[grouping];'+
+'    const compute=scene.querySelector(".beat.eval-step"),state=scene.querySelector(".beat .memory-board");'+
+'    if(!compute||!state||getComputedStyle(compute).display!=="none"||getComputedStyle(state.closest(".beat")).display!=="none")errors.push("RHS computation or answer visible before reveal");'+
+'    else {next();if(getComputedStyle(compute).display==="none"||getComputedStyle(state.closest(".beat")).display!=="none")errors.push("first reveal must ONLY evaluate entire RHS");next();if(getComputedStyle(state.closest(".beat")).display==="none")errors.push("second reveal must show new stored value");}'+
+'  }'+
+'  const wrong=t("Practice 2 — the shortcut spelling matters");'+
+'  if(wrong<0)errors.push("=+ debugging practice missing");'+
+'  else {i=wrong;render();const scene=slides[wrong],answer=scene.querySelector(".beat");'+
+'    if(!scene.textContent.includes("=+ 4")||!answer||getComputedStyle(answer).display!=="none")errors.push("=+ debug prompt or answer gating broken");'+
+'    else {next();if(getComputedStyle(answer).display==="none")errors.push("=+ bug solution not revealed");next();if(i===wrong)errors.push("=+ debug repeats the same answer");}'+
+'  }'+
+'  const maze=t("Operators Maze — trace without a computer");'+
+'  if(maze<0)errors.push("Operators Maze tracing challenge missing");'+
+'  else {i=maze;render();const answers=slides[maze].querySelector(".beat.compound-trace");'+
+'    if(!answers||getComputedStyle(answers).display!=="none")errors.push("Maze answer shown before tracing");'+
+'    else {next();if(getComputedStyle(answers).display==="none")errors.push("Maze final trace failed to reveal");}'+
+'  }'+
+'  const challenge=t("Coding challenge — training scorekeeper");'+
+'  if(challenge<0)errors.push("TrainingScore programming task missing");'+
+'  else if(slides[challenge].querySelector("pre.code,.console-box,.compound-answers"))errors.push("TrainingScore task leaked completed program");'+
+'  const worked=t("Review — training scorekeeper");'+
+'  if(worked<0)errors.push("TrainingScore worked solution missing");'+
+'  else {i=worked;render();const answer=slides[worked].querySelector(".beat"),code=slides[worked].querySelector(".beat pre.code"),output=slides[worked].querySelector(".beat .console-box");'+
+'    if(!answer||!code||!output||getComputedStyle(answer).display!=="none")errors.push("TrainingScore answer visible before reveal");'+
+'    else {next();if(getComputedStyle(answer).display==="none"||!output.textContent.includes("3"))errors.push("TrainingScore answer/expected output failed");next();if(i===worked)errors.push("duplicate full-code reveal");}'+
+'  }'+
 '}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
 'const report={ok:errors.length===0,lessons:new URLSearchParams(location.search).get("id"),slides:slides.length,hiddenElementsChecked:allHidden,errors};'+
