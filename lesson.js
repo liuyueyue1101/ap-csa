@@ -1710,6 +1710,197 @@ function buildTopic15(l){
  return s.join('');
 }
 
+function buildTopic16(l){
+ const s=[];
+ s.push(apCover(l,'1.6','Compound Assignment<br>Operators',
+  'A shorter statement still reads, calculates, and updates the same variable.',
+  'Source: CSAwesome2 1.6 Compound Assignment Operators; Activity 1.6.1 code lens, Activities 1.6.2/1.6.3, Code Tracing Challenge/Operators Maze, end-of-Unit-1A practice. CED 2025 Topic 1.6.A.1 and 1.6.A.2. Postfix increments only as standalone statements; prefix and ++ inside expressions excluded. Connections: 1.4 assignment, 1.3 division/remainder, 1.5 types. Answers must start hidden.'
+ ));
+
+ s.push(slide('Retrieve: how does an assignment update memory?',
+  '<pre class="code"><span class="code-line">int score = 10;</span><span class="code-line">score = score + 3;</span></pre>'+
+  '<p class="q">What is the value of <code>score</code> AFTER line 2?</p>'+
+  '<div class="beat"><div class="console-box">13</div><p>Read the current value, add 3, and store the result back in <code>score</code>.</p></div>',
+  'Retrieve Topic 1.4. The OUTPUT-style box here is misleading because no println occurred: the green box is explicitly not program output. Prefer memory state instead.'
+ ));
+
+ s.push(slide('A shorter way to express the SAME update',
+  '<pre class="code"><span class="code-line">score = score + 3;</span></pre>'+
+  '<p class="q">What if Java could combine the arithmetic and assignment into one symbol?</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">score += 3;</span></pre><p>These two statements have the <b>same effect</b> on <code>score</code>.</p></div>',
+  'Reference 1.6 introduction. One reveal introduces the new spelling and semantics. This is new syntax, not a second memory page.'
+ ));
+
+ s.push(slide('Follow the variable, not the abbreviation',
+  '<pre class="code"><span class="code-line">int score = 40;</span><span class="code-line">score += 12;</span></pre>'+
+  '<p class="q">What should happen to the SAME stored value?</p>'+
+  '<div class="stateful-example"><div class="memory-board"><div class="name">score</div><div class="value"><span class="state-old">40</span><span class="state-new">52</span></div></div>'+
+  '<span class="beat value-update-trigger" data-reveal-group="compound-add" aria-hidden="true"></span></div>'+
+  '<div class="beat conclusion" data-reveal-group="compound-add"><p><code>score += 12</code> means <code>score = score + 12</code>. The new value replaces 40.</p></div>',
+  'An in-place update: initial state 40, then 52 and one causal sentence on the same reveal. Never show a second duplicated MEMORY box.'
+ ));
+
+ s.push(slide('The five compound arithmetic operators',
+  '<div class="compound-catalog"><div><b>OPERATOR</b><b>LONG FORM</b><b>MEANING</b></div>'+
+  '<div><code>x += 4;</code><code>x = x + 4;</code><span>add and store</span></div>'+
+  '<div><code>x -= 4;</code><code>x = x - 4;</code><span>subtract and store</span></div>'+
+  '<div><code>x *= 4;</code><code>x = x * 4;</code><span>multiply and store</span></div>'+
+  '<div><code>x /= 4;</code><code>x = x / 4;</code><span>divide and store</span></div>'+
+  '<div><code>x %= 4;</code><code>x = x % 4;</code><span>remainder and store</span></div></div>'+
+  '<p class="scope-note">The operator comes <b>before</b> the equals sign: <code>+=</code>, not <code>=+</code>.</p>',
+  'Static reference table from CSAwesome 1.6, adapted with one consistent RHS. No reveal on a complete catalog page.'
+ ));
+
+ s.push(slide('One shortcut can update the same variable twice',
+  '<pre class="code"><span class="code-line">int points = 20;</span><span class="code-line">points -= 7;</span><span class="code-line">points *= 2;</span></pre>'+
+  '<p class="q">Predict the result after EACH statement, not only the final value.</p>'+
+  '<div class="beat compound-trace"><div><span>START</span><strong>20</strong></div><div><span>AFTER -= 7</span><strong>13</strong></div><div><span>AFTER *= 2</span><strong>26</strong></div></div>',
+  'This moves from one update to sequential state, not a repeat of a single-value example. Ask student to trace on paper before one answer reveal.'
+ ));
+
+ s.push(slide('Division is still integer division',
+  '<pre class="code"><span class="code-line">int tokens = 17;</span><span class="code-line">tokens /= 5;</span><span class="code-line">System.out.println(tokens);</span></pre>'+
+  '<p class="q">Does <code>/=</code> magically preserve the fraction?</p>'+
+  '<div class="beat"><div class="console-box">3</div><p><code>tokens /= 5</code> performs <code>17 / 5</code> with two <code>int</code> values, then stores <code>3</code>.</p></div>',
+  'Transfer Topic 1.3 integer division to /=. No separate explanation page needed.'
+ ));
+
+ s.push(slide('Remainder is still the remainder',
+  '<p class="q">A rack holds 5 cones. What value remains stored after this statement?</p>'+
+  '<pre class="code"><span class="code-line">int cones = 17;</span><span class="code-line">cones %= 5;</span></pre>'+
+  '<div class="beat"><div class="compound-trace"><div><span>FULL GROUPS</span><strong>3</strong></div><div><span>REMAINDER STORED</span><strong>2</strong></div></div><p><code>cones %= 5</code> means <code>cones = cones % 5</code>. It stores the leftover count.</p></div>',
+  'This separates division quotient from remainder in an authentic model. No claim that a value was printed.'
+ ));
+
+ s.push(slide('A compound assignment uses the entire RIGHT side',
+  '<pre class="code"><span class="code-line">int x = 4;</span><span class="code-line">int y = 3;</span><span class="code-line">x *= y + 2;</span></pre>'+
+  '<p class="q">Is the final <code>x</code> equal to 14 or 20?</p>'+
+  '<div class="beat eval-step">y + 2 → 3 + 2 → 5</div>'+
+  '<div class="beat"><div class="console-box">20</div><p>Equivalent to <code>x = x * (y + 2)</code>, not <code>x = x * y + 2</code>.</p></div>',
+  'Two real steps: evaluate the complete RHS, then update. In final reveal use MEMORY styling rather than output as no print statement occurs.'
+ ));
+
+ s.push(slide('The right side can use the same variable',
+  '<pre class="code"><span class="code-line">int n = 6;</span><span class="code-line">n += n;</span></pre>'+
+  '<p class="q">Do we add 1, add 6, or create another variable?</p>'+
+  '<div class="beat"><div class="memory-board"><div class="name">n</div><div class="value">12</div></div><p>Use the <b>old</b> value of <code>n</code> for both sides of the arithmetic: <code>6 + 6</code>.</p></div>',
+  'This is new complexity: RHS can refer to the same variable. No new variable is created.'
+ ));
+
+ s.push(slide('Why programmers write <code>count++;</code>',
+  '<p class="q">Counting one more event is extremely common. Which of these means the same thing?</p>'+
+  '<pre class="code"><span class="code-line">count = count + 1;</span><span class="code-line">count += 1;</span></pre>'+
+  '<div class="beat"><pre class="code"><span class="code-line">count++;</span></pre><p>As a standalone statement, <code>count++;</code> increases the stored numeric value by <b>one</b>.</p></div>',
+  'Reference 1.6: introduce post-increment as a third concise spelling for +1. Do not discuss its expression value or prefix notation.'
+ ));
+
+ s.push(slide('Decrement moves the value in the other direction',
+  '<pre class="code"><span class="code-line">int lives = 3;</span><span class="code-line">lives--;</span><span class="code-line">System.out.println(lives);</span></pre>'+
+  '<p class="q">If a player loses one life, what does Java print?</p>'+
+  '<div class="beat"><div class="console-box">2</div><p><code>lives--;</code> is equivalent to <code>lives = lives - 1;</code>.</p></div>',
+  'New direction: post-decrement, with actual output. One reveal.'
+ ));
+
+ s.push(slide('One mental model, three equivalent forms',
+  '<div class="compound-equivalence"><div><span>LONG FORM</span><code>steps = steps + 1;</code></div>'+
+  '<div><span>COMPOUND</span><code>steps += 1;</code></div>'+
+  '<div><span>POST-INCREMENT</span><code>steps++;</code></div></div>'+
+  '<p class="scope-note">In this lesson, <code>++</code> and <code>--</code> are always <b>standalone statements</b> updating a variable.</p>',
+  'Static consolidation after introducing all three. Explicit AP scope: prefix forms and increments inside other expressions are excluded.'
+ ));
+
+ s.push(slide('Use a trace table to see EVERY change',
+  '<pre class="code"><span class="code-line">int x = 0;</span><span class="code-line">int y = 1;</span><span class="code-line">int z = 2;</span><span class="code-line">x--;</span><span class="code-line">y++;</span><span class="code-line">z += y;</span></pre>'+
+  '<p class="q">Draw three columns, trace the code, and state the FINAL <code>x</code>, <code>y</code>, and <code>z</code>.</p>'+
+  '<div class="beat compound-trace"><div><span>x</span><strong>-1</strong></div><div><span>y</span><strong>2</strong></div><div><span>z</span><strong>4</strong></div></div>',
+  'Adapted from reference Activity 1.6.2. Student writes intermediate table on paper. Reveal final values in ONE step.'
+ ));
+
+ s.push(slide('Practice 1 — expand the shortcuts',
+  '<p class="practice-kicker">IN CLASS · WRITE THE LONG FORM</p>'+
+  '<div class="compound-quiz"><div><b>A</b><code>score -= 5;</code></div><div><b>B</b><code>price *= 3;</code></div>'+
+  '<div><b>C</b><code>total /= 2;</code></div><div><b>D</b><code>left %= 4;</code></div></div>'+
+  '<p class="q">Rewrite all four statements using <code>=</code> and an arithmetic operator.</p>'+
+  '<div class="beat"><div class="compound-answers"><div><b>A</b><code>score = score - 5;</code></div><div><b>B</b><code>price = price * 3;</code></div><div><b>C</b><code>total = total / 2;</code></div><div><b>D</b><code>left = left % 4;</code></div></div></div>',
+  'One hidden answer panel revealed after students complete every line. Focus on the destination being the same variable.'
+ ));
+
+ s.push(slide('Practice 2 — the shortcut spelling matters',
+  '<p class="practice-kicker">IN CLASS · DEBUG</p>'+
+  '<pre class="code"><span class="code-line">int score = 12;</span><span class="code-line">score =+ 4;</span><span class="code-line">System.out.println(score);</span></pre>'+
+  '<p class="q">The programmer expected 16. What ACTUALLY prints, and what one-character change fixes the logic?</p>'+
+  '<div class="beat"><div class="console-box">4</div><p><code>=+</code> is parsed as <code>= +4</code>: assign positive 4. Use <code>score += 4;</code> to add to the current score.</p></div>',
+  'This catches an authentic bug without falsely calling =+ a syntax error: it is valid Java, but assigns a positive number instead of incrementing.'
+ ));
+
+ s.push(slide('Practice 3 — do the arithmetic in order',
+  '<p class="practice-kicker">IN CLASS · INTEGER BEHAVIOR</p>'+
+  '<pre class="code"><span class="code-line">int value = 19;</span><span class="code-line">value /= 4;</span><span class="code-line">value %= 3;</span><span class="code-line">value++;</span></pre>'+
+  '<p class="q">Predict the stored value after each update and the FINAL value.</p>'+
+  '<div class="beat compound-trace"><div><span>AFTER /= 4</span><strong>4</strong></div><div><span>AFTER %= 3</span><strong>1</strong></div><div><span>AFTER ++</span><strong>2</strong></div></div>',
+  'Sequence checks integer division, remainder, then increment. Answers initially hidden, one reveal after paper trace.'
+ ));
+
+ s.push(slide('Practice 4 — AP-style reasoning',
+  '<p class="practice-kicker">IN CLASS · MULTIPLE CHOICE</p>'+
+  '<pre class="code"><span class="code-line">int a = 5;</span><span class="code-line">int b = 3;</span><span class="code-line">a *= b + 2;</span><span class="code-line">a %= 7;</span></pre>'+
+  '<p class="q">What value is stored in <code>a</code> at the end?</p>'+
+  '<div class="compound-mcq"><div>A. 2</div><div>B. 4</div><div>C. 5</div><div>D. 25</div></div>'+
+  '<div class="beat"><p><b>B — 4.</b> First <code>a = 5 * (3 + 2) = 25</code>. Then <code>a = 25 % 7 = 4</code>.</p></div>',
+  'Official objective 1.6.A.1, with full right-side expression and remainder. Check each distractor causally.'
+ ));
+
+ s.push(slide('Operators Maze — trace without a computer',
+  '<p class="practice-kicker">CHALLENGE · 5 MINUTES</p>'+
+  '<pre class="code"><span class="code-line">int x = 0;</span><span class="code-line">int y = 5;</span><span class="code-line">int z = 1;</span><span class="code-line">x++;</span><span class="code-line">y -= 3;</span><span class="code-line">z += x;</span><span class="code-line">x = y * z;</span><span class="code-line">y %= 2;</span><span class="code-line">z--;</span></pre>'+
+  '<p class="q">Trace ALL updates in your notebook. What are the final three values?</p>'+
+  '<div class="beat compound-trace"><div><span>x</span><strong>4</strong></div><div><span>y</span><strong>0</strong></div><div><span>z</span><strong>1</strong></div></div>',
+  'Adapted from CSAwesome Code Tracing Challenge and Operators Maze. Complete independent dry run before one reveal; then ask which exact line was most error-prone.'
+ ));
+
+ s.push(slide('Coding challenge — training scorekeeper',
+  '<p class="practice-kicker">WRITE & RUN JAVA · 8–10 MINUTES</p>'+
+  '<p class="q">Create a complete <code>TrainingScore</code> program.</p>'+
+  '<div class="compound-tasks"><div><b>1</b> Start with an <code>int score</code> of 10.</div>'+
+  '<div><b>2</b> Add 5, double it, then subtract 7.</div>'+
+  '<div><b>3</b> Divide the stored value by 3 using <code>/=</code>.</div>'+
+  '<div><b>4</b> Keep the remainder when divided by 4 using <code>%=</code>.</div>'+
+  '<div><b>5</b> Apply <code>++</code>, then <code>--</code>. Print the final value.</div></div>'+
+  '<p class="scope-note">Use the shortcuts directly. Predict the result on paper BEFORE compiling.</p>',
+  'Source Activity 1.6.1 adaptation: extend an existing score with all core operators. Do not leak the completed code on the task slide.'
+ ));
+
+ s.push(slide('Review — training scorekeeper',
+  '<p class="q">Compare a possible working solution only AFTER you wrote and ran yours.</p>'+
+  '<div class="beat"><pre class="code code-compact"><span class="code-line">public class TrainingScore {</span><span class="code-line">  public static void main(String[] args) {</span><span class="code-line">    int score = 10;</span><span class="code-line">    score += 5;</span><span class="code-line">    score *= 2;</span><span class="code-line">    score -= 7;</span><span class="code-line">    score /= 3;</span><span class="code-line">    score %= 4;</span><span class="code-line">    score++;</span><span class="code-line">    score--;</span><span class="code-line">    System.out.println(score);</span><span class="code-line">  }</span><span class="code-line">}</span></pre>'+
+  '<div class="console-box">3</div></div>',
+  'One answer reveal containing full Java solution and actual output, after student attempt. Trace: 10→15→30→23→7→3→4→3.'
+ ));
+
+ s.push(slide('AP scope — what is required today?',
+  '<div class="compound-scope"><div><h3>IN SCOPE</h3><p><code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code></p><p>Standalone <code>x++;</code> and <code>x--;</code></p><p>Trace changing numeric values and write equivalent long forms.</p></div>'+
+  '<div><h3>NOT ON THIS AP EXAM</h3><p>Prefix increment/decrement</p><p>Using <code>++</code>/<code>--</code> inside a larger expression</p><p>Code relying on those excluded expression-value rules.</p></div></div>',
+  'Match CED 1.6.A.1–2 and exclusions verbatim in meaning. Avoid demo code for prefix or postfix-in-expression; do not teach excluded syntax.'
+ ));
+
+ s.push(slide('Exit check',
+  '<p class="q">Explain each answer without looking back.</p>'+
+  '<div class="compound-tasks"><div><b>1</b> What does <code>n *= 2 + 3;</code> do when <code>n</code> starts at 4?</div>'+
+  '<div><b>2</b> Why might <code>int x = 17; x /= 5;</code> store 3 instead of 3.4?</div>'+
+  '<div><b>3</b> When are <code>n = n + 1;</code>, <code>n += 1;</code>, and <code>n++;</code> equivalent?</div>'+
+  '<div><b>4</b> Explain why <code>n =+ 3;</code> is different from <code>n += 3;</code>.</div></div>',
+  'Teacher diagnostic. No answers on slide. Answers 20; int division; standalone +1 update; assignment of positive 3 vs add 3. Note the error patterns for next retrieval.'
+ ));
+
+ s.push(slide('Homework & matching free reference',
+  '<p class="big">Create a fresh sequence of at least eight numeric updates. Use all five compound operators plus both standalone increment/decrement forms. Trace every change in a table, then confirm by running Java.</p>'+
+  '<p class="scope-note">Optional: use the CSAwesome Code Lens and its Operators Maze for extra tracing practice.</p>'+
+  '<div class="beat"><p class="practice-kicker">REFERENCE & PRACTICE</p>'+resources(l.resources)+'</div>',
+  'Link exactly to CSAwesome2 1.6. Source also provides Unit 1A review practice. Suggest it after students finish their own trace and code, not as an answer substitute.'
+ ));
+ return s.join('');
+}
+
 function buildWeek3Practice(l){
  const s=[];
  s.push(apCover(l,'1.1–1.3','Week 3 Practice','Can you find the simple rule inside a mixed problem?','This practice should not reteach the lessons. It should expose whether the learner can transfer the three mental models: execution/error stage, type/model choice, and expression evaluation.'));
@@ -1930,6 +2121,7 @@ if(!L){
  else if(L.id==='u1-3') deck.innerHTML=buildTopic13(L);
  else if(L.id==='u1-4') deck.innerHTML=buildTopic14(L);
  else if(L.id==='u1-5') deck.innerHTML=buildTopic15(L);
+ else if(L.id==='u1-6') deck.innerHTML=buildTopic16(L);
  else if(L.id==='p-1-1-1-3') deck.innerHTML=buildWeek3Practice(L);
  else deck.innerHTML=L.kind==='practice'?buildPractice(L):buildLesson(L);
 }
