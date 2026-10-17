@@ -259,5 +259,94 @@
         "content": "Special floating-point values, other numeric types, detailed IEEE-754 encoding and nonstandard rounding libraries"
       }
     ]
+  },
+  "u1-6": {
+    "officialTopic": "1.6",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description-effective-fall-2025.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-6-compound-operators.html",
+    "referenceSections": [
+      {
+        "section": "CSAwesome2 1.6 operator introduction and full-form equivalences",
+        "scenes": [
+          "Retrieve: how does an assignment update memory?",
+          "A shorter way to express the SAME update",
+          "Follow the variable, not the abbreviation",
+          "The five compound arithmetic operators"
+        ],
+        "skill": "Explain five compound operator spellings as arithmetic + assignment"
+      },
+      {
+        "section": "CSAwesome2 Activity 1.6.1 — try and extend operators in Java",
+        "scenes": [
+          "One shortcut can update the same variable twice",
+          "Division is still integer division",
+          "Remainder is still the remainder",
+          "Coding challenge — training scorekeeper",
+          "Review — training scorekeeper"
+        ],
+        "skill": "Trace, extend and execute Java with arithmetic and compound assignment"
+      },
+      {
+        "section": "CED full right-hand expressions and variable self-use",
+        "scenes": [
+          "A compound assignment uses the entire RIGHT side",
+          "The right side can use the same variable"
+        ],
+        "skill": "Apply RHS grouping and current stored value before writing a new result"
+      },
+      {
+        "section": "CSAwesome2 post-increment and post-decrement",
+        "scenes": [
+          "Why programmers write count++;",
+          "Decrement moves the value in the other direction",
+          "One mental model, three equivalent forms",
+          "AP scope — what is required today?"
+        ],
+        "skill": "Use x++ and x-- only as standalone numeric updates; know excluded forms"
+      },
+      {
+        "section": "CSAwesome2 Activities 1.6.2 and 1.6.3",
+        "scenes": [
+          "Use a trace table to see EVERY change",
+          "Practice 3 — do the arithmetic in order"
+        ],
+        "skill": "Trace multiple variable values after each statement without evaluating operator expression values"
+      },
+      {
+        "section": "CSAwesome2 Code Tracing Challenge and Operators Maze",
+        "scenes": [
+          "Operators Maze — trace without a computer",
+          "Practice 4 — AP-style reasoning"
+        ],
+        "skill": "Simulate longer sequences of numeric updates and fully evaluate compound RHS"
+      },
+      {
+        "section": "CSAwesome2 Unit 1A practice and AP transfer",
+        "scenes": [
+          "Practice 1 — expand the shortcuts",
+          "Practice 2 — the shortcut spelling matters",
+          "Exit check"
+        ],
+        "skill": "Rewrite Java statements, diagnose legal =+ typo, and explain state changes independently"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Official exclusion",
+        "content": "Prefix increment/decrement such as ++x are excluded from AP CSA exam"
+      },
+      {
+        "topic": "Official exclusion",
+        "content": "Increment and decrement inside other expressions are excluded from AP CSA exam"
+      },
+      {
+        "topic": "Future units",
+        "content": "Use of ++/-- in loops and collection indices waits until those topics are introduced"
+      },
+      {
+        "topic": "Optional reference practice",
+        "content": "CSAwesome Operators Maze and Unit 1A review may be completed after classroom work"
+      }
+    ]
   }
 }
