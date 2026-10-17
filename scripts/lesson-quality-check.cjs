@@ -65,7 +65,7 @@ const special={
  'p-foundation-1':'buildFoundationPractice1',f4:'buildPythonOnRamp',
  f5:'buildInputDebugging',f6:'buildPythonChallenge',
  'p-foundation-2':'buildFoundationPractice2',
- 'u1-1':'buildTopic11','u1-2':'buildTopic12','u1-3':'buildTopic13','u1-4':'buildTopic14','u1-5':'buildTopic15',
+ 'u1-1':'buildTopic11','u1-2':'buildTopic12','u1-3':'buildTopic13','u1-4':'buildTopic14','u1-5':'buildTopic15','u1-6':'buildTopic16',
  'p-1-1-1-3':'buildWeek3Practice'
 };
 let nLessons=0,nScenes=0,nClicks=0;
