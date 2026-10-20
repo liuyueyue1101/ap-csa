@@ -193,6 +193,55 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '    if(!answer||!code||!output||getComputedStyle(answer).display!=="none")errors.push("TrainingScore answer visible before reveal");'+
 '    else {next();if(getComputedStyle(answer).display==="none"||!output.textContent.includes("3"))errors.push("TrainingScore answer/expected output failed");next();if(i===worked)errors.push("duplicate full-code reveal");}'+
 '  }'+
+'} else if(["u1-7","u1-8","u1-9","p-1-7-1-9"].includes(new URLSearchParams(location.search).get("id"))) {'+
+' const id=new URLSearchParams(location.search).get("id");'+
+' const t=(title)=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===title);'+
+' if(id==="u1-7") {'+
+'   const q=t("Read one API entry instead of guessing");'+
+'   if(q<0)errors.push("Topic 1.7 API usage exercise missing");'+
+'   else {i=q;render();const answer=slides[q].querySelector(".beat");'+
+'     if(!answer||getComputedStyle(answer).display!=="none")errors.push("API call leaked before reveal");'+
+'     else {next();if(getComputedStyle(answer).display==="none"||!answer.textContent.includes("forward(80)"))errors.push("Turtle method example not revealed");}}'+
+'   const challenge=t("Coding challenge — draw with Turtle");'+
+'   if(challenge<0)errors.push("Turtle drawing challenge missing");'+
+'   else if(slides[challenge].querySelector(".beat"))errors.push("Turtle prompt contains premature answer reveal");'+
+' }'+
+' if(id==="u1-8") {'+
+'   const q=t("A comment does not execute");'+
+'   if(q<0)errors.push("Topic 1.8 comment output question missing");'+
+'   else {i=q;render();const ans=slides[q].querySelector(".beat");'+
+'     if(!ans||getComputedStyle(ans).display!=="none")errors.push("comment output leaked");'+
+'     else {next();if(getComputedStyle(ans).display==="none"||!ans.textContent.includes("7"))errors.push("comment output did not reveal");}}'+
+'   const contract=t("Document the contract in Javadoc");'+
+'   if(contract<0||!slides[contract].textContent.includes("Precondition: divisor"))errors.push("Javadoc precondition teaching missing");'+
+' }'+
+' if(id==="u1-9") {'+
+'   const q=t("The signature is NOT the entire header");'+
+'   if(q<0||!slides[q].textContent.includes("ORDERED TYPES"))errors.push("Method signature definition missing");'+
+'   const overload=t("Changing only the return type is NOT overloading");'+
+'   if(overload<0)errors.push("Duplicate signature counterexample missing");'+
+'   else {i=overload;render();const answer=slides[overload].querySelector(".beat");'+
+'     if(!answer||getComputedStyle(answer).display!=="none")errors.push("overload resolution leaked");'+
+'     else {next();if(getComputedStyle(answer).display==="none")errors.push("overload answer missing");}}'+
+'   const review=t("Review the parameterized song");'+
+'   if(review<0)errors.push("Song solution missing");'+
+'   else if(getComputedStyle(slides[review].querySelector(".beat")).display!=="none")errors.push("Song code leaked before attempt");'+
+' }'+
+' if(id==="p-1-7-1-9") {'+
+'    const questions=slides.filter(s=>/^Q\\d+ —/.test(s.querySelector("h2")?.textContent.trim()||""));'+
+'    if(questions.length!==44)errors.push("Week 5 bank must provide all 44 full AP-style questions; found "+questions.length);'+
+'    for(const [k,slide] of questions.entries()) {'+
+'      const ans=slide.querySelector(".beat.week5-answer");'+
+'      if(!ans||getComputedStyle(ans).display!=="none")errors.push("Q"+(k+1)+" answer visible before reveal");'+
+'      if(slide.querySelectorAll(".week5-options>div").length!==4)errors.push("Q"+(k+1)+" requires four choices");'+
+'    }'+
+'    if(questions.length){i=slides.indexOf(questions[0]);render();const ans=questions[0].querySelector(".beat");'+
+'      next();if(getComputedStyle(ans).display==="none")errors.push("First MCQ answer failed to reveal");next();if(i===slides.indexOf(questions[0]))errors.push("First MCQ has duplicate answer reveal");'+
+'    }'+
+'    const all=slides.map(x=>x.textContent).join(" ");'+
+'    if(!all.includes("AP Classroom")||!all.includes("CompSci.Rocks"))errors.push("Official and public practice source links missing");'+
+'    if(slides.some(x=>/Homework|Exit check|Concept summary/.test(x.querySelector("h2")?.textContent||"")))errors.push("Week 5 practice must contain only questions and question sources");'+
+' }'+
 '}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
 'const report={ok:errors.length===0,lessons:new URLSearchParams(location.search).get("id"),slides:slides.length,hiddenElementsChecked:allHidden,errors};'+
