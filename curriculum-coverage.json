@@ -348,5 +348,243 @@
         "content": "CSAwesome Operators Maze and Unit 1A review may be completed after classroom work"
       }
     ]
+  },
+  "u1-7": {
+    "officialTopic": "1.7",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description-effective-fall-2025.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-7-APIs-and-libraries.html",
+    "referenceSections": [
+      {
+        "section": "1.7.1 Turtle Library: Classes, Attributes, and Behaviors",
+        "scenes": [
+          "A program does not need to invent every tool",
+          "From library to the features you can use",
+          "A class defines a reference type",
+          "Attributes describe what an object knows",
+          "Behaviors describe what the object can do"
+        ],
+        "skill": "Interpret an API's class, state and behavior"
+      },
+      {
+        "section": "1.7.2 Packages",
+        "scenes": [
+          "Packages organize Java classes",
+          "What does an import do?",
+          "How programmers use an unfamiliar API"
+        ],
+        "skill": "Find reusable classes and read documentation"
+      },
+      {
+        "section": "1.7.3 Turtle Drawing",
+        "scenes": [
+          "Read one API entry instead of guessing",
+          "Trace a turtle path from documented behavior",
+          "Coding challenge — draw with Turtle",
+          "Check one possible square command sequence"
+        ],
+        "skill": "Apply API behavior to an authentic Turtle tracing task"
+      },
+      {
+        "section": "1.7.5 AP Practice",
+        "scenes": [
+          "Practice 1 — what does the API contain?",
+          "Practice 2 — read documentation",
+          "Exit question — classify, then choose"
+        ],
+        "skill": "Classify unfamiliar API members and choose valid method calls"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "1.9",
+        "content": "Detailed parameter signatures and call-by-value"
+      },
+      {
+        "topic": "1.12/1.13",
+        "content": "Object instantiation and full class/object lifecycle"
+      },
+      {
+        "topic": "1.14",
+        "content": "Comprehensive instance method syntax"
+      }
+    ]
+  },
+  "u1-8": {
+    "officialTopic": "1.8",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description-effective-fall-2025.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-8-comments.html",
+    "referenceSections": [
+      {
+        "section": "1.8.1 Comments",
+        "scenes": [
+          "A comment does not execute",
+          "Three kinds of Java comments",
+          "A block can cover several lines",
+          "Javadoc is a special block comment",
+          "Useful comments explain intent"
+        ],
+        "skill": "Identify three comment forms and distinguish comments from executable code"
+      },
+      {
+        "section": "1.8.2 Preconditions and Postconditions",
+        "scenes": [
+          "A method has a promise to its caller",
+          "Precondition: something true BEFORE",
+          "Calling a method with an invalid argument",
+          "Postcondition: something true AFTER",
+          "Do not confuse before and after",
+          "Document the contract in Javadoc"
+        ],
+        "skill": "Describe method input requirements and guaranteed outcomes"
+      },
+      {
+        "section": "1.8.3–1.8.4 Process context",
+        "scenes": [
+          "Reference context: teams and software process"
+        ],
+        "skill": "Recognize why code documentation supports collaboration; optional enrichment"
+      },
+      {
+        "section": "1.8.5 Coding Challenge and 1.8.7 AP Practice",
+        "scenes": [
+          "Practice 1 — what is actually printed?",
+          "Practice 2 — which is a precondition?",
+          "Practice 3 — fix the documentation",
+          "Coding challenge — document a method",
+          "Review the documented method"
+        ],
+        "skill": "Read and write reliable contracts for arithmetic methods"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Optional software process enrichment",
+        "content": "Waterfall, Agile, Scrum and use-case diagrams are reference context, not Topic 1.8 exam requirements"
+      },
+      {
+        "topic": "1.9",
+        "content": "Formal method signatures and argument passing"
+      },
+      {
+        "topic": "2.2",
+        "content": "Boolean condition programming and relational operators"
+      }
+    ]
+  },
+  "u1-9": {
+    "officialTopic": "1.9",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description-effective-fall-2025.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-9-method-signatures.html",
+    "referenceSections": [
+      {
+        "section": "1.9.1 Procedural Abstraction",
+        "scenes": [
+          "A method is code that runs WHEN CALLED",
+          "A caller can use behavior without knowing internals",
+          "Find the method header and body"
+        ],
+        "skill": "Identify named code blocks and why procedural abstraction helps"
+      },
+      {
+        "section": "1.9.2 Calls, Signature, Parameters, Arguments",
+        "scenes": [
+          "The signature is NOT the entire header",
+          "Parameters live in the method header",
+          "Arguments are actual values in a CALL",
+          "Quantity, order, and type MUST match"
+        ],
+        "skill": "Identify signatures and match compatible ordered arguments"
+      },
+      {
+        "section": "1.9.3 Call by value, void vs nonvoid, execution flow",
+        "scenes": [
+          "Call by value creates a copy",
+          "A void method performs work without a return value",
+          "A non-void method gives a value back",
+          "Use returned values in an expression",
+          "A method call changes the control flow"
+        ],
+        "skill": "Trace copies, returned values and control flow"
+      },
+      {
+        "section": "1.9.4 Overloading",
+        "scenes": [
+          "Overloading: same NAME, different signatures",
+          "Changing only the return type is NOT overloading",
+          "Overload resolution — which version?"
+        ],
+        "skill": "Distinguish overloads by name + types, not return type"
+      },
+      {
+        "section": "1.9.5 Song with Parameters and 1.9.7 AP Practice",
+        "scenes": [
+          "Practice 1 — identify a signature",
+          "Practice 2 — arguments vs parameters",
+          "Practice 3 — what does the caller keep?",
+          "Practice 4 — follow method execution",
+          "Coding challenge — song with parameters",
+          "Review the parameterized song"
+        ],
+        "skill": "Write a valid method/call and solve real AP-style method problems"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "1.10",
+        "content": "Full treatment of calling class/static library methods"
+      },
+      {
+        "topic": "1.11",
+        "content": "Math library calls"
+      },
+      {
+        "topic": "1.14",
+        "content": "Detailed instance method calls"
+      },
+      {
+        "topic": "1.15",
+        "content": "String concatenation; song challenge avoids it"
+      }
+    ]
+  },
+  "p-1-7-1-9": {
+    "officialTopic": "Practice 1.7–1.9",
+    "officialSource": "https://apclassroom.collegeboard.org/",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-9-method-signatures.html",
+    "referenceSections": [
+      {
+        "section": "Official AP Classroom Unit 1 Part 2 Progress Check (secure)",
+        "scenes": [
+          "Official AP questions — teacher access"
+        ],
+        "skill": "Access official College Board MCQs through AP Classroom rather than republishing protected questions"
+      },
+      {
+        "section": "Open CSAwesome2 and CompSci.Rocks practice",
+        "scenes": [
+          "Public practice questions — matching sections"
+        ],
+        "skill": "Access freely available reference questions and 55 additional independently authored AP-style items"
+      },
+      {
+        "section": "Original AP-style MCQ bank",
+        "scenes": [
+          "Q01 — API contract",
+          "Q15 — Ignored line",
+          "Q29 — Method execution"
+        ],
+        "skill": "44 originally written 1.7–1.9 questions with concealed answer keys"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Authenticity and copyright",
+        "content": "Only externally linked AP Classroom content is official; on-slide bank is original AP-style, not past College Board MCQ"
+      },
+      {
+        "topic": "Past FRQs",
+        "content": "Released 2026 and older FRQs are mostly not isolated to Topic 1.7–1.9 and are not represented as matching past questions"
+      }
+    ]
   }
 }
