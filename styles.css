@@ -541,3 +541,39 @@ span.beat.revealed{display:inline}
 
 /* Explicit grid for revealed compound results; default reveal display:block must not collapse table layout. */
 .slide .beat.revealed.compound-trace,.slide .beat.revealed.compound-answers{display:grid}
+
+/* Week 5: API docs, contracts, method signatures, and question-only practice. */
+.api-hierarchy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:25px 0}
+.api-hierarchy>div{display:grid;place-items:center;text-align:center;padding:25px 11px;min-height:120px;border:1px solid var(--line);background:white;font-size:clamp(20px,1.8vw,29px);font-weight:750;letter-spacing:.025em}
+.api-hierarchy>div:not(:last-child){border-bottom:4px solid var(--accent)}
+.api-spec{border:1px solid var(--line);background:white;padding:20px 26px;margin:18px 0}
+.api-spec h3{font-size:clamp(24px,2.3vw,35px);margin:0 0 14px;line-height:1.3}
+.api-spec p{font-size:clamp(23px,2.05vw,31px);line-height:1.42;margin:10px 0}
+.api-pair,.api-two,.signature-anatomy,.casting-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+.api-pair>div,.api-two>div,.signature-anatomy>div{border:1px solid var(--line);background:white;padding:18px 24px;min-width:0}
+.api-pair b,.signature-anatomy span{display:block;font:750 clamp(26px,2.25vw,34px)/1.3 "SFMono-Regular",Consolas,monospace;color:var(--accent);margin-bottom:8px}
+.api-pair span{display:block;font-size:clamp(23px,2vw,31px);line-height:1.38}
+.api-two h3{font-size:17px;color:var(--muted);letter-spacing:.07em;margin:0 0 13px}
+.api-two p{font-size:clamp(22px,1.95vw,29px);line-height:1.4;margin:8px 0}
+.signature-anatomy strong{display:block;font:800 clamp(29px,2.7vw,42px)/1.3 "SFMono-Regular",Consolas,monospace}
+.api-task-list{display:grid;gap:12px;margin:20px 0}
+.api-task-list p{background:white;border-left:4px solid var(--accent);padding:12px 18px;margin:0;font-size:clamp(22px,2vw,31px);line-height:1.35}
+.lesson-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.lesson-choice-grid>div{background:white;border:1px solid var(--line);padding:16px 21px;font-size:clamp(24px,2.05vw,32px)}
+.comment-types{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0}
+.comment-types>div{border:1px solid var(--line);background:white;padding:22px}
+.comment-types code{font:700 clamp(26px,2.4vw,39px)/1.3 monospace;color:var(--accent)}
+.comment-types p{font-size:clamp(22px,1.95vw,29px);margin:15px 0 0}
+.contract-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0}
+.contract-steps>div{background:white;border:1px solid var(--line);padding:25px 10px;text-align:center;font-weight:700;font-size:clamp(20px,1.8vw,28px)}
+.week5-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.week5-options>div{background:white;border:1px solid var(--line);padding:12px 18px;font-size:clamp(22px,1.9vw,29px);line-height:1.35;min-width:0}
+.week5-options b{font:800 clamp(22px,2vw,30px)/1.3 "SFMono-Regular",Consolas,monospace;color:var(--accent);margin-right:8px}
+.week5-answer{background:var(--output-soft);border-left:5px solid var(--output);padding:14px 20px;margin:18px 0}
+.week5-answer>b{font:800 clamp(23px,2vw,31px)/1.25 ui-sans-serif,system-ui;color:var(--output)}
+.week5-answer p{font-size:clamp(21px,1.85vw,28px);line-height:1.35;margin:8px 0 0}
+@media(max-width:850px){
+ .api-hierarchy{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .api-pair,.api-two,.signature-anatomy,.week5-options,.lesson-choice-grid,.comment-types{grid-template-columns:1fr}
+ .contract-steps{grid-template-columns:1fr}
+}
