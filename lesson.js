@@ -2093,6 +2093,129 @@ function buildTopic18(l){
  return s.join('');
 }
 
+function buildTopic19(l){
+ const s=[];
+ s.push(apCover(l,'1.9','Method<br>Signatures','Use a method by understanding its promise, inputs, and return.',
+  'CSAwesome2 1.9.1–1.9.7: abstraction, calling methods, parameter/argument, signature, overloads, Song with Parameters, AP Practice. CED 1.9.A/B includes void vs nonvoid, call-by-value and control flow. Move more advanced Math API usage to 1.10/1.11.'));
+ s.push(slide('A method is code that runs WHEN CALLED',
+  '<pre class="code"><span class="code-line">public static void greet() {</span><span class="code-line">    System.out.println("Hello");</span><span class="code-line">}</span></pre>'+
+  '<p class="q">Will Java print Hello merely because this method has been declared?</p>'+
+  '<div class="beat concept-reveal"><b>No.</b> A method is a named block of code. Its body runs when the method is <b>called</b>.</div>',
+  'Begin with the difference between defining and calling. Code shown as a method inside a class.'));
+ s.push(slide('A caller can use behavior without knowing internals',
+  '<div class="api-two"><div><h3>CALLER KNOWS</h3><p><code>greet()</code> says hello.</p></div><div><h3>IMPLEMENTATION</h3><p>Statements in the method body.</p></div></div>'+
+  '<p class="scope-note"><b>Procedural abstraction:</b> use the promised behavior without having to understand how every statement was written.</p>',
+  'Clear conceptual distinction from reference 1.9.1.'));
+ s.push(slide('Find the method header and body',
+  '<pre class="code"><span class="code-line">public static int doubleIt(int x) {</span><span class="code-line">    return x * 2;</span><span class="code-line">}</span></pre>'+
+  '<p class="q">Which part declares how to call the method? Which part implements its work?</p>'+
+  '<div class="beat api-pair"><div><b>HEADER</b><span>return type, name, parameters</span></div><div><b>BODY</b><span>statements inside braces</span></div></div>',
+  'Use a real Java method and distinguish bracketed body from header.'));
+ s.push(slide('The signature is NOT the entire header',
+  '<pre class="code"><span class="code-line">public static int doubleIt(int x)</span></pre>'+
+  '<div class="signature-anatomy"><div><span>NAME</span><strong>doubleIt</strong></div><div><span>ORDERED TYPES</span><strong>(int)</strong></div></div>'+
+  '<p class="scope-note">For AP Topic 1.9, a method signature consists of its <b>name and ordered parameter types</b>. Access modifiers, parameter names, and return type are not part of it.</p>',
+  'Important official definition; do not incorrectly include return type in signature.'));
+ s.push(slide('Parameters live in the method header',
+  '<pre class="code"><span class="code-line">public static void report(int laps, double pace) {</span><span class="code-line">    System.out.println(laps);</span><span class="code-line">    System.out.println(pace);</span><span class="code-line">}</span></pre>'+
+  '<p class="q">Identify both parameter names and their types.</p>'+
+  '<div class="beat api-pair"><div><b>laps</b><span>int</span></div><div><b>pace</b><span>double</span></div></div>',
+  'Distinguish local parameter names from the type list used in a signature.'));
+ s.push(slide('Arguments are actual values in a CALL',
+  '<div class="api-spec"><h3>Documented method</h3><p><code>report(int laps, double pace)</code></p></div>'+
+  '<p class="q">Which argument values should be passed to report 4 laps at a pace of 12.5?</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">report(4, 12.5);</span></pre><p>Arguments are values at the call site; parameters are variables in the method header.</p></div>',
+  'One reveal shows a correct match.'));
+ s.push(slide('Quantity, order, and type MUST match',
+  '<div class="api-spec"><h3>Method signature</h3><p><code>record(int, double)</code></p></div>'+
+  '<div class="lesson-choice-grid"><div>A. record(3, 7.5)</div><div>B. record(7.5, 3)</div><div>C. record(3)</div><div>D. record("3", 7.5)</div></div>'+
+  '<p class="q">Which call matches the documented signature?</p>'+
+  '<div class="beat concept-reveal"><b>A.</b> Exactly two compatible arguments in the correct order. C omits one; D supplies text where an int is expected.</div>',
+  'Note B is not valid because first double cannot implicitly narrow to int. Second int would widen, but the first is wrong.'));
+ s.push(slide('Call by value creates a copy',
+  '<pre class="code"><span class="code-line">public static void addTen(int n) {</span><span class="code-line">    n = n + 10;</span><span class="code-line">}</span><span class="code-line">int score = 4;</span><span class="code-line">addTen(score);</span></pre>'+
+  '<p class="q">After calling <code>addTen</code>, did the original <code>score</code> become 14?</p>'+
+  '<div class="beat"><div class="api-pair"><div><b>PARAMETER n</b><span>14 inside the method</span></div><div><b>CALLER score</b><span>still 4</span></div></div><p>Call by value passes a <b>copy</b> of the argument value.</p></div>',
+  'Primitive copy example from official 1.9.B.3; avoid reference aliasing complexity.'));
+ s.push(slide('A void method performs work without a return value',
+  '<pre class="code"><span class="code-line">public static void cheer() {</span><span class="code-line">    System.out.println("Go!");</span><span class="code-line">}</span><span class="code-line">cheer();</span></pre>'+
+  '<p class="q">Can we store the result of this <code>void</code> method in an int variable?</p>'+
+  '<div class="beat concept-reveal"><b>No.</b> A <code>void</code> method does not return a value. Its call is a statement, not a numeric expression.</div>',
+  'The method call is intended to appear inside a containing class/method; later coding sample is complete.'));
+ s.push(slide('A non-void method gives a value back',
+  '<pre class="code"><span class="code-line">public static int doubleIt(int n) {</span><span class="code-line">    return n * 2;</span><span class="code-line">}</span><span class="code-line">int answer = doubleIt(7);</span></pre>'+
+  '<p class="q">What value goes into <code>answer</code>?</p>'+
+  '<div class="beat"><div class="memory-board"><div class="name">answer</div><div class="value">14</div></div><p><code>return</code> sends a value of the declared return type to the caller.</p></div>',
+  'Nonvoid result used in assignment; method call inside a containing method in a class.'));
+ s.push(slide('Use returned values in an expression',
+  '<pre class="code"><span class="code-line">int total = doubleIt(3) + doubleIt(4);</span></pre>'+
+  '<p class="q">Evaluate each call first. What is <code>total</code>?</p>'+
+  '<div class="beat eval-step">doubleIt(3) → 6, doubleIt(4) → 8</div>'+
+  '<div class="beat"><div class="memory-board"><div class="name">total</div><div class="value">14</div></div></div>',
+  'Two reasoning beats: two calls produce values, expression adds them.'));
+ s.push(slide('A method call changes the control flow',
+  '<pre class="code"><span class="code-line">System.out.print("A");</span><span class="code-line">cheer();</span><span class="code-line">System.out.print("B");</span></pre>'+
+  '<p class="q">If <code>cheer()</code> prints <code>Go!</code> with println, what appears and in what order?</p>'+
+  '<div class="beat"><div class="console-box">AGo!<br>B</div><p>Execution enters the called method, completes it, then resumes after the call.</p></div>',
+  'Call interrupts and returns; output exact: A then Go! with newline, B.'));
+ s.push(slide('Overloading: same NAME, different signatures',
+  '<pre class="code"><span class="code-line">void show(int n) { ... }</span><span class="code-line">void show(double n) { ... }</span><span class="code-line">void show(int n, int m) { ... }</span></pre>'+
+  '<p class="q">Can Java distinguish these calls by the types and number of arguments?</p>'+
+  '<div class="beat concept-reveal">Yes. These are <b>overloads</b>: one method name with different ordered parameter-type lists.</div>',
+  'Pseudocode ellipses inside braces are illustrative, not compilable; avoid treating as full Java example.'));
+ s.push(slide('Changing only the return type is NOT overloading',
+  '<pre class="code"><span class="code-line">int pick(int n) { return n; }</span><span class="code-line">double pick(int n) { return n; }</span></pre>'+
+  '<p class="q">Do these two declarations have different method signatures?</p>'+
+  '<div class="beat error-box"><span class="error-badge">DUPLICATE SIGNATURE</span><p>Both are <code>pick(int)</code>. Different return types alone cannot distinguish the methods.</p></div>',
+  'Critical official definition. These are not valid overloads.'));
+ s.push(slide('Overload resolution — which version?',
+  '<div class="api-spec"><h3>Available signatures</h3><p><code>send(int)</code></p><p><code>send(double)</code></p><p><code>send(int, int)</code></p></div>'+
+  '<p class="q">Which overload is the exact match for <code>send(3, 4)</code>?</p>'+
+  '<div class="beat concept-reveal"><code>send(int, int)</code>. The call supplies two integers in order.</div>',
+  'No advanced promotion hierarchy; exact signature match.'));
+ s.push(slide('Practice 1 — identify a signature',
+  '<p class="practice-kicker">IN CLASS · DECLARATION</p>'+
+  '<pre class="code"><span class="code-line">public static boolean ready(int level, double time)</span></pre>'+
+  '<p class="q">Write the method signature without return type or parameter names.</p>'+
+  '<div class="beat concept-reveal"><code>ready(int, double)</code></div>',
+  'One answer reveal.'));
+ s.push(slide('Practice 2 — arguments vs parameters',
+  '<p class="practice-kicker">IN CLASS · MATCH</p>'+
+  '<div class="api-spec"><h3>Signature: scale(double, int)</h3></div>'+
+  '<div class="lesson-choice-grid"><div>A. scale(2, 2.5)</div><div>B. scale(2.5, 2)</div><div>C. scale(2.5)</div><div>D. scale("2.5", 2)</div></div>'+
+  '<p class="q">Which call is an exact type match?</p>'+
+  '<div class="beat concept-reveal"><b>B.</b> One double argument followed by one int argument.</div>',
+  'Check original argument types, number and order.'));
+ s.push(slide('Practice 3 — what does the caller keep?',
+  '<p class="practice-kicker">IN CLASS · CALL BY VALUE</p>'+
+  '<pre class="code"><span class="code-line">public static void raise(int x) {</span><span class="code-line">    x += 5;</span><span class="code-line">}</span><span class="code-line">int n = 10;</span><span class="code-line">raise(n);</span></pre>'+
+  '<p class="q">What is stored in <code>n</code> after the call?</p>'+
+  '<div class="beat"><div class="memory-board"><div class="name">n</div><div class="value">10</div></div><p>Only the parameter copy was changed.</p></div>',
+  'Independent trace beyond the introduction.'));
+ s.push(slide('Practice 4 — follow method execution',
+  '<p class="practice-kicker">IN CLASS · OUTPUT</p>'+
+  '<pre class="code"><span class="code-line">public static int plusTwo(int n) {</span><span class="code-line">    return n + 2;</span><span class="code-line">}</span><span class="code-line">System.out.println(plusTwo(5) * 2);</span></pre>'+
+  '<p class="q">What appears on the console?</p>'+
+  '<div class="beat console-box">14</div>',
+  'Nonvoid method returns 7, caller multiplies by 2.'));
+ s.push(slide('Coding challenge — song with parameters',
+  '<p class="practice-kicker">WRITE JAVA · 8–10 MINUTES</p>'+
+  '<p class="q">Write a complete class <code>Song</code> with a method <code>sing(String word, int count)</code>.</p>'+
+  '<div class="api-task-list"><p>Make <code>sing</code> print its two arguments on separate lines.</p><p>In <code>main</code>, call <code>sing("Go", 2)</code> and <code>sing("Run", 3)</code>.</p><p>Predict the four output lines before running.</p></div>',
+  'Adapted from CSAwesome 1.9 Song with Parameters. No String concatenation required; that is Topic 1.15.'));
+ s.push(slide('Review the parameterized song',
+  '<p class="q">Compare only after you have written your own complete Java class.</p>'+
+  '<div class="beat"><pre class="code code-compact"><span class="code-line">public class Song {</span><span class="code-line">  public static void sing(String word, int count) {</span><span class="code-line">    System.out.println(word);</span><span class="code-line">    System.out.println(count);</span><span class="code-line">  }</span><span class="code-line">  public static void main(String[] args) {</span><span class="code-line">    sing("Go", 2);</span><span class="code-line">    sing("Run", 3);</span><span class="code-line">  }</span><span class="code-line">}</span></pre><div class="console-box">Go<br>2<br>Run<br>3</div></div>',
+  'Complete executable reference solution with one answer reveal.'));
+ s.push(slide('Exit check — method contracts',
+  '<p class="q">A method has signature <code>compute(int, double)</code> and returns an <code>int</code>.</p>'+
+  '<div class="api-task-list"><p>Which part of the header determines its signature?</p><p>What is an argument? What is a parameter?</p><p>How is a <code>void</code> method different from a non-void method?</p><p>What returns to the caller after the method finishes?</p></div>',
+  'Teacher diagnostic only: no answer page.'));
+ s.push(slide('Free reference — CSAwesome Topic 1.9',resources(l.resources),
+  'Link matching 1.9 including real AP-style questions and Song with Parameters.'));
+ return s.join('');
+}
+
 function buildWeek3Practice(l){
  const s=[];
  s.push(apCover(l,'1.1–1.3','Week 3 Practice','Can you find the simple rule inside a mixed problem?','This practice should not reteach the lessons. It should expose whether the learner can transfer the three mental models: execution/error stage, type/model choice, and expression evaluation.'));
