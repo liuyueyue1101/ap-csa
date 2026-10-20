@@ -37,6 +37,10 @@ jobs:
           node scripts/browser-quality-check.cjs u1-4
           node scripts/browser-quality-check.cjs u1-5
           node scripts/browser-quality-check.cjs u1-6
+          node scripts/browser-quality-check.cjs u1-7
+          node scripts/browser-quality-check.cjs u1-8
+          node scripts/browser-quality-check.cjs u1-9
+          node scripts/browser-quality-check.cjs p-1-7-1-9
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload site
