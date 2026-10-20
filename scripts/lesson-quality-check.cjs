@@ -59,16 +59,25 @@ for(const name of dataFiles)
  vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),context,{filename:name});
 const stop=src.indexOf('\nif(!L){');
 if(stop<0)throw Error('Missing lesson generator boundary');
+vm.runInContext(fs.readFileSync(path.join(root,'practice-banks.js'),'utf8'),context,{filename:'practice-banks.js'});
 vm.runInContext(src.slice(0,stop),context,{filename:'lesson.js'});
 const special={
  f1:'buildWhatIsComputer',f2:'buildFilesEnvironment',f3:'buildSourceExecution',
- 'p-foundation-1':'buildFoundationPractice1',f4:'buildPythonOnRamp',
+ 'p-foundation-1':'buildEarlierPracticeBank',f4:'buildPythonOnRamp',
  f5:'buildInputDebugging',f6:'buildPythonChallenge',
- 'p-foundation-2':'buildFoundationPractice2',
+ 'p-foundation-2':'buildEarlierPracticeBank',
  'u1-1':'buildTopic11','u1-2':'buildTopic12','u1-3':'buildTopic13','u1-4':'buildTopic14','u1-5':'buildTopic15','u1-6':'buildTopic16',
  'u1-7':'buildTopic17','u1-8':'buildTopic18','u1-9':'buildTopic19','p-1-7-1-9':'buildWeek5Practice',
- 'p-1-1-1-3':'buildWeek3Practice'
+ 'p-1-1-1-3':'buildEarlierPracticeBank','p-1-4-1-6':'buildEarlierPracticeBank'
 };
+const reviewMin={'p-foundation-1':24,'p-foundation-2':25,'p-1-1-1-3':38,'p-1-4-1-6':42};
+for(const [id,count] of Object.entries(reviewMin)){
+ const bank=context.window.REVIEW_PRACTICE_BANKS?.[id];
+ if(!bank||bank.questions?.length!==count)errors.push('Missing or incomplete '+id+' question bank');
+ else for(const [i,q] of bank.questions.entries()){
+  if(q.length!==6||q[3].length!==4||!Number.isInteger(q[4])||q[4]<0||q[4]>3||!q[5])errors.push('Invalid answer or options '+id+' Q'+(i+1));
+ }
+}
 let nLessons=0,nScenes=0,nClicks=0;
 for(const l of context.window.COURSE_DATA.lessons.concat(context.window.COURSE_DATA.optional)){
  const fn=special[l.id]||(l.kind==='practice'?'buildPractice':'buildLesson');
