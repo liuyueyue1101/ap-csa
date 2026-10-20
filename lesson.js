@@ -2530,6 +2530,44 @@ function buildLesson(l){
  return s.join('');
 }
 
+/* Re-take banks for the first four weeks: questions and verifiable sources only.
+   Official AP items stay on authorized/public original websites; the MCQs below
+   are independently authored AP-style (or Foundation) questions. */
+function buildEarlierPracticeBank(l){
+ const bank=window.REVIEW_PRACTICE_BANKS?.[l.id];
+ if(!bank)return slide('Missing question bank','<p class="q">Question bank not loaded.</p>','Review practice-banks.js script ordering.');
+ const s=[];
+ if(bank.sources?.length){
+   const chunks=[];
+   for(let i=0;i<bank.sources.length;i+=3)chunks.push(bank.sources.slice(i,i+3));
+   chunks.forEach((group,i)=>{
+    const label=bank.official ? 'AP exam question sources' : 'Reference sources — Foundation';
+    let html='<p class="practice-kicker">'+(bank.official?'OFFICIAL & PUBLIC QUESTION SOURCES':'FOUNDATION QUESTIONS · NOT OFFICIAL AP EXAM ITEMS')+'</p>';
+    html+='<p class="q">'+esc(bank.scope)+'</p><div class="api-task-list">';
+    for(const [title,url,detail] of group){
+     html+='<p><a target="_blank" rel="noopener noreferrer" href="'+esc(url)+'">'+esc(title)+' ↗</a><span class="muted" style="display:block;font-size:.75em">'+esc(detail)+'</span></p>';
+    }
+    html+='</div>';
+    s.push(slide(label+' '+(i+1),html,
+     'Present the authentic source labels accurately. AP Classroom requires authorized login and cannot be republished. CSAwesome questions are textbook practice. The following in-deck questions are original. Do not substitute linked later-topic FRQs for this week.'
+    ));
+   });
+ }
+ bank.questions.forEach(([topic,prompt,code,options,key,why],j)=>{
+  if(!Array.isArray(options)||options.length!==4||key<0||key>3)throw Error(l.id+' invalid question '+(j+1));
+  const letters='ABCD';
+  const choices=options.map((v,k)=>'<div><b>'+letters[k]+'.</b> '+esc(v)+'</div>').join('');
+  const html='<p class="practice-kicker">'+(bank.official?'ORIGINAL AP-STYLE · ':'FOUNDATION REVIEW · ')+esc(topic)+'</p>'+
+    '<p class="q">'+esc(prompt)+'</p>'+
+    (code?'<pre class="code code-compact">'+esc(code)+'</pre>':'')+
+    '<div class="week5-options">'+choices+'</div>'+
+    '<div class="beat week5-answer"><b>ANSWER '+letters[key]+'</b><p>'+esc(why)+'</p></div>';
+  s.push(slide('Q'+String(j+1).padStart(2,'0')+' — '+esc(topic),html,
+   'Require students to choose and justify an option before any reveal. A single click shows the correct choice and the causal explanation. Log missed rule types for spaced retrieval; do not lecture between every MCQ.'));
+ });
+ return s.join('');
+}
+
 function buildPractice(l){
  const cover=l.covers||[],s=[];
  s.push('<section class="slide active"><div class="slidecontent"><p class="lesson-meta">Week '+l.week+' · Practice</p><h1>'+esc(l.title)+'</h1><p class="big muted">'+esc(l.subtitle||'')+'</p>'+note('This is diagnostic practice. Record repeated hesitation instead of turning every miss into a lecture.')+'</div></section>');
@@ -2550,11 +2588,11 @@ if(!L){
  if(L.id==='f1') deck.innerHTML=buildWhatIsComputer(L);
  else if(L.id==='f2') deck.innerHTML=buildFilesEnvironment(L);
  else if(L.id==='f3') deck.innerHTML=buildSourceExecution(L);
- else if(L.id==='p-foundation-1') deck.innerHTML=buildFoundationPractice1(L);
+ else if(L.id==='p-foundation-1') deck.innerHTML=buildEarlierPracticeBank(L);
  else if(L.id==='f4') deck.innerHTML=buildPythonOnRamp(L);
  else if(L.id==='f5') deck.innerHTML=buildInputDebugging(L);
  else if(L.id==='f6') deck.innerHTML=buildPythonChallenge(L);
- else if(L.id==='p-foundation-2') deck.innerHTML=buildFoundationPractice2(L);
+ else if(L.id==='p-foundation-2') deck.innerHTML=buildEarlierPracticeBank(L);
  else if(L.id==='u1-1') deck.innerHTML=buildTopic11(L);
  else if(L.id==='u1-2') deck.innerHTML=buildTopic12(L);
  else if(L.id==='u1-3') deck.innerHTML=buildTopic13(L);
@@ -2565,7 +2603,8 @@ if(!L){
  else if(L.id==='u1-8') deck.innerHTML=buildTopic18(L);
  else if(L.id==='u1-9') deck.innerHTML=buildTopic19(L);
  else if(L.id==='p-1-7-1-9') deck.innerHTML=buildWeek5Practice(L);
- else if(L.id==='p-1-1-1-3') deck.innerHTML=buildWeek3Practice(L);
+ else if(L.id==='p-1-1-1-3') deck.innerHTML=buildEarlierPracticeBank(L);
+ else if(L.id==='p-1-4-1-6') deck.innerHTML=buildEarlierPracticeBank(L);
  else deck.innerHTML=L.kind==='practice'?buildPractice(L):buildLesson(L);
 }
 
