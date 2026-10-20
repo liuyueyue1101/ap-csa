@@ -66,6 +66,7 @@ const special={
  f5:'buildInputDebugging',f6:'buildPythonChallenge',
  'p-foundation-2':'buildFoundationPractice2',
  'u1-1':'buildTopic11','u1-2':'buildTopic12','u1-3':'buildTopic13','u1-4':'buildTopic14','u1-5':'buildTopic15','u1-6':'buildTopic16',
+ 'u1-7':'buildTopic17','u1-8':'buildTopic18','u1-9':'buildTopic19','p-1-7-1-9':'buildWeek5Practice',
  'p-1-1-1-3':'buildWeek3Practice'
 };
 let nLessons=0,nScenes=0,nClicks=0;
