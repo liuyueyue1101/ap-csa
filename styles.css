@@ -577,3 +577,9 @@ span.beat.revealed{display:inline}
  .api-pair,.api-two,.signature-anatomy,.week5-options,.lesson-choice-grid,.comment-types{grid-template-columns:1fr}
  .contract-steps{grid-template-columns:1fr}
 }
+
+/* Keep grid-backed reveal cards in their original two-column layout. */
+.slide .beat.revealed.api-pair,
+.slide .beat.revealed.api-two,
+.slide .beat.revealed.signature-anatomy,
+.slide .beat.revealed.lesson-choice-grid{display:grid}
