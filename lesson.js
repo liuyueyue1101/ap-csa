@@ -2216,6 +2216,130 @@ function buildTopic19(l){
  return s.join('');
 }
 
+function buildWeek5Practice(l){
+ const questions=[
+ // Original AP-style questions, not verbatim College Board questions.
+ ['1.7','API contract','Which statement best explains why an API specification is useful?','',
+ ['It automatically tests all program input','It describes how to use classes and their members','It replaces the Java compiler','It contains only source-code comments'],1,'An API describes documented features a programmer can use.'],
+ ['1.7','Reusable classes','A library primarily provides which resource?','',
+ ['Reusable classes written by programmers','New Java syntax rules','Only a single method','A compiler'],0,'A library contains reusable classes.'],
+ ['1.7','Package organization','What is a Java package used for?','',
+ ['To store only int variables','To group related classes','To replace all imports with comments','To display program output'],1,'Packages group related classes.'],
+ ['1.7','Reference type','In the declaration below, what does Turtle name?','Turtle t;',
+ ['A numeric literal','A method call','A class defining a reference type','An integer attribute'],2,'Turtle denotes a class/reference type; t is a variable.'],
+ ['1.7','Stored state','Which is most clearly an attribute of a robot?','',
+ ['moveForward()','beep()','batteryLevel','turnLeft()'],2,'Attributes are data stored as part of a class or object.'],
+ ['1.7','Behavior','Which is most clearly a behavior?','',
+ ['color','xPosition','yPosition','turnRight()'],3,'Methods describe what an object can do.'],
+ ['1.7','Reading method docs','The API says void move(int steps) moves the object by the given number of steps. Which call moves object player by 7 steps?','',
+ ['player.move(7);','player.move();','player.steps(7);','move.player(7);'],0,'Use the documented name and required int argument.'],
+ ['1.7','java.lang package','Which package is available automatically without an explicit import for the listed core classes?','',
+ ['java.util','java.lang','java.awt','java.io'],1,'Core java.lang classes are available without an explicit import.'],
+ ['1.7','Import statement','What is the effect of the following Java statement?','import java.util.Scanner;',
+ ['Create a Scanner object','Read one input line','Allow Scanner to be used by its simple class name','Print the full package'],2,'An import does not instantiate an object.'],
+ ['1.7','API excerpt','A class documentation lists int temperature and void heat(). Which is correct?','',
+ ['Both are methods','Both are attributes','temperature is a behavior; heat is data','temperature is data; heat is behavior'],3,'Fields hold state; methods define behavior.'],
+ ['1.7','Turtle trace','A turtle faces north; forward(40) and turnRight() each behave as documented. Which direction does the SECOND forward movement use?','t.forward(40);\nt.turnRight();\nt.forward(20);',
+ ['North','South','East','West'],2,'After turning right from north, the turtle faces east.'],
+ ['1.7','Documentation vs guessing','You are given an unfamiliar Sensor API. What should you check first to determine the arguments accepted by read()?','',
+ ['The monitor brightness','The current battery percentage','The library API method documentation','A random similarly named method'],2,'Documentation supplies the expected method contract.'],
+ ['1.7','Package, class, method','Which ordering best describes the usual Java API organization?','',
+ ['method → class → package','package → class → method','attribute → package → library','argument → class → package'],1,'Packages organize classes; methods are members of classes.'],
+ ['1.7','Class vs object variable','Given a reference Turtle t = new Turtle(world);, which name refers to the variable for a particular object?','',
+ ['Turtle','world only','t','new'],2,'t is the variable that holds an object reference.'],
+ // Topic 1.8
+ ['1.8','Ignored line','What is printed?','// System.out.println(5);\nSystem.out.println(8);',
+ ['5','8','5 and 8','Nothing'],1,'The comment line is not executed.'],
+ ['1.8','Block comments','What is printed?','System.out.print("A");\n/* System.out.print("B"); */\nSystem.out.print("C");',
+ ['ABC','AB','AC','BC'],2,'A block comment is ignored; print does not add newlines.'],
+ ['1.8','Three comment forms','Which syntax starts a Javadoc comment?','',
+ ['//','/**','/*','##'],1,'Javadoc begins with /** and ends with */.'],
+ ['1.8','Purpose of comments','Which statement about Java comments is correct?','',
+ ['Comments change arithmetic precedence','Comments are executed before main','Comments are ignored by the compiler and communicate intent','Comments always have to document each statement'],2,'Comments are for human understanding, not execution.'],
+ ['1.8','Precondition timing','When must a method precondition hold?','',
+ ['Just after a method returns','Before the method executes','Only during compilation','Only after the program terminates'],1,'Preconditions must be satisfied immediately before execution.'],
+ ['1.8','Division precondition','A method returns total / count using integer division. Which precondition is essential?','',
+ ['count != 0','count == 0','total is always 0','The method is public'],0,'Division by zero is invalid for int arithmetic.'],
+ ['1.8','Postcondition definition','Which statement best characterizes a postcondition?','',
+ ['The type of the class','A fact guaranteed after method execution when its preconditions are met','An argument passed by the caller','A Java package name'],1,'Postconditions describe guaranteed outcomes of valid method calls.'],
+ ['1.8','Return result','A method doubleIt(int n) promises to return 2*n (assuming no overflow). Which postcondition is most precise?','',
+ ['The argument must be negative','The method does not return','The return value is twice n','The program has an import statement'],2,'The postcondition describes the returned value.'],
+ ['1.8','Broken precondition','A method requires divisor > 0. Which call violates that precondition?','',
+ ['divide(18, 3)','divide(18, 1)','divide(18, 2)','divide(18, 0)'],3,'Zero is not positive, so the documented condition is violated.'],
+ ['1.8','Caller responsibility','A valid method precondition is documented. Which statement is correct?','',
+ ['The method must always check it at runtime','Java automatically checks it','The caller should satisfy it; the method is not required to check','Preconditions apply only to constructors'],2,'The AP framework does not require methods to check documented preconditions.'],
+ ['1.8','Javadoc purpose','Why do programmers write Javadoc comments?','',
+ ['To create API documentation','To perform division','To construct objects','To change method return types'],0,'Javadoc is the special documentation comment format.'],
+ ['1.8','Good documentation','Which comment communicates the most useful information above count++?','',
+ ['// plus-plus operator','// count increases','// Include the latest recorded event in the tally','// count is a variable'],2,'Useful comments explain purpose beyond the obvious syntax.'],
+ ['1.8','Code behavior vs comment','Consider this code. Which is the final value of x?','int x = 4;\n// x = 50;\nx += 3;',
+ ['4','7','50','53'],1,'The commented assignment has no effect, so 4+3=7.'],
+ ['1.8','Pre and post','A method returns a / b using int arithmetic. Which pair best matches its contract?','',
+ ['Pre: b != 0; Post: result equals the Java integer quotient a / b','Pre: result printed; Post: b != 0','Pre: return is a class; Post: method is public','Pre: a = 0; Post: b is changed'],0,'The precondition constrains inputs; the postcondition specifies the returned result.'],
+ // Topic 1.9
+ ['1.9','Method execution','When does a normal named Java method body run?','',
+ ['When declared','Whenever a class name is printed','When the method is called','Only during compilation'],2,'Declaring a method does not execute its body.'],
+ ['1.9','Signature components','What is the AP definition of a method signature?','',
+ ['Name and ordered parameter types','Return type and name only','Access modifier and method body','All Java statements between braces'],0,'Return type and parameter names are not part of the signature.'],
+ ['1.9','Read the signature','What is the method signature?','public static double average(int first, int second)',
+ ['double average(int, int)','average(int, int)','average(first, second)','public static average'],1,'Keep the name and parameter types in order.'],
+ ['1.9','Zero-parameter method','What is the signature of void reset()?','',
+ ['void reset','reset(void)','reset()','reset(null)'],2,'An empty parameter list is part of the signature.'],
+ ['1.9','Parameters vs arguments','In the call below, which tokens are arguments?','report(3, 2.5);',
+ ['3 and 2.5','report and void','int and double','main and report'],0,'Arguments are actual values supplied at a call site.'],
+ ['1.9','Correct number','Given void send(int a, double b), which call has the correct number and types of arguments?','',
+ ['send(3);','send(3, 2.5);','send(2.5, 3);','send("3", 2.5);'],1,'The first input is int and the second double.'],
+ ['1.9','Argument order','Given void set(double rate, int count), which call is an exact match?','',
+ ['set(2, 2.5);','set(2.5);','set(2.5, 2);','set("2.5", 2);'],2,'Order matters: double first, int second.'],
+ ['1.9','Void method return','Which statement about a void method is true?','',
+ ['It always returns 0','It returns double by default','It cannot be called','It has no return value'],3,'Void methods do not return values for expressions.'],
+ ['1.9','Nonvoid return','Which result does this method call produce?','public static int triple(int n) {\n    return n * 3;\n}\nint x = triple(4);',
+ ['0','3','12','Compiler error'],2,'triple(4) evaluates to 12, stored in x.'],
+ ['1.9','Method in expression','What gets printed?','public static int plusOne(int n) {\n    return n + 1;\n}\nSystem.out.println(plusOne(4) * 2);',
+ ['5','8','9','10'],3,'plusOne(4) returns 5; 5*2=10.'],
+ ['1.9','Call by value','What is the final value of count in the caller?','public static void update(int n) {\n    n = n + 4;\n}\nint count = 6;\nupdate(count);',
+ ['6','10','4','Compiler error'],0,'The primitive argument value is copied; the original variable remains 6.'],
+ ['1.9','Overloading','Which pair defines different method signatures?','',
+ ['test(int x) and test(int y)','test(int x) and test(double x)','int test(int x) and double test(int x)','public test(int x) and private test(int x)'],1,'Changing parameter type creates an overload; changing name/return/access alone does not.'],
+ ['1.9','Return type only','Why is this invalid as an overloaded pair?','int pick(int n) { return n; }\ndouble pick(int n) { return n; }',
+ ['They have the same signature','They need a Scanner import','The methods use different return types','They have different parameter types'],0,'Both signatures are pick(int), which conflicts.'],
+ ['1.9','Control flow','Which output appears, given say() prints X with print (no newline)?','System.out.print("A");\nsay();\nSystem.out.print("B");',
+ ['ABX','AXB','XAB','AXB on three lines'],1,'Control enters say, prints X, then resumes and prints B.'],
+ ['1.9','Overload resolution','Which overload is an exact match to play(3, 4)?','',
+ ['play(double)','play(int, int)','play(int)','play(int, double, int)'],1,'Two integer arguments match play(int, int).'],
+ ['1.9','Copy of argument','What is the local parameter n initially when receive(score) is called?','public static void receive(int n) { /* ... */ }\nint score = 9;\nreceive(score);',
+ ['0','9','null','It has no value'],1,'Call-by-value initializes n with a copy of 9.']
+ ];
+ const s=[];
+ s.push(slide('Official AP questions — teacher access',
+  '<p class="practice-kicker">OFFICIAL QUESTION SOURCE · NOT REPRODUCED</p>'+
+  '<p class="q">Open <a target="_blank" rel="noopener" href="https://apclassroom.collegeboard.org/">AP Classroom</a> and assign the <b>Unit 1 Part 2 Progress Check</b> (Topics 1.5–1.9). Select questions relevant to Topics 1.7–1.9.</p>'+
+  '<p class="scope-note">These are official College Board questions. They require authorized AP Classroom access and are not copied into this public deck.</p>',
+  'Practice only. Official Progress Check is normally around 15 MCQs and covers 1.5–1.9, not all of which belong to this week.'));
+ s.push(slide('Public practice questions — matching sections',
+  '<p class="practice-kicker">OPEN THE FREE QUESTION BANKS</p>'+
+  '<div class="resources-grid">'+
+  '<div class="resourcecard"><span class="kind">Topic 1.7 quiz</span><p><a target="_blank" rel="noopener" href="https://runestone.academy/ns/books/published/csawesome2/topic-1-7-APIs-and-libraries.html">CSAwesome 1.7 AP Practice ↗</a></p></div>'+
+  '<div class="resourcecard"><span class="kind">Topic 1.8 quiz</span><p><a target="_blank" rel="noopener" href="https://runestone.academy/ns/books/published/csawesome2/topic-1-8-comments.html">CSAwesome 1.8 AP Practice ↗</a></p></div>'+
+  '<div class="resourcecard"><span class="kind">Topic 1.9 quiz</span><p><a target="_blank" rel="noopener" href="https://runestone.academy/ns/books/published/csawesome2/topic-1-9-method-signatures.html">CSAwesome 1.9 AP Practice ↗</a></p></div>'+
+  '<div class="resourcecard"><span class="kind">55 free AP-style questions</span><p><a target="_blank" rel="noopener" href="https://compsci.rocks/learn/ap-csa/practice/topics-1-7-to-1-9/">CompSci.Rocks Topics 1.7–1.9 ↗</a></p></div>'+
+  '</div>',
+  'These are independently hosted practice sources, not College Board official released exam questions.'));
+ questions.forEach((q,j)=>{
+  const [topic,subject,prompt,code,options,correct,reason]=q;
+  const opts=options.map((v,k)=>'<div><b>'+String.fromCharCode(65+k)+'.</b> '+esc(v)+'</div>').join('');
+  s.push(slide('Q'+String(j+1).padStart(2,'0')+' — '+esc(subject),
+    '<p class="practice-kicker">ORIGINAL AP-STYLE · TOPIC '+esc(topic)+'</p>'+
+    '<p class="q">'+esc(prompt)+'</p>'+
+    (code?'<pre class="code code-compact">'+esc(code)+'</pre>':'')+
+    '<div class="week5-options">'+opts+'</div>'+
+    '<div class="beat week5-answer"><b>ANSWER '+String.fromCharCode(65+correct)+'</b><p>'+esc(reason)+'</p></div>',
+    'Question-only practice. Require an independent commitment first. The answer panel and rationale must never appear before a reveal.'
+   ));
+ });
+ return s.join('');
+}
+
 function buildWeek3Practice(l){
  const s=[];
  s.push(apCover(l,'1.1–1.3','Week 3 Practice','Can you find the simple rule inside a mixed problem?','This practice should not reteach the lessons. It should expose whether the learner can transfer the three mental models: execution/error stage, type/model choice, and expression evaluation.'));
