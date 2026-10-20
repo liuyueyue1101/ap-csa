@@ -1988,6 +1988,111 @@ function buildTopic17(l){
  return s.join('');
 }
 
+function buildTopic18(l){
+ const s=[];
+ s.push(apCover(l,'1.8','Documentation<br>with Comments','Comments explain a contract; they do not change what Java executes.',
+  'Match CSAwesome2 1.8 comments, pre-/postconditions, use-case context, documenting methods and AP practice. Official 1.8.A focuses comments, precondition and postcondition. Agile/waterfall/use cases are context enrichment only, not separate AP objectives.'));
+ s.push(slide('Two audiences read your Java code',
+  '<pre class="code"><span class="code-line">int total = price * count;</span></pre>'+
+  '<p class="q">The compiler can run this code. What might a future human reader still need to know?</p>'+
+  '<div class="beat concept-reveal">What the variables represent and WHY this calculation belongs here. Comments communicate intent to people.</div>',
+  'Motivate comments before teaching syntax.'));
+ s.push(slide('A comment does not execute',
+  '<pre class="code"><span class="code-line">// System.out.println(100);</span><span class="code-line">System.out.println(7);</span></pre>'+
+  '<p class="q">What actually prints?</p>'+
+  '<div class="beat"><div class="console-box">7</div><p>Java ignores the comment when compiling; the commented-out statement is not run.</p></div>',
+  'One answer reveal, no answer before question.'));
+ s.push(slide('Three kinds of Java comments',
+  '<div class="comment-types"><div><code>// text</code><p>Single-line comment</p></div>'+
+  '<div><code>/* text */</code><p>Block comment</p></div>'+
+  '<div><code>/** text */</code><p>Javadoc — documentation for APIs</p></div></div>',
+  'Static comparison. All three forms required by 1.8.A.1.'));
+ s.push(slide('A block can cover several lines',
+  '<pre class="code"><span class="code-line">/* The score is based on the</span><span class="code-line">   results of three rounds. */</span><span class="code-line">int score = 12;</span><span class="code-line">System.out.println(score);</span></pre>'+
+  '<p class="q">Does the text inside the block affect the output?</p>'+
+  '<div class="beat console-box">12</div>',
+  'Specific observation for block comment syntax, no repeated definition.'));
+ s.push(slide('Javadoc is a special block comment',
+  '<pre class="code"><span class="code-line">/**</span><span class="code-line"> * Returns the total cost.</span><span class="code-line"> * @param price price of one item</span><span class="code-line"> * @param count number purchased</span><span class="code-line"> * @return total amount</span><span class="code-line"> */</span></pre>'+
+  '<p class="scope-note">Javadoc can generate readable API documentation from structured comments.</p>',
+  'Teach purpose, not tooling or full Javadoc tag specification.'));
+ s.push(slide('Useful comments explain intent',
+  '<div class="api-two"><div><h3>Weak</h3><pre class="code"><span class="code-line">// adds one</span><span class="code-line">count++;</span></pre></div>'+
+  '<div><h3>Useful</h3><pre class="code"><span class="code-line">// Include the latest lap</span><span class="code-line">count++;</span></pre></div></div>'+
+  '<p class="q">Which comment gives the next programmer information not obvious from the Java syntax?</p>'+
+  '<div class="beat concept-reveal">The second. A good comment adds meaning instead of narrating an obvious operator.</div>',
+  'Do not make students click for obvious classifications; one prompt + one reason.'));
+ s.push(slide('A method has a promise to its caller',
+  '<div class="contract-steps"><div>BEFORE METHOD</div><div>METHOD RUNS</div><div>AFTER METHOD</div></div>'+
+  '<p class="q">Which facts must hold beforehand, and what result should the caller be able to rely on afterward?</p>',
+  'Conceptual transition: contracts. Questions motivate pre/post conditions.'));
+ s.push(slide('Precondition: something true BEFORE',
+  '<div class="api-spec"><h3>int share(int items, int groups)</h3><p>Computes the whole-item count per group.</p></div>'+
+  '<p class="q">What must be true about <code>groups</code> so integer division makes sense?</p>'+
+  '<div class="beat concept-reveal"><b>Precondition:</b> <code>groups > 0</code>. The method assumes its inputs meet the requirement; it is not required to check them itself.</div>',
+  'Precondition belongs immediately prior to method execution; choose simple int division example.'));
+ s.push(slide('Calling a method with an invalid argument',
+  '<pre class="code"><span class="code-line">int result = share(15, 0);</span></pre>'+
+  '<p class="q">The documented precondition is <code>groups > 0</code>. Did the caller satisfy the contract?</p>'+
+  '<div class="beat concept-reveal"><b>No.</b> The caller violated the precondition. The contract does not guarantee the intended result for this input.</div>',
+  'Avoid claiming arbitrary implementations always throw; the method implementation is unspecified.'));
+ s.push(slide('Postcondition: something true AFTER',
+  '<div class="api-spec"><h3>int doubleValue(int n)</h3><p>Returns twice the supplied integer, assuming the result fits in int.</p></div>'+
+  '<p class="q">If the input is 6, what does the caller know about the returned result?</p>'+
+  '<div class="beat concept-reveal"><b>Postcondition:</b> the return value is <code>12</code>. A postcondition describes the result or changed object state after a method finishes.</div>',
+  'Simple result postcondition before deeper method signature in 1.9.'));
+ s.push(slide('Do not confuse before and after',
+  '<div class="api-two"><div><h3>Before</h3><p><code>denominator != 0</code></p></div>'+
+  '<div><h3>After</h3><p><code>result * denominator == numerator</code></p></div></div>'+
+  '<p class="scope-note">For this illustration, assume numerator is divisible by denominator exactly.</p>',
+  'Comparison of condition timing. The == operator is previewed only in a documented condition; no Boolean unit lesson yet.'));
+ s.push(slide('Document the contract in Javadoc',
+  '<pre class="code code-compact"><span class="code-line">/**</span><span class="code-line"> * Returns the integer quotient.</span><span class="code-line"> * Precondition: divisor != 0.</span><span class="code-line"> * Postcondition: returns a / divisor.</span><span class="code-line"> */</span><span class="code-line">public static int quotient(int a, int divisor) {</span><span class="code-line">    return a / divisor;</span><span class="code-line">}</span></pre>',
+  'An authentic complete method with documentation. Explain the declaration lightly; detailed method signatures and calls occur in 1.9.'));
+ s.push(slide('Practice 1 — what is actually printed?',
+  '<p class="practice-kicker">IN CLASS · COMMENT BEHAVIOR</p>'+
+  '<pre class="code"><span class="code-line">System.out.print("A");</span><span class="code-line">/* System.out.print("B"); */</span><span class="code-line">System.out.print("C");</span></pre>'+
+  '<p class="q">Predict the exact output.</p>'+
+  '<div class="beat console-box">AC</div>',
+  'Answer hidden until student predicts.'));
+ s.push(slide('Practice 2 — which is a precondition?',
+  '<p class="practice-kicker">IN CLASS · CONTRACTS</p>'+
+  '<div class="api-spec"><h3>int average(int total, int count)</h3><p>Returns an integer average.</p></div>'+
+  '<div class="lesson-choice-grid"><div>A. The result has been printed</div><div>B. count is positive</div><div>C. The result equals total / count</div><div>D. The code has no comments</div></div>'+
+  '<p class="q">Which statement must hold BEFORE the method executes?</p>'+
+  '<div class="beat concept-reveal"><b>B.</b> A positive count is a precondition. Choice C describes an expected result after execution.</div>',
+  'One reveal with explanation.'));
+ s.push(slide('Practice 3 — fix the documentation',
+  '<p class="practice-kicker">IN CLASS · WRITE JAVADOC</p>'+
+  '<pre class="code"><span class="code-line">public static int triple(int n) {</span><span class="code-line">    return 3 * n;</span><span class="code-line">}</span></pre>'+
+  '<p class="q">Write a brief Javadoc comment describing the outcome. Assume the result fits in <code>int</code>.</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">/** Returns 3 times n.</span><span class="code-line"> * Postcondition: return value == 3 * n.</span><span class="code-line"> */</span></pre></div>',
+  'Exercise focuses documentation, not creation of new conditional algorithms.'));
+ s.push(slide('Coding challenge — document a method',
+  '<p class="practice-kicker">WRITE JAVA · 7 MINUTES</p>'+
+  '<div class="api-spec"><h3>Method provided</h3><p><code>public static int ticketsPerBus(int tickets, int buses)</code></p></div>'+
+  '<p class="q">Write a Javadoc comment stating the purpose, a valid precondition on <code>buses</code>, and the postcondition for the return value.</p>'+
+  '<p class="scope-note">The implementation is <code>return tickets / buses;</code>. Assume <code>tickets >= 0</code> and <code>buses > 0</code>.</p>',
+  'Student creates comment without an answer leak. Reference CSAwesome activity on preconditions.'));
+ s.push(slide('Review the documented method',
+  '<p class="q">Compare your contract to this possible answer after writing your own.</p>'+
+  '<div class="beat"><pre class="code code-compact"><span class="code-line">/**</span><span class="code-line"> * Whole tickets assigned to each bus.</span><span class="code-line"> * Precondition: buses > 0; tickets >= 0.</span><span class="code-line"> * Postcondition: returns tickets / buses.</span><span class="code-line"> */</span><span class="code-line">public static int ticketsPerBus(</span><span class="code-line">        int tickets, int buses) {</span><span class="code-line">    return tickets / buses;</span><span class="code-line">}</span></pre></div>',
+  'One reveal, after student attempt.'));
+ s.push(slide('Reference context: teams and software process',
+  '<p class="q">Why do clear comments and contracts matter in a multi-person project?</p>'+
+  '<div class="beat concept-reveal">They communicate intended behavior across programmers and iterations, whether a team uses agile or another development process.</div>'+
+  '<p class="scope-note">CSAwesome also discusses use-case diagrams, waterfall and agile. These are useful context, not additional examinable Topic 1.8 objectives.</p>',
+  'Light treatment of extra reference sections. Do not give a full agile unit.'));
+ s.push(slide('Exit check — what does the contract promise?',
+  '<div class="api-spec"><h3>int square(int n)</h3><p>Returns n × n, provided the result fits in int.</p></div>'+
+  '<p class="q">Write one reasonable precondition and one postcondition in English.</p>'+
+  '<div class="beat concept-reveal">Precondition: <code>n * n</code> fits in <code>int</code>. Postcondition: the result equals <code>n * n</code>.</div>',
+  'This tests transfer and causes from 1.5 int range.'));
+ s.push(slide('Free reference — CSAwesome Topic 1.8',resources(l.resources),
+  'Provide the aligned 1.8 chapter. Reference extras about process are optional.'));
+ return s.join('');
+}
+
 function buildWeek3Practice(l){
  const s=[];
  s.push(apCover(l,'1.1–1.3','Week 3 Practice','Can you find the simple rule inside a mixed problem?','This practice should not reteach the lessons. It should expose whether the learner can transfer the three mental models: execution/error stage, type/model choice, and expression evaluation.'));
