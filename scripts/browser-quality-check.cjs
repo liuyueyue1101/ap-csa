@@ -15,7 +15,7 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '<button id="completeBtn"></button><button id="notesBtn"></button><button id="fullBtn"></button>'+
 '<aside class="teacher-panel" id="teacherPanel" hidden><p id="teacherText"></p></aside>'+
 '<div class="deck" id="deck"></div><button id="backBtn"></button><span id="counter"></span><button id="nextBtn"></button>'+
-['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'lesson.js']
+['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'practice-banks.js','lesson.js']
  .map(f=>'<script src="/'+f+'"></script>').join('')+
 '<script>'+
 '(function(){'+
@@ -242,6 +242,27 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '    if(!all.includes("AP Classroom")||!all.includes("CompSci.Rocks"))errors.push("Official and public practice source links missing");'+
 '    if(slides.some(x=>/Homework|Exit check|Concept summary/.test(x.querySelector("h2")?.textContent||"")))errors.push("Week 5 practice must contain only questions and question sources");'+
 ' }'+
+'}'+
+'} else if(["p-foundation-1","p-foundation-2","p-1-1-1-3","p-1-4-1-6"].includes(new URLSearchParams(location.search).get("id"))) {'+
+' const id=new URLSearchParams(location.search).get("id");'+
+' const expected={"p-foundation-1":24,"p-foundation-2":25,"p-1-1-1-3":38,"p-1-4-1-6":42}[id];'+
+' const questions=slides.filter(s=>/^Q\d+ —/.test(s.querySelector("h2")?.textContent.trim()||""));'+
+' if(questions.length!==expected)errors.push("Wrong complete retake bank count: "+id+" found "+questions.length+" expected "+expected);'+
+' const sourceSlides=slides.filter(s=>s.querySelector("h2")?.textContent.includes("question sources")||s.querySelector("h2")?.textContent.includes("Reference sources"));'+
+' if(sourceSlides.length===0)errors.push("Retake bank missing original question-source links");'+
+' for(const [k,scene] of questions.entries()) {'+
+'   const answers=scene.querySelectorAll(".beat.week5-answer");'+
+'   const choices=scene.querySelectorAll(".week5-options>div");'+
+'   if(answers.length!==1||getComputedStyle(answers[0]).display!=="none")errors.push("Question "+(k+1)+" has leaked/missing answer");'+
+'   if(choices.length!==4)errors.push("Question "+(k+1)+" must show four choices");'+
+'   if(!/^ANSWER [ABCD]/.test(answers[0]?.textContent||""))errors.push("Question "+(k+1)+" missing answer key");'+
+' }'+
+' if(questions.length){i=slides.indexOf(questions[0]);render();const answer=questions[0].querySelector(".beat");'+
+'   next();if(getComputedStyle(answer).display==="none")errors.push("Answer failed to reveal in one click");'+
+'   next();if(i===slides.indexOf(questions[0]))errors.push("Unnecessary second answer reveal");'+
+' }'+
+' const forbidden=slides.filter(s=>/^(Retrieval|Debug|Homework|Exit check|Resources|Error log|Write)$/.test(s.querySelector("h2")?.textContent.trim()||""));'+
+' if(forbidden.length)errors.push("Old practice template not fully replaced");'+
 '}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
 'const report={ok:errors.length===0,lessons:new URLSearchParams(location.search).get("id"),slides:slides.length,hiddenElementsChecked:allHidden,errors};'+
