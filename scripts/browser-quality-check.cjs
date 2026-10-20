@@ -242,11 +242,10 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '    if(!all.includes("AP Classroom")||!all.includes("CompSci.Rocks"))errors.push("Official and public practice source links missing");'+
 '    if(slides.some(x=>/Homework|Exit check|Concept summary/.test(x.querySelector("h2")?.textContent||"")))errors.push("Week 5 practice must contain only questions and question sources");'+
 ' }'+
-'}'+
 '} else if(["p-foundation-1","p-foundation-2","p-1-1-1-3","p-1-4-1-6"].includes(new URLSearchParams(location.search).get("id"))) {'+
 ' const id=new URLSearchParams(location.search).get("id");'+
 ' const expected={"p-foundation-1":24,"p-foundation-2":25,"p-1-1-1-3":38,"p-1-4-1-6":42}[id];'+
-' const questions=slides.filter(s=>/^Q\d+ —/.test(s.querySelector("h2")?.textContent.trim()||""));'+
+' const questions=slides.filter(s=>/^Q[0-9]+ —/.test(s.querySelector("h2")?.textContent.trim()||""));'+
 ' if(questions.length!==expected)errors.push("Wrong complete retake bank count: "+id+" found "+questions.length+" expected "+expected);'+
 ' const sourceSlides=slides.filter(s=>s.querySelector("h2")?.textContent.includes("question sources")||s.querySelector("h2")?.textContent.includes("Reference sources"));'+
 ' if(sourceSlides.length===0)errors.push("Retake bank missing original question-source links");'+
