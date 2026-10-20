@@ -1901,6 +1901,93 @@ function buildTopic16(l){
  return s.join('');
 }
 
+function buildTopic17(l){
+ const s=[];
+ s.push(apCover(l,'1.7','APIs and<br>Libraries','Use a class by reading what its documentation promises.',
+  'Reference CSAwesome2 1.7: Turtle example, classes, attributes, behaviors, packages, code challenge, AP-style identification. Official scope 1.7.A; do not teach creating your own classes or detailed constructors today. Turtle examples require CSAwesome Turtle environment.'));
+ s.push(slide('A program does not need to invent every tool',
+  '<p class="q">If we want to draw a square, must we write all the screen-drawing code ourselves?</p>'+
+  '<div class="beat concept-reveal"><b>No.</b> A <b>library</b> is a collection of classes written for reuse. Our program can use a class someone else provides.</div>',
+  'Reveal the library concept after the question. Reference Turtle drawing motivation.'));
+ s.push(slide('From library to the features you can use',
+  '<div class="api-hierarchy"><div>LIBRARY</div><div>PACKAGE</div><div>CLASS</div><div>ATTRIBUTES + METHODS</div></div>'+
+  '<p class="scope-note">An <b>API specification</b> describes how to use classes and what their methods and data mean.</p>',
+  'One static hierarchy. The library groups classes, packages organize them, and an API describes usable features.'));
+ s.push(slide('A class defines a reference type',
+  '<p class="q">In a turtle drawing program, what does <code>Turtle</code> mean compared with <code>yertle</code>?</p>'+
+  '<pre class="code"><span class="code-line">Turtle yertle = new Turtle(world);</span></pre>'+
+  '<div class="beat api-pair"><div><b>Turtle</b><span>class / reference type</span></div><div><b>yertle</b><span>variable referring to an object</span></div></div>'+
+  '<p class="scope-note">This Turtle line runs inside the reference lesson’s provided environment; creating objects is taught in Topic 1.13.</p>',
+  'Do not explain constructors or memory addresses; identify class and object variable only.'));
+ s.push(slide('Attributes describe what an object knows',
+  '<div class="api-spec"><h3>Turtle — illustrated API excerpt</h3><p><code>int xPosition</code> — horizontal location</p><p><code>int yPosition</code> — vertical location</p><p><code>String color</code> — pen color</p></div>'+
+  '<p class="q">Which parts describe the turtle’s stored information?</p>'+
+  '<div class="beat concept-reveal">The <b>attributes</b>: position and color. Attributes are data stored in variables associated with the class or its objects.</div>',
+  'This is a teaching illustration, not a claim of exact Turtle API field names. No need to teach access control.'));
+ s.push(slide('Behaviors describe what the object can do',
+  '<div class="api-spec"><h3>Turtle — example documented methods</h3><p><code>forward(100)</code> — move ahead 100 units</p><p><code>turnRight()</code> — rotate right</p><p><code>penUp()</code> — stop drawing while moving</p></div>'+
+  '<p class="q">Which entries change what the turtle does?</p>'+
+  '<div class="beat concept-reveal">They are <b>methods</b> — named behaviors defined in a class. You use documentation to learn what each one does.</div>',
+  'These are actual Turtle-style method calls used by the reference. Avoid implying the preceding illustrative attribute fields are part of its exact implementation.'));
+ s.push(slide('Read one API entry instead of guessing',
+  '<div class="api-spec"><h3>forward(int steps)</h3><p><b>Purpose:</b> move the turtle ahead</p><p><b>Input:</b> number of steps</p><p><b>Effect:</b> updates turtle position</p></div>'+
+  '<p class="q">If the goal is to move exactly 80 units, which call makes sense?</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">yertle.forward(80);</span></pre></div>',
+  'This is the core skill: select and use documented behavior. Do not demand knowledge of a library by memory.'));
+ s.push(slide('Two kinds of information in the same API',
+  '<div class="api-two"><div><h3>ATTRIBUTE</h3><p><code>xPosition</code></p><p>What state is stored?</p></div><div><h3>BEHAVIOR</h3><p><code>turnRight()</code></p><p>What action can happen?</p></div></div>'+
+  '<p class="scope-note">Recognize an attribute as data and a method as behavior. Method signatures get their full lesson in Topic 1.9.</p>',
+  'A concise comparison, not a second copy of the previous full API excerpts.'));
+ s.push(slide('Packages organize Java classes',
+  '<div class="api-two"><div><h3>java.lang</h3><p>Common core classes — available without an explicit import.</p><code>String</code></div>'+
+  '<div><h3>java.util</h3><p>Utility classes — normally imported when needed.</p><code>Scanner</code></div></div>',
+  'Reference 1.7 packages. No new Scanner syntax required; this reinforces what 1.4 showed.'));
+ s.push(slide('What does an import do?',
+  '<pre class="code"><span class="code-line">import java.util.Scanner;</span></pre>'+
+  '<p class="q">Does this statement create a Scanner object or tell Java which class name we want to use?</p>'+
+  '<div class="beat concept-reveal">It makes the named class accessible by its simple name. It does <b>not</b> construct an object by itself.</div>',
+  'One conceptual distinction. Object instantiation belongs to Topic 1.13.'));
+ s.push(slide('How programmers use an unfamiliar API',
+  '<div class="api-hierarchy"><div>Find the class</div><div>Read method purpose</div><div>Check parameters</div><div>Call the method</div></div>'+
+  '<p class="scope-note">Do not guess method names or requirements — rely on the API specification.</p>',
+  'A reusable process, not a replacement for actual Java documentation.'));
+ s.push(slide('Trace a turtle path from documented behavior',
+  '<pre class="code"><span class="code-line">yertle.forward(50);</span><span class="code-line">yertle.turnRight();</span><span class="code-line">yertle.forward(50);</span></pre>'+
+  '<p class="q">Starting facing north, where are the turtle’s two movements directed?</p>'+
+  '<div class="beat api-pair"><div><b>FIRST</b><span>north, 50 units</span></div><div><b>SECOND</b><span>east, 50 units</span></div></div>',
+  'The Turtle environment starts facing north in the source. First trace on paper before revealing directions.'));
+ s.push(slide('Practice 1 — what does the API contain?',
+  '<p class="practice-kicker">IN CLASS · RECOGNIZE</p>'+
+  '<p class="q">Which of the following is a behavior, not an attribute?</p>'+
+  '<div class="lesson-choice-grid"><div>A. x-coordinate</div><div>B. pen color</div><div>C. turnLeft()</div><div>D. y-coordinate</div></div>'+
+  '<div class="beat concept-reveal"><b>C.</b> <code>turnLeft()</code> is a method: something the turtle can do.</div>',
+  'Single answer reveal after student commits.'));
+ s.push(slide('Practice 2 — read documentation',
+  '<p class="practice-kicker">IN CLASS · APPLY API</p>'+
+  '<div class="api-spec"><h3>void jump(int distance)</h3><p>Moves a character forward by the specified distance.</p></div>'+
+  '<p class="q">What call requests a jump of 12 units on object <code>player</code>?</p>'+
+  '<div class="beat"><pre class="code"><span class="code-line">player.jump(12);</span></pre></div>',
+  'Practice documentation transfer using a fictional API; do not confuse with a Java built-in.'));
+ s.push(slide('Coding challenge — draw with Turtle',
+  '<p class="practice-kicker">REFERENCE ENVIRONMENT · 8–10 MINUTES</p>'+
+  '<p class="q">Open the matching CSAwesome Turtle activity and make the turtle draw a square.</p>'+
+  '<div class="api-task-list"><p>Use the documented <code>forward</code> and <code>turnRight</code> calls.</p><p>Predict its path BEFORE running.</p><p>Then try a rectangle using different forward distances.</p></div>'+
+  '<p class="scope-note">Use the built-in Turtle world provided by CSAwesome. The stand-alone Java site does not bundle this Turtle library.</p>',
+  'Reference 1.7.3 Coding Challenge: Turtle Drawing. The actual free link is on final resources page.'));
+ s.push(slide('Check one possible square command sequence',
+  '<p class="q">Did your first attempt return to its starting location and direction?</p>'+
+  '<div class="beat"><pre class="code code-compact"><span class="code-line">yertle.forward(80);</span><span class="code-line">yertle.turnRight();</span><span class="code-line">yertle.forward(80);</span><span class="code-line">yertle.turnRight();</span><span class="code-line">yertle.forward(80);</span><span class="code-line">yertle.turnRight();</span><span class="code-line">yertle.forward(80);</span><span class="code-line">yertle.turnRight();</span></pre></div>',
+  'Solution appears only after students have attempted the reference challenge. Includes all four turns.'));
+ s.push(slide('Exit question — classify, then choose',
+  '<p class="q">Given the fictional Robot API, identify one attribute and the best method to move forward.</p>'+
+  '<div class="api-spec"><h3>Robot</h3><p><code>int batteryLevel</code></p><p><code>void move(int steps)</code></p><p><code>void beep()</code></p></div>'+
+  '<div class="beat concept-reveal">Attribute: <code>batteryLevel</code>. Behavior: <code>move</code>. For 5 steps, call <code>robot.move(5);</code>.</div>',
+  'Transfer to an unfamiliar class using documentation rather than memorizing Turtle.'));
+ s.push(slide('Free reference — CSAwesome Topic 1.7',resources(l.resources),
+  'Primary source includes Turtle coding activity and AP practice. Java docs may show far more class detail than the exam requires.'));
+ return s.join('');
+}
+
 function buildWeek3Practice(l){
  const s=[];
  s.push(apCover(l,'1.1–1.3','Week 3 Practice','Can you find the simple rule inside a mixed problem?','This practice should not reteach the lessons. It should expose whether the learner can transfer the three mental models: execution/error stage, type/model choice, and expression evaluation.'));
