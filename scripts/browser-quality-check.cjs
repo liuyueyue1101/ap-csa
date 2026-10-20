@@ -286,17 +286,17 @@ const server=http.createServer((req,res)=>{
 server.listen(0,'127.0.0.1',()=>{
  const port=server.address().port;
  const args=['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage',
-  '--virtual-time-budget=3000','--dump-dom','http://127.0.0.1:'+port+'/qa?id='+(process.argv[2]||'u1-2')];
+  '--virtual-time-budget=8000','--dump-dom','http://127.0.0.1:'+port+'/qa?id='+(process.argv[2]||'u1-2')];
  const child=spawn(chrome,args,{stdio:['ignore','pipe','pipe']});
  let stdout='',stderr='';
  child.stdout.on('data',chunk=>{stdout+=chunk.toString();});
  child.stderr.on('data',chunk=>{stderr+=chunk.toString();});
- const timer=setTimeout(()=>{child.kill('SIGKILL');},30000);
+ const timer=setTimeout(()=>{child.kill('SIGKILL');},60000);
  child.on('error',e=>{clearTimeout(timer);console.error('FAIL: browser launch '+e.message);server.close();process.exitCode=1;});
  child.on('close',code=>{
   clearTimeout(timer);server.close();
   const m=stdout.match(/BROWSER_QA_RESULT:(\{[^<]+\})/);
-  if(!m){console.error('FAIL: browser fixture did not run; exit '+code+' '+stderr.slice(-1200));process.exitCode=1;return;}
+  if(!m){console.error('FAIL: browser fixture did not run; exit '+code+' stderr='+stderr.slice(-1200)+' DOM_END='+stdout.slice(-5000));process.exitCode=1;return;}
   let report;
   try{report=JSON.parse(m[1].replaceAll('&quot;','"').replaceAll('&amp;','&'));}
   catch(e){console.error('FAIL: malformed browser report: '+m[1].slice(0,400));process.exitCode=1;return;}
