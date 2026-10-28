@@ -583,3 +583,53 @@ span.beat.revealed{display:inline}
 .slide .beat.revealed.api-two,
 .slide .beat.revealed.signature-anatomy,
 .slide .beat.revealed.lesson-choice-grid{display:grid}
+
+/* Week 6: class-method call anatomy, Math ranges and reference/object reasoning. */
+.w6-anatomy{display:grid;grid-template-columns:1.6fr .16fr 1.2fr 1fr;gap:8px;margin:18px 0;max-width:1100px}
+.w6-anatomy>div{border:1px solid var(--line);background:#fff;padding:14px 13px;text-align:center;font:750 clamp(25px,2.2vw,34px)/1.25 "SFMono-Regular",Consolas,monospace}
+.w6-anatomy span{display:block;margin-top:8px;font:750 13px/1.2 ui-sans-serif,system-ui;letter-spacing:.1em;color:var(--muted)}
+.w6-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+.w6-pair>div{background:#fff;border:1px solid var(--line);padding:16px 21px;min-width:0}
+.w6-pair>div>span{display:block;font:750 14px/1.2 ui-sans-serif,system-ui;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.w6-pair>div>strong{font:750 clamp(25px,2.25vw,36px)/1.25 "SFMono-Regular",Consolas,monospace;overflow-wrap:anywhere}
+.w6-math{background:#fff;border-left:5px solid var(--accent);padding:19px 25px;margin:20px 0;font:750 clamp(30px,3vw,45px)/1.3 ui-sans-serif,system-ui}
+.w6-math-table{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin:20px 0;max-width:1000px}
+.w6-math-table>div{display:grid;grid-template-columns:2fr 1fr;gap:1px}
+.w6-math-table b,.w6-math-table code,.w6-math-table span{background:#fff;padding:10px 20px}
+.w6-math-table b{font:750 14px/1.2 ui-sans-serif,system-ui;letter-spacing:.09em;background:#efefeb;color:var(--muted)}
+.w6-math-table code{font:750 clamp(25px,2.3vw,35px)/1.22 monospace}
+.w6-math-table span{font:700 clamp(25px,2.1vw,34px)/1.22 monospace;color:var(--accent)}
+.w6-interval{padding:17px 25px;margin:18px 0;background:#fff;border:1px solid var(--line);font:750 clamp(38px,4vw,63px)/1.18 monospace;text-align:center}
+.w6-interval span{color:var(--accent)}
+.w6-range{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:18px 0}
+.w6-range>span{padding:14px 10px;background:#fff;border:1px solid var(--line);font:750 clamp(31px,3vw,45px)/1.2 monospace;text-align:center}
+.w6-objects{display:flex;gap:16px;align-items:stretch;flex-wrap:wrap;margin:22px 0}
+.w6-type,.w6-object{flex:1;min-width:190px;background:#fff;border:1px solid var(--line);padding:20px;font-size:clamp(20px,1.8vw,27px);line-height:1.4;color:var(--muted)}
+.w6-type{border-top:5px solid var(--accent)}
+.w6-object{border-top:5px solid var(--output)}
+.w6-type strong,.w6-object strong{display:block;color:var(--ink);font:750 clamp(27px,2.6vw,39px)/1.28 monospace;margin:10px 0}
+.w6-object p{font-size:clamp(19px,1.7vw,26px)}
+.w6-reference{display:grid;grid-template-columns:1fr .18fr 1.3fr;gap:14px;align-items:center;margin:26px 0}
+.w6-reference>div:not(.w6-arrow){border:1px solid var(--line);background:white;padding:21px;font-size:clamp(21px,1.8vw,28px);font-weight:700;color:var(--muted)}
+.w6-reference strong{display:block;color:var(--ink);font:750 clamp(32px,3vw,48px)/1.26 monospace;margin:8px 0}
+.w6-reference span{display:block;font-size:clamp(19px,1.7vw,25px);font-weight:400}
+.w6-arrow{font-size:clamp(34px,3.8vw,58px);text-align:center;color:var(--accent)}
+.w6-alias{display:grid;grid-template-columns:1fr 90px 1.3fr;align-items:center;gap:13px;margin:18px 0}
+.w6-alias>div:first-child{display:grid;gap:12px}
+.w6-alias span,.w6-alias strong{display:block;border:1px solid var(--line);background:white;padding:14px 19px;font:750 clamp(26px,2.4vw,38px)/1.3 monospace;text-align:center}
+.w6-alias>div:nth-child(2){font-size:clamp(33px,3vw,48px);color:var(--accent);text-align:center}
+.w6-hierarchy{display:grid;gap:12px;max-width:960px;margin:18px 0;text-align:center}
+.w6-hierarchy>div{background:white;border:1px solid var(--line);padding:18px;font:750 clamp(26px,2.4vw,38px)/1.3 ui-sans-serif,system-ui}
+.w6-hierarchy>div:first-child{border-bottom:4px solid var(--accent)}
+.w6-tasks{display:grid;gap:10px;margin:20px 0}
+.w6-tasks>p{background:#fff;border:1px solid var(--line);padding:12px 17px;margin:0;font-size:clamp(22px,2vw,30px);line-height:1.4}
+.slide .beat.revealed.w6-pair,
+.slide .beat.revealed.w6-range,
+.slide .beat.revealed.w6-objects{display:grid}
+@media(max-width:850px){
+ .w6-anatomy{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .w6-pair,.w6-reference{grid-template-columns:1fr}
+ .w6-alias{grid-template-columns:1fr}
+ .w6-alias>div:nth-child(2){transform:rotate(90deg)}
+ .w6-range{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
