@@ -319,3 +319,129 @@ function buildTopic112(l){
   'Use CSAwesome Turtle lab and AP practice. Constructors are taught in Topic 1.13; calling instance methods fully in Topic 1.14.'));
  return s.join('');
 }
+
+function buildWeek6Practice(l){
+ // All on-slide MCQs below are independently authored AP-style questions.
+ // College Board's actual public Sample MCQ #2 (Math Class) is linked, NOT copied.
+ const questions=[
+ ['1.10','Static keyword','What distinguishes a class method from an instance method?','',
+ ['It can only use int','It has static in its header','It cannot return a value','It must be called on a newly created object'],1,'Class methods are associated with the class and have the static modifier.'],
+ ['1.10','Method ownership','A class method belongs to which entity?','',
+ ['An individual object','The class itself','An argument variable','Only main'],1,'A static method is associated with the class, not one object.'],
+ ['1.10','Call syntax','Given static int triple(int n) inside Calculator, which call is normally valid from another class?','',
+ ['Calculator.triple(4)','triple.Calculator(4)','new triple(4)','Calculator->triple(4)'],0,'Use ClassName.methodName(arguments).'],
+ ['1.10','Same-class calls','Which statement about a call to a class method inside its defining class is correct?','',
+ ['The class prefix is always required','The class prefix is optional','Static calls require an object','Such calls are illegal'],1,'Inside the defining class, the class name can be omitted.'],
+ ['1.10','Call result','What value is stored in x?','public static int square(int n) { return n*n; }\nint x = square(5);',
+ ['5','10','25','Compiler error'],2,'square(5) returns 5*5 = 25.'],
+ ['1.10','Return in output','What is printed?','public static int twice(int n) { return n*2; }\nSystem.out.println(twice(7)+1);',
+ ['14','15','8','Compiler error'],1,'twice(7) returns 14; 14+1=15.'],
+ ['1.10','Void return','Why does this declaration fail?','public static void show() { System.out.println(3); }\nint x = show();',
+ ['The method has no parameters','show returns void, not int','println always returns int','Static methods cannot print'],1,'A void call cannot provide a value to initialize int x.'],
+ ['1.10','Type mismatch','Suppose average(int,int) returns double. Which assignment is valid?','',
+ ['int a = average(4,2);','boolean a = average(4,2);','double a = average(4,2);','String a = average(4,2);'],2,'A double result can be stored in a double variable.'],
+ ['1.10','Argument types','Given static double ratio(int a, double b), which call is correct?','',
+ ['ratio(9.0,3)','ratio(9,3.0)','ratio("9",3.0)','ratio(9)'],1,'The first parameter is int, second is double.'],
+ ['1.10','Argument count','Given static int add(int a,int b), which call matches its signature?','',
+ ['add(2)','add(2,3)','add(2,3,4)','add("2",3)'],1,'Two int arguments are required.'],
+ ['1.10','Nested calls','What is printed?','public static int addOne(int n) { return n+1; }\nSystem.out.println(addOne(addOne(3)));',
+ ['3','4','5','6'],2,'The inner call gives 4; the outer call gives 5.'],
+ ['1.10','Method-to-method','What does second(3) return?','public static int first(int n) { return n*n; }\npublic static int second(int n) { return first(n)+2; }',
+ ['5','9','11','18'],2,'first(3)=9; 9+2=11.'],
+ ['1.10','Return statement','Which best describes what return does in a nonvoid method?','',
+ ['Only prints text','Ends the method and provides the value to the caller','Automatically constructs an object','Always returns boolean'],1,'A return statement ends the method execution and supplies the specified value.'],
+ ['1.10','Math preview','Which call uses a class method correctly?','',
+ ['Math.sqrt(16.0)','Math->sqrt(16.0)','new Math().sqrt(16.0)','sqrt.Math(16.0)'],0,'Math.sqrt is a static method invoked by the class name.'],
+ ['1.10','Widening argument','Given static double root(double n), which call may use implicit int-to-double widening?','',
+ ['root("9")','root(true)','root(9)','root()'],2,'An int argument can widen to double where required.'],
+ ['1.10','Code repair','Which change corrects this statement if calculate(int) returns double?','int result = Toolkit.calculate(6);',
+ ['Remove the argument','Change int result to double result','Replace Toolkit with result','Change = to +='],1,'The stored variable type must be compatible with the return type.'],
+ ['1.11','Math package','Which package contains Math, available without an explicit import?','',
+ ['java.io','java.lang','java.util','java.awt'],1,'Math is in java.lang.'],
+ ['1.11','abs int','What does Math.abs(-9) return?','',
+ ['-9','0','9','9.0 only'],2,'The int overload returns positive int 9.'],
+ ['1.11','abs double','What is the type and value of Math.abs(-2.5)?','',
+ ['int 2','double 2.5','double -2.5','boolean true'],1,'The double overload returns double 2.5.'],
+ ['1.11','pow return','What is the value and type of Math.pow(2, 4)?','',
+ ['int 8','double 8.0','double 16.0','int 16 only'],2,'2 raised to 4 is 16, and pow returns double.'],
+ ['1.11','pow order','What does Math.pow(3,2) return?','',
+ ['6.0','8.0','9.0','5.0'],2,'3 squared is 9.0.'],
+ ['1.11','sqrt result','What does Math.sqrt(81) return?','',
+ ['9.0','9 as int only','40.5','6561.0'],0,'sqrt returns the nonnegative double root.'],
+ ['1.11','sqrt signature','Which is a valid call to Math.sqrt?','',
+ ['Math.sqrt()','Math.sqrt(2,3)','Math.sqrt(25.0)','Math.sqrt 25'],2,'The method requires one numeric argument enclosed in parentheses.'],
+ ['1.11','Distance','Which expression calculates the nonnegative distance between numbers a and b?','',
+ ['Math.abs(a-b)','Math.abs(a)+Math.abs(b)','Math.sqrt(a+b)','Math.pow(a,b)'],0,'Absolute value of the difference gives distance on a number line.'],
+ ['1.11','Nested methods','What does this expression return?','Math.sqrt(Math.pow(3,2)+Math.pow(4,2))',
+ ['7.0','5.0','25.0','12.0'],1,'9.0+16.0=25.0, and its square root is 5.0.'],
+ ['1.11','random lower','Can Math.random() return exactly 0.0?','',
+ ['Yes','Never','Only after casting','It always returns 1.0'],0,'The lower endpoint 0.0 is inclusive.'],
+ ['1.11','random upper','Can Math.random() return exactly 1.0?','',
+ ['Yes','No','Only when multiplied by 1','Only when rounded'],1,'The upper endpoint 1.0 is excluded.'],
+ ['1.11','Scaled random','Which real-number interval contains Math.random()*8?','',
+ ['[1,8]','[0,8)','(0,8]','[0,9)'],1,'Scale [0,1) by 8 to get [0,8).'],
+ ['1.11','Cast range','Which values are possible from (int)(Math.random()*5)?','',
+ ['1 through 5','0 through 4','0 through 5','1 through 4'],1,'Truncation of [0,5) gives ints 0,1,2,3,4.'],
+ ['1.11','Die range','What values can this program produce?','int die = (int)(Math.random()*6)+1;',
+ ['0 through 5','1 through 6','0 through 6','1 through 7'],1,'Scale to six outcomes 0–5 then add 1.'],
+ ['1.11','Inclusive 5 to 10','Which expression produces every int from 5 through 10 inclusive, with no values outside?','',
+ ['(int)(Math.random()*5)+5','(int)(Math.random()*6)+5','(int)(Math.random()*10)+5','(int)(Math.random()*6)'],1,'Six outcomes shifted up by 5 produce 5,6,7,8,9,10.'],
+ ['1.11','Exclusive maximum','Which expression gives integer outcomes 10 through 14 (excluding 15)?','',
+ ['(int)(Math.random()*5)+10','(int)(Math.random()*6)+10','(int)(Math.random()*4)+10','(int)(Math.random()*15)'],0,'Five equally sized integers 0–4 shifted by 10.'],
+ ['1.11','Combos','Three independent digits each have 40 possible values. How many ordered combinations exist?','',
+ ['120','1600','64000','40'],2,'40*40*40 = 40^3 = 64000.'],
+ ['1.11','Deterministic output','What must be true about a single call to Math.random()?','',
+ ['It always returns 0.5','It is >=0.0 and <1.0','It is >0.0 and <=1.0','It returns an int'],1,'The exact value is not predetermined but its interval is guaranteed.'],
+ ['1.12','Blueprint','A Java class is best described as what?','',
+ ['An instance with one fixed value','A blueprint that defines object attributes and behaviors','A primitive number','A package containing only source files'],1,'A class specifies the features of objects of that type.'],
+ ['1.12','Instance','If Rover is one object of class Dog, what is Rover?','',
+ ['A package','A variable type','An instance of Dog','A primitive int'],2,'An object is a specific instance of its class.'],
+ ['1.12','Attribute','Which item is a likely attribute of a Turtle object?','',
+ ['color','turnLeft()','forward()','moveTo()'],0,'An attribute is stored state; method calls represent behavior.'],
+ ['1.12','Behavior','Which item is a likely behavior of a Turtle object?','',
+ ['width','color','forward()','position'],2,'forward is a method that changes the object’s state.'],
+ ['1.12','Distinct objects','Two different Turtle objects have separate colors. Which statement is accurate?','',
+ ['They must have identical values','They can have different state despite sharing the same class','They cannot share method definitions','They are primitive variables'],1,'The class describes the common structure; each instance has its own values.'],
+ ['1.12','Reference variable','What does a variable declared as Turtle t ordinarily store after being initialized with an object?','',
+ ['All object attributes copied directly into t','A reference identifying a Turtle object','Only an int','A method definition'],1,'Reference variables hold object references, not the full object contents.'],
+ ['1.12','Declaration','How many Turtle objects are created by this statement alone?','Turtle first;',
+ ['0','1','2','As many as the JVM wants'],0,'A local reference variable declaration does not create an object.'],
+ ['1.12','Two references','How many distinct String objects are referenced by a and b?','String a = "start";\nString b = a;',
+ ['0','1','2','3'],1,'Assignment copies the object reference; the two variables identify the same object.'],
+ ['1.12','Two objects','Assume habitat is a valid World object. How many distinct Turtles are created by these two statements in the CSAwesome Turtle library?','Turtle a = new Turtle(habitat);\nTurtle b = new Turtle(habitat);',
+ ['0','1','2','Not a valid Java declaration'],2,'Each new Turtle call constructs another distinct object.'],
+ ['1.12','null','What does null mean in Turtle t = null?','',
+ ['A Turtle object with zero size','No associated object reference','An invalid variable type','An integer value 0'],1,'null indicates that the variable refers to no object.'],
+ ['1.12','Superclass','What does a superclass provide in a class hierarchy?','',
+ ['Shared attributes and behaviors reusable by subclasses','Only a source filename','A Math.random value','A local parameter name'],0,'Superclass defines common features from which subclasses can inherit.'],
+ ['1.12','Object superclass','Which class is an ancestor of all Java classes?','',
+ ['Math','Scanner','Object','System.out'],2,'All classes directly or indirectly extend Object.'],
+ ['1.12','Inheritance exam scope','Which statement matches the revised AP CSA scope?','',
+ ['Students must implement inheritance hierarchies','Inheritance is not mentioned at all','Conceptual hierarchy relationships are taught, but designing/implementing them is excluded','Object is an int type'],2,'The CED covers conceptual superclass/subclass relationships but excludes designing/implementing hierarchies.'],
+ ['1.12','Class vs variable','In Turtle myrtle;, which is the reference type?','',
+ ['myrtle','Turtle','Neither','Both'],1,'Turtle is the class name/type and myrtle is the variable name.']
+ ];
+ const s=[];
+ s.push(slide('Official AP exam questions — source access',
+  '<p class="practice-kicker">OFFICIAL COLLEGE BOARD MATERIAL · LINKED, NOT COPIED</p>'+
+  '<div class="w6-tasks"><p><a target="_blank" rel="noopener noreferrer" href="https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf">Official 2025 AP CSA Course and Exam Description — Sample MCQ #2 (Topic 1.11)</a></p>'+
+  '<p><a target="_blank" rel="noopener noreferrer" href="https://apclassroom.collegeboard.org/">AP Classroom — Unit 1 Progress Check (requires authorized access)</a></p>'+
+  '<p><a target="_blank" rel="noopener noreferrer" href="https://apcentral.collegeboard.org/courses/ap-computer-science-a/exam/past-exam-questions">College Board released FRQs and scoring (mostly involve later topics)</a></p></div>'+
+  '<p class="scope-note">These are official sources. No secure College Board questions are reproduced. The following questions are <b>original AP-style</b>.</p>',
+  'Question-source slide only: not ordinary recap. The published CED sample MCQ #2 is explicitly indexed to 1.11.A.'));
+ s.push(slide('Open CSAwesome chapter practice questions',
+  '<p class="practice-kicker">FREE TEXTBOOK QUESTIONS · NOT OFFICIAL PAST EXAM ITEMS</p>'+
+  resources([
+   {label:'Topic 1.10 — AP Practice',url:'https://runestone.academy/ns/books/published/csawesome2/topic-1-10-calling-class-methods.html',kind:'Public textbook questions'},
+   {label:'Topic 1.11 — AP Practice',url:'https://runestone.academy/ns/books/published/csawesome2/topic-1-11-Math.html',kind:'Public textbook questions'},
+   {label:'Topic 1.12 — AP Practice',url:'https://runestone.academy/ns/books/published/csawesome2/topic-1-12-objects.html',kind:'Public textbook questions'}
+  ]),
+  'These exercises are separate from the original 48-question bank below.'));
+ for(let n=0;n<questions.length;n++){
+  const [topic,scope,prompt,code,opts,key,reason]=questions[n];
+  s.push(w6quiz('Q'+String(n+1).padStart(2,'0')+' — '+esc(scope),
+    'ORIGINAL AP-STYLE · TOPIC '+topic,prompt,code,opts,key,reason,
+    'Practice only. Record the chosen letter before reveal; explain the governing rule in one sentence.'));
+ }
+ return s.join('');
+}
