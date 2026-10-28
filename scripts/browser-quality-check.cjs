@@ -15,7 +15,7 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '<button id="completeBtn"></button><button id="notesBtn"></button><button id="fullBtn"></button>'+
 '<aside class="teacher-panel" id="teacherPanel" hidden><p id="teacherText"></p></aside>'+
 '<div class="deck" id="deck"></div><button id="backBtn"></button><span id="counter"></span><button id="nextBtn"></button>'+
-['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'practice-banks.js','lesson.js']
+['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'practice-banks.js','week6.js','lesson.js']
  .map(f=>'<script src="/'+f+'"></script>').join('')+
 '<script>'+
 '(function(){'+
@@ -262,6 +262,60 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 ' }'+
 ' const forbidden=slides.filter(s=>/^(Retrieval|Debug|Homework|Exit check|Resources|Error log|Write)$/.test(s.querySelector("h2")?.textContent.trim()||""));'+
 ' if(forbidden.length)errors.push("Old practice template not fully replaced");'+
+'} else if(["u1-10","u1-11","u1-12","p-1-10-1-12"].includes(new URLSearchParams(location.search).get("id"))) {'+
+'  const id=new URLSearchParams(location.search).get("id");'+
+'  const t=name=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===name);'+
+'  if(id==="u1-10") {'+
+'    const q=t("Match the method PARAMETERS");'+
+'    if(q<0)errors.push("1.10 parameter-matching question missing");'+
+'    else {i=q;render();const a=slides[q].querySelector(".beat");'+
+'      if(!a||getComputedStyle(a).display!=="none")errors.push("1.10 parameter answer leaked before reveal");'+
+'      else {next();if(getComputedStyle(a).display==="none")errors.push("1.10 parameter answer failed to reveal");next();if(i===q)errors.push("1.10 unnecessary second reveal");}}'+
+'    const challenge=t("Coding challenge — class method across files");'+
+'    const review=t("Review — two complete Java classes");'+
+'    if(challenge<0||review<0)errors.push("1.10 coding challenge/review missing");'+
+'    else if(slides[challenge].querySelector(".beat")||getComputedStyle(slides[review].querySelector(".beat")).display!=="none")errors.push("1.10 code solution leaked");'+
+'  }'+
+'  if(id==="u1-11") {'+
+'    const random=t("Math.random() never needs arguments");'+
+'    if(random<0)errors.push("1.11 random interval missing");'+
+'    else {i=random;render();const a=slides[random].querySelector(".beat");'+
+'      if(!a||getComputedStyle(a).display!=="none")errors.push("Random interval answer leaked before reveal");'+
+'      else {next();if(getComputedStyle(a).display==="none"||!a.textContent.includes("1.0"))errors.push("Random interval did not reveal");}}'+
+'    const die=t("Shift the range to simulate a die");'+
+'    if(die<0)errors.push("Die range teaching missing");'+
+'    else {i=die;render();const a=slides[die].querySelector(".beat"),outputs=slides[die].querySelector(".console-box");'+
+'      if(!a||outputs)errors.push("Die range must reveal possibilities not fake an exact random output");'+
+'      else {if(getComputedStyle(a).display!=="none")errors.push("Die possibilities leaked");next();if(getComputedStyle(a).display==="none")errors.push("Die range not revealed");}}'+
+'    const challenge=t("Coding challenge — 3-number lock");'+
+'    if(challenge<0)errors.push("Random lock challenge missing");'+
+'    else if(slides[challenge].querySelector(".beat"))errors.push("Lock challenge leaks reference solution");'+
+'  }'+
+'  if(id==="u1-12") {'+
+'    const q=t("Two reference variables may point to ONE object");'+
+'    if(q<0)errors.push("1.12 aliasing memory lesson missing");'+
+'    else {i=q;render();const a=slides[q].querySelector(".beat");'+
+'      if(!a||getComputedStyle(a).display!=="none")errors.push("Reference diagram answer leaked");'+
+'      else{next();if(getComputedStyle(a).display==="none")errors.push("Reference diagram did not reveal");}}'+
+'    const lab=t("Turtle coding lab — separate objects");'+
+'    if(lab<0)errors.push("Turtle reference lab missing");'+
+'    else if(slides[lab].querySelector(".beat"))errors.push("Turtle lab prematurely reveals solution");'+
+'  }'+
+'  if(id==="p-1-10-1-12") {'+
+'    const questions=slides.filter(s=>/^Q[0-9]+ —/.test(s.querySelector("h2")?.textContent.trim()||""));'+
+'    if(questions.length!==48)errors.push("Week6 practice needs exactly 48 MCQs, found "+questions.length);'+
+'    const sources=slides.filter(s=>/source access|chapter practice questions/.test(s.querySelector("h2")?.textContent||""));'+
+'    if(sources.length!==2)errors.push("Week6 must link both official and public question sources");'+
+'    for(const [k,s] of questions.entries()) {'+
+'      const answers=s.querySelectorAll(".beat.week5-answer"),opts=s.querySelectorAll(".week5-options>div");'+
+'      if(answers.length!==1||getComputedStyle(answers[0]).display!=="none")errors.push("Week6 Q"+(k+1)+" answer shown or missing");'+
+'      if(opts.length!==4)errors.push("Week6 Q"+(k+1)+" does not have four options");'+
+'    }'+
+'    if(questions.length){i=slides.indexOf(questions[0]);render();const ans=questions[0].querySelector(".beat");'+
+'      next();if(getComputedStyle(ans).display==="none")errors.push("Week6 Q1 answer did not reveal");'+
+'      next();if(i===slides.indexOf(questions[0]))errors.push("Week6 Q1 duplicate reveal");}'+
+'    if(slides.some(s=>/^Homework|^Exit check|^Summary/.test(s.querySelector("h2")?.textContent||"")))errors.push("Week6 Practice contains non-question teaching pages");'+
+'  }'+
 '}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
 'const report={ok:errors.length===0,lessons:new URLSearchParams(location.search).get("id"),slides:slides.length,hiddenElementsChecked:allHidden,errors};'+
