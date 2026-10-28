@@ -61,13 +61,14 @@ const stop=src.indexOf('\nif(!L){');
 if(stop<0)throw Error('Missing lesson generator boundary');
 vm.runInContext(fs.readFileSync(path.join(root,'practice-banks.js'),'utf8'),context,{filename:'practice-banks.js'});
 vm.runInContext(src.slice(0,stop),context,{filename:'lesson.js'});
+vm.runInContext(fs.readFileSync(path.join(root,'week6.js'),'utf8'),context,{filename:'week6.js'});
 const special={
  f1:'buildWhatIsComputer',f2:'buildFilesEnvironment',f3:'buildSourceExecution',
  'p-foundation-1':'buildEarlierPracticeBank',f4:'buildPythonOnRamp',
  f5:'buildInputDebugging',f6:'buildPythonChallenge',
  'p-foundation-2':'buildEarlierPracticeBank',
  'u1-1':'buildTopic11','u1-2':'buildTopic12','u1-3':'buildTopic13','u1-4':'buildTopic14','u1-5':'buildTopic15','u1-6':'buildTopic16',
- 'u1-7':'buildTopic17','u1-8':'buildTopic18','u1-9':'buildTopic19','p-1-7-1-9':'buildWeek5Practice',
+ 'u1-7':'buildTopic17','u1-8':'buildTopic18','u1-9':'buildTopic19','p-1-7-1-9':'buildWeek5Practice','u1-10':'buildTopic110','u1-11':'buildTopic111','u1-12':'buildTopic112','p-1-10-1-12':'buildWeek6Practice',
  'p-1-1-1-3':'buildEarlierPracticeBank','p-1-4-1-6':'buildEarlierPracticeBank'
 };
 const reviewMin={'p-foundation-1':24,'p-foundation-2':25,'p-1-1-1-3':38,'p-1-4-1-6':42};
@@ -78,6 +79,10 @@ for(const [id,count] of Object.entries(reviewMin)){
   if(q.length!==6||q[3].length!==4||!Number.isInteger(q[4])||q[4]<0||q[4]>3||!q[5])errors.push('Invalid answer or options '+id+' Q'+(i+1));
  }
 }
+// Extra Week 6 guarantee: keep a full question-only bank and a source provenance page.
+const week6Text=fs.readFileSync(path.join(root,'week6.js'),'utf8');
+if((week6Text.match(/\['1\.(?:10|11|12)'/g)||[]).length!==48)
+ errors.push('Week 6 practice bank must contain exactly 48 four-option original AP-style questions');
 let nLessons=0,nScenes=0,nClicks=0;
 for(const l of context.window.COURSE_DATA.lessons.concat(context.window.COURSE_DATA.optional)){
  const fn=special[l.id]||(l.kind==='practice'?'buildPractice':'buildLesson');
