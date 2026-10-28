@@ -586,5 +586,236 @@
         "content": "Released 2026 and older FRQs are mostly not isolated to Topic 1.7–1.9 and are not represented as matching past questions"
       }
     ]
+  },
+  "u1-10": {
+    "officialTopic": "1.10",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-10-calling-class-methods.html",
+    "referenceSections": [
+      {
+        "section": "1.10.1 Nonvoid Methods",
+        "scenes": [
+          "Retrieve: what does a method call do?",
+          "What makes a method a CLASS method?",
+          "The result of a non-void call is a VALUE",
+          "A returned value can be used directly",
+          "A void method is NOT a numeric expression"
+        ],
+        "skill": "Trace static/nonvoid/void behavior and return values"
+      },
+      {
+        "section": "1.10.2 Calling Methods and Debugging",
+        "scenes": [
+          "Match the method PARAMETERS",
+          "A correct call can still have the wrong destination type",
+          "Trace a call from one method into another",
+          "Practice 2 — parameter mismatch",
+          "Practice 3 — return type"
+        ],
+        "skill": "Diagnose wrong argument types, return types and method-to-method calls"
+      },
+      {
+        "section": "1.10.3 Methods Outside the Class",
+        "scenes": [
+          "Call a class method from ANOTHER class",
+          "Inside the defining class, the class name is optional",
+          "Practice 1 — same class or separate?",
+          "Coding challenge — class method across files",
+          "Review — two complete Java classes"
+        ],
+        "skill": "Write ClassName.method() and use unqualified call inside declaring class"
+      },
+      {
+        "section": "1.10.4 Ladder on Tower",
+        "scenes": [
+          "A library class already contains useful static methods",
+          "Ladder on a tower — which calls fit?",
+          "Reveal the ladder expression AFTER attempting it"
+        ],
+        "skill": "Compose Math.sqrt and Math.pow as class method calls"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "1.11",
+        "content": "Math API methods and random ranges in full"
+      },
+      {
+        "topic": "1.13/1.14",
+        "content": "Object constructors and instance method calls"
+      }
+    ]
+  },
+  "u1-11": {
+    "officialTopic": "1.11",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-11-Math.html",
+    "referenceSections": [
+      {
+        "section": "1.11.1 Mathematical Functions",
+        "scenes": [
+          "Why use a library instead of rewriting math?",
+          "The AP Math quick-reference subset",
+          "Absolute value is distance from zero",
+          "Distance between two positions",
+          "Math.pow takes BASE and EXPONENT",
+          "The argument ORDER changes the power",
+          "Square root returns a DOUBLE",
+          "Nested Math calls evaluate inside first"
+        ],
+        "skill": "Use abs overloads, pow, sqrt, nested calls and return types"
+      },
+      {
+        "section": "1.11.2 Random Numbers",
+        "scenes": [
+          "Math.random() never needs arguments",
+          "Scaling random changes the range",
+          "Casting creates a finite set of integers",
+          "Shift the range to simulate a die",
+          "General integer range: minimum through maximum",
+          "Can you create the interval [5, 10]?",
+          "An exclusive endpoint changes the count"
+        ],
+        "skill": "Derive precise inclusive/exclusive random bounds using multiplication, casting and shifts"
+      },
+      {
+        "section": "1.11.3 Combination Lock challenge",
+        "scenes": [
+          "Coding challenge — 3-number lock",
+          "Review — three independent lock digits"
+        ],
+        "skill": "Create and test random code values and compute possible combinations"
+      },
+      {
+        "section": "1.11 AP Practice",
+        "scenes": [
+          "Practice 1 — Math return type",
+          "Practice 2 — random endpoint",
+          "Practice 3 — shifting the range",
+          "Topic 1.11 exit check"
+        ],
+        "skill": "Practice types, interval bounds and choosing Math functions"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Other Math API",
+        "content": "Only the five listed Math calls are in current AP Quick Reference"
+      },
+      {
+        "topic": "Floating-point implementation",
+        "content": "Detailed random generator internals and probabilities are not required"
+      }
+    ]
+  },
+  "u1-12": {
+    "officialTopic": "1.12",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-12-objects.html",
+    "referenceSections": [
+      {
+        "section": "1.12.1 Classes and Objects",
+        "scenes": [
+          "A blueprint is NOT the finished object",
+          "One class can describe many objects",
+          "Java class names are reference TYPES"
+        ],
+        "skill": "Explain blueprint and instance and distinguish declarations from creation"
+      },
+      {
+        "section": "1.12.2 Attributes and Behaviors",
+        "scenes": [
+          "What an object KNOWS vs what it DOES",
+          "Same class, different state",
+          "Primitive values vs references"
+        ],
+        "skill": "Distinguish object data/behavior from primitive values"
+      },
+      {
+        "section": "1.12.3 Turtle Class and 1.12.4 Creating Turtle Objects",
+        "scenes": [
+          "A reference variable is NOT the whole object",
+          "Two reference variables may point to ONE object",
+          "Creating a second object is different",
+          "null means no object reference",
+          "Trace Turtle variables in source code",
+          "Turtle coding lab — separate objects",
+          "Review — two independent Turtle objects"
+        ],
+        "skill": "Track references and distinct objects in Turtle example"
+      },
+      {
+        "section": "1.12.5 Class Hierarchy and Inheritance",
+        "scenes": [
+          "Class hierarchy is a relationship of TYPES",
+          "Every Java class connects to Object",
+          "Practice 3 — inheritance scope"
+        ],
+        "skill": "Recognize superclass/subclass relation, Object ancestor and CED implementation exclusion"
+      },
+      {
+        "section": "1.12.9 AP Practice",
+        "scenes": [
+          "Practice 1 — identify an instance",
+          "Practice 2 — count objects",
+          "Topic 1.12 exit diagnosis"
+        ],
+        "skill": "Apply class/instance/reference concepts independently"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "1.13",
+        "content": "Constructor details and object instantiation semantics"
+      },
+      {
+        "topic": "1.14",
+        "content": "Complete coverage of calling instance methods"
+      },
+      {
+        "topic": "CED exclusion",
+        "content": "Designing and implementing inheritance hierarchies is excluded"
+      }
+    ]
+  },
+  "p-1-10-1-12": {
+    "officialTopic": "AP Practice 1.10–1.12",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-11-Math.html",
+    "referenceSections": [
+      {
+        "section": "Official source question",
+        "scenes": [
+          "Official AP exam questions — source access"
+        ],
+        "skill": "Link official published 2025 CED Sample MCQ #2, classified to 1.11.A; do not reproduce restricted AP Classroom questions"
+      },
+      {
+        "section": "CSAwesome free chapter AP practice",
+        "scenes": [
+          "Open CSAwesome chapter practice questions"
+        ],
+        "skill": "Link authentic author-labeled textbook exercises in 1.10, 1.11, 1.12"
+      },
+      {
+        "section": "48 independently authored AP-style MCQs",
+        "scenes": [
+          "Q01 — Static keyword",
+          "Q17 — Math package",
+          "Q35 — Blueprint"
+        ],
+        "skill": "48 original four-option questions with concealed answer and rationale, covering all three topics"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Past FRQs",
+        "content": "Historical released FRQs frequently span later topics; link to source only"
+      },
+      {
+        "topic": "Authenticity",
+        "content": "Original AP-style questions must never be labeled released College Board exam questions"
+      }
+    ]
   }
 }
