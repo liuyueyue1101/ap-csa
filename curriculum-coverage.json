@@ -817,5 +817,294 @@
         "content": "Original AP-style questions must never be labeled released College Board exam questions"
       }
     ]
+  },
+  "u1-13": {
+    "officialTopic": "1.13",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-13-constructors.html",
+    "referenceSections": [
+      {
+        "section": "1.13.1 World Constructors",
+        "scenes": [
+          "Retrieve: does a declaration create an object?",
+          "The keyword new creates an instance",
+          "One line, three distinct actions",
+          "A constructor has the SAME name as its class",
+          "Constructor signatures choose HOW to build",
+          "Overloading: one class, different signatures",
+          "No arguments still require parentheses",
+          "Arguments initialize attributes"
+        ],
+        "skill": "Interpret new, overloaded constructors, width/height parameters and reference storage"
+      },
+      {
+        "section": "1.13.2 Turtle Constructors",
+        "scenes": [
+          "World is one class; Turtle is another",
+          "A correct Turtle constructor call",
+          "Mismatch: the same values in the wrong order"
+        ],
+        "skill": "Match actual World/int/int argument order and diagnose constructor overload failures"
+      },
+      {
+        "section": "1.13.3 Object Variables and References",
+        "scenes": [
+          "The reference and the object are different",
+          "Count objects, not variable names",
+          "A SECOND new call creates a second object",
+          "null holds no object",
+          "From null to a real reference"
+        ],
+        "skill": "Differentiate object creation, aliasing, initialization and null"
+      },
+      {
+        "section": "1.13.4 Constructor Signatures",
+        "scenes": [
+          "Constructor signatures choose HOW to build",
+          "Practice 1 — match a constructor",
+          "Practice 2 — constructor troubleshooting"
+        ],
+        "skill": "Read constructor names and ordered type lists to select an overload"
+      },
+      {
+        "section": "1.13.5 Arguments, Parameters, and Call by Value",
+        "scenes": [
+          "Constructor arguments are passed by VALUE",
+          "A constructor returns control to the caller"
+        ],
+        "skill": "Explain copied argument values and the caller's control flow"
+      },
+      {
+        "section": "1.13.6 Custom Turtles Coding Challenge and 1.13.8 AP Practice",
+        "scenes": [
+          "Coding challenge — CustomTurtle constructors",
+          "Review the CustomTurtle call",
+          "Topic 1.13 exit check"
+        ],
+        "skill": "Apply the real seven-parameter CustomTurtle constructor in the source library"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Unit 3",
+        "content": "Writing full class definitions and user-authored constructor implementations"
+      },
+      {
+        "topic": "1.14",
+        "content": "Calling instance methods on already-created objects"
+      },
+      {
+        "topic": "Library boundary",
+        "content": "World, Turtle, and CustomTurtle are CSAwesome provided library classes, not standard Java built-ins"
+      }
+    ]
+  },
+  "u1-14": {
+    "officialTopic": "1.14",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-14-calling-instance-methods.html",
+    "referenceSections": [
+      {
+        "section": "1.14.1 Class Methods vs Instance Methods",
+        "scenes": [
+          "The receiver changes the kind of call",
+          "The object BEFORE the dot is the receiver",
+          "Which object changes?"
+        ],
+        "skill": "Contrast ClassName.method and object.method, identify receiver"
+      },
+      {
+        "section": "1.14.2 Method Signatures",
+        "scenes": [
+          "Read a method signature before calling",
+          "Instance methods can take several arguments"
+        ],
+        "skill": "Match overloads, arguments and typed method signature"
+      },
+      {
+        "section": "1.14.3 Method Calls and Null",
+        "scenes": [
+          "A null receiver has NO object",
+          "Fix the null-reference error",
+          "Two variables can have ONE receiver object",
+          "Method call or constructor call?"
+        ],
+        "skill": "Identify NullPointerException and distinguish constructor vs instance calls"
+      },
+      {
+        "section": "1.14.4 Calls with Arguments",
+        "scenes": [
+          "Read a method signature before calling",
+          "Instance methods can take several arguments",
+          "Practice 2 — instance vs class"
+        ],
+        "skill": "Call the correct method on the correct object with required arguments"
+      },
+      {
+        "section": "1.14.5 Methods that Return Values",
+        "scenes": [
+          "Some instance methods CHANGE an object",
+          "Other instance methods RETURN information",
+          "Do something with the RETURNED value",
+          "A return value is not automatic OUTPUT",
+          "Practice: repair an area calculation",
+          "Use a provided class to trace state",
+          "Method calls suspend, then resume the caller"
+        ],
+        "skill": "Differentiate mutator effects, accessor return values, call flow and returned-value debugging"
+      },
+      {
+        "section": "1.14.6 Turtle House Challenge and 1.14.8 AP Practice",
+        "scenes": [
+          "Practice 1 — null receiver",
+          "Coding challenge — Turtle House",
+          "Review — one correct square base",
+          "Topic 1.14 exit diagnosis"
+        ],
+        "skill": "Practice Turtle action calls, null debugging and drawing with an instance"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Unit 3",
+        "content": "Implementing getters/setters and full new class design"
+      },
+      {
+        "topic": "Unit 2",
+        "content": "Loop constructs and repeated logic (not used in review code)"
+      },
+      {
+        "topic": "Turtle environment",
+        "content": "Turtle/World methods rely on the open CSAwesome instructional library"
+      }
+    ]
+  },
+  "u1-15": {
+    "officialTopic": "1.15",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-15-strings.html",
+    "referenceSections": [
+      {
+        "section": "1.15.1 String References",
+        "scenes": [
+          "A String is text AND an object",
+          "Two ways to obtain String objects"
+        ],
+        "skill": "Understand String as java.lang class/reference, literal vs constructor"
+      },
+      {
+        "section": "1.15.2 String Operators and Concatenation",
+        "scenes": [
+          "Concatenation joins text, not numbers",
+          "String += creates a NEW value",
+          "A String and a number concatenate left to right",
+          "Parentheses make arithmetic happen first"
+        ],
+        "skill": "Use +/+= and understand String conversion and immutability"
+      },
+      {
+        "section": "1.15.3 String Index and Length",
+        "scenes": [
+          "String indices start at ZERO",
+          "length() counts characters, not indexes"
+        ],
+        "skill": "Locate characters using zero-based indices and count all characters"
+      },
+      {
+        "section": "1.15.4–1.15.5 String Quick Reference Methods",
+        "scenes": [
+          "substring(from, to) EXCLUDES to",
+          "substring(from) goes to the END",
+          "To extract ONE character, use two bounds",
+          "indexOf finds the FIRST occurrence",
+          "indexOf returns -1 when missing"
+        ],
+        "skill": "Apply length, substring and indexOf with correct bounds"
+      },
+      {
+        "section": "1.15.6 compareTo and equals",
+        "scenes": [
+          "equals compares CONTENT",
+          "== and equals ask DIFFERENT questions",
+          "compareTo reports relative alphabetical order",
+          "compareTo can return ZERO"
+        ],
+        "skill": "Understand String content equality and sign of lexicographic comparison"
+      },
+      {
+        "section": "1.15.7 Common Mistakes and Debugging",
+        "scenes": [
+          "Strings are IMMUTABLE objects",
+          "A failed substring range throws an error",
+          "Practice 1 — trace concatenation",
+          "Practice 2 — trace method calls",
+          "Practice 3 — String comparison"
+        ],
+        "skill": "Recognize immutability and invalid index/outcome bugs"
+      },
+      {
+        "section": "1.15 String Challenges and 1.15.10 AP Practice",
+        "scenes": [
+          "Coding challenge — build a name badge",
+          "Review — one complete Java solution",
+          "Topic 1.15 exit check"
+        ],
+        "skill": "Write a full Java String program with plus, length, substring and indexOf"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Unit 2",
+        "content": "Formal Boolean control flow and conditional code with String comparisons"
+      },
+      {
+        "topic": "Advanced String APIs",
+        "content": "Other methods beyond official String quick reference, case converters, regex and internal string pooling"
+      },
+      {
+        "topic": "Official exclusion",
+        "content": "Comparing String to non-String objects with equals is excluded from AP CSA scope"
+      }
+    ]
+  },
+  "p-1-13-1-15": {
+    "officialTopic": "Practice 1.13–1.15",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-1-15-strings.html",
+    "referenceSections": [
+      {
+        "section": "College Board official questions",
+        "scenes": [
+          "Official AP exam materials — source access"
+        ],
+        "skill": "Link secure AP Classroom and public CED/FRQ sources without republishing protected questions"
+      },
+      {
+        "section": "Free CSAwesome topical AP practice",
+        "scenes": [
+          "Open matching CSAwesome practice banks"
+        ],
+        "skill": "Use 1.13–1.15 open textbook exercises alongside original questions"
+      },
+      {
+        "section": "54 original AP-style MCQs",
+        "scenes": [
+          "Q01 — Declaration only",
+          "Q17 — Class vs instance",
+          "Q33 — String type"
+        ],
+        "skill": "54 original four-option questions with one hidden answer and causal rationale each"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Authenticity",
+        "content": "All on-slide questions are original AP-style, not claimed to be genuine released official exam questions"
+      },
+      {
+        "topic": "Past FRQs",
+        "content": "Past released FRQs may involve later-course topics and are linked only for teacher filtering"
+      }
+    ]
   }
 }
