@@ -112,8 +112,8 @@ function buildTopic113(l){
   w6answer('<b>ANSWER B.</b><p>The required order is year, month, day. Passing the same types in a different order can compile but produce a wrong date.</p>'),
   'Use the illustrated Date API, not java.util.Date (which differs).'));
  s.push(slide('Practice 2 — constructor troubleshooting',
-  '<p class="q">Assume only <code>World()</code> and <code>World(int,int)</code> exist. Which line does NOT compile?</p>'+
-  '<div class="week5-options"><div>A. <code>new World()</code></div><div>B. <code>new World(100, 200)</code></div><div>C. <code>new World(100)</code></div><div>D. <code>World w = new World()</code></div></div>'+
+  '<p class="q">Assume only <code>World()</code> and <code>World(int,int)</code> exist. Which constructor call has NO matching overload?</p>'+
+  '<div class="week5-options"><div>A. <code>new World()</code></div><div>B. <code>new World(100, 200)</code></div><div>C. <code>new World(100)</code></div><div>D. <code>new World(640, 480)</code></div></div>'+
   w6answer('<b>ANSWER C.</b><p>There is no World constructor with exactly one int argument.</p>'),
   'Question first, answer single reveal.'));
  s.push(slide('Coding challenge — CustomTurtle constructors',
