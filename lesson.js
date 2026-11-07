@@ -2606,6 +2606,10 @@ if(!L){
  else if(L.id==='u1-11') deck.innerHTML=buildTopic111(L);
  else if(L.id==='u1-12') deck.innerHTML=buildTopic112(L);
  else if(L.id==='p-1-10-1-12') deck.innerHTML=buildWeek6Practice(L);
+ else if(L.id==='u1-13') deck.innerHTML=buildTopic113(L);
+ else if(L.id==='u1-14') deck.innerHTML=buildTopic114(L);
+ else if(L.id==='u1-15') deck.innerHTML=buildTopic115(L);
+ else if(L.id==='p-1-13-1-15') deck.innerHTML=buildWeek7Practice(L);
  else if(L.id==='p-1-7-1-9') deck.innerHTML=buildWeek5Practice(L);
  else if(L.id==='p-1-1-1-3') deck.innerHTML=buildEarlierPracticeBank(L);
  else if(L.id==='p-1-4-1-6') deck.innerHTML=buildEarlierPracticeBank(L);
