@@ -15,7 +15,7 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '<button id="completeBtn"></button><button id="notesBtn"></button><button id="fullBtn"></button>'+
 '<aside class="teacher-panel" id="teacherPanel" hidden><p id="teacherText"></p></aside>'+
 '<div class="deck" id="deck"></div><button id="backBtn"></button><span id="counter"></span><button id="nextBtn"></button>'+
-['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'practice-banks.js','week6.js','lesson.js']
+['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'practice-banks.js','week6.js','week7.js','lesson.js']
  .map(f=>'<script src="/'+f+'"></script>').join('')+
 '<script>'+
 '(function(){'+
@@ -315,6 +315,74 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '      next();if(getComputedStyle(ans).display==="none")errors.push("Week6 Q1 answer did not reveal");'+
 '      next();if(i===slides.indexOf(questions[0]))errors.push("Week6 Q1 duplicate reveal");}'+
 '    if(slides.some(s=>/^Homework|^Exit check|^Summary/.test(s.querySelector("h2")?.textContent||"")))errors.push("Week6 Practice contains non-question teaching pages");'+
+'  }'+
+'} else if(["u1-13","u1-14","u1-15","p-1-13-1-15"].includes(new URLSearchParams(location.search).get("id"))) {'+
+'  const id=new URLSearchParams(location.search).get("id");'+
+'  const t=title=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===title);'+
+'  if(id==="u1-13") {'+
+'    const constructor=t("Constructor signatures choose HOW to build");'+
+'    if(constructor<0)errors.push("Week7 1.13 constructor signature scene missing");'+
+'    else{ i=constructor;render();const ans=slides[constructor].querySelector(".beat");'+
+'      if(!ans||getComputedStyle(ans).display!=="none")errors.push("Constructor answer leaked before reveal");'+
+'      else{next();if(getComputedStyle(ans).display==="none"||!ans.textContent.includes("World(int, int)"))errors.push("Constructor signature failed to reveal");}}'+
+'    const ref=t("From null to a real reference");'+
+'    if(ref<0)errors.push("Week7 1.13 in-place reference update missing");'+
+'    else {i=ref;render();const sc=slides[ref],old=sc.querySelector(".w7-old"),newer=sc.querySelector(".w7-new"),trigger=sc.querySelector(".w7-switch");'+
+'      if(!old||!newer||!trigger)errors.push("Stable reference state or reveal trigger missing");'+
+'      else{if(getComputedStyle(old).display==="none"||getComputedStyle(newer).display!=="none")errors.push("new Turtle reference appeared before reveal");'+
+'        next();if(getComputedStyle(old).display!=="none"||getComputedStyle(newer).display==="none")errors.push("Turtle reference did not update in place");'+
+'        next();if(i===ref)errors.push("Duplicate reference-update reveal");}}'+
+'    }'+
+'    const challenge=t("Coding challenge — CustomTurtle constructors"),solution=t("Review the CustomTurtle call");'+
+'    if(challenge<0||solution<0)errors.push("Constructor challenge/review missing");'+
+'    else{if(slides[challenge].querySelector(".beat"))errors.push("Constructor question leaked solution");'+
+'      if(getComputedStyle(slides[solution].querySelector(".beat")).display!=="none")errors.push("Constructor solution visible before student attempt");}'+
+'  }'+
+'  if(id==="u1-14") {'+
+'    const nullScene=t("A null receiver has NO object");'+
+'    if(nullScene<0)errors.push("Week7 1.14 null error scene missing");'+
+'    else {i=nullScene;render();const ans=slides[nullScene].querySelector(".beat");'+
+'      if(!ans||getComputedStyle(ans).display!=="none")errors.push("Null answer leaked");'+
+'      else{next();if(getComputedStyle(ans).display==="none"||!ans.textContent.includes("NullPointerException"))errors.push("Null exception not revealed");}}'+
+'    const returnScene=t("A return value is not automatic OUTPUT");'+
+'    if(returnScene<0||!slides[returnScene].textContent.includes("getXPos"))errors.push("Ignored return-value lesson missing");'+
+'    const challenge=t("Coding challenge — Turtle House"),solution=t("Review — one correct square base");'+
+'    if(challenge<0||solution<0)errors.push("Week7 Turtle house challenge/review missing");'+
+'    else {if(slides[challenge].querySelector(".beat"))errors.push("Turtle House task leaked working code");'+
+'      if(getComputedStyle(slides[solution].querySelector(".beat")).display!=="none")errors.push("Turtle House solution visible before reveal");}'+
+'  }'+
+'  if(id==="u1-15") {'+
+'    const sub=t("substring(from, to) EXCLUDES to");'+
+'    if(sub<0)errors.push("Week7 1.15 substring boundaries missing");'+
+'    else{i=sub;render();const ans=slides[sub].querySelector(".beat");'+
+'      if(!ans||getComputedStyle(ans).display!=="none")errors.push("substring answer leaked");'+
+'      else{next();if(getComputedStyle(ans).display==="none"||!ans.textContent.includes("omp"))errors.push("substring example did not reveal correct omp");}}'+
+'    const eq=t("== and equals ask DIFFERENT questions");'+
+'    if(eq<0)errors.push("Week7 equals-vs-identity contrast missing");'+
+'    else{i=eq;render();const ans=slides[eq].querySelector(".beat");'+
+'      if(!ans||getComputedStyle(ans).display!=="none")errors.push("reference identity output leaked");'+
+'      else{next();if(getComputedStyle(ans).display==="none"||!ans.textContent.includes("false"))errors.push("reference identity answer failed");}}'+
+'    const solution=t("Review — one complete Java solution"),challenge=t("Coding challenge — build a name badge");'+
+'    if(solution<0||challenge<0)errors.push("Week7 String coding challenge/review missing");'+
+'    else {if(slides[challenge].querySelector(".beat"))errors.push("NameBadge task leaks worked code");'+
+'      const ans=slides[solution].querySelector(".beat");'+
+'      if(!ans||getComputedStyle(ans).display!=="none")errors.push("NameBadge solution exposed before reveal");'+
+'      else {i=solution;render();next();if(getComputedStyle(ans).display==="none"||!ans.textContent.includes("Ada Lovelace"))errors.push("NameBadge worked solution failed");}}'+
+'  }'+
+'  if(id==="p-1-13-1-15") {'+
+'    const items=slides.filter(s=>/^Q[0-9]+ —/.test(s.querySelector("h2")?.textContent.trim()||""));'+
+'    if(items.length!==54)errors.push("Week7 Practice must provide 54 MCQs, found "+items.length);'+
+'    const sources=slides.filter(s=>/Official AP exam materials|Open matching CSAwesome practice banks/.test(s.querySelector("h2")?.textContent||""));'+
+'    if(sources.length!==2)errors.push("Week7 official/textbook source slides missing");'+
+'    for(const [k,scene] of items.entries()) {'+
+'      const answer=scene.querySelectorAll(".beat.week5-answer");const opts=scene.querySelectorAll(".week5-options>div");'+
+'      if(answer.length!==1||getComputedStyle(answer[0]).display!=="none")errors.push("Week7 Q"+(k+1)+" answer missing or visible");'+
+'      if(opts.length!==4)errors.push("Week7 Q"+(k+1)+" does not have 4 options");'+
+'    }'+
+'    if(items.length){i=slides.indexOf(items[0]);render();const ans=items[0].querySelector(".beat");'+
+'      next();if(getComputedStyle(ans).display==="none")errors.push("Week7 Q01 answer not revealed");'+
+'      next();if(i===slides.indexOf(items[0]))errors.push("Week7 Q01 has redundant second reveal");}'+
+'    if(slides.some(s=>/^(Homework|Exit check|Summary)/.test(s.querySelector("h2")?.textContent||"")))errors.push("Week7 Practice includes non-question teaching pages");'+
 '  }'+
 '}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
