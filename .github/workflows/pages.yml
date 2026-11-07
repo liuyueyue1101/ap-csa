@@ -30,6 +30,7 @@ jobs:
           for f in data*.js; do node --check "$f"; done
           node --check practice-banks.js
           node --check week6.js
+          node --check week7.js
       - name: Audit all lesson reveal states
         run: node scripts/lesson-quality-check.cjs
       - name: Test browser reveal states
@@ -51,6 +52,10 @@ jobs:
           node scripts/browser-quality-check.cjs u1-11
           node scripts/browser-quality-check.cjs u1-12
           node scripts/browser-quality-check.cjs p-1-10-1-12
+          node scripts/browser-quality-check.cjs u1-13
+          node scripts/browser-quality-check.cjs u1-14
+          node scripts/browser-quality-check.cjs u1-15
+          node scripts/browser-quality-check.cjs p-1-13-1-15
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload site
