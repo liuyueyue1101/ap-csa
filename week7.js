@@ -389,3 +389,144 @@ function buildTopic115(l){
   'Exact CSAwesome Topic 1.15 Strings and its String Methods Game, plus AP CED 1.15.B.'));
  return s.join('');
 }
+
+function buildWeek7Practice(l){
+ // Original AP-style MCQs, not copied College Board exam questions.
+ // Public textbook chapter exercises and official secure materials linked below.
+ const questions=[
+ // 1.13 — Constructors and references
+ ['1.13','Declaration only','How many Turtle objects are created by this line?','Turtle racer;',
+  ['0','1','2','Cannot be determined'],0,'It declares a local reference variable but constructs no Turtle.'],
+ ['1.13','Constructor syntax','Which is a valid zero-argument World constructor call?','',
+  ['new World','World()','new World()','World.new()'],2,'new and parentheses are both needed.'],
+ ['1.13','World constructor','Given World() and World(int width,int height), which call is valid?','',
+  ['new World(50)','new World(50,80)','new World(50,80,90)','new World("50",80)'],1,'Two int arguments match World(int,int).'],
+ ['1.13','Constructor name','A constructor in class Robot must have which name?','',
+  ['createRobot','Robot','newRobot','void'],1,'Constructors have the same name as the class.'],
+ ['1.13','Constructor signature','What is the signature of public World(int width,int height)?','',
+  ['World(width,height)','World(int,int)','public World','void World(int,int)'],1,'The signature is constructor name plus ordered parameter types.'],
+ ['1.13','Overloading','Which pairs could form overloaded constructors in the same class?','',
+  ['Box(int) and Box(double)','Box(int x) and Box(int y)','int Box(int) and double Box(int)','Box(int) and Box(int) with another access modifier'],0,'The parameter-type lists must differ; parameter names alone do not suffice.'],
+ ['1.13','Turtle arguments','Given constructor Turtle(int x,int y,World w), which call matches?','',
+  ['new Turtle(world,20,30)','new Turtle(20,30,world)','new Turtle(20,world,30)','new Turtle(world)'],1,'Matches int,int,World in that order.'],
+ ['1.13','Argument order','Which is a likely effect of calling Date(2027,11,7) when the signature is Date(int year,int month,int day)?','',
+  ['Month 2027','Year 2027, month 11, day 7','Compile-time error because all types differ','No Date object exists'],1,'Three ints match the parameter order year, month, day.'],
+ ['1.13','New object count','How many Turtle objects does this code construct?','Turtle a = new Turtle(world);\nTurtle b = new Turtle(world);',
+  ['0','1','2','3'],2,'Each new Turtle(world) creates a distinct object.'],
+ ['1.13','Aliasing','How many Turtle objects are constructed?','Turtle a = new Turtle(world);\nTurtle b = a;',
+  ['0','1','2','3'],1,'The second line copies the reference, not the object.'],
+ ['1.13','World and Turtles','How many objects IN TOTAL are created?','World w = new World();\nTurtle a = new Turtle(w);\nTurtle b = a;',
+  ['1','2','3','4'],1,'One World and one Turtle; b merely copies the Turtle reference.'],
+ ['1.13','Null reference','Which statement is true about Turtle t = null;?','',
+  ['A Turtle with blank state is created','t stores a null reference and no Turtle is created','t is an int','t is automatically assigned a new Turtle'],1,'null indicates the absence of an object.'],
+ ['1.13','Reference assignment','What happens after the second statement?','Turtle t = null;\nt = new Turtle(world);',
+  ['t still equals null','t now refers to a newly constructed Turtle','The World is deleted','The line always fails compilation'],1,'new constructs a Turtle and assigns its reference into t.'],
+ ['1.13','Value-copy constructor','What happens to the width argument variable?','int width = 300;\nWorld w = new World(width,200);\nwidth = 500;',
+  ['The World width automatically updates to 500','The World keeps initial width 300','The World becomes null','The object is rebuilt'],1,'The constructor received a copy of the numeric value 300 when called.'],
+ ['1.13','Constructor selection','Which call does NOT match World() or World(int,int)?','',
+  ['new World()','new World(100,200)','new World(100)','new World(640,480)'],2,'There is no one-argument overload.'],
+ ['1.13','Constructor vs method','Which expression actually creates a NEW object?','',
+  ['turtle.forward(50)','Math.sqrt(9)','new Turtle(world)','turtle.getXPos()'],2,'new followed by a matching constructor creates the object.'],
+ // 1.14 — Instance methods
+ ['1.14','Class vs instance','Which uses an INSTANCE as its receiver?','',
+  ['Math.sqrt(16.0)','Math.pow(2,3)','robot.move(5)','Math.abs(-3)'],2,'robot is an object variable; Math denotes a class.'],
+ ['1.14','Receiver identification','Which name identifies the receiver?','yertle.forward(80);',
+  ['forward','80','yertle','int'],2,'The object variable to the left of the dot is the receiver.'],
+ ['1.14','Independent state','Given separate Turtle a and b, which object is affected?','a.forward(50);',
+  ['Only object a','Only object b','Both automatically','Neither'],0,'The method acts on a, its receiver.'],
+ ['1.14','Call syntax','Which line calls an instance method with one int argument?','',
+  ['forward.turtle(20);','turtle.forward(20);','Turtle.forward(20);','turtle->forward(20);'],1,'The standard form is object.method(argument).'],
+ ['1.14','Overloaded forward','The Turtle API has forward() and forward(int pixels). Which calls can be valid?','',
+  ['Only forward(10)','Only forward()','Both turtle.forward() and turtle.forward(10)','Neither'],2,'Two documented overloads support zero or one int argument.'],
+ ['1.14','Wrong argument','The API says void turn(int degrees). Which call matches?','',
+  ['t.turn()','t.turn("90")','t.turn(90)','t.turn(90,180)'],2,'The method requires exactly one int.'],
+ ['1.14','Null dereference','What happens at the second line?','String word = null;\nSystem.out.println(word.length());',
+  ['It prints 0','It prints null','NullPointerException at run time','Compiler error because null is not a reference'],2,'An instance method needs an actual object receiver.'],
+ ['1.14','Fix null','Which change prevents this null receiver failure?','String word = null;\nint n = word.length();',
+  ['String word = "";','Use n += 1','Remove method parentheses','Replace n with double'],0,'An empty String is a real object, so length() can be called and returns 0.'],
+ ['1.14','Method purpose','Which is most clearly a state-changing method on a Turtle?','',
+  ['getXPos()','getYPos()','forward(50)','getWidth()'],2,'forward changes the turtle’s position.'],
+ ['1.14','Returned data','An API defines int getXPos(). Which assignment stores its result?','',
+  ['int x = t.getXPos();','int x = t.getXPos;','int x = getXPos;','int x = t;'],0,'Call the nonvoid method using parentheses and store its int return.'],
+ ['1.14','Ignored value','What does the standalone statement do, based on an accessor-only contract?','t.getXPos();',
+  ['Automatically prints position','Calls the method and discards its result','Moves t forward','Creates a second Turtle'],1,'The return value is not automatically printed or stored.'],
+ ['1.14','Void return','Which is invalid when the method is void forward(int pixels)?','',
+  ['t.forward(10);','t.forward(50);','int x = t.forward(10);','t.forward(100);'],2,'A void method produces no value to store in int.'],
+ ['1.14','Method return','A provided Rectangle(4,6) has grow(int) that adds to width and area() that returns width*height. What is r.area()?','Rectangle r = new Rectangle(4,6);\nr.grow(3);',
+  ['24','42','18','7'],1,'Width changes to 7, height stays 6, so 7*6=42.'],
+ ['1.14','Two names one receiver','Which object is affected by this call?','Turtle a = new Turtle(world);\nTurtle b = a;\nb.forward(10);',
+  ['Only a new object b','The single Turtle object referenced by both a and b','No Turtle object','The World object only'],1,'b is an alias for a, so it selects the shared Turtle.'],
+ ['1.14','Constructor or method','Which statement calls a constructor?','',
+  ['t.forward(10);','t.getXPos();','new Turtle(world);','Math.sqrt(25);'],2,'new ClassName(arguments) invokes a constructor to create an instance.'],
+ ['1.14','Return to caller','When a nonvoid instance method returns, what happens next?','',
+  ['The JVM starts the entire program again','Control resumes at the caller using the returned value','The object is always deleted','The method becomes static'],1,'Execution returns to the caller; the returned value can be used in an expression.'],
+ // 1.15 — Strings
+ ['1.15','String type','In Java, String is what kind of type?','',
+  ['Primitive int-like type','Class/reference type','Only a comment','Boolean operator'],1,'String is a class in java.lang.'],
+ ['1.15','String creation','Which statement validly initializes a String using a literal?','',
+  ['String text = "Hello";','string text = Hello;','String text = Hello;','String text = new String;'],0,'Double quotes create a String literal.'],
+ ['1.15','Concatenation','What is printed?','System.out.println("Hi" + " " + "Sam");',
+  ['HiSam','Hi Sam','Hi  Sam','Error'],1,'The explicit " " supplies one space.'],
+ ['1.15','Missing space','What is printed?','System.out.println("Hi" + "Sam");',
+  ['Hi Sam','HiSam','Hi,Sam','Hi\\nSam'],1,'Java adds no separator automatically.'],
+ ['1.15','Left-to-right +','What is the output?','System.out.println("Value: " + 1 + 2);',
+  ['Value: 3','Value: 12','Value: 1 2','Compiler error'],1,'After String concatenation begins, the numbers are appended as text.'],
+ ['1.15','Arithmetic grouping','What is the output?','System.out.println("Value: " + (1 + 2));',
+  ['Value: 12','Value: 3','Value: (1 + 2)','Compiler error'],1,'Parentheses force numeric addition before converting to String.'],
+ ['1.15','Plus equals','What is printed?','String word = "go";\nword += "!";\nSystem.out.println(word);',
+  ['go','go!','!go','Compile-time error'],1,'String += constructs a concatenated value and reassigns word.'],
+ ['1.15','Immutability','What is true after this code?','String a = "HELLO";\nString b = a.substring(0,2);',
+  ['a becomes HE','a remains HELLO and b is HE','Both become HE','a becomes null'],1,'substring returns new text without modifying the original String.'],
+ ['1.15','Length including space','What is printed?','System.out.println("AP CSA".length());',
+  ['5','6','7','4'],1,'AP CSA has 6 characters including a space.'],
+ ['1.15','Last index','What is the last valid index in "code"?','',
+  ['4','3','5','-1'],1,'Four characters occupy indices 0 through 3.'],
+ ['1.15','Substring two bounds','What is printed?','System.out.println("computer".substring(1,4));',
+  ['com','omp','ompu','mpu'],1,'Indexes 1,2,3 are included; index 4 is excluded.'],
+ ['1.15','Substring suffix','What is printed?','System.out.println("computer".substring(4));',
+  ['uter','puter','compute','er'],0,'Index 4 starts with u; rest is uter.'],
+ ['1.15','Single character','Which expression returns "p" from "computer"?','',
+  ['"computer".substring(3,4)','"computer".substring(3,3)','"computer".substring(4,5)','"computer".substring(2,3)'],0,'Index 3 is p, so use [3,4).'],
+ ['1.15','First indexOf','What does this print?','System.out.println("banana".indexOf("an"));',
+  ['0','1','3','-1'],1,'The earliest "an" begins at index 1.'],
+ ['1.15','Not found','What does indexOf return if text is absent?','',
+  ['0','1','false','-1'],3,'-1 marks not found; zero is a valid first index.'],
+ ['1.15','equals content','What is printed?','String a = new String("cat");\nString b = new String("cat");\nSystem.out.println(a.equals(b));',
+  ['true','false','null','Compile-time error'],0,'equals checks the sequence of characters, not reference identity.'],
+ ['1.15','Reference identity','What is printed?','String a = new String("cat");\nString b = new String("cat");\nSystem.out.println(a == b);',
+  ['true','false','null','Compile-time error'],1,'Distinct new String calls create distinct objects. == compares references.'],
+ ['1.15','compareTo negative','What can be said about "apple".compareTo("banana")?','',
+  ['It is negative','It equals zero','It is positive','It returns boolean false'],0,'apple is lexicographically before banana; only the sign matters.'],
+ ['1.15','compareTo equal','What is the result of "Java".compareTo("Java")?','',
+  ['-1','0','1','true'],1,'Identical sequences compare as zero.'],
+ ['1.15','compareTo positive','What is true of "zoo".compareTo("ant")?','',
+  ['Result is negative','Result is zero','Result is positive','It returns String "zoo"'],2,'zoo follows ant alphabetically, so the result is positive.'],
+ ['1.15','Bad substring bound','What happens?','String s = "code";\nSystem.out.println(s.substring(1,6));',
+  ['Prints ode','Prints code','Throws StringIndexOutOfBoundsException','Returns empty String'],2,'The end bound 6 exceeds the String length of 4.'],
+ ['1.15','Combined trace','What is the value of result?','String s = "mississippi";\nint i = s.indexOf("iss");\nString result = s.substring(i,i+3);',
+  ['mis','iss','ssi','ssi'],1,'First "iss" starts at 1, and substring(1,4) returns iss.']
+ ];
+ const s=[];
+ s.push(slide('Official AP exam materials — source access',
+  '<p class="practice-kicker">GENUINE COLLEGE BOARD SOURCES · LINKED, NOT COPIED</p>'+
+  '<div class="w6-tasks"><p><a target="_blank" rel="noopener noreferrer" href="https://apclassroom.collegeboard.org/">AP Classroom — Unit 1 Progress Check, Topics 1.13–1.15 (authorized access)</a></p>'+
+  '<p><a target="_blank" rel="noopener noreferrer" href="https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf">College Board AP CSA 2025 CED — Published Sample Exam Questions</a></p>'+
+  '<p><a target="_blank" rel="noopener noreferrer" href="https://apcentral.collegeboard.org/courses/ap-computer-science-a/exam/past-exam-questions">Released FRQ archive and scoring guidelines — verify topic coverage before assigning</a></p></div>'+
+  '<p class="scope-note">The 54 questions in this deck are originally authored AP-style review, NOT claimed to be released official exam questions.</p>',
+  'Official source links only, not ordinary lecture content.'));
+ s.push(slide('Open matching CSAwesome practice banks',
+  '<p class="practice-kicker">PUBLIC TEXTBOOK AP PRACTICE · ORIGINAL SOURCE</p>'+
+  resources([
+   {label:'CSAwesome Topic 1.13 — Constructors AP Practice',url:'https://runestone.academy/ns/books/published/csawesome2/topic-1-13-constructors.html',kind:'Textbook exercise questions'},
+   {label:'CSAwesome Topic 1.14 — Calling Instance Methods AP Practice',url:'https://runestone.academy/ns/books/published/csawesome2/topic-1-14-calling-instance-methods.html',kind:'Textbook exercise questions'},
+   {label:'CSAwesome Topic 1.15 — Strings AP Practice',url:'https://runestone.academy/ns/books/published/csawesome2/topic-1-15-strings.html',kind:'Textbook exercise questions'},
+   {label:'CSAwesome Unit 1B multiple-choice exercises',url:'https://runestone.academy/ns/books/published/csawesome2/unit1.html',kind:'Filter to relevant 1.13–1.15 questions'}
+  ]),
+  'Textbook AP practice is not official College Board past exam content.'));
+ questions.forEach(([topic,subject,prompt,code,options,correct,reason],n)=>{
+  s.push(w6quiz('Q'+String(n+1).padStart(2,'0')+' — '+esc(subject),
+    'ORIGINAL AP-STYLE · TOPIC '+topic,prompt,code,options,correct,reason,
+    'Do not reveal before student selects one letter. Require a rule-based explanation after the correct answer.'));
+ });
+ return s.join('');
+}
