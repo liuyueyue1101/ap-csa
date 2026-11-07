@@ -228,9 +228,9 @@ function buildTopic114(l){
   'One answer reveal.'));
  s.push(slide('Practice 2 — instance vs class',
   '<p class="q">Which call uses an INSTANCE receiver?</p>'+
-  '<div class="week5-options"><div>A. <code>Math.sqrt(9)</code></div><div>B. <code>Math.abs(-2)</code></div><div>C. <code>turtle.forward(9)</code></div><div>D. <code>System.currentTimeMillis()</code></div></div>'+
+  '<div class="week5-options"><div>A. <code>Math.sqrt(9)</code></div><div>B. <code>Math.abs(-2)</code></div><div>C. <code>turtle.forward(9)</code></div><div>D. <code>new Turtle(arena)</code></div></div>'+
   w6answer('<b>ANSWER C.</b><p><code>turtle</code> is an object variable; <code>Math</code> and <code>System</code> name classes.</p>'),
-  'System.currentTimeMillis is Java standard class method but outside AP quick reference. Optional distractor valid Java.'));
+  'The other choices are class methods or a constructor expression; only C uses an instance receiver.'));
  s.push(slide('Coding challenge — Turtle House',
   '<p class="practice-kicker">CSAWESOME TURTLE LAB · 8–10 MINUTES</p>'+
   '<p class="q">Use the library’s <code>forward(int)</code> and <code>turn(int)</code> or <code>turnRight()</code> to draw a simple house outline.</p>'+
@@ -238,8 +238,8 @@ function buildTopic114(l){
   'Adapts CSAwesome 1.14.6 Turtle House drawing. Roof requires orientation decisions; accept multiple correct paths.'));
  s.push(slide('Review — one correct square base',
   '<p class="q">Did your base return the turtle to its starting direction?</p>'+
-  w6answer(w6code(['for (int step = 0; step < 4; step++) {','    yertle.forward(80);','    yertle.turnRight();','}'],true)+
-  '<p>Illustrative square base only, in CSAwesome Turtle environment. The roof is an extension for students to design. This loop syntax is a preview of Unit 2, not tested this week.</p>'),
+  w6answer(w6code(['yertle.forward(80);','yertle.turnRight();','yertle.forward(80);','yertle.turnRight();','yertle.forward(80);','yertle.turnRight();','yertle.forward(80);','yertle.turnRight();'],true)+
+  '<p>One square base in the CSAwesome Turtle environment. Students design their own roof path.</p>'),
   'Better avoid loops, user asked no ahead Unit2; needs rewrite as repeated statements instead.'));
  s.push(slide('Topic 1.14 exit diagnosis',
   '<p class="q">Explain: receiver, null exception, ignored return value, and object state update.</p>'+
@@ -504,7 +504,7 @@ function buildWeek7Practice(l){
  ['1.15','Bad substring bound','What happens?','String s = "code";\nSystem.out.println(s.substring(1,6));',
   ['Prints ode','Prints code','Throws StringIndexOutOfBoundsException','Returns empty String'],2,'The end bound 6 exceeds the String length of 4.'],
  ['1.15','Combined trace','What is the value of result?','String s = "mississippi";\nint i = s.indexOf("iss");\nString result = s.substring(i,i+3);',
-  ['mis','iss','ssi','ssi'],1,'First "iss" starts at 1, and substring(1,4) returns iss.']
+  ['mis','iss','ssi','ippi'],1,'First "iss" starts at 1, and substring(1,4) returns iss.']
  ];
  const s=[];
  s.push(slide('Official AP exam materials — source access',
