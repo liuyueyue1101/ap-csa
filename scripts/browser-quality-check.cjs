@@ -332,7 +332,6 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '      else{if(getComputedStyle(old).display==="none"||getComputedStyle(newer).display!=="none")errors.push("new Turtle reference appeared before reveal");'+
 '        next();if(getComputedStyle(old).display!=="none"||getComputedStyle(newer).display==="none")errors.push("Turtle reference did not update in place");'+
 '        next();if(i===ref)errors.push("Duplicate reference-update reveal");}}'+
-'    }'+
 '    const challenge=t("Coding challenge — CustomTurtle constructors"),solution=t("Review the CustomTurtle call");'+
 '    if(challenge<0||solution<0)errors.push("Constructor challenge/review missing");'+
 '    else{if(slides[challenge].querySelector(".beat"))errors.push("Constructor question leaked solution");'+
