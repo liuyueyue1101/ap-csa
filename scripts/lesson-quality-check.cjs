@@ -62,13 +62,14 @@ if(stop<0)throw Error('Missing lesson generator boundary');
 vm.runInContext(fs.readFileSync(path.join(root,'practice-banks.js'),'utf8'),context,{filename:'practice-banks.js'});
 vm.runInContext(src.slice(0,stop),context,{filename:'lesson.js'});
 vm.runInContext(fs.readFileSync(path.join(root,'week6.js'),'utf8'),context,{filename:'week6.js'});
+vm.runInContext(fs.readFileSync(path.join(root,'week7.js'),'utf8'),context,{filename:'week7.js'});
 const special={
  f1:'buildWhatIsComputer',f2:'buildFilesEnvironment',f3:'buildSourceExecution',
  'p-foundation-1':'buildEarlierPracticeBank',f4:'buildPythonOnRamp',
  f5:'buildInputDebugging',f6:'buildPythonChallenge',
  'p-foundation-2':'buildEarlierPracticeBank',
  'u1-1':'buildTopic11','u1-2':'buildTopic12','u1-3':'buildTopic13','u1-4':'buildTopic14','u1-5':'buildTopic15','u1-6':'buildTopic16',
- 'u1-7':'buildTopic17','u1-8':'buildTopic18','u1-9':'buildTopic19','p-1-7-1-9':'buildWeek5Practice','u1-10':'buildTopic110','u1-11':'buildTopic111','u1-12':'buildTopic112','p-1-10-1-12':'buildWeek6Practice',
+ 'u1-7':'buildTopic17','u1-8':'buildTopic18','u1-9':'buildTopic19','p-1-7-1-9':'buildWeek5Practice','u1-10':'buildTopic110','u1-11':'buildTopic111','u1-12':'buildTopic112','p-1-10-1-12':'buildWeek6Practice','u1-13':'buildTopic113','u1-14':'buildTopic114','u1-15':'buildTopic115','p-1-13-1-15':'buildWeek7Practice',
  'p-1-1-1-3':'buildEarlierPracticeBank','p-1-4-1-6':'buildEarlierPracticeBank'
 };
 const reviewMin={'p-foundation-1':24,'p-foundation-2':25,'p-1-1-1-3':38,'p-1-4-1-6':42};
@@ -83,6 +84,14 @@ for(const [id,count] of Object.entries(reviewMin)){
 const week6Text=fs.readFileSync(path.join(root,'week6.js'),'utf8');
 if((week6Text.match(/\['1\.(?:10|11|12)'/g)||[]).length!==48)
  errors.push('Week 6 practice bank must contain exactly 48 four-option original AP-style questions');
+// Week 7 has a full, source-labeled question bank with 16/16/22 questions.
+const week7Text=fs.readFileSync(path.join(root,'week7.js'),'utf8');
+const week7Practice=week7Text.slice(week7Text.indexOf('function buildWeek7Practice(l){'));
+for(const [topic,count] of [['1.13',16],['1.14',16],['1.15',22]]){
+ const re=new RegExp("\\['"+topic.replace('.','\\.')+"'","g");
+ const n=(week7Practice.match(re)||[]).length;
+ if(n!==count)errors.push('Week7 '+topic+' must provide '+count+' original questions; found '+n);
+}
 let nLessons=0,nScenes=0,nClicks=0;
 for(const l of context.window.COURSE_DATA.lessons.concat(context.window.COURSE_DATA.optional)){
  const fn=special[l.id]||(l.kind==='practice'?'buildPractice':'buildLesson');
