@@ -218,3 +218,118 @@ function buildTopic22(l){
    'Source CSAwesome 2.2.1–2.2.6 and official CED. Future compound Boolean operators in 2.5.'));
  return s.join('');
 }
+
+function buildTopic23(l){
+ const s=[apCover(l,'2.3','if Statements',
+  'Use a Boolean result to decide whether a block of Java statements executes.',
+  'CSAwesome2 2.3.1 one-way selection, 2.3.2 relational operators, 2.3.3 two-way selection, 2.3.4 common errors, 2.3.5 Magic 8 Ball, AP practice; CED 2.3.A.1–4. Defer nested if to 2.4 and &&/||/! to 2.5.')];
+ s.push(slide('Retrieve: a condition has a boolean value',
+   w8code(['int temperature = 69;','System.out.println(temperature < 70);'])+
+   '<p class="q">Does the expression evaluate to true or false?</p>'+
+   w8ans('<div class="console-box">true</div><p>A <code>boolean</code> value is what controls selection.</p>'),
+   'Link directly from 2.2 relational expressions.'));
+ s.push(slide('A one-way if can SKIP its body',
+   w8code(['int temperature = 69;','if (temperature < 70) {','    System.out.println("Wear a jacket");','}','System.out.println("Leave home");'])+
+   '<p class="q">Which two lines will print when the condition is true?</p>'+
+   w8ans('<div class="console-box">Wear a jacket<br>Leave home</div><p>The body executes, then control continues after the block.</p>'),
+   'CSAwesome 2.3.1 umbrella example adapted to temperature.'));
+ s.push(slide('Change the input to take the FALSE path',
+   w8code(['int temperature = 72;','if (temperature < 70) {','    System.out.println("Wear a jacket");','}','System.out.println("Leave home");'])+
+   '<p class="q">Which output line must still execute?</p>'+
+   w8ans('<div class="console-box">Leave home</div><p>A false condition skips only the if block, not later statements.</p>'),
+   'The required distinction from previous slide is skip vs execute, not duplicated animation.'));
+ s.push(slide('Read the syntax as a conditional structure',
+   '<div class="w8-syntax"><div><code>if (</code> condition <code>)</code></div><div><code>{</code> statements only if true <code>}</code></div><div>Next statement always resumes after the block</div></div>'+
+   '<p class="scope-note">Use braces <code>{ }</code> even for one statement, as AP problems normally do.</p>',
+   'Do not suggest there is a semicolon after if(condition).'));
+ s.push(slide('An if does NOT choose an else automatically',
+   w8code(['int score = 60;','if (score >= 70) {','    System.out.println("Pass");','}','System.out.println("Checked");'])+
+   '<p class="q">If the condition is false, does Java invent a message like "Fail"?</p>'+
+   w8ans('<div class="console-box">Checked</div><p>One-way selection runs zero or one body; no else branch exists.</p>'),
+   'One-way means optional execution, not automatic false output.'));
+ s.push(slide('Use braces to group MULTIPLE statements',
+   w8code(['int coins = 12;','if (coins >= 10) {','    coins -= 10;','    System.out.println("Ticket");','}','System.out.println(coins);'])+
+   '<p class="q">How many statements belong to the true branch?</p>'+
+   w8ans('<div class="console-box">Ticket<br>2</div><p>Both statements in braces execute; the final print is outside.</p>'),
+   'Reinforce brace ownership and visible output.'));
+ s.push(slide('An else creates TWO possible paths',
+   w8code(['int score = 66;','if (score >= 70) {','    System.out.println("Pass");','} else {','    System.out.println("Try again");','}'])+
+   '<p class="q">Which branch runs?</p>'+
+   w8ans('<div class="console-box">Try again</div><p>Exactly one of these two branches executes.</p>'),
+   'CSAwesome 2.3.3 if/else. Avoid else-if and nested if.'));
+ s.push(slide('The same if-else with a boundary value',
+   w8code(['int score = 70;','if (score >= 70) {','    System.out.println("Pass");','} else {','    System.out.println("Try again");','}'])+
+   '<p class="q">Does the threshold include 70?</p>'+
+   w8ans('<div class="console-box">Pass</div><p><code>>=</code> includes exactly 70; this selects the first branch.</p>'),
+   'Boundary checks, not a repeat of introduction.'));
+ s.push(slide('if-else is different from TWO independent ifs',
+   w8code(['int x = 4;','if (x >= 4) {','    x++;','}','if (x >= 5) {','    x++;','}','System.out.println(x);'])+
+   '<p class="q">Can BOTH independent if blocks run?</p>'+
+   '<div class="beat eval-step">x = 4 → first if makes x = 5</div>'+
+   '<div class="beat console-box">6</div>',
+   'Important causal trace. Unlike if-else, both conditions are evaluated separately.'));
+ s.push(slide('Why changing state matters to later conditions',
+   w8code(['int x = 3;','if (x > 2) {','    x *= 2;','}','if (x > 5) {','    x += 1;','}','System.out.println(x);'])+
+   '<p class="q">Does the second if use the ORIGINAL x or its latest value?</p>'+
+   w8ans('<div class="console-box">7</div><p>First x becomes 6; the next condition reads 6, then increases to 7.</p>'),
+   'Changed numerical case from CSAwesome Activity 2.3.4.'));
+ s.push(slide('An if condition needs a boolean expression',
+   w8code(['int count = 5;','if (count) {','    System.out.println("Yes");','}'])+
+   '<p class="q">Would this compile because 5 is not zero?</p>'+
+   w8ans('<b>COMPILE-TIME ERROR.</b><p>Java requires a boolean condition. An <code>int</code> is not converted to boolean automatically.</p>'),
+   'Counterexample useful to students with Python background.'));
+ s.push(slide('Assignment is not the same as equality',
+   w8code(['int count = 5;','if (count = 5) {','    System.out.println("Match");','}'])+
+   '<p class="q">Which character change makes the intended comparison valid?</p>'+
+   w8ans('<p>Replace <code>=</code> with <code>==</code>. Assignment returns an int here, not a boolean condition.</p>'),
+   'Accurate for int variable; boolean assignment inside condition would compile but is not shown.'));
+ s.push(slide('A stray semicolon changes the meaning',
+   w8code(['int count = 3;','if (count > 5);','{','    System.out.println("Large");','}'])+
+   '<p class="q">Does it print Large even though count > 5 is false?</p>'+
+   w8ans('<div class="console-box">Large</div><p>The semicolon is an empty statement controlled by if. The separate brace block runs unconditionally.</p>'),
+   'Important subtle bug, legal Java. Good source alignment common errors.'));
+ s.push(slide('Missing braces can mislead readers',
+   w8code(['int points = 3;','if (points >= 5)','    points += 2;','    System.out.println("Updated");'])+
+   '<p class="q">Which statement actually belongs to the if body?</p>'+
+   w8ans('<div class="console-box">Updated</div><p>Only <code>points += 2;</code> is controlled by the if. The print statement runs anyway. Always use braces.</p>'),
+   'The misleading indentation is intentional and demonstrates why braces matter.'));
+ s.push(slide('Test BOTH outcomes of an if-else',
+   '<p class="q">You wrote <code>if (age >= 16) ... else ...</code>. Which test inputs are most useful?</p>'+
+   '<div class="w8-pair"><div><span>TRUE CASE</span><strong>age = 16</strong></div><div><span>FALSE CASE</span><strong>age = 15</strong></div></div>'+
+   '<p class="scope-note">Choose tests on both sides of a boundary; testing only 16 can miss a broken else branch.</p>',
+   'This shows valid two-case test strategy from CSAwesome Activity 2.3.7.'));
+ s.push(slide('A Boolean variable can control a branch',
+   w8code(['boolean raining = false;','if (raining) {','    System.out.println("Umbrella");','} else {','    System.out.println("No umbrella");','}'])+
+   '<p class="q">Do we need to write <code>raining == true</code>?</p>'+
+   w8ans('<div class="console-box">No umbrella</div><p><code>raining</code> is already a boolean expression.</p>'),
+   'Strengthen direct boolean usage, no && or ||.'));
+ s.push(w8quiz('Practice 1 — independent conditionals',
+   'What is printed?', ['int n = 5;','if (n > 4) { n++; }','if (n == 6) { n *= 2; }','System.out.println(n);'],
+   ['5','6','10','12'],3,
+   'The first if changes n to 6; the second condition is then true and doubles it to 12.'));
+ s.push(w8quiz('Practice 2 — a two-way branch',
+   'What is printed?', ['int n = 9;','if (n % 2 == 0) {','    System.out.println("Even");','} else {','    System.out.println("Odd");','}'],
+   ['Even','Odd','Even then Odd','Nothing'],1,
+   '9 % 2 is 1, so the condition is false and only the else branch prints Odd.'));
+ s.push(w8quiz('Practice 3 — the code still runs after if',
+   'Which output is produced?', ['int x = 0;','if (x > 0) {','    System.out.print("A");','}','System.out.print("B");'],
+   ['A','B','AB','Nothing'],1,
+   'x>0 is false so A is skipped; the print after the if executes, producing B.'));
+ s.push(slide('Coding challenge — Magic 8 Ball starter',
+   '<p class="practice-kicker">WRITE COMPLETE JAVA · 10 MINUTES</p>'+
+   w8steps(['Generate a random integer 1, 2, or 3 using Math.random','If it is 1, print "Yes"','If it is 2, print "Ask again"','If it is 3, print "No"','Use separate if statements and test the possible outcomes'])+
+   '<p class="q">Write a complete class <code>MiniMagicBall</code> and explain why exactly one message is printed.</p>',
+   'Adapted from CSAwesome 2.3.5 Magic 8 Ball, reduced to 3 outcomes within 2.3 scope. No answers.'));
+ s.push(slide('Review — MiniMagicBall Java solution',
+   '<p class="q">Compare only AFTER implementing your own program.</p>'+
+   w8ans(w8code(['public class MiniMagicBall {','  public static void main(String[] args) {','    int choice = (int)(Math.random() * 3) + 1;','    if (choice == 1) {','      System.out.println("Yes");','    }','    if (choice == 2) {','      System.out.println("Ask again");','    }','    if (choice == 3) {','      System.out.println("No");','    }','  }','}'],true)+
+    '<p>Only one condition can be true for a single choice in {1,2,3}; output varies by run.</p>'),
+   'Complete Java code verified by test and source-aligned. No fake specific output.'));
+ s.push(slide('Topic 2.3 independent exit check',
+   '<p class="q">Work without looking back.</p>'+
+   w8steps(['Explain what happens when an if condition is false','Explain when exactly one of two branches executes','Describe the difference between two independent if statements and if-else','Explain why a stray semicolon after if(condition) is dangerous']),
+   'No answers on exit slide. Teacher checks for accurate control-flow explanations.'));
+ s.push(slide('Topic 2.3 source and homework',resources(l.resources),
+   'Reference 2.3.1–2.3.5 and AP Practice. Nested selection 2.4, compound Boolean 2.5 deferred.'));
+ return s.join('');
+}
