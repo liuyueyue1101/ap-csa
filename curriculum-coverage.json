@@ -1106,5 +1106,258 @@
         "content": "Past released FRQs may involve later-course topics and are linked only for teacher filtering"
       }
     ]
+  },
+  "u2-1": {
+    "officialTopic": "2.1",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-2-1-algorithms.html",
+    "referenceSections": [
+      {
+        "section": "CSAwesome2 2.1.1 Selection",
+        "scenes": [
+          "An algorithm is more than a list of commands",
+          "Three building blocks for algorithms",
+          "Selection — choose ONE path based on a fact",
+          "Recognize structures in one morning routine",
+          "Practice 1 — recognize selection"
+        ],
+        "skill": "Recognize choices based on true/false decisions and their paths"
+      },
+      {
+        "section": "CSAwesome2 2.1.2 Repetition",
+        "scenes": [
+          "Repetition — a step may happen many times",
+          "Trace the pseudocode before coding",
+          "Practice 2 — recognize repetition"
+        ],
+        "skill": "Distinguish repetition from sequence and identify a termination goal"
+      },
+      {
+        "section": "CSAwesome2 2.1.3 Pseudocode and Flowcharts",
+        "scenes": [
+          "Sequencing — order changes the outcome",
+          "Pseudocode describes behavior without Java syntax",
+          "Flowchart — decisions are not just boxes",
+          "The order of decisions can change a purchase",
+          "Now reverse the purchase order",
+          "Counterexample — sequence really changes choices",
+          "A repeat may contain a selection",
+          "A selection may contain a repetition"
+        ],
+        "skill": "Use diagrams and pseudocode to trace control-flow and order-sensitive outcomes"
+      },
+      {
+        "section": "CSAwesome2 2.1.4 Choosing a Snack algorithm challenge",
+        "scenes": [
+          "Coding/design challenge — choose a snack",
+          "Review — one valid snack algorithm",
+          "Exit check — trace a design, not a keyword"
+        ],
+        "skill": "Design an independent algorithm involving both selection and repetition"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "2.2",
+        "content": "Concrete relational and boolean Java expressions next lesson"
+      },
+      {
+        "topic": "2.3",
+        "content": "Java if and if-else syntax next lesson"
+      },
+      {
+        "topic": "2.7–2.8",
+        "content": "Java while/for loop implementation reserved for later Unit 2"
+      }
+    ]
+  },
+  "u2-2": {
+    "officialTopic": "2.2",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-2-2-booleans.html",
+    "referenceSections": [
+      {
+        "section": "CSAwesome2 2.2.1 Equality == != and primitive/reference comparison",
+        "scenes": [
+          "Retrieve: a boolean value represents a fact",
+          "Assignment = is NOT equality ==",
+          "Equal and not equal are opposites for int",
+          "Update a value, then compare again",
+          "Primitive == compares VALUES",
+          "Reference == compares OBJECT IDENTITY",
+          "Matching text does NOT imply same reference",
+          "String equals checks TEXT contents"
+        ],
+        "skill": "Evaluate primitive equality and reference identity without conflating assignment or String content"
+      },
+      {
+        "section": "CSAwesome2 2.2.2 Relational comparisons",
+        "scenes": [
+          "A comparison produces true OR false",
+          "Six relational operators",
+          "Boundary cases: > and >= differ",
+          "Compare ARITHMETIC expressions",
+          "Integer division affects comparisons"
+        ],
+        "skill": "Evaluate numeric comparisons, boundary cases and arithmetic precedence"
+      },
+      {
+        "section": "CSAwesome2 2.2.3 Boolean expressions and 2.2.4 Even/Odd methods",
+        "scenes": [
+          "A simple comparison fits in boolean storage",
+          "Remainder can identify even numbers",
+          "A method can return a boolean expression",
+          "Coding challenge — three boolean questions",
+          "Review — complete boolean checks"
+        ],
+        "skill": "Construct Boolean expressions as variables, output and method return values; test divisibility"
+      },
+      {
+        "section": "CSAwesome2 2.2.6 AP Practice",
+        "scenes": [
+          "Practice 1 — equality after reassignment",
+          "Practice 2 — Boolean precedence",
+          "Topic 2.2 independent exit test"
+        ],
+        "skill": "Predict outputs for numeric and reference equality"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "2.3",
+        "content": "Using Boolean values to control Java if and else"
+      },
+      {
+        "topic": "2.5–2.6",
+        "content": "Compound Boolean expressions, && || ! and equivalence transformations"
+      },
+      {
+        "topic": "Later OOP",
+        "content": "Full reference comparison and class inheritance mechanisms beyond this topic"
+      }
+    ]
+  },
+  "u2-3": {
+    "officialTopic": "2.3",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-2-3-ifs.html",
+    "referenceSections": [
+      {
+        "section": "CSAwesome2 2.3.1 One-way Selection",
+        "scenes": [
+          "Retrieve: a condition has a boolean value",
+          "A one-way if can SKIP its body",
+          "Change the input to take the FALSE path",
+          "Read the syntax as a conditional structure",
+          "An if does NOT choose an else automatically",
+          "Use braces to group MULTIPLE statements"
+        ],
+        "skill": "Trace the true/false execution of a one-way if and continuation outside a block"
+      },
+      {
+        "section": "CSAwesome2 2.3.2 Relational conditions and multiple independent ifs",
+        "scenes": [
+          "if-else is different from TWO independent ifs",
+          "Why changing state matters to later conditions",
+          "An if condition needs a boolean expression",
+          "A Boolean variable can control a branch"
+        ],
+        "skill": "Use numeric relational conditions and reread changing variable state"
+      },
+      {
+        "section": "CSAwesome2 2.3.3 Two-way Selection",
+        "scenes": [
+          "An else creates TWO possible paths",
+          "The same if-else with a boundary value",
+          "Test BOTH outcomes of an if-else"
+        ],
+        "skill": "Trace exactly one if/else branch and test both sides of a threshold"
+      },
+      {
+        "section": "CSAwesome2 2.3.4 Common errors",
+        "scenes": [
+          "Assignment is not the same as equality",
+          "A stray semicolon changes the meaning",
+          "Missing braces can mislead readers"
+        ],
+        "skill": "Diagnose compile failures vs legally-running but unintended execution"
+      },
+      {
+        "section": "CSAwesome2 2.3.5 Magic 8 Ball coding challenge",
+        "scenes": [
+          "Coding challenge — Magic 8 Ball starter",
+          "Review — MiniMagicBall Java solution"
+        ],
+        "skill": "Use random values, multiple if statements, and truthful varying output"
+      },
+      {
+        "section": "CSAwesome2 2.3.7 AP Practice",
+        "scenes": [
+          "Practice 1 — independent conditionals",
+          "Practice 2 — a two-way branch",
+          "Practice 3 — the code still runs after if",
+          "Topic 2.3 independent exit check"
+        ],
+        "skill": "Predict output, branch selection, and statement execution order"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "2.4",
+        "content": "Nested if and else-if chains"
+      },
+      {
+        "topic": "2.5",
+        "content": "Compound Boolean expressions && || ! and short-circuit evaluation"
+      },
+      {
+        "topic": "2.7–2.8",
+        "content": "Actual while/for loop syntax and tracing"
+      }
+    ]
+  },
+  "p-2-1-2-3": {
+    "officialTopic": "Practice 2.1–2.3",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-2-2-booleans.html",
+    "referenceSections": [
+      {
+        "section": "College Board official Unit 2 Part 1 sources",
+        "scenes": [
+          "Official AP question access — Unit 2"
+        ],
+        "skill": "Access secure official questions only through AP Classroom and published official sources"
+      },
+      {
+        "section": "CSAwesome2 2.1–2.3 public textbook question sources",
+        "scenes": [
+          "Public textbook questions for Week 8"
+        ],
+        "skill": "Access public, original textbook tasks separately from exam content"
+      },
+      {
+        "section": "48 original AP-style MCQs with hidden answer explanations",
+        "scenes": [
+          "Q01 — Sequencing",
+          "Q17 — Boolean result",
+          "Q33 — One-way true"
+        ],
+        "skill": "16 questions each on algorithm design, Boolean comparisons, and if control-flow"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Authorship",
+        "content": "All on-slide MCQs are original AP-style, not released College Board exam questions"
+      },
+      {
+        "topic": "AP Classroom",
+        "content": "Part 1 Progress Check includes Topics 2.1–2.6 and requires authorized access; select 2.1–2.3 only"
+      },
+      {
+        "topic": "Topics 2.4+",
+        "content": "Later selection and loop content intentionally excluded"
+      }
+    ]
   }
 }
