@@ -15,7 +15,7 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '<button id="completeBtn"></button><button id="notesBtn"></button><button id="fullBtn"></button>'+
 '<aside class="teacher-panel" id="teacherPanel" hidden><p id="teacherText"></p></aside>'+
 '<div class="deck" id="deck"></div><button id="backBtn"></button><span id="counter"></span><button id="nextBtn"></button>'+
-['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'practice-banks.js','week6.js','week7.js','lesson.js']
+['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'practice-banks.js','week6.js','week7.js','week8.js','lesson.js']
  .map(f=>'<script src="/'+f+'"></script>').join('')+
 '<script>'+
 '(function(){'+
@@ -382,6 +382,57 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '      next();if(getComputedStyle(ans).display==="none")errors.push("Week7 Q01 answer not revealed");'+
 '      next();if(i===slides.indexOf(items[0]))errors.push("Week7 Q01 has redundant second reveal");}'+
 '    if(slides.some(s=>/^(Homework|Exit check|Summary)/.test(s.querySelector("h2")?.textContent||"")))errors.push("Week7 Practice includes non-question teaching pages");'+
+'  }'+
+'} else if(["u2-1","u2-2","u2-3","p-2-1-2-3"].includes(new URLSearchParams(location.search).get("id"))) {'+
+'  const id=new URLSearchParams(location.search).get("id");'+
+'  const t=name=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===name);'+
+'  if(id==="u2-1") {'+
+'    const q=t("Counterexample — sequence really changes choices");'+
+'    if(q<0)errors.push("2.1 ordering counterexample missing");'+
+'    else {i=q;render();const a=slides[q].querySelector(".beat");'+
+'      if(!a||getComputedStyle(a).display!=="none")errors.push("2.1 purchase reasoning leaked");'+
+'      else {next();if(getComputedStyle(a).display==="none")errors.push("2.1 answer failed to reveal");next();if(i===q)errors.push("2.1 redundant second answer reveal");}}'+
+'    const design=t("Coding/design challenge — choose a snack");'+
+'    const review=t("Review — one valid snack algorithm");'+
+'    if(design<0||review<0)errors.push("2.1 snack pseudocode task/solution missing");'+
+'    else if(slides[design].querySelector(".beat")||getComputedStyle(slides[review].querySelector(".beat")).display!=="none")errors.push("2.1 snack solution leaks before student attempt");'+
+'  }'+
+'  if(id==="u2-2") {'+
+'    const q=t("Compare ARITHMETIC expressions");'+
+'    if(q<0)errors.push("2.2 arithmetic comparison missing");'+
+'    else {i=q;render();const a=slides[q].querySelector(".beat.eval-step"),out=slides[q].querySelector(".beat.console-box");'+
+'      if(!a||!out||getComputedStyle(a).display!=="none"||getComputedStyle(out).display!=="none")errors.push("2.2 comparison result visible too early");'+
+'      else {next();if(getComputedStyle(a).display==="none"||getComputedStyle(out).display!=="none")errors.push("2.2 first reveal must show only operand calculation");'+
+'        next();if(getComputedStyle(out).display==="none")errors.push("2.2 boolean result should reveal after arithmetic");'+
+'        next();if(i===q)errors.push("2.2 redundant extra answer reveal");}}'+
+'    const identity=t("Matching text does NOT imply same reference");'+
+'    if(identity<0)errors.push("2.2 distinct-reference counterexample missing");'+
+'    else {i=identity;render();const ans=slides[identity].querySelector(".beat");if(!ans||getComputedStyle(ans).display!=="none")errors.push("2.2 reference identity answer leaked");}'+
+'  }'+
+'  if(id==="u2-3") {'+
+'    const q=t("A stray semicolon changes the meaning");'+
+'    if(q<0)errors.push("2.3 subtle semicolon bug missing");'+
+'    else {i=q;render();const ans=slides[q].querySelector(".beat");'+
+'      if(!ans||getComputedStyle(ans).display!=="none")errors.push("2.3 semicolon bug answer shown early");'+
+'      else {next();if(getComputedStyle(ans).display==="none")errors.push("2.3 semicolon answer failed to reveal");}}'+
+'    const task=t("Coding challenge — Magic 8 Ball starter"),review=t("Review — MiniMagicBall Java solution");'+
+'    if(task<0||review<0)errors.push("2.3 Magic Ball challenge/review missing");'+
+'    else if(slides[task].querySelector(".beat")||getComputedStyle(slides[review].querySelector(".beat")).display!=="none")errors.push("2.3 Magic Ball solution leaks");'+
+'  }'+
+'  if(id==="p-2-1-2-3") {'+
+'    const questions=slides.filter(s=>/^Q[0-9]+ —/.test(s.querySelector("h2")?.textContent.trim()||""));'+
+'    if(questions.length!==48)errors.push("Week8 bank must contain exactly 48 MCQs; found "+questions.length);'+
+'    const sources=slides.filter(s=>/Official AP question access|Public textbook questions/.test(s.querySelector("h2")?.textContent||""));'+
+'    if(sources.length!==2)errors.push("Week8 official/public question sources missing");'+
+'    for(const [k,s] of questions.entries()) {'+
+'      const answers=s.querySelectorAll(".beat.week5-answer"),opts=s.querySelectorAll(".week5-options>div");'+
+'      if(answers.length!==1||getComputedStyle(answers[0]).display!=="none")errors.push("Week8 Q"+(k+1)+" answer missing or leaked");'+
+'      if(opts.length!==4)errors.push("Week8 Q"+(k+1)+" does not have four choices");'+
+'    }'+
+'    if(questions.length){i=slides.indexOf(questions[0]);render();const a=questions[0].querySelector(".beat");'+
+'      next();if(getComputedStyle(a).display==="none")errors.push("Week8 Q1 did not reveal");'+
+'      next();if(i===slides.indexOf(questions[0]))errors.push("Week8 Q1 has redundant reveal");}'+
+'    if(slides.some(s=>/^(Homework|Exit check|Summary)/.test(s.querySelector("h2")?.textContent||"")))errors.push("Week8 practice contains non-question teaching pages");'+
 '  }'+
 '}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
