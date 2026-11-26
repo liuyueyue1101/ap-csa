@@ -64,13 +64,14 @@ vm.runInContext(src.slice(0,stop),context,{filename:'lesson.js'});
 vm.runInContext(fs.readFileSync(path.join(root,'week6.js'),'utf8'),context,{filename:'week6.js'});
 vm.runInContext(fs.readFileSync(path.join(root,'week7.js'),'utf8'),context,{filename:'week7.js'});
 vm.runInContext(fs.readFileSync(path.join(root,'week8.js'),'utf8'),context,{filename:'week8.js'});
+vm.runInContext(fs.readFileSync(path.join(root,'week9.js'),'utf8'),context,{filename:'week9.js'});
 const special={
  f1:'buildWhatIsComputer',f2:'buildFilesEnvironment',f3:'buildSourceExecution',
  'p-foundation-1':'buildEarlierPracticeBank',f4:'buildPythonOnRamp',
  f5:'buildInputDebugging',f6:'buildPythonChallenge',
  'p-foundation-2':'buildEarlierPracticeBank',
  'u1-1':'buildTopic11','u1-2':'buildTopic12','u1-3':'buildTopic13','u1-4':'buildTopic14','u1-5':'buildTopic15','u1-6':'buildTopic16',
- 'u1-7':'buildTopic17','u1-8':'buildTopic18','u1-9':'buildTopic19','p-1-7-1-9':'buildWeek5Practice','u1-10':'buildTopic110','u1-11':'buildTopic111','u1-12':'buildTopic112','p-1-10-1-12':'buildWeek6Practice','u1-13':'buildTopic113','u1-14':'buildTopic114','u1-15':'buildTopic115','p-1-13-1-15':'buildWeek7Practice','u2-1':'buildTopic21','u2-2':'buildTopic22','u2-3':'buildTopic23','p-2-1-2-3':'buildWeek8Practice',
+ 'u1-7':'buildTopic17','u1-8':'buildTopic18','u1-9':'buildTopic19','p-1-7-1-9':'buildWeek5Practice','u1-10':'buildTopic110','u1-11':'buildTopic111','u1-12':'buildTopic112','p-1-10-1-12':'buildWeek6Practice','u1-13':'buildTopic113','u1-14':'buildTopic114','u1-15':'buildTopic115','p-1-13-1-15':'buildWeek7Practice','u2-1':'buildTopic21','u2-2':'buildTopic22','u2-3':'buildTopic23','p-2-1-2-3':'buildWeek8Practice','u2-4':'buildTopic24','u2-5':'buildTopic25','u2-6':'buildTopic26','p-2-4-2-6':'buildWeek9Practice',
  'p-1-1-1-3':'buildEarlierPracticeBank','p-1-4-1-6':'buildEarlierPracticeBank'
 };
 const reviewMin={'p-foundation-1':24,'p-foundation-2':25,'p-1-1-1-3':38,'p-1-4-1-6':42};
@@ -92,6 +93,15 @@ for(const topic of ['2.1','2.2','2.3']){
  const re=new RegExp("\\['"+topic.replace('.','\\.')+"','","g");
  const n=(week8Practice.match(re)||[]).length;
  if(n!==16)errors.push('Week8 practice '+topic+' must have 16 questions; found '+n);
+}
+// Week 9 bank contains 16 independently authored questions per topic.
+const week9Text=fs.readFileSync(path.join(root,'week9.js'),'utf8');
+const week9Practice=week9Text.slice(week9Text.indexOf('function buildWeek9Practice(l){'));
+for(const topic of ['2.4','2.5','2.6']){
+ const escaped=topic.replace('.','\\.');
+ const re=new RegExp("\\['"+escaped+"','","g");
+ const n=(week9Practice.match(re)||[]).length;
+ if(n!==16)errors.push('Week9 practice '+topic+' must have 16 questions; found '+n);
 }
 // Week 7 has a full, source-labeled question bank with 16/16/22 questions.
 const week7Text=fs.readFileSync(path.join(root,'week7.js'),'utf8');
