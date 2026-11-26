@@ -42,10 +42,10 @@ function buildTopic24(l){
  s.push(slide('Four input combinations, three behaviors',
   '<p class="q">Complete a trace table for the two booleans <code>oldEnough</code> and <code>hasPass</code>. When does the nested body execute?</p>'+
   '<div class="w9-case-table"><div>oldEnough</div><div>hasPass</div><div>Enter?</div>'+
-  '<div>true</div><div>true</div><div class="beat">YES</div>'+
-  '<div>true</div><div>false</div><div class="beat">NO</div>'+
-  '<div>false</div><div>true</div><div class="beat">NO — inner not tested</div>'+
-  '<div>false</div><div>false</div><div class="beat">NO — inner not tested</div></div>',
+  '<div>true</div><div>true</div><div class="beat" data-reveal-group="cases24">YES</div>'+
+  '<div>true</div><div>false</div><div class="beat" data-reveal-group="cases24">NO</div>'+
+  '<div>false</div><div>true</div><div class="beat" data-reveal-group="cases24">NO — inner not tested</div>'+
+  '<div>false</div><div>false</div><div class="beat" data-reveal-group="cases24">NO — inner not tested</div></div>',
   'Four hidden result cells but four reveal clicks would be mechanical; reveal-group needed. All four should share one group and one click.');
  s.push(slide('An inner else belongs to the INNER if',
   w9code(['int age = 15;','boolean hasPass = false;','if (age >= 13) {','    if (hasPass) {','        System.out.println("Enter");','    } else {','        System.out.println("Get a pass");','    }','}'])+
@@ -179,9 +179,9 @@ function buildTopic25(l){
  s.push(slide('Parentheses can force a different grouping',
   w9code(['boolean a = true;','boolean b = false;','boolean c = false;','System.out.println(a || b && c);'])+
   '<p class="q">Which operator runs first when parentheses are absent?</p>'+
-  '<div class="beat eval-step">b &amp;&amp; c → false</div>'+
-  '<div class="beat console-box">true</div>',
-  'Official precedence ! before && before ||. OR true short-circuits RHS in actual execution; this slide describes logical grouping and Boolean value, not claims both parts executed. Need be cautious: actual Java a || (b&&c) skips RHS, so avoid showing b&&c evaluated. Change later.'));
+  '<div class="beat eval-step">Grouping: a || (b &amp;&amp; c)</div>'+
+  '<div class="beat"><div class="console-box">true</div><p>Since a is true, Java short-circuits OR and does not evaluate the right-hand operand.</p></div>',
+  'Show grouping first and explain short-circuit execution correctly rather than pretending to evaluate b && c.'));
  s.push(slide('Operator precedence: NOT, then AND, then OR',
   '<div class="w9-precedence"><div>1 <code>!</code><span>highest</span></div><div>2 <code>&amp;&amp;</code><span>middle</span></div><div>3 <code>||</code><span>lowest</span></div></div>'+
   '<p class="scope-note">Use parentheses to make the intent explicit, especially with mixed operators.</p>',
