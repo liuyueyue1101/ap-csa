@@ -708,3 +708,50 @@ span.beat.revealed{display:inline}
  .w8-ops{grid-template-columns:repeat(2,minmax(0,1fr))}
  .w8-steps>div{grid-template-columns:34px minmax(0,1fr)}
 }
+
+/* Week 9 — nested branching, compound Booleans, truth tables and object-reference equivalence. */
+.w9-tree{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0}
+.w9-tree>div{border:1px solid var(--line);background:white;padding:20px 24px;font-size:clamp(24px,2.1vw,34px);line-height:1.3;text-align:center}
+.w9-tree>div:first-child{grid-column:1/-1;border:3px solid var(--accent);font-weight:750}
+.w9-tree>div:nth-child(2){border-left:5px solid var(--output)}
+.w9-tree>div:last-child{border-left:5px solid #bd7c3c}
+.w9-trace{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.w9-trace>div{background:#fff;border:1px solid var(--line);padding:18px 22px}
+.w9-trace span{display:block;font:750 15px/1.25 ui-sans-serif,system-ui;color:var(--muted);letter-spacing:.07em;margin-bottom:10px}
+.w9-trace strong{display:block;font:750 clamp(27px,2.5vw,39px)/1.2 "SFMono-Regular",Consolas,monospace}
+.w9-case-table{display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:1px;border:1px solid var(--line);background:var(--line);margin:17px 0}
+.w9-case-table>div{min-width:0;padding:12px 15px;background:white;font:650 clamp(19px,1.65vw,26px)/1.3 ui-sans-serif,system-ui;word-break:break-word}
+.w9-case-table>div:nth-child(-n+3){background:#efefeb;color:var(--muted);font-size:clamp(16px,1.35vw,22px);font-weight:750}
+.w9-case-table>.beat.revealed{background:var(--output-soft);color:var(--output);font-weight:750;display:block}
+.w9-truth{display:grid;gap:1px;border:1px solid var(--line);background:var(--line);margin:16px 0;max-width:1160px}
+.w9-truth>div{display:grid;gap:1px}
+.w9-truth>div>span{background:white;padding:11px 14px;font:650 clamp(22px,1.9vw,31px)/1.25 "SFMono-Regular",Consolas,monospace;text-align:center;min-width:0;overflow-wrap:anywhere}
+.w9-truth>div.head>span{background:#efefeb;font-size:clamp(17px,1.5vw,24px);font-weight:750;color:var(--muted)}
+.w9-rule{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:23px 0}
+.w9-rule>code{border:1px solid var(--line);background:white;padding:18px 15px;text-align:center;font:750 clamp(24px,2.1vw,34px)/1.28 monospace;overflow-wrap:anywhere}
+.w9-rule>span{font:800 clamp(30px,3vw,45px)/1.2 serif;color:var(--accent);text-align:center}
+.w9-equivalence{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:20px 0}
+.w9-equivalence>div{background:white;border:1px solid var(--line);padding:17px;font-size:clamp(23px,2vw,32px);text-align:center}
+.w9-equivalence code{font:750 clamp(22px,2vw,32px)/1.3 monospace}
+.w9-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}
+.w9-three>div{display:grid;gap:12px;background:white;border-top:4px solid var(--accent);padding:17px 20px}
+.w9-three code{font:750 clamp(33px,3.2vw,47px)/1.2 monospace}
+.w9-three span{font-size:clamp(22px,1.9vw,29px)}
+.w9-precedence{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0}
+.w9-precedence>div{display:grid;gap:8px;background:white;border:1px solid var(--line);border-top:4px solid var(--accent);padding:18px 20px;font-size:clamp(23px,2vw,32px)}
+.w9-precedence code{font:750 clamp(29px,2.7vw,40px)/1.2 monospace}
+.w9-precedence span{font-size:clamp(18px,1.6vw,24px);color:var(--muted)}
+.w9-compare-ops{display:grid;gap:10px;margin:18px 0}
+.w9-compare-ops>div{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.w9-compare-ops code{display:block;background:white;padding:14px 18px;font:700 clamp(23px,2.2vw,34px)/1.3 monospace;text-align:center}
+.w9-tasks{display:grid;gap:10px;margin:20px 0}
+.w9-tasks>p{background:#fff;border:1px solid var(--line);padding:12px 17px;margin:0;font-size:clamp(22px,1.95vw,29px);line-height:1.38}
+.w9-tasks a{overflow-wrap:anywhere}
+.slide .beat.revealed.w9-trace,.slide .beat.revealed.w9-truth,.slide .beat.revealed.w9-rule{display:grid}
+@media(max-width:850px){
+ .w9-tree,.w9-trace,.w9-compare-ops>div{grid-template-columns:1fr}
+ .w9-rule,.w9-equivalence{grid-template-columns:1fr}
+ .w9-three,.w9-precedence{grid-template-columns:1fr}
+ .w9-truth>div>span{padding:7px 5px;font-size:clamp(13px,3vw,22px)}
+ .w9-case-table>div{padding:8px}
+}
