@@ -237,3 +237,144 @@ function buildTopic25(l){
   'CSAwesome2 truth table POGIL and Boolean Game are available through matching chapter.'));
  return s.join('');
 }
+
+function buildTopic26(l){
+ const s=[apCover(l,'2.6','Comparing Boolean<br>Expressions',
+  'Equivalent logic gives the same result in EVERY case, not just one example.',
+  'CSAwesome2 2.6.1 De Morgan, 2.6.2 truth tables, 2.6.3 simplification, 2.6.4–2.6.7 object reference/String/null checks, 2.6.10 AP practice; CED 2.6.A.1–2 and 2.6.B.1–3. Do not teach overriding equals.')];
+ s.push(slide('One successful test does NOT prove equivalence',
+  w9code(['boolean a = true;','boolean b = false;','System.out.println(a && b);','System.out.println(a == b);'])+
+  '<p class="q">Both print false here. Are these expressions always equivalent?</p>'+
+  w9ans('<b>NO.</b><p>If a=false and b=false: <code>a &amp;&amp; b</code> is false, but <code>a == b</code> is true.</p>'),
+  'Concrete counterexample before formal definition.'));
+ s.push(slide('Equivalent means SAME truth value in ALL cases',
+  '<div class="w9-equivalence"><div><code>!(a &amp;&amp; b)</code></div><div>Equivalent?</div><div><code>!a || !b</code></div></div>'+
+  '<p class="q">How can we PROVE or disprove two expressions for every possible pair of inputs?</p>'+
+  w9ans('<p>List every possible Boolean input combination and compare the resulting columns in a <b>truth table</b>.</p>'),
+  'Definition of semantic equivalence, not string similarity.'));
+ s.push(slide('A truth table enumerates FOUR cases',
+  '<p class="q">With two Boolean variables a and b, how many combinations of true and false exist?</p>'+
+  '<div class="beat">'+w9truth([['a','b'],['true','true'],['true','false'],['false','true'],['false','false']])+'</div>',
+  'Four cases, one reveal. No extra repetitive intermediate screens.'));
+ s.push(slide('Prove the first De Morgan identity',
+  '<p class="q">Do <code>!(a &amp;&amp; b)</code> and <code>!a || !b</code> agree in every case?</p>'+
+  '<div class="beat">'+w9truth([['a','b','!(a &amp;&amp; b)','!a || !b'],
+   ['T','T','F','F'],['T','F','T','T'],['F','T','T','T'],['F','F','T','T']])+'</div>'+
+  '<p class="scope-note">Matching result columns for every row prove equivalence.</p>',
+  'One complete table, not four reveals.'));
+ s.push(slide('De Morgan #1 — NOT of AND becomes OR',
+  '<div class="w9-rule"><code>!(a &amp;&amp; b)</code><span>≡</span><code>!a || !b</code></div>'+
+  '<p class="q">In ordinary English, how do you deny “both conditions are true”?</p>'+
+  w9ans('<p>At least one of the conditions is false. Change AND to OR and negate each part.</p>'),
+  'Meaning before memorizing symbols.'));
+ s.push(slide('Prove the second De Morgan identity',
+  '<p class="q">Do <code>!(a || b)</code> and <code>!a &amp;&amp; !b</code> agree for all input pairs?</p>'+
+  '<div class="beat">'+w9truth([['a','b','!(a || b)','!a &amp;&amp; !b'],
+   ['T','T','F','F'],['T','F','F','F'],['F','T','F','F'],['F','F','T','T']])+'</div>',
+  'Second table independently grounds the second rule.'));
+ s.push(slide('De Morgan #2 — NOT of OR becomes AND',
+  '<div class="w9-rule"><code>!(a || b)</code><span>≡</span><code>!a &amp;&amp; !b</code></div>'+
+  '<p class="q">What must be true for “neither A nor B” to be true?</p>'+
+  w9ans('<p>Both A and B must be false. Change OR to AND and negate each part.</p>'),
+  'Recognize the change of operator AND/OR and negation of each operand.'));
+ s.push(slide('Do NOT just remove a negation',
+  '<p class="q">Is <code>!(a &amp;&amp; b)</code> equivalent to <code>!a &amp;&amp; !b</code>?</p>'+
+  w9ans('<b>NO.</b><p>For a=true, b=false: the left is true, while the right is false. Negating both parts also requires swapping AND with OR.</p>'),
+  'Counterexample to common wrong transformation.'));
+ s.push(slide('Relational operators have complements',
+  '<div class="w9-compare-ops"><div><code>!(x &lt; y)</code><code>x &gt;= y</code></div>'+
+  '<div><code>!(x &gt; y)</code><code>x &lt;= y</code></div>'+
+  '<div><code>!(x == y)</code><code>x != y</code></div></div>'+
+  '<p class="scope-note">Flip BOTH the comparison direction and equality boundary where applicable.</p>',
+  'Table shows 3 representative pairs. Reverse pairs in next application.'));
+ s.push(slide('A boundary counterexample for negation',
+  '<p class="q">When x=10, is NOT (x&lt;10) the same as x&gt;10?</p>'+
+  w9ans('<b>NO.</b><p><code>!(x &lt; 10)</code> is true at x=10, but <code>x &gt; 10</code> is false. The equivalent expression is <code>x &gt;= 10</code>.</p>'),
+  'Equality must be included in complement.'));
+ s.push(slide('Negate an entire RANGE check',
+  w9code(['boolean valid = x >= 5 && x <= 10;'])+
+  '<p class="q">What single Boolean expression describes <b>invalid</b> values outside 5 through 10?</p>'+
+  w9ans('<div class="w9-rule"><code>!(x &gt;= 5 &amp;&amp; x &lt;= 10)</code><span>≡</span><code>x &lt; 5 || x &gt; 10</code></div>'),
+  'Uses De Morgan plus relational complement; no double negations left.'));
+ s.push(slide('Negate an OUTSIDE-range expression',
+  w9code(['boolean outside = x < 0 || x > 100;'])+
+  '<p class="q">Which condition expresses the OPPOSITE — inside the legal range, endpoints included?</p>'+
+  w9ans('<div class="w9-rule"><code>!(x &lt; 0 || x &gt; 100)</code><span>≡</span><code>x &gt;= 0 &amp;&amp; x &lt;= 100</code></div>'),
+  'Converse transformation and explicit endpoints.'));
+ s.push(slide('Disprove an equivalence with ONE example',
+  '<p class="q">Someone claims <code>a || b</code> is equivalent to <code>a &amp;&amp; b</code>. Which input immediately disproves it?</p>'+
+  w9ans(w9trace([['a','true'],['b','false']])+
+   '<p>OR returns true, AND returns false. A single counterexample disproves universal equivalence.</p>'),
+  'Contrast proof (all cases) vs disproof (one case).'));
+ s.push(slide('Double negation cancels',
+  w9code(['boolean allowed = true;','System.out.println(!!allowed);'])+
+  '<p class="q">Does applying NOT twice preserve or change a Boolean value?</p>'+
+  w9ans('<div class="console-box">true</div><p><code>!!a</code> is equivalent to <code>a</code> for every Boolean a.</p>'),
+  'Useful simplification with a single expression.'));
+ s.push(slide('Simplify a Boolean contradiction',
+  '<p class="q">Can <code>ready &amp;&amp; !ready</code> EVER evaluate to true?</p>'+
+  w9ans('<b>ALWAYS FALSE.</b><p>One Boolean variable cannot be true and false simultaneously.</p>'),
+  'Pattern used in reference 2.6 AP practice.'));
+ s.push(slide('A Boolean tautology is ALWAYS true',
+  '<p class="q">What about <code>ready || !ready</code>? Could either part fail at the same time?</p>'+
+  w9ans('<b>ALWAYS TRUE.</b><p>Either ready is true or its opposite is true.</p>'),
+  'Distinct all-true contrast.'));
+ s.push(slide('Two reference variables can be ALIASES',
+  w9code(['String first = new String("Hi");','String second = first;','System.out.println(first == second);'])+
+  '<p class="q">Do both variables refer to ONE object?</p>'+
+  w9ans('<div class="console-box">true</div><p>The assignment copies the same object reference. These variables are <b>aliases</b>.</p>'),
+  'CED 2.6.B.1 is not limited to De Morgan. Reinforce exact object identity.'));
+ s.push(slide('Equal text does not mean SAME object',
+  w9code(['String a = new String("Hi");','String b = new String("Hi");','System.out.println(a == b);','System.out.println(a.equals(b));'])+
+  '<p class="q">What do the two comparisons test?</p>'+
+  w9ans('<div class="console-box">false<br>true</div><p><code>==</code> checks reference identity; <code>equals</code> checks String contents.</p>'),
+  'Uses new String twice to avoid literal interning ambiguity.'));
+ s.push(slide('null means a reference has NO object',
+  w9code(['String label = null;','System.out.println(label == null);','System.out.println(label != null);'])+
+  '<p class="q">What do the null comparisons print?</p>'+
+  w9ans('<div class="console-box">true<br>false</div><p>Comparing references to null is valid even though calling an instance method on null is not.</p>'),
+  'CED 2.6.B.2.'));
+ s.push(slide('Prevent a NullPointerException safely',
+  w9code(['String label = null;','if (label != null && label.length() > 2) {','    System.out.println("Long");','} else {','    System.out.println("Missing or short");','}'])+
+  '<p class="q">Does Java call length() on null?</p>'+
+  w9ans('<div class="console-box">Missing or short</div><p>The false first operand short-circuits AND, so the unsafe method call is skipped.</p>'),
+  '2.5 short-circuit applied to 2.6 reference null safeguard.'));
+ s.push(slide('Reversing the null guard is NOT safe',
+  w9code(['String label = null;','if (label.length() > 2 && label != null) {','    System.out.println("Long");','}'])+
+  '<p class="q">Why is this NOT equivalent in run-time behavior to the safe condition?</p>'+
+  w9ans('<b>RUNTIME ERROR.</b><p>The method call occurs before the null guard. Java throws <code>NullPointerException</code>.</p>'),
+  'Different execution behavior, not Boolean algebra with total operands.'));
+ s.push(slide('Classes can define equals semantics',
+  '<p class="q">Why can <code>first.equals(second)</code> be different from <code>first == second</code> for objects?</p>'+
+  w9ans('<p><code>==</code> checks identity. A class’s <code>equals</code> method may specify equivalence based on relevant attributes. Writing an overridden <code>equals</code> is <b>outside AP scope</b>.</p>'),
+  'CED 2.6.B.3 and explicit exclusion. Do not implement equals overrides.'));
+ s.push(w9quiz('Practice 1 — De Morgan transformation',
+  'Which expression is equivalent to <code>!(a && b)</code>?',null,
+  ['!a && !b','!a || !b','a || b','a && !b'],1,
+  'NOT of AND becomes OR of the negated operands.'));
+ s.push(w9quiz('Practice 2 — relational complement',
+  'What is equivalent to <code>!(score >= 80)</code>?',null,
+  ['score > 80','score <= 80','score < 80','score == 80'],2,
+  'The complement of >= includes all values strictly below 80.'));
+ s.push(w9quiz('Practice 3 — reference identity',
+  'What is the output?',
+  ['String a = new String("ok");','String b = a;','System.out.println(a == b);'],
+  ['true','false','ok','Compiler error'],0,
+  'Two variables hold the same reference, so identity comparison is true.'));
+ s.push(slide('Coding challenge — equivalent range checks',
+  '<p class="practice-kicker">WRITE & RUN JAVA · 10 MINUTES</p>'+
+  w8steps(['Create a complete class CompareRanges with int x = 7','Print the value of !(x < 5 || x > 10)','Print the value of x >= 5 && x <= 10','Change x to 4, 5, 10 and 11 and compare each pair of outputs','Explain WHY they always agree using De Morgan and boundary rules'])+
+  '<p class="scope-note">Use four edge cases, not just the first successful test.</p>',
+  'Source aligned to CSAwesome 2.6 equivalent-expressions coding challenge; solution next slide.'));
+ s.push(slide('Review — runnable equivalent range checks',
+  '<p class="q">Check only after your own complete Java class and edge-case tests.</p>'+
+  w9ans(w9code(['public class CompareRanges {','  public static void main(String[] args) {','    int x = 7;','    System.out.println(!(x < 5 || x > 10));','    System.out.println(x >= 5 && x <= 10);','  }','}'],true)+
+  '<div class="console-box">true<br>true</div><p>Both represent x inside the inclusive range [5, 10].</p>'),
+  'Complete compilable Java, compare each value with same x.'));
+ s.push(slide('Topic 2.6 exit check',
+  '<p class="q">Explain the difference between <b>proof by truth table</b> and <b>disproof by counterexample</b>. Then explain when to use <code>==</code>, <code>!= null</code> and <code>equals</code> on object references.</p>',
+  'Teacher diagnostic only. No answer reveal.'));
+ s.push(slide('Topic 2.6 official objectives and practice',resources(l.resources),
+  'Reference includes De Morgan, truth tables, reference comparisons, null safeguards and equals semantics.'));
+ return s.join('');
+}
