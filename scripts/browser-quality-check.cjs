@@ -15,7 +15,7 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '<button id="completeBtn"></button><button id="notesBtn"></button><button id="fullBtn"></button>'+
 '<aside class="teacher-panel" id="teacherPanel" hidden><p id="teacherText"></p></aside>'+
 '<div class="deck" id="deck"></div><button id="backBtn"></button><span id="counter"></span><button id="nextBtn"></button>'+
-['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'practice-banks.js','week6.js','week7.js','week8.js','lesson.js']
+['data.js',...Array.from({length:10},(_,i)=>'data-'+(i+1)+'.js'),'practice-banks.js','week6.js','week7.js','week8.js','week9.js','lesson.js']
  .map(f=>'<script src="/'+f+'"></script>').join('')+
 '<script>'+
 '(function(){'+
@@ -433,6 +433,64 @@ const fixture='<!doctype html><html lang="en"><head><meta charset="utf-8"><link 
 '      next();if(getComputedStyle(a).display==="none")errors.push("Week8 Q1 did not reveal");'+
 '      next();if(i===slides.indexOf(questions[0]))errors.push("Week8 Q1 has redundant reveal");}'+
 '    if(slides.some(s=>/^(Homework|Exit check|Summary)/.test(s.querySelector("h2")?.textContent||"")))errors.push("Week8 practice contains non-question teaching pages");'+
+'  }'+
+'} else if(["u2-4","u2-5","u2-6","p-2-4-2-6"].includes(new URLSearchParams(location.search).get("id"))) {'+
+'  const id=new URLSearchParams(location.search).get("id");'+
+'  const t=name=>slides.findIndex(s=>s.querySelector("h2")?.textContent.trim()===name);'+
+'  if(id==="u2-4") {'+
+'    const cases=t("Four input combinations, three behaviors");'+
+'    if(cases<0)errors.push("2.4 nested if four-case reasoning missing");'+
+'    else {i=cases;render();const answers=[...slides[cases].querySelectorAll(".w9-case-table .beat")];'+
+'      if(answers.length!==4||answers.some(a=>getComputedStyle(a).display!=="none"))errors.push("2.4 trace cases leaked or missing");'+
+'      else {next();if(answers.some(a=>getComputedStyle(a).display==="none"))errors.push("2.4 all four results must reveal in one click");'+
+'        next();if(i===cases)errors.push("2.4 extra table answer reveal");}}'+
+'    const challenge=t("Coding challenge — Adventure choice router"),solution=t("Review — AdventureChoice program");'+
+'    if(challenge<0||solution<0)errors.push("2.4 Adventure independent coding / solution slides missing");'+
+'    else if(slides[challenge].querySelector(".beat")||getComputedStyle(slides[solution].querySelector(".beat")).display!=="none")errors.push("2.4 Adventure solution revealed before attempt");'+
+'    const elseSlide=t("The dangling else: indentation is not enough");'+
+'    if(elseSlide<0)errors.push("2.4 dangling else example missing");'+
+'  }'+
+'  if(id==="u2-5") {'+
+'    const q=t("Parentheses can force a different grouping");'+
+'    if(q<0)errors.push("2.5 Boolean precedence and short-circuit slide missing");'+
+'    else {i=q;render();const steps=[...slides[q].querySelectorAll(".beat")];'+
+'      if(steps.length!==2||steps.some(x=>getComputedStyle(x).display!=="none"))errors.push("2.5 precedence reveal hidden gate broken");'+
+'      else {next();if(getComputedStyle(steps[0]).display==="none"||getComputedStyle(steps[1]).display!=="none")errors.push("2.5 first reveal must only show grouping");'+
+'        next();if(getComputedStyle(steps[1]).display==="none")errors.push("2.5 second reveal must explain short circuit output");}}'+
+'    const guard=t("Short-circuit: false AND skips the right side");'+
+'    if(guard<0)errors.push("2.5 false && short circuit missing");'+
+'    else if(!slides[guard].textContent.includes("20 / divisor"))errors.push("2.5 must teach guarded unsafe division");'+
+'    const challenge=t("Coding challenge — admission rule checker"),solution=t("Review — admission rule implementation");'+
+'    if(challenge<0||solution<0)errors.push("2.5 admission coding task/answer missing");'+
+'    else if(slides[challenge].querySelector(".beat")||getComputedStyle(slides[solution].querySelector(".beat")).display!=="none")errors.push("2.5 coding solution leaked");'+
+'  }'+
+'  if(id==="u2-6") {'+
+'    const truth=t("Prove the first De Morgan identity");'+
+'    if(truth<0)errors.push("2.6 truth table proof missing");'+
+'    else {i=truth;render();const ans=slides[truth].querySelector(".beat");'+
+'      if(!ans||getComputedStyle(ans).display!=="none"||!ans.querySelector(".w9-truth"))errors.push("2.6 truth table not concealed");'+
+'      else {next();if(getComputedStyle(ans).display==="none")errors.push("2.6 full truth table failed to reveal");next();if(i===truth)errors.push("2.6 redundant proof reveal");}}'+
+'    for(const title of ["Two reference variables can be ALIASES","null means a reference has NO object","Classes can define equals semantics"]){'+
+'      if(t(title)<0)errors.push("2.6 missing CED reference/null/equals objective: "+title);'+
+'    }'+
+'    const task=t("Coding challenge — equivalent range checks"),solution=t("Review — runnable equivalent range checks");'+
+'    if(task<0||solution<0)errors.push("2.6 equivalence coding task/solution missing");'+
+'    else if(slides[task].querySelector(".beat")||getComputedStyle(slides[solution].querySelector(".beat")).display!=="none")errors.push("2.6 coding solution leaked");'+
+'  }'+
+'  if(id==="p-2-4-2-6") {'+
+'    const questions=slides.filter(s=>/^Q[0-9]+ —/.test(s.querySelector("h2")?.textContent.trim()||""));'+
+'    if(questions.length!==48)errors.push("Week9 practice needs exactly 48 MCQs, found "+questions.length);'+
+'    const sources=slides.filter(s=>/Official AP question source|Open public CSAwesome2 chapter questions/.test(s.querySelector("h2")?.textContent||""));'+
+'    if(sources.length!==2)errors.push("Week9 must link both official and public textbook question sources");'+
+'    for(const [k,slide] of questions.entries()) {'+
+'      const ans=slide.querySelectorAll(".beat.week5-answer"),choices=slide.querySelectorAll(".week5-options>div");'+
+'      if(ans.length!==1||getComputedStyle(ans[0]).display!=="none")errors.push("Week9 Q"+(k+1)+" answer shown early or missing");'+
+'      if(choices.length!==4)errors.push("Week9 Q"+(k+1)+" does not provide four options");'+
+'    }'+
+'    if(questions.length){i=slides.indexOf(questions[0]);render();const a=questions[0].querySelector(".beat");'+
+'      next();if(getComputedStyle(a).display==="none")errors.push("Week9 Q1 answer failed to reveal");'+
+'      next();if(i===slides.indexOf(questions[0]))errors.push("Week9 Q1 duplicate answer reveal");}'+
+'    if(slides.some(s=>/^(Homework|Exit check|Summary)/.test(s.querySelector("h2")?.textContent||"")))errors.push("Week9 practice contains non-question teaching slides");'+
 '  }'+
 '}'+
 '}catch(e){errors.push("browser QA exception: "+e.message)}'+
