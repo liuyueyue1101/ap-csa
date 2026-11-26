@@ -1359,5 +1359,247 @@
         "content": "Later selection and loop content intentionally excluded"
       }
     ]
+  },
+  "u2-4": {
+    "officialTopic": "2.4",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-2-4-nested-ifs.html",
+    "referenceSections": [
+      {
+        "section": "CSAwesome2 2.4.1 Nested if and else-if",
+        "scenes": [
+          "Retrieve: an if-else chooses one path",
+          "A second decision can depend on the first",
+          "Read an actual nested if",
+          "When the outer condition is FALSE",
+          "When only the inner condition is FALSE",
+          "Four input combinations, three behaviors",
+          "An inner else belongs to the INNER if",
+          "Outer else handles a different failure"
+        ],
+        "skill": "Trace outer/inner Boolean paths and when inner checks are skipped"
+      },
+      {
+        "section": "CSAwesome2 2.4.1 Multiway if-else-if",
+        "scenes": [
+          "A chain handles MORE THAN TWO outcomes",
+          "First true condition wins",
+          "Changing the order can break a classification",
+          "A trailing else handles every remaining case",
+          "Without a final else, nothing may be chosen",
+          "Compare a chain with independent ifs"
+        ],
+        "skill": "Use first-match rule, order thresholds, distinguish a multiway chain from independent ifs"
+      },
+      {
+        "section": "CSAwesome2 2.4.2 Dangling Else Statements",
+        "scenes": [
+          "The dangling else: indentation is not enough",
+          "A counterexample exposes the dangling else",
+          "Rewrite an ambiguous nested conditional"
+        ],
+        "skill": "Attach dangling else to nearest unmatched if; rewrite with braces"
+      },
+      {
+        "section": "CSAwesome2 2.4.3 Adventure and 2.4.5 AP Practice",
+        "scenes": [
+          "Practice 1 — first-match classification",
+          "Practice 2 — inner skipped",
+          "Practice 3 — independent ifs",
+          "Coding challenge — Adventure choice router",
+          "Review — AdventureChoice program"
+        ],
+        "skill": "Predict and implement a conditional text adventure with nested and multiway paths"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "2.5",
+        "content": "Logical AND/OR/NOT compound expressions taught next lesson"
+      },
+      {
+        "topic": "2.7–2.8",
+        "content": "Loops and repeated checking remain for upcoming weeks"
+      }
+    ]
+  },
+  "u2-5": {
+    "officialTopic": "2.5",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-2-5-compound-ifs.html",
+    "referenceSections": [
+      {
+        "section": "CSAwesome2 2.5.1 AND, OR, NOT logic",
+        "scenes": [
+          "Retrieve: each comparison has a Boolean result",
+          "AND means both requirements must hold",
+          "Translate an English AND rule into Java",
+          "OR means at least one requirement",
+          "NOT reverses one Boolean value",
+          "Three operators, three different meanings",
+          "Write a range check with AND",
+          "Write an OUT-OF-RANGE check with OR"
+        ],
+        "skill": "Construct Boolean expressions using !, &&, || and inclusive range comparisons"
+      },
+      {
+        "section": "CSAwesome2 2.5.2 Truth Tables and precedence",
+        "scenes": [
+          "Truth table for AND",
+          "Truth table for OR",
+          "Parentheses can force a different grouping",
+          "Operator precedence: NOT, then AND, then OR",
+          "A different grouping changes the answer"
+        ],
+        "skill": "Evaluate Boolean truth tables and precedence without confusing grouping with short-circuit execution"
+      },
+      {
+        "section": "CSAwesome2 2.5.3 Short Circuit Evaluation",
+        "scenes": [
+          "Short-circuit: false AND skips the right side",
+          "Short-circuit: true OR skips the right side",
+          "Reversing the condition order can cause a crash",
+          "Short-circuit is also useful with object references"
+        ],
+        "skill": "Trace short-circuit execution and diagnose unsafe guard order"
+      },
+      {
+        "section": "CSAwesome2 2.5.4 Truth Tables POGIL and 2.5.6 AP Practice",
+        "scenes": [
+          "Practice 1 — AND conditions",
+          "Practice 2 — OR conditions",
+          "Practice 3 — precedence",
+          "Coding challenge — admission rule checker",
+          "Review — admission rule implementation"
+        ],
+        "skill": "Prove truth cases and implement a safe admission rule with boundary tests"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "2.6",
+        "content": "Formal equivalence proofs and De Morgan transformations next lesson"
+      },
+      {
+        "topic": "2.7–2.8",
+        "content": "Use of compound conditions in while/for loops later"
+      }
+    ]
+  },
+  "u2-6": {
+    "officialTopic": "2.6",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-2-6-comparing-booleans.html",
+    "referenceSections": [
+      {
+        "section": "CSAwesome2 2.6.1 De Morgan and 2.6.2 Truth Tables",
+        "scenes": [
+          "One successful test does NOT prove equivalence",
+          "Equivalent means SAME truth value in ALL cases",
+          "A truth table enumerates FOUR cases",
+          "Prove the first De Morgan identity",
+          "De Morgan #1 — NOT of AND becomes OR",
+          "Prove the second De Morgan identity",
+          "De Morgan #2 — NOT of OR becomes AND",
+          "Do NOT just remove a negation"
+        ],
+        "skill": "Prove equivalence for all inputs and correctly transform both De Morgan rules"
+      },
+      {
+        "section": "CSAwesome2 2.6.3 Simplification",
+        "scenes": [
+          "Relational operators have complements",
+          "A boundary counterexample for negation",
+          "Negate an entire RANGE check",
+          "Negate an OUTSIDE-range expression",
+          "Disprove an equivalence with ONE example",
+          "Double negation cancels",
+          "Simplify a Boolean contradiction",
+          "A Boolean tautology is ALWAYS true"
+        ],
+        "skill": "Simplify logical and relational complements and disprove false identities with counterexamples"
+      },
+      {
+        "section": "CSAwesome2 2.6.4–2.6.7 Objects, String equality and null",
+        "scenes": [
+          "Two reference variables can be ALIASES",
+          "Equal text does not mean SAME object",
+          "null means a reference has NO object",
+          "Prevent a NullPointerException safely",
+          "Reversing the null guard is NOT safe",
+          "Classes can define equals semantics"
+        ],
+        "skill": "Compare reference identity, object content, null and short-circuit guard behavior"
+      },
+      {
+        "section": "CSAwesome2 2.6.10 AP Practice",
+        "scenes": [
+          "Practice 1 — De Morgan transformation",
+          "Practice 2 — relational complement",
+          "Practice 3 — reference identity",
+          "Coding challenge — equivalent range checks",
+          "Review — runnable equivalent range checks"
+        ],
+        "skill": "Practice formal Boolean equivalence, reference comparisons and a complete Java range program"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Official exclusion",
+        "content": "Overriding equals() is outside revised AP CSA examination scope"
+      },
+      {
+        "topic": "Unit 3",
+        "content": "Writing custom classes and method implementations deferred until class creation unit"
+      },
+      {
+        "topic": "2.7–2.8",
+        "content": "Using Boolean conditions to control loops later"
+      }
+    ]
+  },
+  "p-2-4-2-6": {
+    "officialTopic": "Practice 2.4–2.6",
+    "officialSource": "https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf",
+    "referenceSource": "https://runestone.academy/ns/books/published/csawesome2/topic-2-4-nested-ifs.html",
+    "referenceSections": [
+      {
+        "section": "Official College Board question sources",
+        "scenes": [
+          "Official AP question source — Unit 2 Part 1"
+        ],
+        "skill": "Link to official secure AP Classroom and public CED, without falsely claiming copyrighted items as on-slide released questions"
+      },
+      {
+        "section": "Public CSAwesome chapter AP Practice",
+        "scenes": [
+          "Open public CSAwesome2 chapter questions"
+        ],
+        "skill": "Offer original textbook AP-style items from 2.4/2.5/2.6 source pages"
+      },
+      {
+        "section": "48 original AP-style MCQ bank",
+        "scenes": [
+          "Q01 — Outer condition false",
+          "Q17 — AND truth",
+          "Q33 — Equivalence definition"
+        ],
+        "skill": "16 independent four-choice questions per topic; reveal only after student commits"
+      }
+    ],
+    "deferred": [
+      {
+        "topic": "Authorship",
+        "content": "On-slide MCQs are original AP-style rather than official released College Board questions"
+      },
+      {
+        "topic": "AP Classroom access",
+        "content": "Official Unit 2 Part 1 Progress Check requires authorized teacher/student login; filter to 2.4–2.6"
+      },
+      {
+        "topic": "Future Unit 2",
+        "content": "Actual loop syntax and algorithms not tested until later topics"
+      }
+    ]
   }
 }
