@@ -6,7 +6,7 @@ function w9ans(html){return w8ans(html);}
 function w9quiz(title,question,code,options,key,explanation){return w6quiz(title,'PREDICT · COMMIT · REVEAL',question,code,options,key,explanation);}
 function w9trace(items){return '<div class="w9-trace">'+items.map(([name,val])=>'<div><span>'+name+'</span><strong>'+val+'</strong></div>').join('')+'</div>';}
 function w9truth(rows){
- return '<div class="w9-truth">'+rows.map((row,j)=>'<div class="'+(j===0?'head':'')+'">'+row.map(v=>'<span>'+v+'</span>').join('')+'</div>').join('')+'</div>';
+ return '<div class="w9-truth">'+rows.map((row,j)=>'<div class="'+(j===0?'head':'')+'" style="grid-template-columns:repeat('+row.length+',minmax(0,1fr))">'+row.map(v=>'<span>'+v+'</span>').join('')+'</div>').join('')+'</div>';
 }
 function buildTopic24(l){
  const s=[apCover(l,'2.4','Nested if<br>& Multiway Selection',
