@@ -378,3 +378,128 @@ function buildTopic26(l){
   'Reference includes De Morgan, truth tables, reference comparisons, null safeguards and equals semantics.'));
  return s.join('');
 }
+
+function buildWeek9Practice(l){
+ // All on-slide questions are original AP-style MCQs, never copied official past exam items.
+ const q=[
+ // 2.4 — nested if, first-match else-if, dangling else, branch ownership.
+ ['2.4','Outer condition false','What is printed?', 'int a = 2;\nint b = 9;\nif (a > 5) { if (b > 5) System.out.print("X"); }\nSystem.out.print("Y");',
+ ['X','Y','XY','Nothing'],1,'The outer if is false; the inner if is skipped and Y prints after the block.'],
+ ['2.4','Both conditions true','What is printed?', 'int age = 15;\nboolean pass = true;\nif (age >= 13) {\n  if (pass) System.out.print("Enter");\n}',
+ ['Enter','Nothing','true','Compiler error'],0,'Both nested conditions are true and the inner body executes.'],
+ ['2.4','Inner condition false','What is printed?', 'int age = 15;\nboolean pass = false;\nif (age >= 13) {\n  if (pass) System.out.print("Enter");\n}\nSystem.out.print("Done");',
+ ['Enter','Done','EnterDone','Nothing'],1,'The outer branch runs but the inner body is skipped, then Done prints.'],
+ ['2.4','Inner else','What is printed?', 'int a = 5, b = 0;\nif (a > 0) {\n  if (b > 0) System.out.print("A");\n  else System.out.print("B");\n}',
+ ['A','B','AB','Nothing'],1,'The else belongs to inner if and runs because b>0 is false.'],
+ ['2.4','Outer else','What prints?', 'int a = -1, b = 9;\nif (a >= 0) {\n  if (b >= 0) System.out.print("A");\n} else {\n  System.out.print("B");\n}',
+ ['A','B','AB','Nothing'],1,'The outer condition is false so its else prints B.'],
+ ['2.4','First match','What prints?', 'int n = 95;\nif (n >= 80) System.out.print("A");\nelse if (n >= 90) System.out.print("B");\nelse System.out.print("C");',
+ ['A','B','C','AB'],0,'The first true branch wins; the later more selective test is skipped.'],
+ ['2.4','Other branch','What prints?', 'int n = 67;\nif (n >= 90) System.out.print("A");\nelse if (n >= 70) System.out.print("B");\nelse System.out.print("C");',
+ ['A','B','C','Nothing'],2,'67 satisfies neither >=90 nor >=70, so the trailing else executes.'],
+ ['2.4','No final else','What prints?', 'int n = -2;\nif (n > 0) System.out.print("P");\nelse if (n == 0) System.out.print("Z");\nSystem.out.print("E");',
+ ['P','Z','E','PE'],2,'No chain branch matches; only E outside the chain prints.'],
+ ['2.4','Independent vs chain','What is printed?', 'int n = 7;\nif (n > 3) System.out.print("A");\nif (n > 5) System.out.print("B");',
+ ['A','B','AB','Nothing'],2,'Both independent if statements are true and execute.'],
+ ['2.4','Changed state','What is the final value of x?', 'int x = 2;\nif (x > 1) {\n  x += 2;\n  if (x > 3) x *= 2;\n}',
+ ['2','4','6','8'],3,'The outer if adds 2 to reach 4, then the inner if doubles it to 8.'],
+ ['2.4','Dangling else','What is printed?', 'int x = 2, y = 0;\nif (x > 0)\n  if (y > 0) System.out.print("A");\n  else System.out.print("B");',
+ ['A','B','AB','Nothing'],1,'Without braces, else belongs to the nearest unmatched inner if.'],
+ ['2.4','Outer skip with dangling else','What is printed?', 'int x = 0, y = 0;\nif (x > 0)\n  if (y > 0) System.out.print("A");\n  else System.out.print("B");\nSystem.out.print("C");',
+ ['B','C','BC','Nothing'],1,'The outer condition is false, so the entire inner if/else is skipped and C prints.'],
+ ['2.4','Never reached','Which condition is never evaluated in this execution?', 'int x = 3;\nif (x > 5) {\n  if (x == 3) System.out.print("A");\n}',
+ ['x > 5','x == 3','Both are evaluated','Neither is evaluated'],1,'The outer false condition prevents evaluating its nested condition.'],
+ ['2.4','Multiway output count','How many branch bodies can run during one if / else-if / else chain?', '',
+ ['Exactly two','No more than one','Every true body','All bodies in order'],1,'Only the first true branch, or final else, runs.'],
+ ['2.4','Boundary priority','What prints?', 'int score = 70;\nif (score >= 90) System.out.print("A");\nelse if (score >= 70) System.out.print("B");\nelse System.out.print("C");',
+ ['A','B','C','Nothing'],1,'At exactly 70 the second threshold is true.'],
+ ['2.4','Correct classification order','Which condition should appear FIRST in a descending score classification?', '',
+ ['score >= 60','score >= 70','score >= 80','score >= 90'],3,'An if/else-if chain should test the highest threshold first so lower tests cannot hide higher grades.'],
+ // 2.5 — Boolean algebra, precedence, short circuit.
+ ['2.5','AND truth','What is the value of true && false?', '',
+ ['true','false','1','Compiler error'],1,'AND is true only when both operands are true.'],
+ ['2.5','OR truth','What is the value of true || true?', '',
+ ['false','true','2','Compiler error'],1,'OR is inclusive: either or both true is true.'],
+ ['2.5','NOT truth','What is the value of !false?', '',
+ ['false','true','0','Compiler error'],1,'NOT flips false to true.'],
+ ['2.5','Compound range','For which x is x >= 4 && x <= 7 true?', '',
+ ['Only x=4','Integers 4,5,6,7','All integers except 4–7','Only x=7'],1,'Both boundary comparisons must hold, inclusive.'],
+ ['2.5','Outside range','What condition is true when score is below 0 or above 100?', '',
+ ['score < 0 && score > 100','score >= 0 && score <= 100','score < 0 || score > 100','score == 0 && score == 100'],2,'Either invalid boundary is sufficient, so OR is appropriate.'],
+ ['2.5','NOT precedence','What is the value?', 'boolean a = false;\nSystem.out.println(!a);',
+ ['true','false','0','Compile error'],0,'NOT reverses false.'],
+ ['2.5','Logical precedence','What prints?', 'boolean a = true, b = false, c = false;\nSystem.out.println(a || b && c);',
+ ['false','true','0','Compile error'],1,'Grouping is a || (b&&c); since a is true OR short-circuits to true.'],
+ ['2.5','Explicit parentheses','What prints?', 'boolean a = true, b = false, c = false;\nSystem.out.println((a || b) && c);',
+ ['true','false','0','Compile error'],1,'The parenthesized OR is true, then true && false is false.'],
+ ['2.5','Three operators','Which logical operator has highest precedence in Java?', '',
+ ['||','&&','!','They all share precedence'],2,'NOT is evaluated before AND, which groups before OR.'],
+ ['2.5','Short circuit AND','What prints?', 'int d = 0;\nSystem.out.println(d != 0 && 10 / d > 1);',
+ ['true','false','ArithmeticException','Compile error'],1,'A false first operand short-circuits AND; division is not attempted.'],
+ ['2.5','Short circuit OR','What prints?', 'int d = 0;\nSystem.out.println(d == 0 || 10 / d > 1);',
+ ['true','false','ArithmeticException','Compile error'],0,'A true first operand short-circuits OR; division is skipped.'],
+ ['2.5','Unsafe guard order','What happens?', 'int d = 0;\nSystem.out.println(10 / d > 1 && d != 0);',
+ ['Prints false','Prints true','Run-time ArithmeticException','Compile-time error'],2,'The division on the left executes before the right-hand guard.'],
+ ['2.5','Null AND guard','What prints?', 'String s = null;\nSystem.out.println(s != null && s.length() > 0);',
+ ['true','false','NullPointerException','Compile error'],1,'The first condition is false and the method call is skipped.'],
+ ['2.5','Null OR guard','What prints?', 'String s = null;\nSystem.out.println(s == null || s.length() > 0);',
+ ['true','false','NullPointerException','Compile error'],0,'The first condition is true so OR does not call length().'],
+ ['2.5','Mixed operands','What is printed?', 'int n = 6;\nSystem.out.println(n > 0 && n % 2 == 0);',
+ ['true','false','6','Compile error'],0,'6 is positive and even; both Boolean parts are true.'],
+ ['2.5','Invalid Boolean operators','Which expression is valid Java for A AND B when A and B are boolean?', '',
+ ['A and B','A & & B','A && B','A = B'],2,'The Java logical AND operator is &&.'],
+ // 2.6 — equivalence, De Morgan, references and equals/null.
+ ['2.6','Equivalence definition','When are two Boolean expressions logically equivalent?', '',
+ ['When they agree for one tested input','When their source text is identical','When they agree for every possible input','When they both contain &&'],2,'Equivalence requires the same true/false result in all input cases.'],
+ ['2.6','Number of cases','How many rows are needed in the truth table for two independent booleans?', '',
+ ['2','3','4','8'],2,'Each Boolean has two possibilities; 2×2=4 cases.'],
+ ['2.6','De Morgan AND','Which expression is equivalent to !(a && b)?', '',
+ ['!a && !b','!a || !b','a || b','a && !b'],1,'Negating AND changes the operator to OR and negates each part.'],
+ ['2.6','De Morgan OR','Which expression is equivalent to !(a || b)?', '',
+ ['!a && !b','!a || !b','a && b','a || b'],0,'Negating OR changes it to AND with both operands negated.'],
+ ['2.6','Relational complement','What is equivalent to !(x < 5)?', '',
+ ['x > 5','x <= 5','x >= 5','x == 5'],2,'The complement includes all values greater than or equal to 5.'],
+ ['2.6','Complement of >=','What is equivalent to !(score >= 80)?', '',
+ ['score > 80','score <= 80','score < 80','score == 80'],2,'Negating >= gives strict <.'],
+ ['2.6','Range complement','Which expression is equivalent to !(x >= 4 && x <= 9)?', '',
+ ['x < 4 || x > 9','x < 4 && x > 9','x >= 4 || x <= 9','x == 4 || x == 9'],0,'De Morgan plus complement gives either side of the valid inclusive range.'],
+ ['2.6','Outside complement','Which is equivalent to !(x < 0 || x > 10)?', '',
+ ['x <= 0 || x >= 10','x > 0 && x < 10','x >= 0 && x <= 10','x < 0 && x > 10'],2,'Negating outside range gives the inclusive inside range.'],
+ ['2.6','Counterexample','Which input disproves a || b equivalent to a && b?', '',
+ ['a=true,b=true','a=false,b=false','a=true,b=false','All inputs have same result'],2,'With one true and one false, OR is true but AND is false.'],
+ ['2.6','Contradiction','What is the value of a && !a for any boolean a?', '',
+ ['Always true','Always false','Depends on a','Compiler error'],1,'A condition and its negation cannot both be true.'],
+ ['2.6','Tautology','What is the value of a || !a for any boolean a?', '',
+ ['Always true','Always false','Depends on a','Compiler error'],0,'Every Boolean a or its opposite must be true.'],
+ ['2.6','Double NOT','Which is equivalent to !!ready?', '',
+ ['!ready','ready','false','true'],1,'Applying NOT twice returns the original Boolean.'],
+ ['2.6','Reference alias','What prints?', 'String a = new String("go");\nString b = a;\nSystem.out.println(a == b);',
+ ['true','false','go','Compile error'],0,'Both variables refer to the same object.'],
+ ['2.6','Separate equal Strings','What prints?', 'String a = new String("go");\nString b = new String("go");\nSystem.out.println(a == b);',
+ ['true','false','go','Compile error'],1,'Two separate new calls create different objects despite matching characters.'],
+ ['2.6','Content equality','What prints?', 'String a = new String("go");\nString b = new String("go");\nSystem.out.println(a.equals(b));',
+ ['true','false','go','Compile error'],0,'String equals compares character content.'],
+ ['2.6','null guard','What prints?', 'String s = null;\nSystem.out.println(s == null);',
+ ['true','false','null','NullPointerException'],0,'Comparing a reference to null is valid and true when it holds no object.']
+ ];
+ const s=[];
+ s.push(slide('Official AP question source — Unit 2 Part 1',
+  '<p class="practice-kicker">OFFICIAL EXAM QUESTION ACCESS · ORIGINAL SOURCE ONLY</p>'+
+  '<div class="w9-tasks"><p><a target="_blank" rel="noopener noreferrer" href="https://apclassroom.collegeboard.org/">AP Classroom — Unit 2 Part 1 Progress Check (Topics 2.1–2.6; select 2.4–2.6)</a></p>'+
+  '<p><a target="_blank" rel="noopener noreferrer" href="https://apcentral.collegeboard.org/media/pdf/ap-computer-science-a-course-and-exam-description.pdf">Official College Board 2025 CED — Topic 2.4–2.6 and public sample questions</a></p>'+
+  '<p><a target="_blank" rel="noopener noreferrer" href="https://apcentral.collegeboard.org/courses/ap-computer-science-a/exam/past-exam-questions">Released AP FRQ archive — most questions integrate later topics</a></p></div>'+
+  '<p class="scope-note">Official questions are accessed at the source. Every question below is original AP-style, not claimed to be a released AP exam item.</p>',
+  'Question source slide only; no ordinary lecture content in Practice.'));
+ s.push(slide('Open public CSAwesome2 chapter questions',
+  '<p class="practice-kicker">TEXTBOOK QUESTIONS · SEPARATE FROM OFFICIAL EXAM</p>'+
+  resources([{label:'Topic 2.4 — Nested if Statements AP Practice',url:'https://runestone.academy/ns/books/published/csawesome2/topic-2-4-nested-ifs.html',kind:'Public textbook AP-style exercises'},
+   {label:'Topic 2.5 — Compound Boolean Expressions AP Practice + game',url:'https://runestone.academy/ns/books/published/csawesome2/topic-2-5-compound-ifs.html',kind:'Public textbook AP-style exercises'},
+   {label:'Topic 2.6 — De Morgan, references, null AP Practice',url:'https://runestone.academy/ns/books/published/csawesome2/topic-2-6-comparing-booleans.html',kind:'Public textbook AP-style exercises'}]),
+  'Original textbook sources; do not reproduce proprietary online exam content.'));
+ q.forEach(([topic,subject,question,code,choices,correct,reason],n)=>{
+  s.push(w6quiz('Q'+String(n+1).padStart(2,'0')+' — '+esc(subject),
+    'ORIGINAL AP-STYLE · TOPIC '+topic,question,code,choices,correct,reason,
+    'Ask the student to choose one letter and justify their trace before revealing once.'));
+ });
+ return s.join('');
+}
