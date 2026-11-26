@@ -46,7 +46,7 @@ function buildTopic24(l){
   '<div>true</div><div>false</div><div class="beat" data-reveal-group="cases24">NO</div>'+
   '<div>false</div><div>true</div><div class="beat" data-reveal-group="cases24">NO — inner not tested</div>'+
   '<div>false</div><div>false</div><div class="beat" data-reveal-group="cases24">NO — inner not tested</div></div>',
-  'Four hidden result cells but four reveal clicks would be mechanical; reveal-group needed. All four should share one group and one click.');
+  'One grouped reveal for the four trace results; the inner condition is skipped when the outer is false.'));
  s.push(slide('An inner else belongs to the INNER if',
   w9code(['int age = 15;','boolean hasPass = false;','if (age >= 13) {','    if (hasPass) {','        System.out.println("Enter");','    } else {','        System.out.println("Get a pass");','    }','}'])+
   '<p class="q">Which conditional controls the <code>else</code>?</p>'+
